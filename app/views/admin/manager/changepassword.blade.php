@@ -21,8 +21,8 @@
 				<div class="form-group">
 					<label for="name">Tên User</label>
 					<div class="row">
-						<div class="col-sm-6">	       
-							<input name="user_name" type="text" class="form-control" value="{{ $data->username }}" readonly="true">          	           	        	
+						<div class="col-sm-6">
+							<input name="user_name" type="text" class="form-control" value="{{ $data->username }}" readonly="true">
 						</div>
 					</div>
 				</div>
@@ -30,18 +30,16 @@
 				<div class="form-group">
 					<label for="password">Mật khẩu mới</label>
 					<div class="row">
-						<div class="col-sm-6">	       
-							<input name="password" type="password" class="form-control" placehoder="Nhập mật khẩu mới!">          	
-						   <!-- {{ Form::password('password', null , textParentCategory('Tên thể loại tin')) }} -->
+						<div class="col-sm-6">
+							<input name="password" type="password" class="form-control" placehoder="Nhập mật khẩu mới!">
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="repassword">Nhập lại mật khẩu mới</label>
 					<div class="row">
-						<div class="col-sm-6">	       
-						<input name="repassword" type="password" class="form-control" placehoder="Nhập mật khẩu mới!">          	           	
-						   <!-- {{ Form::password('repassword', null , textParentCategory('Tên thể loại tin')) }} -->
+						<div class="col-sm-6">
+						<input name="repassword" type="password" class="form-control" placehoder="Nhập mật khẩu mới!">
 						</div>
 					</div>
 				</div>

@@ -16,7 +16,7 @@ class ManagerController extends AdminController {
 	public function search()
 	{
 		$input = Input::all();
-		if (!$input['keyword'] && !$input['role_id'] && $input['status'] && $input['start_date'] && $input['end_date']) {
+		if (!$input['keyword'] && !$input['role_id'] && $input['start_date'] && $input['end_date']) {
 			return Redirect::action('ManagerController@index');
 		}
 		$data = AdminManager::searchUserOperation($input);
@@ -32,7 +32,6 @@ class ManagerController extends AdminController {
 	{
 		return View::make('admin.manager.create');
 	}
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -55,13 +54,7 @@ class ManagerController extends AdminController {
 	            ->withInput(Input::except('password'));
         } else {
         	$input['password'] = Hash::make($input['password']);
-        	$input['status'] = ACTIVE;
-        	$input += CommonSite::ipDeviceUser() ;
-        	// $id = CommonNormal::create($input, 'Admin');
         	$id = Admin::create($input)->id;
-        	//create history
-			$history_id = CommonLog::insertHistory('Admin', $id);
-
         	if($id) {
         		return Redirect::action('ManagerController@index');
         	} else {
@@ -135,15 +128,9 @@ class ManagerController extends AdminController {
         	} else {
         		$input['password'] = Auth::admin()->get()->password;
         	}
-        	$input += CommonSite::ipDeviceUser() ;
         	CommonNormal::update($id, $input);
         	$currentUserId = Auth::admin()->get()->id;
 			$currentRoleId = Auth::admin()->get()->role_id;
-			// todo cuongnt
-			//update history
-			$history_id = CommonLog::updateHistory('Admin', $id);
-			CommonLog::insertLogEdit('Admin', $id, $history_id, EDIT);
-			//end update history
 			if($currentRoleId <> ADMIN) {
 				return Redirect::action('ManagerController@edit', $id);
 			}
@@ -162,37 +149,6 @@ class ManagerController extends AdminController {
 	{
 		CommonNormal::delete($id);
         return Redirect::action('ManagerController@index');
-	}
-
-
-	public function history($id)
-	{
-		$historyId = CommonLog::getIdHistory('Admin', $id);
-		if ($historyId) {
-			$history = AdminHistory::find($historyId);
-			$logEdit = LogEdit::where('history_id', $history->id)->where('action', LOGIN)->get();
-			return View::make('admin.manager.history')->with(compact('logEdit'));
-		}
-		return Redirect::action('ManagerController@index')->with('message', 'Lịch sử admin này đã bị xoá');
-
-	}
-
-	public function deleteHistory($id)
-	{
-		$history = AdminHistory::find($id);
-		if ($history) {
-			$history->logedits()->where('history_id', $id)->where('action', LOGIN)->delete();
-			$history->delete();
-			return Redirect::action('ManagerController@index')->with('message', 'Xoá lịch sử thành công');
-		}
-		return Redirect::action('ManagerController@index');
-	}
-
-	public function searchHistory()
-	{
-		$input = Input::all();
-		$logEdit = CommonSearch::searchlogHistory($input);
-		return View::make('admin.manager.history')->with(compact('history', 'logEdit'));
 	}
 
 	public function changePassword($id){

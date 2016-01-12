@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class NewsTypeController extends AdminController {
 
@@ -34,7 +34,7 @@ class NewsTypeController extends AdminController {
 	public function store()
 	{
 		$rules = array(
-			'name'   => 'required'            
+			'name'   => 'required'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);

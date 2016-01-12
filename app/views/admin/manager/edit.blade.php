@@ -54,14 +54,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="email">Trạng thái</label>
-								<div class="row">
-									<div class="col-sm-6">
-										{{ Form::select('status', selectActive(), $data->status, array('class' =>'form-control')) }}
-								</div>
-							</div>
-						</div>
 					@endif
 				</div>
 				<!-- /.box-body -->

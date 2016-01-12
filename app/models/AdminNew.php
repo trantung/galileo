@@ -11,12 +11,12 @@ class AdminNew extends Eloquent implements SluggableInterface
 	use SoftDeletingTrait;
 	use SluggableTrait;
     protected $table = 'news';
-    protected $fillable = ['type_new_id', 'title', 'description',
-    	'image_url', 'start_date', 'slug', 'count_view'];
+    protected $fillable = ['type_new_id', 'name', 'description',
+    	'image_url', 'start_date', 'slug'];
     protected $dates = ['deleted_at'];
 
     protected $sluggable = array(
-        'build_from' => 'title',
+        'build_from' => 'name',
         'save_to'    => 'slug',
     );
 
