@@ -6,7 +6,7 @@
 
 @section('content')
 @include('admin.news.search')
-<!-- inclue Search form 
+<!-- inclue Search form
 
 -->
 @if(!Admin::isSeo())
@@ -29,23 +29,16 @@
 			  <th>ID</th>
 			  <th>Tiêu đề</th>
 			  <th>Thể loại</th>
-			  <th>Số lượt view</th>
 			  <th>Ngày xuất bản</th>
-			  <th>Trạng thái Seo</th>
 			  <th style="width:200px;">Action</th>
 			</tr>
 			 @foreach($inputNew as $value)
 			<tr>
 			  <td>{{ $value->id }}</td>
-			  <td>{{ $value->title }}</td>
+			  <td>{{ $value->name }}</td>
 			  <td>{{ TypeNew::find($value->type_new_id)->name }}</td>
-			  <td>{{ $value->count_view }}</td>
 			  <td>{{ $value->start_date }}</td>
-			  <td>{{ getStatusSeoParent($value, 'AdminNew') }}</td>
 			  <td>
-			  	@if(!Admin::isSeo())
-					<a href="{{ action('NewsController@history', $value->id) }}" class="btn btn-success">Lịch sử</a>
-				@endif
 				<a href="{{  action('NewsController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 				@if(!Admin::isSeo())
 				{{ Form::open(array('method'=>'DELETE', 'action' => array('NewsController@destroy', $value->id), 'style' => 'display: inline-block;')) }}

@@ -104,14 +104,7 @@ class AdminController extends BaseController {
             Auth::admin()->attempt($input);
             $checkLogin = Auth::admin()->check();
             if($checkLogin) {
-            	if (Auth::admin()->get()->status == ACTIVE) {
-	            	CommonNormal::update(Auth::admin()->get()->id, $input, 'Admin');
-	        		return Redirect::action('ManagerController@index');
-            	}
-            	else{
-            		return View::make('admin.layout.login');
-            	}
-
+        		return Redirect::action('NewsController@index');
             } else {
                 return Redirect::route('admin.login');
             }

@@ -16,7 +16,7 @@ class ManagerController extends AdminController {
 	public function search()
 	{
 		$input = Input::all();
-		if (!$input['keyword'] && !$input['role_id'] && $input['status'] && $input['start_date'] && $input['end_date']) {
+		if (!$input['keyword'] && !$input['role_id'] && $input['start_date'] && $input['end_date']) {
 			return Redirect::action('ManagerController@index');
 		}
 		$data = AdminManager::searchUserOperation($input);
@@ -54,12 +54,7 @@ class ManagerController extends AdminController {
 	            ->withInput(Input::except('password'));
         } else {
         	$input['password'] = Hash::make($input['password']);
-        	$input['status'] = ACTIVE;
-        	// $id = CommonNormal::create($input, 'Admin');
         	$id = Admin::create($input)->id;
-        	//create history
-			$history_id = CommonLog::insertHistory('Admin', $id);
-
         	if($id) {
         		return Redirect::action('ManagerController@index');
         	} else {
@@ -136,11 +131,6 @@ class ManagerController extends AdminController {
         	CommonNormal::update($id, $input);
         	$currentUserId = Auth::admin()->get()->id;
 			$currentRoleId = Auth::admin()->get()->role_id;
-			// todo cuongnt
-			//update history
-			$history_id = CommonLog::updateHistory('Admin', $id);
-			CommonLog::insertLogEdit('Admin', $id, $history_id, EDIT);
-			//end update history
 			if($currentRoleId <> ADMIN) {
 				return Redirect::action('ManagerController@edit', $id);
 			}

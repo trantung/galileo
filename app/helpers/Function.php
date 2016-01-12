@@ -1,7 +1,5 @@
 <?php
 
-use Jenssegers\Agent\Agent;
-
 /* mm/dd/yyyy to Y-m-d H:i:s */
 function convertDateTime($dateString, $paramString = '/')
 {
@@ -29,6 +27,21 @@ function selectRoleId()
 	);
 }
 
+function textParentCategory($input, $isSeoMeta = NULL, $id = NULL)
+{
+	if(!Admin::isSeo() || $isSeoMeta) {
+		return array('placeholder' => $input, 'class' => 'form-control','id' => $id);
+	} else {
+		return array('placeholder' => $input, 'class' => 'form-control', 'readonly' => true,'id' => $id);
+	}
+}
+
+function returnList($className)
+{
+	$list = $className::lists('name', 'id');
+	return $list;
+}
+
 function getIpAddress()
 {
 	$ip = $_SERVER['REMOTE_ADDR'];
@@ -45,47 +58,21 @@ function changeFileNameImage($filename)
 	return $fileNameAfter.'.'.$extension;
 }
 
-function selectSortBy($sortBy)
+function selectStatusGame()
 {
-	switch ($sortBy) {
-		case 'count_view':
-			return array(
-				'' => '-- chọn',
-				'count_view_asc' => 'Lượt xem tăng dần',
-				'count_view_desc' => 'Lượt xem giảm dần',
-			);
-			break;
-		case 'count_play':
-			return array(
-				'' => '-- chọn',
-				'count_play_asc' => 'Lượt chơi tăng dần',
-				'count_play_desc' => 'Lượt chơi giảm dần',
-			);
-			break;
-		case 'count_vote':
-			return array(
-				'' => '-- chọn',
-				'count_vote_asc' => 'Lượt vote tăng dần',
-				'count_vote_desc' => 'Lượt vote giảm dần',
-			);
-			break;
-		case 'count_download':
-			return array(
-				'' => '-- chọn',
-				'count_download_asc' => 'Lượt tải tăng dần',
-				'count_download_desc' => 'Lượt tải giảm dần',
-			);
-		case 'weight_number':
-			return array(
-				'' => '-- chọn',
-				'weight_number_asc' => 'Trọng số tăng dần',
-				'weight_number_desc' => 'Trọng số giảm dần',
-			);
-			break;
-		default:
-			# code...
-			break;
-	}
+	return array(
+		ENABLED => 'Đã đăng',
+		DISABLED => 'Chưa đăng'
+	);
+}
+
+//get status game
+function getStatusGame($status) {
+	$statusGame = array(
+		ENABLED => 'Đã đăng',
+		DISABLED => 'Chưa đăng'
+	);
+	return $statusGame[$status];
 }
 
 function getNameDevice($deviceId)
@@ -131,7 +118,6 @@ function getZero($number = null)
 	}
 	return 0;
 }
-
 //get extension from filename
 function getExtension($filename = null)
 {
@@ -202,22 +188,7 @@ function checkActive($uri = '')
 	}
 	return;
 }
-//kich hoat or chua kich hoat
-function checkActiveUser($status)
-{
-	if($status == ACTIVE)
-		return ACTIVEUSER;
-	else
-		return INACTIVEUSER;
-}
-// đã duyệt or chưa duyệt
-function checkApproveOrReject($status)
-{
-	if($status == ACTIVE)
-		return 'Đã duyệt';
-	else
-		return 'Chưa duyệt';
-}
+
 function selectActive()
 {
 	return array(

@@ -30,62 +30,17 @@ class CommonNormal
 			$name = Request::segment(2);
 		}
 		if ($name == '') {
-			return 'CategoryParent';
-		}
-		if($name =='category_parent'){
-			return 'CategoryParent';
-		}
-		if($name =='category'){
-			return 'Game';
-		}
-		if ($name == 'manager') {
-			return 'Admin';
-		}
-		if ($name == 'GameRelation') {
-			return 'GameRelation';
-		}
-		if ($name == 'gametype') {
-			return 'Type';
-		}
-		if($name =='newstype'){
-			return 'TypeNew';
+			return 'AdminNew';
 		}
 		if($name =='news'){
 			return 'AdminNew';
 		}
-		if ($name == 'games') {
-			return 'Game';
+		if($name =='newstype'){
+			return 'TypeNew';
 		}
-		if ($name == 'game_type') {
-			return 'GameType';
+		if ($name == 'manager') {
+			return 'Admin';
 		}
-		if ($name == 'history') {
-			return 'AdminHistory';
-		}
-		if ($name == 'log_edit') {
-			return 'LogEdit';
-		}
-		if($name == 'relation')
-			return 'Relation';
-		if($name == 'comment')
-			return 'Comment';
-		if($name == 'feedback')
-			return 'Feedback';
-		if($name == 'feedback_game')
-			return 'GameErrors';
-		if($name == 'seo')
-			return 'AdminSeo';
-		if($name == 'user')
-			return 'User';
-		if($name == 'policy')
-			return 'Policy';
-		if($name == 'GameVote')
-			return 'GameVote';
-		if($name == 'score')
-			return 'Score';
-		if($name == 'AdminError')
-			return 'AdminError';
-		if($name == 'AdminErrorLog')
-			return 'AdminErrorLog';
+
 	}
 }

@@ -40,7 +40,7 @@ class NewsController extends AdminController {
 	public function store()
 	{
 		$rules = array(
-			'title'   => 'required'
+			'name'   => 'required'
 
 		);
 		$input = Input::except('_token');
@@ -51,7 +51,7 @@ class NewsController extends AdminController {
 	            ->withInput(Input::except('name'));
         } else {
         	//create news
-        	$inputNews = Input::only('type_new_id', 'title', 'description','start_date');
+        	$inputNews = Input::only('type_new_id', 'name', 'description','start_date');
         	if($inputNews['start_date'] == '') {
         		$inputNews['start_date'] = Carbon\Carbon::now();
         	}
@@ -60,12 +60,6 @@ class NewsController extends AdminController {
 			//upload image new
 			$input['image_url'] = CommonSeo::uploadImage($id, UPLOADIMG, 'image_url',UPLOAD_NEWS);
 			CommonNormal::update($id, ['image_url' => $input['image_url']] );
-
-			//chưa lam create history
-			$history_id = CommonLog::insertHistory('AdminNew', $id);
-
-			//insert log_edits: history_id, Auth::admin()->get()->id; editor_name, editor_time, editor_ip
-			CommonLog::insertLogEdit('AdminNew', $id, $history_id, CREATE);
 
 			// insert ceo
 			CommonSeo::createSeo('AdminNew', $id, FOLDER_SEO_NEWS);
@@ -111,7 +105,7 @@ class NewsController extends AdminController {
 	{
 		if(!Admin::isSeo()){
 			$rules = array(
-				'title'   => 'required'
+				'name'   => 'required'
 			);
 			$input = Input::except('_token');
 			$validator = Validator::make($input,$rules);
@@ -121,7 +115,7 @@ class NewsController extends AdminController {
 		            ->withInput(Input::except('name'));
 	        } else {
 	        	//update News
-	        	$inputNews = Input::only('type_new_id', 'title', 'description','start_date');
+	        	$inputNews = Input::only('type_new_id', 'name', 'description','start_date');
 	        	if($inputNews['start_date'] == '') {
 	        		$inputNews['start_date'] = Carbon\Carbon::now();
 	        	}
@@ -133,12 +127,6 @@ class NewsController extends AdminController {
 				CommonNormal::update($id, ['image_url' => $input['image_url']] );
 				}
         	}
-        	//create history
-			$history_id = CommonLog::updateHistory('AdminNew', $id);
-
-			//update log_edits: history_id, Auth::admin()->get()->id; editor_name, editor_time, editor_ip
-			CommonLog::insertLogEdit('AdminNew', $id, $history_id, EDIT);
-        	//upadte ceo
 
 			CommonSeo::updateSeo('AdminNew', $id, FOLDER_SEO_NEWS);
 			return Redirect::action('NewsController@index') ;
@@ -156,29 +144,6 @@ class NewsController extends AdminController {
 	{
 		CommonNormal::delete($id);
 		return Redirect::action('NewsController@index') ;
-	}
-
-	public function history($id)
-	{
-		$historyId = CommonLog::getIdHistory('AdminNew', $id);
-		if ($historyId) {
-			$history = AdminHistory::find($historyId);
-			$logEdit = $history->logedits;
-			return View::make('admin.news.history')->with(compact('history', 'logEdit'));
-		}
-		return Redirect::action('NewsController@index')->with('message', 'Lịch sử game này đã bị xoá');
-
-	}
-
-	public function deleteHistory($id)
-	{
-		$history = AdminHistory::find($id);
-		if ($history) {
-			$history->logedits()->where('history_id', $id)->delete();
-			$history->delete();
-			return Redirect::action('NewsController@index')->with('message', 'Xoá lịch sử thành công');
-		}
-		return Redirect::action('NewsController@index');
 	}
 
 }

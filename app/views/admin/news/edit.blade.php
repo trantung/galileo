@@ -18,7 +18,7 @@
 					<label for="title">Tiêu đề</label>
 					<div class="row">
 						<div class="col-sm-6">
-						   {{ Form::text('title', $inputNew->title , textParentCategory('Tiêu đề tin')) }}
+						   {{ Form::text('name', $inputNew->name , textParentCategory('Tiêu đề tin')) }}
 						</div>
 					</div>
 				</div>

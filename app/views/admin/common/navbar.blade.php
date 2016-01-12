@@ -2,9 +2,9 @@
   <!-- Logo -->
   <a href="#" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini">Minigame</span>
+    <span class="logo-mini">ABC</span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg">Minigame</span>
+    <span class="logo-lg">ABC-GROUP</span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top" role="navigation">

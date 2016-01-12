@@ -22,33 +22,4 @@ class AdminManager
 		return $users;
 	}
 
-	public static function createParentType($arrayTypeId, $arrayWeightNumber, $parentId, $modelName)
-	{
-		$input = array();
-		if ($arrayTypeId) {
-			foreach ($arrayTypeId as $value) {
-				$input = self::commonInputParentType($arrayWeightNumber, $value, $parentId);
-				$modelName::create($input);
-			}
-		}
-	}
-
-	public static function updateParentType($arrayTypeId, $arrayWeightNumber, $parentId, $modelName)
-	{
-		$listId = ParentType::where('category_parent_id', $parentId)->lists('id');
-		foreach ($listId as $listId){
-			$modelName::destroy($listId);
-		}
-		self::createParentType($arrayTypeId, $arrayWeightNumber, $parentId, $modelName);
-	}
-
-	public static function commonInputParentType($arrayWeightNumber, $typeId, $parentId)
-	{
-		$input = array();
-		$input['weight_number'] = $arrayWeightNumber[$typeId];
-		$input['type_id'] = $typeId;
-		$input['category_parent_id'] = $parentId;
-		return $input;
-	}
-
 }

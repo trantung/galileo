@@ -8,10 +8,7 @@
 			<label>Quyền hạn</label>
 		  	{{ Form::select('role_id', selectRoleId(), null, array('class' =>'form-control')) }}
 		</div>
-		<div class="input-group" style="width: 150px; display:inline-block;">
-			<label>Trạng thái</label>
-		  	{{ Form::select('status', ['' => '-- Lựa chọn'] + selectActive(), null, array('class' =>'form-control')) }}
-		</div>
+
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Từ ngày đăng nhập</label>
 		  	<input type="text" name="start_date" class="form-control" id="datepickerStartdate" placeholder="Từ ngày" />

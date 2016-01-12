@@ -68,11 +68,6 @@ define('SEO_META', 'Seo_Meta');
 define('TIMELIMITED', 60);
 //define size cut off text descript
 define('SIZETEXT', '200');
-//define message comment
-define('COMMENT_MESSAGE', 'Bạn đã comment thành công, xin chờ kiểm duyệt');
-define('COMMENT_NO_MESSAGE', 'Bạn chưa nhập nội dung');
 define('TEXTLENGH_DESCRIPTION', 154);
-define('PAGINATE_RELATED', 6);
-define('PAGINATE_MOBILE', 12);
 //define cache time
 define('CACHETIME', 2);
