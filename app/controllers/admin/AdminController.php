@@ -53,7 +53,7 @@ class AdminController extends BaseController {
 	 */
 	public function edit($id)
 	{
-	
+
     }
 	/**
 	 * Update the specified resource in storage.
@@ -63,7 +63,7 @@ class AdminController extends BaseController {
 	 */
 	public function update($id)
 	{
-		
+
 	}
 	/**
 	 * Remove the specified resource from storage.
@@ -105,18 +105,13 @@ class AdminController extends BaseController {
             $checkLogin = Auth::admin()->check();
             if($checkLogin) {
             	if (Auth::admin()->get()->status == ACTIVE) {
-            		$inputUser = CommonSite::ipDeviceUser();
-	            	CommonNormal::update(Auth::admin()->get()->id, $inputUser, 'Admin');     
-					//update history
-					$inputHistory = AdminHistory::where('model_name', 'Admin')->where('model_id', Auth::admin()->get()->id)->first();
-					$history_id = CommonLog::updateHistory('Admin', Auth::admin()->get()->id);
-					CommonLog::insertLogEdit('Admin', Auth::admin()->get()->id, $history_id, LOGIN);
+	            	CommonNormal::update(Auth::admin()->get()->id, $input, 'Admin');
 	        		return Redirect::action('ManagerController@index');
             	}
             	else{
             		return View::make('admin.layout.login');
             	}
-            	
+
             } else {
                 return Redirect::route('admin.login');
             }
