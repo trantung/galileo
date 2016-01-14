@@ -1,18 +1,6 @@
 <?php
 
-class SiteController extends HomeController {
-
-	public function __construct() {
-		$script = AdminSeo::where('model_name', SEO_SCRIPT)->first();
-		if($script) {
-			View::share('script', $script);
-		}
-	}
-
-	public function returnPage404()
-	{
-		return View::make('404');
-	}
+class SiteIndexController extends SiteController {
 
 	/**
 	 * Display a listing of the resource.
@@ -21,7 +9,7 @@ class SiteController extends HomeController {
 	 */
 	public function index()
 	{
-		//
+		return View::make('site.index');
 	}
 
 
@@ -93,5 +81,6 @@ class SiteController extends HomeController {
 	{
 		//
 	}
+
 
 }
