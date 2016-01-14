@@ -122,7 +122,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		"Ollieread\Multiauth\MultiauthServiceProvider",
 		'Cviebrock\EloquentSluggable\SluggableServiceProvider',
-	    'Barryvdh\Debugbar\ServiceProvider',
+	    // 'Barryvdh\Debugbar\ServiceProvider',
 
 	),
 
@@ -190,7 +190,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
+		// 'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
 
 	),
 

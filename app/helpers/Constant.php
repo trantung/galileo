@@ -55,6 +55,9 @@ define('BOTTOM', 'bottom');
 //define paging frontend
 define('PAGINATE_BOXGAME', 12);
 define('PAGINATE_LISTGAME', 12);
+//slide
+define('UPLOAD_IMAGE_SLIDE', '/slide');
+define('PAGINATE_SLIDE', 10);
 //status user
 define('ACTIVEUSER', 'Kích hoạt');
 define('INACTIVEUSER', 'Chưa kích hoạt');

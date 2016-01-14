@@ -12,8 +12,6 @@ class AdminManager
 								->orWhere('username', 'like', '%'.$input['keyword'].'%');
 			}
 			// todo
-			if ($input['status'] != '') 
-				$query = $query->where('status', '=' ,$input['status']);
 			if ($input['start_date']) 
 				$query = $query->where('updated_at', '>=' ,$input['start_date']);
 			if ($input['end_date']) 
