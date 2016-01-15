@@ -9,6 +9,11 @@
 @stop
 
 @section('content')
-	
-@stop
+	@include('site.common.slide')
+	@include('site.common.about')
+	@include('site.common.introduce')
+	@include('site.common.service')
+	@include('site.common.partner')
+	@include('site.common.bottom')
 
+@stop

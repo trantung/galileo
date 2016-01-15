@@ -1,3 +1,8 @@
+body {
+	font-family: Arial,sans-serif;
+	font-size: 14px;
+}
+
 .navbar {
 	min-height: 80px;
 }
@@ -7,19 +12,226 @@
 }
 .logo img {
 	max-width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .navbar-default {
 	background-color: #fff;
 }
+.navbar-nav > li {
+	margin-right: 30px;
+}
 .navbar-nav > li > a {
+	background-color: transparent;
 	border-top: 5px solid transparent;
-	text-transform: uppercase;
-	line-height: 60px;
-	font-weight: bold;
+    font-weight: bold;
+    line-height: 60px;
+    padding-left: 0;
+    padding-right: 0;
+    text-transform: uppercase;
 }
 .navbar-default .navbar-nav > li.active > a,
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-nav > li > a:hover {
+	background-color: transparent;
 	color: #306E79;
 	border-top: 5px solid #306E79;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
+	background-color: transparent;
+}
+.navbar {
+	margin-bottom: 0;
+}
+
+.swiper-container {
+    width: 100% !important;
+    height: auto;
+    overflow: hidden;
+}
+.swiper-slide,
+.partner-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.partner {
+    text-align: center;
+}
+.partner-container {
+    overflow: hidden;
+}
+.partner-slide {
+    padding: 15px;
+}
+
+.homebox {
+
+}
+.homebox h2 {
+	color: #306e79;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.about {
+
+}
+.introduce {
+    margin-top: 30px;
+}
+.introduceInner {
+	margin-bottom: 10px;
+}
+.introduceInner p {
+	font-size: 20px;
+	font-weight: bold;
+}
+.introduceInner p i.fa {
+	border: 1px solid #ff6666;
+    border-radius: 100%;
+    color: #ff6666;
+    font-size: 30px;
+    height: 70px;
+    padding: 20px;
+    width: 70px;
+    margin-right: 10px;
+}
+.introduceInner span {
+	
+}
+.introduceP1 i.fa {
+    
+}
+.introduceP2 i.fa {
+    
+}
+.introduceP3 i.fa {
+    font-size: 35px !important;
+}
+
+.bottom {
+    background: #AFBDBE;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.bottom-left {
+
+}
+.bottom-left a {
+    background: #ff6666 none repeat scroll 0 0;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    padding: 15px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+.bottom-left span {
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+.bottom-right {
+    
+}
+.bottom-right a {
+    
+}
+.bottom-right a i.fa {
+    background-color: #799195;
+    border-radius: 100%;
+    color: #afbdbe;
+    font-size: 45px;
+    height: 75px;
+    padding: 17px 22px;
+    text-decoration: none;
+    width: 75px;
+}
+
+.footer {
+    background: #2F6D78;
+    color: #c0c0c0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.footer h3 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.footer a {
+    color: #c0c0c0;
+}
+.footer ul {
+    padding: 0;
+}
+.footer ul li {
+    line-height: 30px;
+    list-style: outside none none;
+}
+.footerMenu {
+    
+}
+.footerFollow {
+    
+}
+.footerAddress {
+    
+}
+.footerCopyright {
+    background: #2F6D78;
+    border-top: 1px solid #4b8994;
+    color: #c0c0c0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+
+
+@media (min-width: 670px) and (max-width: 1024px) {
+    
+}
+@media (max-width: 669px) {
+    .navbar-nav {
+        margin: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-default .navbar-nav > li.active > a, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+        border: none;
+    }
+    .navbar-nav > li {
+        margin-right: 0;
+    }
+    .navbar-nav > li > a {
+        line-height: normal;
+    }
+    .bottom-right {
+        text-align: center;
+        margin-top: 10px;
+    }
 }
