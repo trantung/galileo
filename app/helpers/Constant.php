@@ -74,3 +74,10 @@ define('SIZETEXT', '200');
 define('TEXTLENGH_DESCRIPTION', 154);
 //define cache time
 define('CACHETIME', 2);
+//type of slide or image
+define('SLIDE_TOP', 1);
+define('SLIDE_BOTTOM', 2);
+define('IMAGE_BOTTOM', 3);
+
+
+
