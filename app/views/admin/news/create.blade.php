@@ -23,14 +23,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="start_date">Ngày xuất bản</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   <input type="text" class="form-control" name="start_date" id="start_date">
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
 						<label for="name">Thể loại tin</label>
 						<div class="row">
 							<div class="col-sm-6">

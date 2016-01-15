@@ -21,7 +21,7 @@
 			    var swiper1 = new Swiper('.partner-container', {
 			    	paginationClickable: true,
 			        slidesPerView: 4,
-			        // slidesPerColumn: 2,
+			        slidesPerColumn: 2,
 			        // spaceBetween: 5,
 			        loop: true,
 			        // breakpoints: {

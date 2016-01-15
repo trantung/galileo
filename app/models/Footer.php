@@ -8,7 +8,7 @@ class Footer extends Eloquent
 {
 	use SoftDeletingTrait;
     protected $table = 'footers';
-    protected $fillable = ['title', 'phone'];
+    protected $fillable = ['title', 'phone', 'fax', 'email', 'slug'];
     protected $dates = ['deleted_at'];
 
 }

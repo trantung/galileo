@@ -29,7 +29,6 @@
 			  <th>ID</th>
 			  <th>Tiêu đề</th>
 			  <th>Thể loại</th>
-			  <th>Ngày xuất bản</th>
 			  <th style="width:200px;">Action</th>
 			</tr>
 			 @foreach($inputNew as $value)
@@ -37,7 +36,6 @@
 			  <td>{{ $value->id }}</td>
 			  <td>{{ $value->name }}</td>
 			  <td>{{ TypeNew::find($value->type_new_id)->name }}</td>
-			  <td>{{ $value->start_date }}</td>
 			  <td>
 				<a href="{{  action('NewsController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 				@if(!Admin::isSeo())

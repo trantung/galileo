@@ -4,11 +4,11 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class AdminSlide extends Eloquent
+class BottomText extends Eloquent
 {
 	use SoftDeletingTrait;
-    protected $table = 'slide';
-    protected $fillable = ['name', 'description', 'link', 'type'];
+    protected $table = 'bottom_texts';
+    protected $fillable = ['title', 'description', 'link'];
     protected $dates = ['deleted_at'];
 
 }

@@ -60,16 +60,6 @@
 						</div>
 					</div>
 				</div>
-				@if(!Admin::isSeo())
-				<div class="form-group">
-					<label for="start_date">Ngày xuất bản</label>
-					<div class="row">
-						<div class="col-sm-6">
-						   <input type="text" class="form-control" name="start_date" value="{{ $inputNew->start_date }}" id="start_date">
-						</div>
-					</div>
-				</div>
-				@endif
 				<div class="row">
 					<div class="col-sm-6">
 						<hr />
