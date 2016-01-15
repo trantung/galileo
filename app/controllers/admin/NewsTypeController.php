@@ -39,12 +39,18 @@ class NewsTypeController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('NewstypeController@create')
+			return Redirect::action('NewsTypeController@create')
 	            ->withErrors($validator)
 	            ->withInput(Input::except('name'));
         } else {
         	$inputNameTypeNew = Input::only('name');
-			CommonNormal::create($inputNameTypeNew);
+			$id = CommonNormal::create($inputNameTypeNew);
+
+			//insert new record into languages table
+			//model_id = $id, model_name = TypeNew
+			// $inputLanguage = ['model_id' => $id, 'model_name' => 'TypeNew'];
+			// CommonLanguage::create($inputLanguage);
+			
 			return Redirect::action('NewsTypeController@index');
         }
 	}
