@@ -52,7 +52,8 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'vi',
+	// 'languages' => array('vi','en'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -123,6 +124,7 @@ return array(
 		"Ollieread\Multiauth\MultiauthServiceProvider",
 		'Cviebrock\EloquentSluggable\SluggableServiceProvider',
 	    // 'Barryvdh\Debugbar\ServiceProvider',
+	    'Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider',
 
 	),
 
@@ -191,6 +193,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		// 'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
+		'LaravelLocalization'   => 'Mcamara\LaravelLocalization\Facades\LaravelLocalization',
 
 	),
 
