@@ -60,14 +60,14 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				{{-- <div class="row">
 					<div class="col-sm-6">
 						<hr />
-						<h1>SEO META</h1>
+						<h1>SEO META</h1> --}}
 						{{-- include common/meta.blade.php --}}
-						@include('admin.common.meta', array('inputSeo' => $inputSeo, 'pathToImageSeo' => UPLOADIMG . '/'.FOLDER_SEO_NEWS.'/'. $inputNew->id . '/'))
-					</div>
-				</div>
+						{{-- @include('admin.common.meta', array('inputSeo' => $inputSeo, 'pathToImageSeo' => UPLOADIMG . '/'.FOLDER_SEO_NEWS.'/'. $inputNew->id . '/')) --}}
+					{{-- </div>
+				</div> --}}
 
 			  <!-- /.box-body -->
 

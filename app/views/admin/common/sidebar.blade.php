@@ -4,7 +4,7 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu">
 			<li class="header">Menu</li>
-			<li class="active"><a href="{{ action('NewsController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Quản lý tin</span></a></li>
+			<li><a href="{{ action('NewsController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Quản lý tin</span></a></li>
 			<li><a href="{{ action('NewsTypeController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Quản thể loại tin</span></a></li>
 			<li><a href=""><i class="fa fa-newspaper-o"></i> <span>Menu</span></a></li>
 			<li><a href=""><i class="fa fa-newspaper-o"></i> <span>Giới thiệu</span></a></li>

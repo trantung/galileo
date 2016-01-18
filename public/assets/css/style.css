@@ -72,6 +72,10 @@ body {
     align-items: center;
 }
 
+.swiper-slide img {
+    width: 100% !important;
+}
+
 .partner {
     text-align: center;
 }
@@ -210,10 +214,124 @@ body {
     padding-bottom: 15px;
 }
 
+.center {
+    text-align: center;
+}
+.pager li {
+    margin-left: 5px;
+    margin-right: 5px;
+}
 
+.main {
+    border-top: 2px solid #306e79;
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.grid {
+
+}
+.grid-item {
+
+}
+.grid-item a {
+    text-decoration: none;
+}
+.grid-image {
+
+}
+.grid-image a {
+    
+}
+.grid-image a img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+.grid-text {
+
+}
+.grid-text h3 {
+
+}
+.grid-text h3 a {
+    color: #306e79;
+    font-size: 16px;
+    font-weight: bold;
+}
+.grid-text p {
+    
+}
+.grid-seemore a {
+    color: #FF7374;
+}
+
+.detailTitle {
+
+}
+.detailTitle h1 {
+    color: #306e79;
+    font-size: 18px;
+    font-weight: bold;
+}
+.detailContent {
+
+}
+.detailContent p {
+    text-align: justify;
+}
+.detailContent img,
+.detailContent table,
+.detailContent iframe {
+    max-width: 100% !important;
+}
+.detailImage img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.related {
+    margin-top: 20px;
+}
+.related ul {
+    padding-left: 15px;
+}
+.related ul li {
+    line-height: 30px;
+    list-style: outside none disc;
+}
+.related ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.language_bar_chooser {
+    display: inline-block;
+    float: right;
+}
+.language_bar_chooser ul {
+
+}
+.language_bar_chooser ul li {
+
+}
+.language_bar_chooser ul li a {
+
+}
+
+@media (min-width: 670px) {
+    .grid-item {
+        padding-left: 30px;
+        padding-right: 30px;
+        height: 480px;
+    }
+}
 
 @media (min-width: 670px) and (max-width: 1024px) {
-    
+    .grid-item {
+        height: 420px;
+    }
 }
 @media (max-width: 669px) {
     .navbar-nav {
@@ -229,6 +347,7 @@ body {
     }
     .navbar-nav > li > a {
         line-height: normal;
+        border-top: none;
     }
     .bottom-right {
         text-align: center;

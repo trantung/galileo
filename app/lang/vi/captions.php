@@ -13,8 +13,8 @@ return array(
 	|
 	*/
 
-	'previous' => '&laquo; Trước',
-
-	'next'     => 'Sau &raquo;',
+	'menu' => 'Danh mục',
+	'follow' => 'Follow Us',
+	'address' => 'Địa chỉ',
 
 );

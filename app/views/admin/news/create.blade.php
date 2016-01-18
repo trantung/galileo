@@ -47,15 +47,15 @@
 						</div>
 					</div>
 
-					<div class="row">
+					{{-- <div class="row">
 						<div class="col-sm-6">
 							<hr />
-							<h1>SEO META</h1>
+							<h1>SEO META</h1> --}}
 							{{-- include common/meta.blade.php --}}
-							@include('admin.common.meta')
-						</div>
+							{{-- @include('admin.common.meta') --}}
+						{{-- </div>
 						<div class="col-sm-6"></div>
-					</div>
+					</div> --}}
 
 					<!-- /.box-body -->
 

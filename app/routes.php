@@ -34,11 +34,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 });
 
-// Route::get('/tin-tuc/{slug}', array('uses' => 'SiteNewsController@show', 'as' =>'showNews'));
-// Route::get('/tin-tuc', array('uses' => 'SiteNewsController@index', 'as' => 'listNews'));
-
-// Route::resource('/', 'SiteIndexController');
-
 Route::group(
 	array(
 		'prefix' => LaravelLocalization::setLocale(),
@@ -46,13 +41,18 @@ Route::group(
 	),
 	function()
 	{
+
+		Route::get('/tin-tuc/{slug}', array('uses' => 'SiteNewsController@show', 'as' =>'showNews'));
+		Route::get('/tin-tuc', array('uses' => 'SiteNewsController@index', 'as' => 'listNews'));
+
 		/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 		Route::resource('/', 'SiteIndexController');
 
 		// Route::get(LaravelLocalization::transRoute('routes.about'),function(){
 		// 	return View::make('about');
 		// });
-		Route::get(LaravelLocalization::transRoute('routes.type'), 'SiteIndexController@slug');
+		Route::get(LaravelLocalization::transRoute('routes.about'), 'AboutController@about');
+		Route::get(LaravelLocalization::transRoute('routes.contact'), 'ContactController@contact');
 		// Route::get(LaravelLocalization::transRoute('routes.view'),function($id){
 		// 	return View::make('view',array('id'=>$id));
 		// });

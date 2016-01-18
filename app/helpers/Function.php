@@ -183,7 +183,8 @@ function remoteFileExists($url) {
 function checkActive($uri = '')
 {
 	$segment = Request::segment(1);
-	if ($segment == $uri) {
+	$segment2 = Request::segment(2);
+	if ($segment == $uri || $segment2 == $uri) {
 		return 'class = "active"';
 	}
 	return;
@@ -215,4 +216,12 @@ function getCount($count)
 		return $count;
 	}
 	return 5;
+}
+
+function selectLang()
+{
+	return array(
+		LANG_VI => 'Tiếng việt',
+		LANG_EN => 'Tiếng anh',
+	);
 }

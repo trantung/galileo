@@ -1,5 +1,6 @@
 <?php
 return array(
-  "type"        =>  "{slug}", //we add a route parameter
+  "about" => "gioi-thieu", //we add a route parameter
+  "contact" => "lien-he",
   // other translated routes
 );

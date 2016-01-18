@@ -24,23 +24,9 @@
     <![endif]-->
 
     @if(isset($seoMeta))
-		<meta name="title" content="{{ $seoMeta->title_site }}">
-		<meta name="description" content="{{ html_entity_decode($seoMeta->description_site) }}">
-		<meta name="keywords" content="{{ $seoMeta->keyword_site }}">
-
-		<meta property="og:url" content="{{ Request::url() }}" />
-		<meta property="og:title" content="{{ $seoMeta->title_fb }}" />
-		<meta property="og:description" content="{{ html_entity_decode($seoMeta->description_fb) }}" />
-		@if(isset($seoImage))
-			@if($seoMeta->image_url_fb)
-				<meta property="og:image" content="{{ url(UPLOADIMG . '/' . $seoImage . '/' . $seoMeta->image_url_fb) }}" />
-			@else
-				<meta property="og:image" content="{{ url(UPLOADIMG . '/avatar-game.jpg') }}" />
-			@endif
-		@else
-			<meta property="og:image" content="{{ url(UPLOADIMG . '/' . FOLDER_SEO . '/' . $seoMeta->image_url_fb) }}" />
-		@endif
-	@endif
+        <meta name="description" content="{{ html_entity_decode($seoMeta->description_site) }}">
+        <meta name="keywords" content="{{ $seoMeta->keyword_site }}">
+    @endif
 
     @if(isset($script))
         {{ $script->header_script }}

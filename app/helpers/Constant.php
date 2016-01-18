@@ -55,6 +55,7 @@ define('BOTTOM', 'bottom');
 //define paging frontend
 define('PAGINATE_BOXGAME', 12);
 define('PAGINATE_LISTGAME', 12);
+define('PAGINATE_RELATED', 6);
 //slide
 define('UPLOAD_IMAGE_SLIDE', '/slide');
 define('PAGINATE_SLIDE', 10);
@@ -78,6 +79,6 @@ define('CACHETIME', 2);
 define('SLIDE_TOP', 1);
 define('SLIDE_BOTTOM', 2);
 define('IMAGE_BOTTOM', 3);
-
-
-
+//language
+define('LANG_VI', 'vi');
+define('LANG_EN', 'en');
