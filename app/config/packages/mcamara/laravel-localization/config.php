@@ -6,6 +6,7 @@ return array(
 	// These are sorted by the native name, which is the order you might show them in a language selector.
 	// Regional languages are sorted by their base languge, so "British English" sorts as "English, British"
 	'supportedLocales' => array(
+		'vi'          => array('name' => 'Vietnamese',             'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Tiếng Việt'),
 		//'ace'         => array('name' => 'Achinese',               'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Aceh'),
 		//'af'          => array('name' => 'Afrikaans',              'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Afrikaans'),
 		//'agq'         => array('name' => 'Aghem',                  'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Aghem'),
@@ -181,7 +182,7 @@ return array(
 		//'twq'         => array('name' => 'Tasawaq',                'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Tasawaq senni'),
 		//'shi'         => array('name' => 'Tachelhit (Latin)',      'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Tashelhit'),
 		//'nus'         => array('name' => 'Nuer',                   'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Thok Nath'),
-		'vi'          => array('name' => 'Vietnamese',             'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Tiếng Việt'),
+		// 'vi'          => array('name' => 'Vietnamese',             'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Tiếng Việt'),
 		//'tg-Latn'     => array('name' => 'Tajik (Latin)',          'script' => 'Latn', 'dir' => 'ltr', 'native' => 'tojikī'),
 		// 'lu'          => array('name' => 'Luba-Katanga',           'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Tshiluba'),
 		//'ve'          => array('name' => 'Venda',                  'script' => 'Latn', 'dir' => 'ltr', 'native' => 'Tshivenḓa'),
