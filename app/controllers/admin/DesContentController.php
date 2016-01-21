@@ -1,6 +1,6 @@
 <?php
 
-class SiteIndexController extends SiteController {
+class DesContentController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,10 +9,7 @@ class SiteIndexController extends SiteController {
 	 */
 	public function index()
 	{
-		$viDes = DesContent::find(1);
-		$enDes = DesContent::find(2);
-		// dd(LaravelLocalization::setLocale());
-		return View::make('site.index')->with(compact('viDes', 'enDes'));
+		return Redirect::action('DesContentController@edit', 1);
 	}
 
 
@@ -23,7 +20,7 @@ class SiteIndexController extends SiteController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.des_content.create');
 	}
 
 
@@ -58,7 +55,9 @@ class SiteIndexController extends SiteController {
 	 */
 	public function edit($id)
 	{
-		//
+		$viDes = DesContent::find(1);
+		$enDes = DesContent::find(2);
+		return View::make('admin.des_content.edit')->with(compact('viDes', 'enDes'));
 	}
 
 
@@ -70,7 +69,12 @@ class SiteIndexController extends SiteController {
 	 */
 	public function update($id)
 	{
-		//
+		$viInput = Input::only('title', 'description');
+		DesContent::find(1)->update($viInput);
+		$enInput['title'] = Input::get('en_title');
+		$enInput['description'] = Input::get('en_description');
+		DesContent::find(2)->update($enInput);
+		return Redirect::action('DesContentController@edit', 1);
 	}
 
 
@@ -85,20 +89,5 @@ class SiteIndexController extends SiteController {
 		//
 	}
 
-	public function slug($slug)
-	{
-		//from $slug to get model_name and model_id in the menus table
-		$menu = Menu::findBySlug($slug);
-		if (empty($menu)) {
-			return Redirect::action('SiteIndexController@404');
-		}
-		if ($menu->model_name == 'AboutUs') {
-			return Redirect::action('SiteIndexController@aboutUs');
-		}
-		if ($menu->model_name == 'Contact') {
-			return Redirect::action('SiteIndexController@contact');
-		}
-		return Redirect::action('SiteIndexController@typeNew');
-	}
 
 }
