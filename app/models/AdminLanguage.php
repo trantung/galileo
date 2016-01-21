@@ -4,11 +4,11 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Introduce extends Eloquent
+class AdminLanguage extends Eloquent
 {
 	use SoftDeletingTrait;
-    protected $table = 'introduces';
-    protected $fillable = ['position', 'title', 'description', 'css'];
+    protected $table = 'languages';
+    protected $fillable = ['model_name', 'model_id', 'relate_id', 'relate_name', 'position'];
     protected $dates = ['deleted_at'];
 
 }

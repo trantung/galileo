@@ -121,8 +121,8 @@ body {
     width: 70px;
     margin-right: 10px;
 }
-.introduceInner span {
-	
+.introduceInner span p{
+    font-weight: normal;	
 }
 .introduceP1 i.fa {
     

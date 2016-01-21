@@ -1,6 +1,6 @@
 <?php
 
-class SiteIndexController extends SiteController {
+class SiteIntroduceController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,11 +9,7 @@ class SiteIndexController extends SiteController {
 	 */
 	public function index()
 	{
-		$viDes = DesContent::find(1);
-		$enDes = DesContent::find(2);
-		$introduces = AdminLanguage::where('model_name', 'Introduce')->orderBy('position', 'asc')->get();
-		// dd(LaravelLocalization::setLocale());
-		return View::make('site.index')->with(compact('viDes', 'enDes', 'introduces'));
+		//
 	}
 
 
@@ -86,20 +82,5 @@ class SiteIndexController extends SiteController {
 		//
 	}
 
-	public function slug($slug)
-	{
-		//from $slug to get model_name and model_id in the menus table
-		$menu = Menu::findBySlug($slug);
-		if (empty($menu)) {
-			return Redirect::action('SiteIndexController@404');
-		}
-		if ($menu->model_name == 'AboutUs') {
-			return Redirect::action('SiteIndexController@aboutUs');
-		}
-		if ($menu->model_name == 'Contact') {
-			return Redirect::action('SiteIndexController@contact');
-		}
-		return Redirect::action('SiteIndexController@typeNew');
-	}
 
 }

@@ -10,7 +10,7 @@
 
 @section('content')
 	@include('site.common.slide')
-	@include('site.common.about')
+	@include('site.common.content_about')
 	@include('site.common.introduce')
 	@include('site.common.service')
 	@include('site.common.partner')

@@ -41,6 +41,9 @@ class CommonNormal
 		if ($name == 'manager') {
 			return 'Admin';
 		}
+		if ($name == 'introduce') {
+			return 'Introduce';
+		}
 
 	}
 }
