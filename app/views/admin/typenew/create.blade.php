@@ -15,9 +15,17 @@
 			{{ Form::open(array('action' => array('NewsTypeController@store', 'files'=> true))) }}
 			<div class="box-body">
 				<div class="form-group">
+					<label for="name">Ngôn ngữ</label>
+					<div class="row">
+						<div class="col-sm-6">
+						   @include('admin.common.lang')
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
 					<label for="name">Tên thể loại</label>
 					<div class="row">
-						<div class="col-sm-6">	                  	
+						<div class="col-sm-6">
 						   {{ Form::text('name', null , textParentCategory('Tên thể loại tin')) }}
 						</div>
 					</div>
