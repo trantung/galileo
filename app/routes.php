@@ -52,7 +52,8 @@ Route::group(
 		// 	return View::make('about');
 		// });
 		Route::get(LaravelLocalization::transRoute('routes.about'), 'AboutController@about');
-		Route::get(LaravelLocalization::transRoute('routes.contact'), 'ContactController@contact');
+		Route::get(LaravelLocalization::transRoute('routes.contact'), 'ContactController@index');
+		Route::post(LaravelLocalization::transRoute('routes.contact'), 'ContactController@store');
 		// Route::get(LaravelLocalization::transRoute('routes.view'),function($id){
 		// 	return View::make('view',array('id'=>$id));
 		// });

@@ -17,4 +17,15 @@ return array(
 	'follow' => 'Follow Us',
 	'address' => 'Address',
 
+	'contact' => 'Contact',
+	'howtofind' => 'How to find',
+	'contactform' => 'Contact form',
+	'contactus' => 'Contact us',
+
+	'name' => 'Name',
+	'email' => 'Email',
+	'phone' => 'Phone',
+	'message' => 'Message',
+	'submit' => 'Submit',
+
 );
