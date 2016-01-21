@@ -54,7 +54,7 @@ Route::group(
 		// Route::get(LaravelLocalization::transRoute('routes.about'),function(){
 		// 	return View::make('about');
 		// });
-		Route::get(LaravelLocalization::transRoute('routes.about'), 'AboutController@about');
+		Route::get(LaravelLocalization::transRoute('routes.about'), 'AboutController@index');
 		Route::get(LaravelLocalization::transRoute('routes.contact'), 'ContactController@index');
 		Route::post(LaravelLocalization::transRoute('routes.contact'), 'ContactController@store');
 		// Route::get(LaravelLocalization::transRoute('routes.view'),function($id){

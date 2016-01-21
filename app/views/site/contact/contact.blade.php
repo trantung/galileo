@@ -10,7 +10,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				map code
+				<input id = "latitude" type="hidden" value="0">
+	            <input id = "longitude" type="hidden" value="0">
+                <div class="map">
+                    <div id="mapview" style="height: 400px; width: 100%; max-width: 100%;"></div>
+                </div>
 			</div>
 		</div>
 		<div class="row">
@@ -49,5 +53,5 @@
 		</div>
 	</div>
 </div>
-
+@include('site.common.googlemap_script')
 @stop
