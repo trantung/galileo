@@ -1,13 +1,10 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Cập nhật tin' }}
+{{ $title='Cập nhật giới thiệu trang chủ' }}
 @stop
 
 @section('content')
-
-@include('admin.news.common')
-
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">

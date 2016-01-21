@@ -41,6 +41,22 @@ function returnList($className)
 	$list = $className::lists('name', 'id');
 	return $list;
 }
+function returnCss()
+{
+	return array(
+			'fa fa-bar-chart' => 'Phát triển kinh doanh',
+			'fa fa-wrench' => 'Dịch vụ cao cấp',
+			'fa fa-phone' => 'Hỗ trợ khách hàng',
+		);
+}
+function returnPosition()
+{
+	return array(
+			1 => 'Trái',
+			2 => 'Giữa',
+			3 => 'Phải',
+		);
+}
 
 function getIpAddress()
 {
@@ -224,4 +240,15 @@ function selectLang()
 		LANG_VI => 'Tiếng việt',
 		LANG_EN => 'Tiếng anh',
 	);
+}
+function returnObjectLanguage($langObject, $lang, $modelName)
+{
+	if ($lang == 'vi') {
+		return $modelName::find($langObject->model_id);
+	}
+	if ($lang == 'en') {
+		return $modelName::find($langObject->relate_id);
+	}
+	// return $modelName::find($langObject->model_id);
+	
 }

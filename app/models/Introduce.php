@@ -8,7 +8,7 @@ class Introduce extends Eloquent
 {
 	use SoftDeletingTrait;
     protected $table = 'introduces';
-    protected $fillable = ['position', 'title', 'description'];
+    protected $fillable = ['position', 'title', 'description', 'css'];
     protected $dates = ['deleted_at'];
 
 }
