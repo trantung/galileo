@@ -1,9 +1,11 @@
+<?php $slide = AdminSlide::where('type', SLIDE_TOP)->get(); ?>
+@if(count($slide) > 0)
 <!-- Swiper -->
 <div class="swiper-container">
     <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="{{ url('/assets/images/s1.jpg') }}" /></div>
-        <div class="swiper-slide"><img src="{{ url('/assets/images/s1.jpg') }}" /></div>
-        <div class="swiper-slide"><img src="{{ url('/assets/images/s1.jpg') }}" /></div>
+        @foreach($slide as $image)
+        <div class="swiper-slide"><img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $image->id . '/' . $image->image_url) }}" /></div>
+        @endforeach
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
@@ -25,3 +27,4 @@ var swiper = new Swiper('.swiper-container', {
     autoplayDisableOnInteraction: false
 });
 </script>
+@endif

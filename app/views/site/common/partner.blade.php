@@ -1,19 +1,16 @@
+<?php $slide = AdminSlide::where('type', SLIDE_BOTTOM)->get(); ?>
+@if(count($slide) > 0)
 <div class="homebox partner">
 	<div class="container">
-		<h2>Đối tác</h2>
+		<h2>{{ trans('captions.partners') }}</h2>
 		<div class="row">
 			<div class="col-sm-12">
 				<!-- Swiper -->
 				<div class="partner-container">
 				    <div class="swiper-wrapper">
-				        <div class="partner-slide"><img src="{{ url('/assets/images/p1.jpg') }}" /></div>
-				        <div class="partner-slide"><img src="{{ url('/assets/images/p2.jpg') }}" /></div>
-				        <div class="partner-slide"><img src="{{ url('/assets/images/p1.jpg') }}" /></div>
-				        <div class="partner-slide"><img src="{{ url('/assets/images/p1.jpg') }}" /></div>
-				        <div class="partner-slide"><img src="{{ url('/assets/images/p1.jpg') }}" /></div>
-				        <div class="partner-slide"><img src="{{ url('/assets/images/p1.jpg') }}" /></div>
-				        <div class="partner-slide"><img src="{{ url('/assets/images/p1.jpg') }}" /></div>
-				        <div class="partner-slide"><img src="{{ url('/assets/images/p1.jpg') }}" /></div>
+				    	@foreach($slide as $image)
+				        <div class="partner-slide"><img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $image->id . '/' . $image->image_url) }}" /></div>
+				        @endforeach
 				    </div>
 				</div>
 				<!-- Initialize Swiper -->
@@ -47,3 +44,4 @@
 		</div>
 	</div>
 </div>
+@endif
