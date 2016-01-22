@@ -8,7 +8,7 @@ class BottomText extends Eloquent
 {
 	use SoftDeletingTrait;
     protected $table = 'bottom_texts';
-    protected $fillable = ['title', 'description', 'link'];
+    protected $fillable = ['title', 'description', 'link', 'status'];
     protected $dates = ['deleted_at'];
 
 }

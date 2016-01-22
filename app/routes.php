@@ -23,6 +23,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/manager/search', array('uses' => 'ManagerController@search', 'as' => 'admin.manager.search'));
 	Route::resource('/manager', 'ManagerController');
 
+	Route::resource('/bottomtext', 'BottomTextController');
+
 	Route::resource('/newstype', 'NewsTypeController');
 
 	Route::get('/news/search', array('uses' => 'NewsController@search', 'as' => 'admin.news.search'));
