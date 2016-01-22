@@ -267,3 +267,11 @@ function getNameStatus($status)
 		return 'Hiển thị';
 	}
 }
+function getLang()
+{
+	$lang = LaravelLocalization::setLocale();
+	if($lang == NULL) {
+		return 'vi';
+	}
+	return $lang;
+}

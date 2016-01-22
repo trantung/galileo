@@ -22,13 +22,13 @@
 					<label for="name">Title English</label>
 					<div class="row">
 						<div class="col-sm-6">
-						   {{ Form::text('en_title', Common::objectLanguage('BottomText', $id, 'vi')->title, textParentCategory('Title English')) }}
+						   {{ Form::text('en_title', Common::objectLanguage('BottomText', $id, 'en')->title, textParentCategory('Title English')) }}
 						</div>
 					</div>
 					<label for="name">Description Vietnamese</label>
 					<div class="row">
 						<div class="col-sm-6">
-						   {{ Form::text('description', Common::objectLanguage('BottomText', $id, 'en')->description, textParentCategory('Description Vietnamese')) }}
+						   {{ Form::text('description', Common::objectLanguage('BottomText', $id, 'vi')->description, textParentCategory('Description Vietnamese')) }}
 						</div>
 					</div>
 					<label for="name">Description English</label>
