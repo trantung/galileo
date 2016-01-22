@@ -3,10 +3,7 @@
 class SiteController extends HomeController {
 
 	public function __construct() {
-		$script = AdminSeo::where('model_name', SEO_SCRIPT)->first();
-		if($script) {
-			View::share('script', $script);
-		}
+
 	}
 
 	public function returnPage404()

@@ -23,13 +23,4 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    @if(isset($seoMeta))
-        <meta name="description" content="{{ html_entity_decode($seoMeta->description_site) }}">
-        <meta name="keywords" content="{{ $seoMeta->keyword_site }}">
-    @endif
-
-    @if(isset($script))
-        {{ $script->header_script }}
-    @endif
-
 </head>

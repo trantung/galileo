@@ -74,7 +74,7 @@ class AdminContactController extends AdminController {
         $input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('ContactController@edit', $id)
+			return Redirect::action('AdminContactController@edit', $id)
 	            ->withErrors($validator);
         } else {
         	$inputUpdateMain = Input::only('description', 'lat', 'long');
@@ -88,7 +88,7 @@ class AdminContactController extends AdminController {
         	$inputLanguage = Input::only('status');
         	AdminLanguage::where('model_name', 'Contact')->where('model_id', $id)->where('relate_id', $relateUpdateId)->update($inputLanguage);
 
-			return Redirect::action('ContactController@edit', $id);
+			return Redirect::action('AdminContactController@edit', $id);
         }
 	}
 
