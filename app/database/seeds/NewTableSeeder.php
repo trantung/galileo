@@ -5,19 +5,24 @@ class NewTableSeeder extends Seeder {
 	public function run()
 	{
 		AdminNew::create([
-			'name'=> 'Tin tuc 1',
-			'slug'=> 'tin-tuc-1',
+			'name'=> 'giới thiệu công ty',
+			'slug'=> 'gioi-thieu-cong-ty',
 			'type_new_id' => 1
 		]);
 		AdminNew::create([
-			'name'=> 'Tin tuc 2',
-			'slug'=> 'tin-tuc-2',
-			'type_new_id' => 2
+			'name'=> 'about-us',
+			'slug'=> 'about-us-company',
+			'type_new_id' => 1
 		]);
 		AdminNew::create([
-			'name'=> 'Tin tuc 3',
-			'slug'=> 'tin-tuc-3',
-			'type_new_id' => 1
+			'name'=> 'Tin tuyển dụng',
+			'slug'=> 'tin-tuyen-dung',
+			'type_new_id' => 3
+		]);
+		AdminNew::create([
+			'name'=> 'New carrier',
+			'slug'=> 'new-carrier',
+			'type_new_id' => 3
 		]);
 	}
 
