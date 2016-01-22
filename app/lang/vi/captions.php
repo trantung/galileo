@@ -13,6 +13,7 @@ return array(
 	|
 	*/
 
+	'home' => 'Trang chủ',
 	'menu' => 'Danh mục',
 	'follow' => 'Follow Us',
 	'address' => 'Địa chỉ',

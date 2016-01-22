@@ -12,7 +12,7 @@ return array(
 	| you want to customize your views to better match your application.
 	|
 	*/
-
+	'home' => 'Home',
 	'menu' => 'Menu',
 	'follow' => 'Follow Us',
 	'address' => 'Address',
