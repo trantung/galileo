@@ -24,7 +24,7 @@
 				<div class="about2">
 					<h2>{{ trans('captions.ourhistory') }}</h2>
 					<h3>{{ trans('captions.ourhistory2') }}</h3>
-					<table>
+					<table border="0">
 						<tr>
 							<td class="about2-1">2004-</td>
 							<td class="about2-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet</td>
@@ -39,13 +39,12 @@
 						</tr>
 						<tr>
 							<td class="about2-1">2004-</td>
-							<td class="about2-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet</td>
+							<td class="about2-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet, orem ipsum dolor sit amet</td>
 						</tr>
 						<tr>
 							<td class="about2-1">2004-</td>
-							<td class="about2-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet</td>
+							<td class="about2-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet</td>
 						</tr>
-						
 					</table>
 				</div>
 			</div>
@@ -53,7 +52,13 @@
 				<div class="about3">
 					<h2>{{ trans('captions.orientations') }}</h2>
 					<h3>{{ trans('captions.orientations2') }}</h3>
-
+					<strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit</strong>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					</p>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit
+					</p>
 				</div>
 			</div>
 		</div>

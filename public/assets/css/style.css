@@ -372,7 +372,8 @@ body {
 .about1 {
 
 }
-.about1 strong {
+.about1 strong,
+.about3 strong {
     color: #306E79;
     text-transform: uppercase;
     font-size: 16px;
@@ -387,6 +388,26 @@ body {
 }
 .about2 {
 
+}
+.about2 table {
+    border: none;
+    width: 100%;
+    max-width: 100%;
+}
+.about2 table tr td {
+    padding-bottom: 15px;
+}
+.about2 table tr td.about2-1 {
+    color: #306E79;
+    width: 50px;
+    vertical-align: top;
+    font-weight: bold;
+    text-align: right;
+    font-size: 16px;
+}
+.about2 table tr td.about2-2 {
+    vertical-align: top;
+    padding-left: 10px;
 }
 .about3 {
 
