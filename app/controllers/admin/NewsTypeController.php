@@ -79,8 +79,7 @@ class NewsTypeController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$inputNewType = AdminLanguage::where('model_name', 'TypeNew')->orderBy('position', 'asc')->get();
-		return View::make('admin.typenew.edit')->with(compact('inputTypeNew'));
+		return View::make('admin.typenew.edit')->with(compact('id'));
 	}
 
 
@@ -93,7 +92,8 @@ class NewsTypeController extends AdminController {
 	public function update($id)
 	{
 		$rules = array(
-            'name'   => 'required'
+            'name'   => 'required',
+            'en_name' => 'required',
         );
         $input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -101,8 +101,11 @@ class NewsTypeController extends AdminController {
 			return Redirect::action('NewsTypeController@edit', $id)
 	            ->withErrors($validator);
         } else {
-        	$inputNameTypeNew = Input::only('name');
-        	CommonNormal::update($id,$inputNameTypeNew);
+        	$inputUpdateMain = Input::only('name');
+        	$relateUpdateId = Common::getValueLanguage('TypeNew', $id, 'relate_id');
+        	$inputUpdateRelate['name'] = $input['en_name'];
+        	CommonNormal::update($id,$inputUpdateMain);
+        	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
 			return Redirect::action('NewsTypeController@index');
         }
 	}
@@ -116,7 +119,10 @@ class NewsTypeController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		AdminNew::where('type_id', $id)->delete();
+		$new = AdminNew::where('type_new_id', $id)->first();
+		if ($new) {
+			AdminNew::where('type_new_id', $id)->delete();
+		}
 		Common::deleteLanguage($id, 'TypeNew');
 		return Redirect::action('NewsTypeController@index');
 	}

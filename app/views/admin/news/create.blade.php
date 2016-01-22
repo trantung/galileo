@@ -45,23 +45,21 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="description">Nội dung tin</label>
+						<label for="description">Nội dung tin Vietnamese</label>
 						<div class="row">
 							<div class="col-sm-12">
 							   {{ Form::textarea('description', '' , array('class' => 'form-control',"rows"=>6, 'id' => 'editor1')) }}
 							</div>
 						</div>
 					</div>
-
-					{{-- <div class="row">
-						<div class="col-sm-6">
-							<hr />
-							<h1>SEO META</h1> --}}
-							{{-- include common/meta.blade.php --}}
-							{{-- @include('admin.common.meta') --}}
-						{{-- </div>
-						<div class="col-sm-6"></div>
-					</div> --}}
+					<div>
+						<label for="description">Nội dung tin English</label>
+						<div class="row">
+							<div class="col-sm-12">
+							   {{ Form::textarea('en_description', '' , array('class' => 'form-control',"rows"=>6, 'id' => 'editor2')) }}
+							</div>
+						</div>
+					</div>
 
 					<!-- /.box-body -->
 

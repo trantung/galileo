@@ -37,4 +37,28 @@ class Common {
 		}
 		$modelName::find($id)->delete();
 	}
+
+	public static function objectLanguage($modelName, $modelId, $lang)
+	{
+		if ($lang == 'vi') {
+			return $modelName::find($modelId);
+
+		}
+		if ($lang == 'en') {
+			$objectLanguage = AdminLanguage::where('model_name', $modelName)
+				->where('model_id', $modelId)
+				->first();
+			$relateId = $objectLanguage->relate_id;
+			return $modelName::find($relateId);
+		}
+	}
+
+	public static function getValueLanguage($modelName, $modelId, $value)
+	{
+		$objectLanguage = AdminLanguage::where('model_name', $modelName)
+			->where('model_id', $modelId)
+			->first();
+		return $objectLanguage->$value;
+	}
+
 }

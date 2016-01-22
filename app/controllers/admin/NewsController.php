@@ -62,7 +62,7 @@ class NewsController extends AdminController {
 			CommonNormal::update($id, ['image_url' => $input['image_url']] );
 
 			// insert ceo
-			CommonSeo::createSeo('AdminNew', $id, FOLDER_SEO_NEWS);
+			// CommonSeo::createSeo('AdminNew', $id, FOLDER_SEO_NEWS);
 
 			return Redirect::action('NewsController@index');
         }
