@@ -1,6 +1,6 @@
 <?php
 
-class BottomText extends Seeder {
+class BottomTextTable extends Seeder {
 
 	public function run()
 	{

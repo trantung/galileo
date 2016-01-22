@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('TypeNewTableSeeder');
 		$this->call('NewTableSeeder');
 		$this->call('DesContentTableSeeder');
-		$this->call('BottomText');
+		$this->call('BottomTextTable');
 		$this->call('LanguageTableSeeder');
 	}
 
