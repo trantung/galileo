@@ -28,19 +28,10 @@
 				</div>
 
 				<div class="form-group">
-					<label for="name">Description</label>
-					<div class="row">
-						<div class="col-sm-6">
-							{{ Form::textarea('description', null , textParentCategory('Description')) }}
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group">
 					<label for="name">Type</label>
 					<div class="row">
 						<div class="col-sm-6">
-						   {{ Form::select('type', [1 => 'Banner', 2 => 'Đối tác']) }}
+						   {{ Form::select('type', [SLIDE_TOP => 'Banner', SLIDE_BOTTOM => 'Đối tác']) }}
 						</div>
 					</div>
 				</div>
@@ -58,7 +49,7 @@
 					<label for="name">Image</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ Form::file('image_url[]', array('id' => 'image_url', 'multiple' => true)) }}
+							{{ Form::file('image_url') }}
 						</div>
 					</div>
 				</div>

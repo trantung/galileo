@@ -31,12 +31,10 @@ class AdminSlideController extends AdminController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
 		$input = Input::except('_token', 'image_url');
 		$slideId = AdminSlide::create($input)->id;
-		$inputAll = Input::all();
-		$listImage = $inputAll['image_url'];
-		$this->commonImage($inputAll, $slideId);
+		$inputImg['image_url'] = CommonUpload::uploadImage($slideId, UPLOADIMG, 'image_url',UPLOAD_SLIDE);
+		CommonNormal::update($slideId, ['image_url' => $inputImg['image_url']] );
 		return Redirect::action('AdminSlideController@index');
 	}
 
@@ -74,43 +72,14 @@ class AdminSlideController extends AdminController {
 	 */
 	public function update($id)
 	{
-		$input = Input::except('_token', '_method');
-		if ($input['image_url'][0]) {
-			AdminImage::where('slider_id', $id)->delete();
-			$this->commonImage($input, $id);
-		}
-		else{
-			$images = $input['image'];
-			if ($images) {
-				foreach ($images as $key => $image) {
-					if ($images[$key]) {
-						$path = UPLOAD_IMAGE_SLIDE;
-						$destinationPath = public_path().$path.'/image' . '/' . $id;
-						$filename = $image->getClientOriginalName();
-						$uploadSuccess   =  $image->move($destinationPath, $filename);
-						AdminImage::find($key)->update(['image_url' => $filename]);
-					}
-				}
-			}
+		// $input = Input::except('_token', '_method');
+		$inputSlide = Input::except('_token', 'image_url');
+		CommonNormal::update($id,$inputSlide);
+		$imageSlide = AdminSlide::find($id);
+		$input['image_url'] = CommonUpload::uploadImage($id, UPLOADIMG, 'image_url',UPLOAD_SLIDE,$imageSlide->image_url);
+		CommonNormal::update($id, ['image_url' => $input['image_url']] );
 
-		}
-		AdminSlide::find($id)->update(Input::except('_token', '_method', 'image_url', 'image'));
 		return Redirect::action('AdminSlideController@index');
-	}
-
-	public function commonImage($inputAll, $slideId)
-	{
-		foreach ($inputAll['image_url'] as $key => $value) {
-			if ($value) {
-				$path = UPLOAD_IMAGE_SLIDE;
-				$destinationPath = public_path().$path.'/image' . '/' . $slideId;
-				$filename = $value->getClientOriginalName();
-				$uploadSuccess   =  $value->move($destinationPath, $filename);
-				$adminImage['slider_id'] = $slideId;
-				$adminImage['image_url'] = $filename;
-				$imageRelateId[] = AdminImage::create($adminImage)->id;
-			}
-		}
 	}
 
 	/**
@@ -125,20 +94,15 @@ class AdminSlideController extends AdminController {
 		return Redirect::action('AdminSlideController@index');
 	}
 
-	public function deleteSlide($id)
-	{
-		AdminImage::find($id)->delete();
-	}
-
-	public function search()
-	{
-		$input = Input::all();
-		if (!$input['keyword']) {
-			return Redirect::action('AdminSlideController@index');
-		}
-		$slides = AdminSlide::where('name', 'like', '%'.$input['keyword'].'%')->paginate(PAGINATE_SLIDE);
-		// dd($input);
-		return View::make('admin.slider.index')->with(compact('slides'));
-	}
+	// public function search()
+	// {
+	// 	$input = Input::all();
+	// 	if (!$input['keyword']) {
+	// 		return Redirect::action('AdminSlideController@index');
+	// 	}
+	// 	$slides = AdminSlide::where('name', 'like', '%'.$input['keyword'].'%')->paginate(PAGINATE_SLIDE);
+	// 	// dd($input);
+	// 	return View::make('admin.slider.index')->with(compact('slides'));
+	// }
 
 }

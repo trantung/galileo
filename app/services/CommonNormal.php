@@ -50,6 +50,9 @@ class CommonNormal
 		if ($name == 'contact') {
 			return 'Contact';
 		}
+		if ($name == 'slider') {
+			return 'AdminSlide';
+		}
 
 	}
 }

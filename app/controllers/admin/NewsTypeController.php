@@ -106,6 +106,11 @@ class NewsTypeController extends AdminController {
         	$inputUpdateRelate['name'] = $input['en_name'];
         	CommonNormal::update($id,$inputUpdateMain);
         	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
+        	$inputLanguage = Input::only('position', 'status');
+        	AdminLanguage::where('model_name', 'TypeNew')
+        		->where('model_id', $id)
+        		->where('relate_id', $relateUpdateId)
+        		->update($inputLanguage);
 			return Redirect::action('NewsTypeController@index');
         }
 	}

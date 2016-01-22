@@ -60,5 +60,5 @@ class Common {
 			->first();
 		return $objectLanguage->$value;
 	}
-
+	
 }
