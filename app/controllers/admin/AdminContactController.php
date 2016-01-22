@@ -1,6 +1,6 @@
 <?php
 
-class ContactController extends AdminController {
+class AdminContactController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
