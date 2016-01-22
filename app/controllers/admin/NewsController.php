@@ -51,10 +51,12 @@ class NewsController extends AdminController {
 	            ->withInput(Input::except('name'));
         } else {
         	//create news
-        	$inputNews = Input::only('type_new_id', 'name', 'description','start_date');
-        	if($inputNews['start_date'] == '') {
-        		$inputNews['start_date'] = Carbon\Carbon::now();
-        	}
+        	// $inputNews = Input::only('type_new_id', 'name', 'description','start_date');
+        	// if($inputNews['start_date'] == '') {
+        	// 	$inputNews['start_date'] = Carbon\Carbon::now();
+        	// }
+
+        	$inputNews = Input::only('type_new_id', 'name', 'description');
 			$id = CommonNormal::create($inputNews);
 
 			//upload image new

@@ -35,9 +35,9 @@
 					{{ Form::open(array('action' => 'ContactController@contact', 'method' => 'POST', 'class' => 'form-horizontal')) }}
 						<div class="row">
 							<div class="col-sm-4">
-								{{ Form::text('name', '', array('placeholder' => trans('captions.name'), 'class' => 'contact-input')) }}
-								{{ Form::text('email', '', array('placeholder' => trans('captions.email'), 'class' => 'contact-input')) }}
-								{{ Form::text('phone', '', array('placeholder' => trans('captions.phone'), 'class' => 'contact-input')) }}
+								{{ Form::text('name', '', array('placeholder' => trans('captions.name'), 'class' => 'contact-input', 'required' => 'required')) }}
+								{{ Form::text('email', '', array('placeholder' => trans('captions.email'), 'class' => 'contact-input', 'required' => 'required')) }}
+								{{ Form::text('phone', '', array('placeholder' => trans('captions.phone'), 'class' => 'contact-input', 'required' => 'required')) }}
 							</div>
 							<div class="col-sm-8">
 								{{ Form::textarea('message', '', array('placeholder' => trans('captions.message'), 'class' => 'form-control',"rows"=>5, 'class' => 'contact-input')) }}
