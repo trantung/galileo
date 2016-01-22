@@ -49,7 +49,7 @@
 						<div class="col-sm-6">
 							<label for="name">Upload ảnh</label>
 							{{ Form::file('image_url') }}
-							<img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $slide->id . '/' . $slide->image_url) }}" ,width="100%", height="100%"  />
+							<img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $slide->id . '/' . $slide->image_url) }}" width="200px" height="auto"  />
 						</div>
 					</div>
 					<div>

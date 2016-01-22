@@ -27,8 +27,8 @@
 				<td>{{ $value->name }}</td>
 				<td>{{ CommonUpload::getNameTypeSlide($value->type) }}</td>
 				<td>{{ $value->link }}</td>
-				<td>
-					<img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $value->id . '/' . $value->image_url) }}" ,width="100%", height="100%"  />
+				<td style="width:200px;">
+					<img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $value->id . '/' . $value->image_url) }}" width="100%" height="auto"  />
 				</td>
 				<td>
 				<a href="{{  action('AdminSlideController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>

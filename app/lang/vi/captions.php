@@ -36,4 +36,6 @@ return array(
 	'ourhistory2' => 'Hành trình',
 	'orientations2' => 'Triển vọng',
 
+	'partners' => 'Đối tác',
+
 );

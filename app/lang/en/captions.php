@@ -36,4 +36,6 @@ return array(
 	'ourhistory2' => 'Our way',
 	'orientations2' => 'Prospects',
 
+	'partners' => 'Partners',
+
 );
