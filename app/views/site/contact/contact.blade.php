@@ -22,9 +22,7 @@
 				<h2>{{ trans('captions.address') }}</h2>
 				<h3>{{ trans('captions.howtofind') }}</h3>
 				<div class="contact-address">
-					<p>Công ty Cổ phần truyền thông ABC</p>
-					<p>Địa chỉ: P501, Tầng 5, Tòa nhà văn phòng, Số 5B/55, Huỳnh Thúc Kháng, Phường Láng Hạ, Quận Đống Đa, Hà Nội</p>
-					<p>Tel: (84-4) 3.775.4334 - Fax: (84-4) 3512 1804</p>
+					{{ Common::objectLanguage('Contact', 1, getLang())->description }}
 				</div>
 			</div>
 			<div class="col-sm-6">

@@ -4,7 +4,7 @@
 			<div class="col-sm-4">
 				<h3>{{ trans('captions.menu') }}</h3>
 				<ul class="footerMenu">
-					<li><a href="">Trang chủ</a></li>
+					<li><a href="{{ url('/') }}">Trang chủ</a></li>
 					<li><a href="">Giới thiệu</a></li>
 					<li><a href="">Tin tức</a></li>
 					<li><a href="">Tuyển dụng</a></li>
@@ -21,9 +21,7 @@
 			<div class="col-sm-4">
 				<h3>{{ trans('captions.address') }}</h3>
 				<div class="footerAddress">
-					<p>Công ty Cổ phần truyền thông ABC</p>
-					<p>Địa chỉ: P501, Tầng 5, Tòa nhà văn phòng, Số 5B/55, Huỳnh Thúc Kháng, Phường Láng Hạ, Quận Đống Đa, Hà Nội</p>
-					<p>Tel: (84-4) 3.775.4334 - Fax: (84-4) 3512 1804</p>
+					{{ Common::objectLanguage('Contact', 1, getLang())->description }}
 				</div>
 			</div>
 		</div>
