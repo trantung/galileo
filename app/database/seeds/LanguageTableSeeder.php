@@ -50,6 +50,27 @@ class LanguageTableSeeder extends Seeder {
 			'relate_id' => 2,
 			'status' => 2,
 		]);
+		AdminLanguage::create([
+			'model_name'=> 'Introduce',
+			'model_id'=> 1,
+			'relate_name' => 'Introduce',
+			'relate_id' => 2,
+			'status' => 2,
+		]);
+		AdminLanguage::create([
+			'model_name'=> 'Introduce',
+			'model_id'=> 3,
+			'relate_name' => 'Introduce',
+			'relate_id' => 4,
+			'status' => 2,
+		]);
+		AdminLanguage::create([
+			'model_name'=> 'Introduce',
+			'model_id'=> 5,
+			'relate_name' => 'Introduce',
+			'relate_id' => 6,
+			'status' => 2,
+		]);
 
 	}
 
