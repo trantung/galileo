@@ -16,5 +16,25 @@ class Common {
 	{
 		return $modelName::find($modelId)->$value;
 	}
+	public static function getIdEn($id, $modelName)
+	{
+		$en = self::getObject($id, $modelName);
+		if ($en) {
+			$idEn = $en->relate_id;
+			return $idEn;
+		}
+		return null;
+	}
+	public static function deleteLanguage($id, $modelName)
+	{
+		$relateId = self::getIdEn($id, $modelName);
 
+		if ($relateId) {
+			$modelName::find($relateId)->delete();
+			$lang = AdminLanguage::where('model_name', $modelName)
+				->where('model_id', $id);
+			$lang->delete();
+		}
+		$modelName::find($id)->delete();
+	}
 }

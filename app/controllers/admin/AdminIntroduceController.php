@@ -127,15 +127,7 @@ class AdminIntroduceController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		$en = AdminLanguage::where('model_name', 'Introduce')
-			->where('model_id', $id)
-			->first();
-		if ($en) {
-			$idEn = $en->relate_id;
-		}
-		CommonNormal::delete($id);
-		CommonNormal::delete($idEn);
-		$en->delete();
+		Common::deleteLanguage($id, 'Introduce');
 		return Redirect::action('AdminIntroduceController@index');
 	}
 

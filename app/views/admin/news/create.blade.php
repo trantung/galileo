@@ -15,10 +15,16 @@
 			{{ Form::open(array('action' => array('NewsController@store'), 'files'=> true)) }}
 				<div class="box-body">
 					<div class="form-group">
-						<label for="title">Tiêu đề</label>
+						<label for="title">Tiêu đề Vietnamese</label>
 						<div class="row">
 							<div class="col-sm-6">
-							   {{ Form::text('name', null , textParentCategory('Tiêu đề tin')) }}
+							   {{ Form::text('name', null , textParentCategory('Tiêu đề VietNamese')) }}
+							</div>
+						</div>
+						<label for="title">Tiêu đề English</label>
+						<div class="row">
+							<div class="col-sm-6">
+							   {{ Form::text('en_name', null , textParentCategory('Tiêu đề English')) }}
 							</div>
 						</div>
 					</div>

@@ -250,5 +250,13 @@ function returnObjectLanguage($langObject, $lang, $modelName)
 		return $modelName::find($langObject->relate_id);
 	}
 	// return $modelName::find($langObject->model_id);
-	
+}
+function getNameStatus($status)
+{
+	if ($status == 1) {
+		return 'Không hiển thị';
+	}
+	if ($status == 2) {
+		return 'Hiển thị';
+	}
 }

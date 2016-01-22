@@ -26,35 +26,32 @@
 		  <table class="table table-hover">
 			<tr>
 			  <th>ID</th>
-			  <th>Tên thể loai</th>
-			  <th style="width:200px;">&nbsp;</th>
+			  <th>Tên Vietnamese</th>
+			  <th>Tên English</th>
+			  <th>Vị trí sắp xếp</th>
+			  <th>Hiển thị trên content</th>
+			  <th style="width:200px;">Action</th>
 			</tr>
-			 @foreach($inputNewType as $newstype)
-			<tr>
-			  <td>{{ $newstype->id }}</td>
-			  <td>{{ $newstype->name }}</td>
-			  <td>
-				<a href="{{ action('NewsTypeController@edit', $newstype->id) }}" class="btn btn-primary">Sửa</a>
-				{{ Form::open(array('method'=>'DELETE', 'action' => array('NewsTypeController@destroy', $newstype->id), 'style' => 'display: inline-block;')) }}
-				<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-				{{ Form::close() }}
-			  </td>
-
-			</tr>
-			 @endforeach
+			@foreach($inputNewType as $value)
+				<tr>
+				  <td>{{ returnObjectLanguage($value, 'vi', 'TypeNew')->id }}</td>
+				  <td>{{ returnObjectLanguage($value, 'vi', 'TypeNew')->name }}</td>
+				  <td>{{ returnObjectLanguage($value, 'en', 'TypeNew')->name }}</td>
+				  <td>{{ $value->position }}</td>
+				  <td>{{ getNameStatus($value->status) }}</td>
+				  <td>
+					<a href="{{ action('NewsTypeController@edit', returnObjectLanguage($value, 'vi', 'TypeNew')->id) }}" class="btn btn-primary">Sửa</a>
+					{{ Form::open(array('method'=>'DELETE', 'action' => array('NewsTypeController@destroy', returnObjectLanguage($value, 'vi', 'TypeNew')->id), 'style' => 'display: inline-block;')) }}
+					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+					{{ Form::close() }}
+				  </td>
+				</tr>
+			@endforeach
 		  </table>
 		</div>
 		<!-- /.box-body -->
 	  </div>
 	  <!-- /.box -->
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-xs-12">
-		<ul class="pagination">
-		{{ $inputNewType->appends(Request::except('page'))->links() }}
-		</ul>
 	</div>
 </div>
 

@@ -9,8 +9,7 @@ class NewsTypeController extends AdminController {
 	 */
 	public function index()
 	{
-		$inputNewType = TypeNew::orderBy('id', 'asc')->paginate(PAGINATE);
-
+		$inputNewType = AdminLanguage::where('model_name', 'TypeNew')->orderBy('position', 'asc')->get();
 		return View::make('admin.typenew.index')->with(compact('inputNewType'));
 	}
 
@@ -34,7 +33,8 @@ class NewsTypeController extends AdminController {
 	public function store()
 	{
 		$rules = array(
-			'name'   => 'required'
+			'name'   => 'required',
+			'position' => 'required|integer|min: 1'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -43,14 +43,17 @@ class NewsTypeController extends AdminController {
 	            ->withErrors($validator)
 	            ->withInput(Input::except('name'));
         } else {
-        	$inputNameTypeNew = Input::only('name');
-			$id = CommonNormal::create($inputNameTypeNew);
-
-			//insert new record into languages table
-			//model_id = $id, model_name = TypeNew
-			// $inputLanguage = ['model_id' => $id, 'model_name' => 'TypeNew'];
-			// CommonLanguage::create($inputLanguage);
-			
+        	$viInput = Input::only('name');
+			$id = CommonNormal::create($viInput);
+			$enInput['name'] = Input::get('en_name');
+			$enId = CommonNormal::create($enInput);
+			$language['model_name'] = 'TypeNew';
+			$language['relate_name'] = 'TypeNew';
+			$language['model_id'] = $id;
+			$language['relate_id'] = $enId;
+			$language['status'] = Input::get('status');
+			$language['position'] = Input::get('position');
+			AdminLanguage::create($language);
 			return Redirect::action('NewsTypeController@index');
         }
 	}
@@ -76,7 +79,7 @@ class NewsTypeController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$inputTypeNew = TypeNew::find($id);
+		$inputNewType = AdminLanguage::where('model_name', 'TypeNew')->orderBy('position', 'asc')->get();
 		return View::make('admin.typenew.edit')->with(compact('inputTypeNew'));
 	}
 
@@ -113,7 +116,8 @@ class NewsTypeController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		CommonNormal::delete($id);
+		AdminNew::where('type_id', $id)->delete();
+		Common::deleteLanguage($id, 'TypeNew');
 		return Redirect::action('NewsTypeController@index');
 	}
 
