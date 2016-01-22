@@ -28,15 +28,20 @@
 					<label for="name">Lat</label>
 					<div class="row">
 						<div class="col-sm-6">
-						   {{ Form::text('lat', Common::objectLanguage('Contact', $id, 'vi')->lat, textParentCategory('Lat')) }}
+							<input class="form-control" id="latitude" value="{{ Common::objectLanguage('Contact', $id, 'vi')->lat }}" name="lat" required>
+
 						</div>
 					</div>
 					<label for="name">Long</label>
 					<div class="row">
 						<div class="col-sm-6">
-						   {{ Form::text('long', Common::objectLanguage('Contact', $id, 'vi')->long, textParentCategory('Long')) }}
+							<input class="form-control" id="longitude" value="{{ Common::objectLanguage('Contact', $id, 'vi')->long }}" name="long" required>
+
 						</div>
 					</div>
+					<div class = "form-group">
+	                    <div id="mapview" style="width:100%;height:500px"></div>
+	                </div>
 					<div class="form-group">
 						<label for="name">Trạng thái</label>
 						<div class="row">
@@ -57,4 +62,5 @@
 	</div>
 </div>
 @include('admin.common.ckeditor')
+@include('googlemap_script')
 @stop

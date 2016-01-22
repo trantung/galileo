@@ -52,5 +52,5 @@
 		</div>
 	</div>
 </div>
-@include('site.common.googlemap_script')
+@include('googlemap_script')
 @stop
