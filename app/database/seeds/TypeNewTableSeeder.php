@@ -5,16 +5,20 @@ class TypeNewTableSeeder extends Seeder {
 	public function run()
 	{
 		TypeNew::create([
-			'name'=> 'share',
-			'slug'=> 'share'
+			'name'=> 'Giói thiệu',
+			'slug'=> 'gioi-thieu'
 		]);
 		TypeNew::create([
-			'name'=> 'news',
-			'slug'=> 'news'
+			'name'=> 'About-us',
+			'slug'=> 'about-us'
 		]);
 		TypeNew::create([
-			'name'=> 'view',
-			'slug'=> 'view'
+			'name'=> 'Tuyển dụng',
+			'slug'=> 'tuyen-dung'
+		]);
+		TypeNew::create([
+			'name'=> 'Carrier',
+			'slug'=> 'carrier'
 		]);
 	}
 
