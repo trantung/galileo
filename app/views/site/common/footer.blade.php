@@ -4,7 +4,7 @@
 			<div class="col-sm-4">
 				<h3>{{ trans('captions.menu') }}</h3>
 				<ul class="footerMenu">
-					<li {{ checkActive() }}><a href="{{ url('/') }}">{{ trans('captions.home') }}</a></li>
+					<li {{ checkActive() }}><a href="{{ action('SiteIndexController@index') }}">{{ trans('captions.home') }}</a></li>
 					<li {{ checkActive(LaravelLocalization::transRoute('routes.about')) }}><a href="{{ action('AboutController@index') }}">{{ trans('captions.aboutus') }}</a></li>
 					<li {{ checkActive('tin-tuc') }}><a href="./">Tin tức</a></li>
 					<li {{ checkActive('tuyen-dung') }}><a href="./">Tuyển dụng</a></li>
