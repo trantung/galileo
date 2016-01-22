@@ -275,3 +275,11 @@ function getLang()
 	}
 	return $lang;
 }
+function getTypeLanguage($vi, $en)
+{
+	$lang = LaravelLocalization::setLocale();
+	if ($lang != LANG_EN) {
+		return $vi;
+	}
+	return $en;
+}
