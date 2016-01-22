@@ -8,7 +8,7 @@ class AdminSlide extends Eloquent
 {
 	use SoftDeletingTrait;
     protected $table = 'slide';
-    protected $fillable = ['name', 'description', 'link', 'type'];
+    protected $fillable = ['name', 'description', 'link', 'type', 'image_url'];
     protected $dates = ['deleted_at'];
 
 }

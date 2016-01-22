@@ -19,6 +19,7 @@ define('UPLOADIMG', '/images');
 
 //url upload news
 define('UPLOAD_NEWS', '/news');
+define('UPLOAD_SLIDE', '/slide');
 //folder upload image facebook
 define('FOLDER_SEO_NEWS', 'fb_news');
 define('FOLDER_SEO', 'seo');

@@ -28,19 +28,10 @@
 				</div>
 
 				<div class="form-group">
-					<label for="name">Description</label>
-					<div class="row">
-						<div class="col-sm-6">
-							{{ Form::text('description', $slide->description , textParentCategory('Mô tả')) }}
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group">
 					<label for="name">Type</label>
 					<div class="row">
 						<div class="col-sm-6">
-						   {{ Form::select('type', [1 => 'Banner', 2 => 'Đối tác']) }}
+						   {{ Form::select('type', [SLIDE_TOP => 'Banner', SLIDE_BOTTOM => 'Đối tác'], $slide->type, array('class' => 'form-control')) }}
 						</div>
 					</div>
 				</div>
@@ -53,29 +44,15 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="form-group">
-					<label for="name">Chọn list ảnh mới, xoá hết ảnh cũ</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ Form::file('image_url[]', array('id' => 'image_url', 'multiple' => true)) }}
+							<label for="name">Upload ảnh</label>
+							{{ Form::file('image_url') }}
+							<img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $slide->id . '/' . $slide->image_url) }}" ,width="100%", height="100%"  />
 						</div>
 					</div>
-				</div>
-
-				<div class="form-group">
-					@foreach($slide->images as $key => $image)
-						<label for="name">Image thứ {{$key + 1}}</label>
-						<div class="row">
-							<div class="col-sm-6">
-								<label for="name">Đổi ảnh</label>
-								{{ Form::file('image[' .$image->id. ']', array('id' => 'image_url')) }}
-								<img src="{{ url(UPLOAD_IMAGE_SLIDE . '/image'. '/' . $slide->id . '/' . $image->image_url) }}" ,width="100px", height="100px"  />
-		                    	<a href="javascript:;" onclick="deleteImageRelate()" data-id="{{ $image->id }}" class="image_relate btn btn-danger">Xoá</a>
-							</div>
-						</div>
-						<div>
-	                @endforeach
+					<div>
 				</div>
 
 			  <div class="box-footer">

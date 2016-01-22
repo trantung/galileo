@@ -60,7 +60,7 @@ class NewsController extends AdminController {
 			$enId = CommonNormal::create($enInput);
 
 			//upload image new
-			$inputImg['image_url'] = CommonSeo::uploadImage($viId, UPLOADIMG, 'image_url',UPLOAD_NEWS);
+			$inputImg['image_url'] = CommonUpload::uploadImage($viId, UPLOADIMG, 'image_url',UPLOAD_NEWS);
 			CommonNormal::update($viId, ['image_url' => $inputImg['image_url']] );
 			CommonNormal::update($enId, ['image_url' => $inputImg['image_url']] );
 
@@ -77,7 +77,7 @@ class NewsController extends AdminController {
 			AdminLanguage::create($language);
 
 			// insert ceo
-			// CommonSeo::createSeo('AdminNew', $id, FOLDER_SEO_NEWS);
+			// CommonUpload::createSeo('AdminNew', $id, FOLDER_SEO_NEWS);
 
 			return Redirect::action('NewsController@index');
         }
@@ -144,7 +144,7 @@ class NewsController extends AdminController {
 
 					//update upload image
 					$imageNews = AdminNew::find($id);
-					$input['image_url'] = CommonSeo::uploadImage($id, UPLOADIMG, 'image_url',UPLOAD_NEWS,$imageNews->image_url);
+					$input['image_url'] = CommonUpload::uploadImage($id, UPLOADIMG, 'image_url',UPLOAD_NEWS,$imageNews->image_url);
 					CommonNormal::update($id, ['image_url' => $input['image_url']] );
 					CommonNormal::update($relateUpdateId, ['image_url' => $input['image_url']] );
 				}

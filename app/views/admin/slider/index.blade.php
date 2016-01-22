@@ -18,14 +18,18 @@
 	  	<th>Tên</th>
 	  	<th>Type</th>
 	  	<th>Đường dẫn</th>
+	  	<th>Ảnh</th>
 	  	<th style="width:200px;">Action</th>
 	</tr>
 		@foreach($slides as $value)
 			<tr>
 			  	<td>{{ $value->id }}</td>
 				<td>{{ $value->name }}</td>
-				<td>{{ $value->type }}</td>
+				<td>{{ CommonUpload::getNameTypeSlide($value->type) }}</td>
 				<td>{{ $value->link }}</td>
+				<td>
+					<img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $value->id . '/' . $value->image_url) }}" ,width="100%", height="100%"  />
+				</td>
 				<td>
 				<a href="{{  action('AdminSlideController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('AdminSlideController@destroy', $value->id), 'style' => 'display: inline-block;')) }}

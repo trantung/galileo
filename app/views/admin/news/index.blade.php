@@ -43,9 +43,9 @@
 			  <td>{{ TypeNew::find(returnObjectLanguage($value, 'vi', 'AdminNew')->type_new_id)->name }}</td>
 			  <td>{{ getNameStatus($value->status) }}</td>
 			  <td>
-				<a href="{{  action('NewsController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+				<a href="{{  action('NewsController@edit', returnObjectLanguage($value, 'vi', 'AdminNew')->id) }}" class="btn btn-primary">Sửa</a>
 				@if(!Admin::isSeo())
-				{{ Form::open(array('method'=>'DELETE', 'action' => array('NewsController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+				{{ Form::open(array('method'=>'DELETE', 'action' => array('NewsController@destroy', returnObjectLanguage($value, 'vi', 'AdminNew')->id), 'style' => 'display: inline-block;')) }}
 					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 				{{ Form::close() }}
 				@endif
