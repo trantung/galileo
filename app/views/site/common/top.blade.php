@@ -17,10 +17,10 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li {{ checkActive() }}><a href="{{ url('/') }}">Trang chủ</a></li>
-						<li {{ checkActive(LaravelLocalization::transRoute('routes.about')) }}><a href="{{ LaravelLocalization::setLocale() . '/' . LaravelLocalization::transRoute('routes.about') }}">Giới thiệu</a></li>
+						<li {{ checkActive(LaravelLocalization::transRoute('routes.about')) }}><a href="{{ action('AboutController@index') }}">Giới thiệu</a></li>
 						<li {{ checkActive('tin-tuc') }}><a href="./">Tin tức</a></li>
 						<li {{ checkActive('tuyen-dung') }}><a href="./">Tuyển dụng</a></li>
-						<li {{ checkActive(LaravelLocalization::transRoute('routes.contact')) }}><a href="{{ LaravelLocalization::setLocale() . '/' . LaravelLocalization::transRoute('routes.contact') }}">Liên hệ</a></li>
+						<li {{ checkActive(LaravelLocalization::transRoute('routes.contact')) }}><a href="{{ action('ContactController@index') }}">Liên hệ</a></li>
 					</ul>
 				</div>
 				<div class="language_bar_chooser">
