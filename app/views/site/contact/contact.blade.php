@@ -13,7 +13,7 @@
 				<input id = "latitude" type="hidden" value="0">
 	            <input id = "longitude" type="hidden" value="0">
                 <div class="map">
-                    <div id="mapview" style="height: 400px; width: 100%; max-width: 100%;"></div>
+                    <div id="mapview" style="height: 400px; width: 800px; max-width: 100%;"></div>
                 </div>
 			</div>
 		</div>
@@ -31,7 +31,8 @@
 				<h2>{{ trans('captions.contactform') }}</h2>
 				<h3>{{ trans('captions.contactus') }}</h3>
 				<div class="contact-form">
-					{{ Form::open(array('action' => 'ContactController@store', 'method' => 'POST', 'class' => 'form-horizontal')) }}
+					@include('message')
+					{{ Form::open(array('action' => 'ContactController@contact', 'method' => 'POST', 'class' => 'form-horizontal')) }}
 						<div class="row">
 							<div class="col-sm-4">
 								{{ Form::text('name', '', array('placeholder' => trans('captions.name'), 'class' => 'contact-input')) }}
