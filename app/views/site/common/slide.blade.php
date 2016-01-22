@@ -4,7 +4,7 @@
 <div class="swiper-container">
     <div class="swiper-wrapper">
         @foreach($slide as $image)
-        <div class="swiper-slide"><img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $image->id . '/' . $image->image_url) }}" /></div>
+        <div class="swiper-slide"><a href="{{ $image->link }}"><img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $image->id . '/' . $image->image_url) }}" /></a></div>
         @endforeach
     </div>
     <!-- Add Pagination -->
