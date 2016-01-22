@@ -9,7 +9,7 @@
 			<li><a href=""><i class="fa fa-newspaper-o"></i> <span>Giới thiệu</span></a></li>
 			<li><a href="{{ action('DesContentController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Giới thiệu trang chủ</span></a></li>
 			<li><a href="{{ action('AdminIntroduceController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Introduce</span></a></li>
-			<li><a href="{{ action('ContactController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Liên hệ</span></a></li>
+			<li><a href="{{ action('AdminContactController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Liên hệ</span></a></li>
 			<li><a href=""><i class="fa fa-newspaper-o"></i> <span>Feedback</span></a></li>
 			<li><a href="{{ action('AdminSlideController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Slide</span></a></li>
 			<li><a href="{{ action('BottomTextController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Text bottom</span></a></li>
