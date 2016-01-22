@@ -101,8 +101,14 @@ class AdminContactController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Customer::find($id)->delete();
+        return Redirect::action('AdminContactController@feedback');
 	}
 
+	public function feedback()
+	{
+		$data = Customer::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.contact.index')->with(compact('data'));
+	}
 
 }
