@@ -44,6 +44,12 @@ class CommonNormal
 		if ($name == 'introduce') {
 			return 'Introduce';
 		}
+		if ($name == 'bottomtext') {
+			return 'BottomText';
+		}
+		if ($name == 'contact') {
+			return 'Contact';
+		}
 
 	}
 }
