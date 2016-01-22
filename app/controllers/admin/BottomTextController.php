@@ -9,7 +9,7 @@ class BottomTextController extends AdminController {
 	 */
 	public function index()
 	{
-		//
+		return $this->edit(1);
 	}
 
 
@@ -55,7 +55,7 @@ class BottomTextController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		return View::make('admin.bottomtext.edit')->with(compact('id'));
 	}
 
 
@@ -67,7 +67,29 @@ class BottomTextController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+            'title'   => 'required',
+            'en_title' => 'required',
+        );
+        $input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('BottomTextController@edit', $id)
+	            ->withErrors($validator);
+        } else {
+        	$inputUpdateMain = Input::only('title', 'description', 'link');
+        	$relateUpdateId = Common::getValueLanguage('BottomText', $id, 'relate_id');
+        	$inputUpdateRelate['title'] = $input['en_title'];
+        	$inputUpdateRelate['description'] = $input['en_description'];
+        	$inputUpdateRelate['link'] = $input['link'];
+        	CommonNormal::update($id,$inputUpdateMain);
+        	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
+
+        	$inputLanguage = Input::only('status');
+        	AdminLanguage::where('model_name', 'BottomText')->where('model_id', $id)->where('relate_id', $relateUpdateId)->update($inputLanguage);
+
+			return Redirect::action('BottomTextController@update', $id);
+        }
 	}
 
 
