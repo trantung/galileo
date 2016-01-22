@@ -31,7 +31,8 @@
 				<h2>{{ trans('captions.contactform') }}</h2>
 				<h3>{{ trans('captions.contactus') }}</h3>
 				<div class="contact-form">
-					{{ Form::open(array('action' => 'ContactController@store', 'method' => 'POST', 'class' => 'form-horizontal')) }}
+					@include('message')
+					{{ Form::open(array('action' => 'ContactController@contact', 'method' => 'POST', 'class' => 'form-horizontal')) }}
 						<div class="row">
 							<div class="col-sm-4">
 								{{ Form::text('name', '', array('placeholder' => trans('captions.name'), 'class' => 'contact-input')) }}

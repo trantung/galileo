@@ -80,4 +80,14 @@ class ContactController extends SiteController {
 		//
 	}
 
+	public function contact()
+	{
+		$input = Input::except('_token');
+		$id = Customer::create($input)->id;
+		if($id) {
+			return Redirect::action('ContactController@index')->with('message', 'Đã gửi thành công');
+		}
+		return Redirect::action('ContactController@index')->with('message', 'Gửi thất bại');
+	}
+
 }

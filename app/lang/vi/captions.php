@@ -28,4 +28,12 @@ return array(
 	'message' => 'Tin nhắn',
 	'submit' => 'Gửi đi',
 
+	'aboutus' => 'Giới thiệu',
+	'ourhistory' => 'Lịch sử',
+	'orientations' => 'Định hướng',
+
+	'aboutus2' => 'Về chúng tôi',
+	'ourhistory2' => 'Hành trình',
+	'orientations2' => 'Triển vọng',
+
 );

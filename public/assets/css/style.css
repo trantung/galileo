@@ -323,20 +323,22 @@ body {
 .contact {
 
 }
-.contact h2 {
+.contact h2,
+.about h2 {
     color: #306e79;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 0;
     margin-top: 20px;
     text-align: center;
     text-transform: uppercase;
 }
-.contact h3 {
+.contact h3,
+.about h3 {
     color: #ccc;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 15px;
     text-align: center;
     text-transform: uppercase;
 }
@@ -357,6 +359,60 @@ body {
     padding: 10px;
     width: 250px;
 }
+
+.about {
+
+}
+.about1,
+.about2,
+.about3 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.about1 {
+
+}
+.about1 strong,
+.about3 strong {
+    color: #306E79;
+    text-transform: uppercase;
+    font-size: 16px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.about1 img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+.about2 {
+
+}
+.about2 table {
+    border: none;
+    width: 100%;
+    max-width: 100%;
+}
+.about2 table tr td {
+    padding-bottom: 15px;
+}
+.about2 table tr td.about2-1 {
+    color: #306E79;
+    width: 50px;
+    vertical-align: top;
+    font-weight: bold;
+    text-align: right;
+    font-size: 16px;
+}
+.about2 table tr td.about2-2 {
+    vertical-align: top;
+    padding-left: 10px;
+}
+.about3 {
+
+}
+
 
 @media (min-width: 670px) {
     .grid-item {

@@ -28,4 +28,12 @@ return array(
 	'message' => 'Message',
 	'submit' => 'Submit',
 
+	'aboutus' => 'About us',
+	'ourhistory' => 'Our history',
+	'orientations' => 'Orientations',
+
+	'aboutus2' => 'Who we are',
+	'ourhistory2' => 'Our way',
+	'orientations2' => 'Prospects',
+
 );
