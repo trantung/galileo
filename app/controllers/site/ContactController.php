@@ -1,7 +1,6 @@
-
 <?php
 
-class AboutController extends SiteController {
+class ContactController extends SiteController {
 
 	/**
 	 * Display a listing of the resource.
@@ -10,8 +9,7 @@ class AboutController extends SiteController {
 	 */
 	public function index()
 	{
-		$lang = LaravelLocalization::setLocale();
-		dd($lang);
+		return View::make('site.contact.contact');
 	}
 
 	/**
@@ -42,7 +40,7 @@ class AboutController extends SiteController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($slug)
+	public function show($id)
 	{
 		
 	}
@@ -81,6 +79,5 @@ class AboutController extends SiteController {
 	{
 		//
 	}
-
 
 }

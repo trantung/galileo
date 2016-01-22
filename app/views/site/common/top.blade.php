@@ -10,7 +10,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="logo" href="{{ url('/') }}">
-					<img src="/assets/images/logo.png" />
+					<img src="{{ url('/assets/images/logo.png') }}" />
 				</a>
 			</div>
 			<div class="col-sm-9">

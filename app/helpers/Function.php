@@ -198,10 +198,17 @@ function remoteFileExists($url) {
 
 function checkActive($uri = '')
 {
-	$segment = Request::segment(1);
-	$segment2 = Request::segment(2);
-	if ($segment == $uri || $segment2 == $uri) {
-		return 'class = "active"';
+	$lang = LaravelLocalization::setLocale();
+	if($lang == NULL) {
+		$segment = Request::segment(1);
+		if ($segment == $uri) {
+			return 'class = "active"';
+		}
+	} else {
+		$segment2 = Request::segment(2);
+		if ($segment2 == $uri) {
+			return 'class = "active"';
+		}
 	}
 	return;
 }

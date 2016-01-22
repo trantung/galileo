@@ -17,4 +17,15 @@ return array(
 	'follow' => 'Follow Us',
 	'address' => 'Địa chỉ',
 
+	'contact' => 'Liên hệ',
+	'howtofind' => 'How to find',
+	'contactform' => 'Liên hệ',
+	'contactus' => 'Liên hệ với chúng tôi',
+
+	'name' => 'Tên',
+	'email' => 'Email',
+	'phone' => 'Điện thoại',
+	'message' => 'Tin nhắn',
+	'submit' => 'Gửi đi',
+
 );
