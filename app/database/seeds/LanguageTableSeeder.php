@@ -43,6 +43,13 @@ class LanguageTableSeeder extends Seeder {
 			'relate_id' => 2,
 			'status' => 2,
 		]);
+		AdminLanguage::create([
+			'model_name'=> 'Contact',
+			'model_id'=> 1,
+			'relate_name' => 'Contact',
+			'relate_id' => 2,
+			'status' => 2,
+		]);
 
 	}
 
