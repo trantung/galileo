@@ -40,11 +40,11 @@ class Common {
 
 	public static function objectLanguage($modelName, $modelId, $lang)
 	{
-		if ($lang == 'vi') {
+		if ($lang == LANG_VI) {
 			return $modelName::find($modelId);
 
 		}
-		if ($lang == 'en') {
+		if ($lang == LANG_EN) {
 			$objectLanguage = AdminLanguage::where('model_name', $modelName)
 				->where('model_id', $modelId)
 				->first();
@@ -59,6 +59,18 @@ class Common {
 			->where('model_id', $modelId)
 			->first();
 		return $objectLanguage->$value;
+	}
+	public static function getObjectLanguage($modelName, $lang)
+	{
+		if ($lang == LANG_VI) {
+			$objectLanguage = AdminLanguage::where('model_name', $modelName)
+				->lists('model_id');
+		}
+		if ($lang == LANG_EN) {
+			$objectLanguage = AdminLanguage::where('model_name', $modelName)
+				->lists('relate_id');
+		}
+		return $objectLanguage;
 	}
 	
 }
