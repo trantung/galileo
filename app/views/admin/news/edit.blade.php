@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Cập nhật tin' }}
+{{ $title='Sửa tin' }}
 @stop
 
 @section('content')
@@ -12,71 +12,84 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
 			<!-- form start -->
-			{{ Form::open(array('action' => array('NewsController@update', $inputNew->id), 'method' => 'PUT', 'files' => true)) }}
-			<div class="box-body">
-				<div class="form-group">
-					<label for="title">Tiêu đề</label>
+			{{ Form::open(array('action' => array('NewsController@update', $id), 'method' => 'PUT', 'files' => true)) }}
+				<div class="box-body">
+					<div class="form-group">
+						<label for="title">Tiêu đề Vietnamese</label>
+						<div class="row">
+							<div class="col-sm-6">
+							   {{ Form::text('name', Common::objectLanguage('AdminNew', $id, 'vi')->name , textParentCategory('Tiêu đề VietNamese')) }}
+							</div>
+						</div>
+						<label for="title">Tiêu đề English</label>
+						<div class="row">
+							<div class="col-sm-6">
+							   {{ Form::text('en_name', Common::objectLanguage('AdminNew', $id, 'en')->name , textParentCategory('Tiêu đề English')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name">Thể loại tin</label>
+						<div class="row">
+							<div class="col-sm-6">
+							   {{  Form::select('type_new_id', NewsManager::getTypeNews(), null, array('class' => 'form-control' )) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name">Trạng thái</label>
+						<div class="row">
+							<div class="col-sm-6">
+							   {{ Form::select('status', [ 2=> 'Hiển thị', 1=> 'Không hiển thị'], Common::getValueLanguage('AdminNew', $id, 'status'), array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+					<label for="name">Vị trí sắp xếp</label>
 					<div class="row">
 						<div class="col-sm-6">
-						   {{ Form::text('name', $inputNew->name , textParentCategory('Tiêu đề tin')) }}
+						   {{ Form::text('position', Common::getValueLanguage('AdminNew', $id, 'position'), textParentCategory('Vị trí sắp xếp(số nguyên dương)')) }}
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="name">Thể loại tin</label>
-					<div class="row">
-						<div class="col-sm-6">
-							@if(!Admin::isSeo()) 
-						   {{  Form::select('type_new_id', returnList('TypeNew'), $inputNew->type_new_id ,array('class' => 'form-control' )) }}
-						   	@else
-						   	{{  Form::select('type_new_id', returnList('TypeNew'), $inputNew->type_new_id ,array('class' => 'form-control', 'disabled'=>'true' )) }}
-						   	@endif
+					<div class="form-group">
+						<label for="image_url">Upload ảnh tin</label>
+						<div class="row">
+							<div class="col-sm-6">
+								@if(Admin::isSeo())
+									{{ Form::file('image_url', array('disabled' => 'true' )) }}
+									<img class="image_fb" src="{{ url(UPLOADIMG . '/news'.'/'. $id . '/' . Common::objectLanguage('AdminNew', $id, 'vi')->image_url) }}" />
+								@else
+									{{ Form::file('image_url') }}
+									<img class="image_fb" src="{{ url(UPLOADIMG . '/news'.'/'. $id . '/' . Common::objectLanguage('AdminNew', $id, 'vi')->image_url) }}" />
+								@endif
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="image_url">Upload ảnh tin</label>
-					<div class="row">
-						<div class="col-sm-6">
-							@if(Admin::isSeo())         
-							{{ Form::file('image_url', array('disabled' => 'true' )) }}
-							<img class="image_fb" src="{{ url(UPLOADIMG . '/news'.'/'. $inputNew->id . '/' . $inputNew->image_url) }}" />
-							@else
-							{{ Form::file('image_url') }}
-							<img class="image_fb" src="{{ url(UPLOADIMG . '/news'.'/'. $inputNew->id . '/' . $inputNew->image_url) }}" />
-							@endif
+					<div class="form-group">
+						<label for="description">Nội dung tin Vietnamese</label>
+						<div class="row">
+							<div class="col-sm-12">
+							   {{ Form::textarea('description', Common::objectLanguage('AdminNew', $id, 'vi')->description , array('class' => 'form-control',"rows"=>6, 'id' => 'editor1')) }}
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="description">Nội dung tin</label>
-					<div class="row">
-						<div class="col-sm-12">	 
-							@if(!Admin::isSeo())                 	
-						   	{{ Form::textarea('description', $inputNew->description  , array('class' => 'form-control',"rows"=>6, 'id' => 'editor1'  )) }}
-						   	@else                 	
-						   	{{ Form::textarea('description', $inputNew->description  , array('class' => 'form-control',"rows"=>6, 'id' => 'editor1', 'disabled' =>'true'  )) }}
-						   	@endif
+					<div>
+						<label for="description">Nội dung tin English</label>
+						<div class="row">
+							<div class="col-sm-12">
+							   {{ Form::textarea('en_description', Common::objectLanguage('AdminNew', $id, 'en')->description , array('class' => 'form-control',"rows"=>6, 'id' => 'editor2')) }}
+							</div>
 						</div>
 					</div>
-				</div>
-				{{-- <div class="row">
-					<div class="col-sm-6">
-						<hr />
-						<h1>SEO META</h1> --}}
-						{{-- include common/meta.blade.php --}}
-						{{-- @include('admin.common.meta', array('inputSeo' => $inputSeo, 'pathToImageSeo' => UPLOADIMG . '/'.FOLDER_SEO_NEWS.'/'. $inputNew->id . '/')) --}}
-					{{-- </div>
-				</div> --}}
 
-			  <!-- /.box-body -->
+					<!-- /.box-body -->
 
-			  <div class="box-footer">
-				{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
-			  </div>
+					<div class="box-footer">
+					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
+					</div>
+				</div>
 			{{ Form::close() }}
-		  </div>
-		  <!-- /.box -->
+		  	<!-- /.box -->
+	  	</div>
 	</div>
 </div>
 @include('admin.common.ckeditor')

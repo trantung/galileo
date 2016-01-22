@@ -32,8 +32,22 @@
 						<label for="name">Thể loại tin</label>
 						<div class="row">
 							<div class="col-sm-6">
-							   {{  Form::select('type_new_id', returnList('TypeNew'), null, array('class' => 'form-control' )) }}
+							   {{  Form::select('type_new_id', NewsManager::getTypeNews(), null, array('class' => 'form-control' )) }}
 							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name">Trạng thái</label>
+						<div class="row">
+							<div class="col-sm-6">
+							   {{ Form::select('status', [ 2=> 'Hiển thị', 1=> 'Không hiển thị'], null, array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+					<label for="name">Vị trí sắp xếp</label>
+					<div class="row">
+						<div class="col-sm-6">
+						   {{ Form::text('position', null , textParentCategory('Vị trí sắp xếp(số nguyên dương)')) }}
 						</div>
 					</div>
 					<div class="form-group">

@@ -27,15 +27,21 @@
 		  <table class="table table-hover">
 			<tr>
 			  <th>ID</th>
-			  <th>Tiêu đề</th>
+			  <th>Tên Vietnamese</th>
+			  <th>Tên English</th>
+			  <th>Vị trí sắp xếp</th>
 			  <th>Thể loại</th>
+			  <th>Hiển thị</th>
 			  <th style="width:200px;">Action</th>
 			</tr>
 			 @foreach($inputNew as $value)
 			<tr>
-			  <td>{{ $value->id }}</td>
-			  <td>{{ $value->name }}</td>
-			  <td>{{ TypeNew::find($value->type_new_id)->name }}</td>
+			  <td>{{ returnObjectLanguage($value, 'vi', 'AdminNew')->id }}</td>
+			  <td>{{ returnObjectLanguage($value, 'vi', 'AdminNew')->name }}</td>
+			  <td>{{ returnObjectLanguage($value, 'en', 'AdminNew')->name }}</td>
+			  <td>{{ $value->position }}</td>
+			  <td>{{ TypeNew::find(returnObjectLanguage($value, 'vi', 'AdminNew')->type_new_id)->name }}</td>
+			  <td>{{ getNameStatus($value->status) }}</td>
 			  <td>
 				<a href="{{  action('NewsController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 				@if(!Admin::isSeo())

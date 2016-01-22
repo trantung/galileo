@@ -12,7 +12,7 @@ function getRole($roleId) {
 	$role = array(
 		ADMIN => 'ADMIN',
 		EDITOR => 'EDITOR',
-		SEO => 'SEO',
+		// SEO => 'SEO',
 	);
 	return $role[$roleId];
 }
@@ -23,7 +23,7 @@ function selectRoleId()
 		'' => '-- Lựa chọn',
 		ADMIN => 'ADMIN',
 		EDITOR => 'EDITOR',
-		SEO => 'SEO',
+		// SEO => 'SEO',
 	);
 }
 

@@ -9,8 +9,7 @@ class NewsController extends AdminController {
 	 */
 	public function index()
 	{
-		$inputNew = AdminNew::orderBy('id', 'desc')->paginate(PAGINATE);
-
+		$inputNew = AdminLanguage::where('model_name', 'AdminNew')->orderBy('id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.news.index')->with(compact('inputNew'));
 	}
 	public function search()
@@ -40,8 +39,8 @@ class NewsController extends AdminController {
 	public function store()
 	{
 		$rules = array(
-			'name'   => 'required'
-
+			'name'   => 'required',
+			'position' => 'integer|min:1'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -50,18 +49,32 @@ class NewsController extends AdminController {
 	            ->withErrors($validator)
 	            ->withInput(Input::except('name'));
         } else {
-        	//create news
-        	// $inputNews = Input::only('type_new_id', 'name', 'description','start_date');
-        	// if($inputNews['start_date'] == '') {
-        	// 	$inputNews['start_date'] = Carbon\Carbon::now();
-        	// }
 
-        	$inputNews = Input::only('type_new_id', 'name', 'description');
-			$id = CommonNormal::create($inputNews);
+        	$viInputNews = Input::only('type_new_id', 'name', 'description');
+			$viId = CommonNormal::create($viInputNews);
+
+			$enInput['name'] = Input::get('en_name');
+			$enInput['description'] = Input::get('en_description');
+			$typeNewIdRelate = Common::getValueLanguage('TypeNew', Input::get('type_new_id'), 'relate_id');
+			$enInput['type_new_id'] = $typeNewIdRelate;
+			$enId = CommonNormal::create($enInput);
 
 			//upload image new
-			$input['image_url'] = CommonSeo::uploadImage($id, UPLOADIMG, 'image_url',UPLOAD_NEWS);
-			CommonNormal::update($id, ['image_url' => $input['image_url']] );
+			$inputImg['image_url'] = CommonSeo::uploadImage($viId, UPLOADIMG, 'image_url',UPLOAD_NEWS);
+			CommonNormal::update($viId, ['image_url' => $inputImg['image_url']] );
+			CommonNormal::update($enId, ['image_url' => $inputImg['image_url']] );
+
+			$language['model_name'] = 'AdminNew';
+			$language['relate_name'] = 'AdminNew';
+			$language['model_id'] = $viId;
+			$language['relate_id'] = $enId;
+			$language['status'] = Input::get('status');
+			if(!empty(Input::get('position'))) {
+				$language['position'] = Input::get('position');
+			} else {
+				$language['position'] = 1;
+			}
+			AdminLanguage::create($language);
 
 			// insert ceo
 			// CommonSeo::createSeo('AdminNew', $id, FOLDER_SEO_NEWS);
@@ -91,9 +104,10 @@ class NewsController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$inputNew = AdminNew::find($id);
-		$inputSeo = AdminSeo::where('model_id', $id)->where('model_name', 'AdminNew')->first();
-		return View::make('admin.news.edit')->with(compact('inputNew','inputSeo'));
+		return View::make('admin.news.edit')->with(compact('id'));
+		// $inputNew = AdminNew::find($id);
+		// $inputSeo = AdminSeo::where('model_id', $id)->where('model_name', 'AdminNew')->first();
+		// return View::make('admin.news.edit')->with(compact('inputNew','inputSeo'));
 	}
 
 
@@ -107,7 +121,8 @@ class NewsController extends AdminController {
 	{
 		if(!Admin::isSeo()){
 			$rules = array(
-				'name'   => 'required'
+				'name'   => 'required',
+				'en_name' => 'required'
 			);
 			$input = Input::except('_token');
 			$validator = Validator::make($input,$rules);
@@ -116,21 +131,25 @@ class NewsController extends AdminController {
 		            ->withErrors($validator)
 		            ->withInput(Input::except('name'));
 	        } else {
-	        	//update News
-	        	$inputNews = Input::only('type_new_id', 'name', 'description','start_date');
-	        	if($inputNews['start_date'] == '') {
-	        		$inputNews['start_date'] = Carbon\Carbon::now();
-	        	}
-				CommonNormal::update($id, $inputNews);
 
-				//update upload image
-				$imageNews = AdminNew::find($id);
-				$input['image_url'] = CommonSeo::uploadImage($id, UPLOADIMG, 'image_url',UPLOAD_NEWS,$imageNews->image_url);
-				CommonNormal::update($id, ['image_url' => $input['image_url']] );
+		        	$inputNews = Input::only('type_new_id', 'name', 'description');
+		        	$relateUpdateId = Common::getValueLanguage('AdminNew', $id, 'relate_id');
+		        	$inputUpdateRelate['name'] = $input['en_name'];
+		        	$inputUpdateRelate['description'] = $input['en_description'];
+		        	$inputUpdateRelate['type_new_id'] = Common::getValueLanguage('TypeNew', Input::get('type_new_id'), 'relate_id');
+		        	CommonNormal::update($id,$inputNews);
+		        	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
+		        	$inputLanguage = Input::only('position', 'status');
+		        	AdminLanguage::where('model_name', 'AdminNew')->where('model_id', $id)->where('relate_id', $relateUpdateId)->update($inputLanguage);
+
+					//update upload image
+					$imageNews = AdminNew::find($id);
+					$input['image_url'] = CommonSeo::uploadImage($id, UPLOADIMG, 'image_url',UPLOAD_NEWS,$imageNews->image_url);
+					CommonNormal::update($id, ['image_url' => $input['image_url']] );
+					CommonNormal::update($relateUpdateId, ['image_url' => $input['image_url']] );
 				}
         	}
 
-			CommonSeo::updateSeo('AdminNew', $id, FOLDER_SEO_NEWS);
 			return Redirect::action('NewsController@index') ;
 
 	}
@@ -144,7 +163,7 @@ class NewsController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		CommonNormal::delete($id);
+		Common::deleteLanguage($id, 'AdminNew');
 		return Redirect::action('NewsController@index') ;
 	}
 
