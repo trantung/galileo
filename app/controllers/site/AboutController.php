@@ -10,8 +10,12 @@ class AboutController extends SiteController {
 	 */
 	public function index()
 	{
-		$lang = LaravelLocalization::setLocale();
-		return View::make('site.about.showAbout');
+		$viId = AdminLanguage::where('model_name', 'TypeAboutUs')->lists('model_id');
+		$enId = AdminLanguage::where('model_name', 'TypeAboutUs')->lists('relate_id');
+		$viData = TypeAboutUs::whereIn('id', $viId)->get();
+		$enData = TypeAboutUs::whereIn('id', $enId)->get();
+
+		return View::make('site.about.showAbout')->with(compact('viData', 'enData'));
 	}
 
 	/**
