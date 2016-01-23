@@ -29,7 +29,7 @@
 				  <td>{{ $value->name }}</td>
 				  <td>{{ $value->email }}</td>
 				  <td>{{ $value->phone }}</td>
-				  <td>{{ $value->message}}</td>
+				  <td>{{ nl2br($value->message)}}</td>
 				  <td>
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('AdminContactController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
