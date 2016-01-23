@@ -47,10 +47,12 @@ class AdminTypeAboutController extends AdminController {
 	            ->withInput(Input::except('name'));
         } else {
         	$viInput = Input::only('name', 'name_shadow', 'position');
+        	$viInput['sort'] = Input::get('status');
 			$id = CommonNormal::create($viInput);
 			$enInput['name'] = Input::get('en_name');
 			$enInput['name_shadow'] = Input::get('en_name_shadow');
 			$enInput['position'] = Input::get('position');
+			$enInput['sort'] = Input::get('status');
 			$enId = CommonNormal::create($enInput);
 			$language['model_name'] = 'TypeAboutUs';
 			$language['relate_name'] = 'TypeAboutUs';
@@ -110,10 +112,12 @@ class AdminTypeAboutController extends AdminController {
 	            ->withErrors($validator);
         } else {
         	$inputUpdateMain = Input::only('name', 'name_shadow', 'position');
+        	$inputUpdateMain['sort'] = Input::get('status');
         	$relateUpdateId = Common::getValueLanguage('TypeAboutUs', $id, 'relate_id');
         	$inputUpdateRelate['name'] = $input['en_name'];
         	$inputUpdateRelate['name_shadow'] = $input['en_name_shadow'];
         	$inputUpdateRelate['position'] = $input['position'];
+        	$inputUpdateRelate['sort'] = $input['status'];
         	CommonNormal::update($id,$inputUpdateMain);
         	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
         	$inputLanguage = Input::only('position', 'status');

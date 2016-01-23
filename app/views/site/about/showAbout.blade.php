@@ -9,27 +9,43 @@
 <div class="main about">
 	<div class="container">
 		<div class="row">
-			@foreach(getTypeLanguage($viData, $enData) as $value)
 			<div class="col-sm-4">
 				<div class="about1">
-					<h2>{{ $value->name }}</h2>
-					<h3>{{ $value->name_shadow }}</h3>
-
-					@foreach(AboutUs::where('type_id', $value->id)->get() as $valueAbout)
-						{{ $valueAbout->id }}
-						@if($valueAbout->image_url)
-							<img src="{{ url(UPLOADIMG . UPLOAD_ABOUT .'/'. Common::getIdVi($valueAbout->id, 'AboutUs') . '/' . Common::objectLanguage('AboutUs', $valueAbout->id, 'vi')->image_url) }}" alt="" />
-						@endif
-						<strong>
-							{{ $valueAbout->title }}
-						</strong>
-						{{ $valueAbout->description }}
-					@endforeach
-					
+					<h2>{{ trans('captions.aboutus') }}</h2>
+					<h3>{{ trans('captions.aboutus2') }}</h3>
+					<img src="{{ url('/assets/images/game5.png') }}" alt="" />
+					<strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit</strong>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit
+					</p>
 				</div>
 			</div>
-			@endforeach
-			
+			<div class="col-sm-4">
+				<div class="about2">
+					<h2>{{ trans('captions.ourhistory') }}</h2>
+					<h3>{{ trans('captions.ourhistory2') }}</h3>
+					<table border="0">
+						<tr>
+							<td class="about2-1">2004-</td>
+							<td class="about2-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet</td>
+						</tr>
+						
+					</table>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="about3">
+					<h2>{{ trans('captions.orientations') }}</h2>
+					<h3>{{ trans('captions.orientations2') }}</h3>
+					<strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit</strong>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					</p>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
