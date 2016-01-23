@@ -415,6 +415,10 @@ body {
 
 }
 
+.newsbox {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 
 @media (min-width: 670px) {
     .grid-item {

@@ -8,7 +8,7 @@
 	@include('site.common.slide')
 	@include('site.common.content_about')
 	@include('site.common.introduce')
-	@include('site.common.service')
+	@include('site.common.newsbox')
 	@include('site.common.partner')
 	@include('site.common.bottom')
 

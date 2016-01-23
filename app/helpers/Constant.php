@@ -73,7 +73,7 @@ define('SEO_META', 'Seo_Meta');
 define('TIMELIMITED', 60);
 //define size cut off text descript
 define('SIZETEXT', '200');
-define('TEXTLENGH_DESCRIPTION', 154);
+define('TEXTLENGH_DESCRIPTION', 180);
 //define cache time
 define('CACHETIME', 2);
 //type of slide or image

@@ -283,3 +283,10 @@ function getTypeLanguage($vi, $en)
 	}
 	return $en;
 }
+
+function removeTagsHtml($text)
+{
+	$text = strip_tags($text);
+	$text = html_entity_decode($text);
+	return $text;
+}

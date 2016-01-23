@@ -74,5 +74,65 @@ class Common {
 		}
 		return $object;
 	}
+
+	public static function getObjectLanguageByStatus($modelName, $lang, $status=1)
+	{
+		if ($lang == LANG_VI) {
+			$listId = AdminLanguage::where('model_name', $modelName)
+				->where('status', $status)
+				->orderBy('position')
+				->lists('model_id');
+			$object = $modelName::whereIn('id', $listId)->get();
+		}
+		if ($lang == LANG_EN) {
+			$listId = AdminLanguage::where('model_name', $modelName)
+				->where('status', $status)
+				->orderBy('position')
+				->lists('relate_id');
+			$object = $modelName::whereIn('id', $listId)->get();
+		}
+		return $object;
+	}
 	
+	public static function getNews($type, $lang)
+	{
+		if ($lang == LANG_VI) {
+			$list = DB::table('news')
+						->join('languages', 'languages.model_id', '=', 'news.id')
+						->select('news.id', 'news.type_new_id', 'news.name'
+								, 'news.slug', 'news.description', 'news.image_url')
+						->where('languages.status', 2)
+						->whereNull('news.deleted_at')
+						->where('news.type_new_id', $type)
+						->distinct()
+						->orderBy('languages.position', 'asc')
+						->get();
+		}
+		if ($lang == LANG_EN) {
+			$list = DB::table('news')
+						->join('languages', 'languages.relate_id', '=', 'news.id')
+						->select('news.id', 'news.type_new_id', 'news.name'
+								, 'news.slug', 'news.description', 'news.image_url')
+						->where('languages.status', 2)
+						->whereNull('news.deleted_at')
+						->where('news.type_new_id', $type)
+						->distinct()
+						->orderBy('languages.position', 'asc')
+						->get();
+		}
+		return $list;
+	}
+
+	public static function getIdVi($relateId, $relateName)
+	{
+		$object = AdminLanguage::where('model_name', $relateName)
+			->where('relate_id', $relateId)
+			->first();
+		if ($object) {
+			$idVi = $object->model_id;
+			return $idVi;
+		}
+		return $relateId;
+	}
+
 }
