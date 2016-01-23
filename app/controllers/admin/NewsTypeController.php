@@ -34,7 +34,8 @@ class NewsTypeController extends AdminController {
 	{
 		$rules = array(
 			'name'   => 'required',
-			'position' => 'required|integer|min: 1'
+            'en_name' => 'required',
+            'position' => 'required|integer|min: 1'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -43,9 +44,10 @@ class NewsTypeController extends AdminController {
 	            ->withErrors($validator)
 	            ->withInput(Input::except('name'));
         } else {
-        	$viInput = Input::only('name');
+        	$viInput = Input::only('name', 'position');
 			$id = CommonNormal::create($viInput);
 			$enInput['name'] = Input::get('en_name');
+			$enInput['position'] = Input::get('position');
 			$enId = CommonNormal::create($enInput);
 			$language['model_name'] = 'TypeNew';
 			$language['relate_name'] = 'TypeNew';
@@ -94,6 +96,7 @@ class NewsTypeController extends AdminController {
 		$rules = array(
             'name'   => 'required',
             'en_name' => 'required',
+            'position' => 'required|integer|min: 1'
         );
         $input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -101,9 +104,10 @@ class NewsTypeController extends AdminController {
 			return Redirect::action('NewsTypeController@edit', $id)
 	            ->withErrors($validator);
         } else {
-        	$inputUpdateMain = Input::only('name');
+        	$inputUpdateMain = Input::only('name', 'position');
         	$relateUpdateId = Common::getValueLanguage('TypeNew', $id, 'relate_id');
         	$inputUpdateRelate['name'] = $input['en_name'];
+        	$inputUpdateRelate['position'] = $input['position'];
         	CommonNormal::update($id,$inputUpdateMain);
         	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
         	$inputLanguage = Input::only('position', 'status');

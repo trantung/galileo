@@ -11,7 +11,7 @@ class TypeNew extends Eloquent implements SluggableInterface
 	use SoftDeletingTrait;
 	use SluggableTrait;
     protected $table = 'type_news';
-    protected $fillable = ['name', 'slug', 'status'];
+    protected $fillable = ['name', 'slug', 'status', 'position'];
     protected $dates = ['deleted_at'];
 
     protected $sluggable = array(
