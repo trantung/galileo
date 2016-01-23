@@ -21,7 +21,7 @@
 			</div>
 			<div class="col-sm-3 col-sm-pull-9">
 				<div class="detailImage">
-					<img src="{{ url(UPLOADIMG . '/news'.'/'. $data->id . '/' . $data->image_url) }}" />
+					<img src="{{ url(UPLOADIMG . '/news'.'/'. Common::getIdVi($data->id, 'AdminNew') . '/' . $data->image_url) }}" />
 				</div>
 				@if($related)
 				<div class="related">
