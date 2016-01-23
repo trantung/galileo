@@ -6,8 +6,11 @@
 				<ul class="footerMenu">
 					<li {{ checkActive() }}><a href="{{ action('SiteIndexController@index') }}">{{ trans('captions.home') }}</a></li>
 					<li {{ checkActive(LaravelLocalization::transRoute('routes.about')) }}><a href="{{ action('AboutController@index') }}">{{ trans('captions.aboutus') }}</a></li>
-					<li {{ checkActive('tin-tuc') }}><a href="./">Tin tức</a></li>
-					<li {{ checkActive('tuyen-dung') }}><a href="./">Tuyển dụng</a></li>
+					@foreach(getTypeLanguage($viTypes, $enTypes) as $type)
+						<li {{ checkActive($type->slug) }}>
+							<a href="{{ action('SiteTypeController@showSlug', $type->slug) }}">{{$type->name}}</a>
+						</li>
+					@endforeach
 					<li {{ checkActive(LaravelLocalization::transRoute('routes.contact')) }}><a href="{{ action('ContactController@index') }}">{{ trans('captions.contact') }}</a></li>
 				</ul>
 			</div>

@@ -84,7 +84,6 @@ class SiteTypeController extends SiteController {
 	public function showSlug($slug)
 	{
 		$type = TypeNew::findBySlug($slug);
-
 		$typeName = $type->name;
 
 		$data = Common::getNews($type->id, getLang());
@@ -94,6 +93,17 @@ class SiteTypeController extends SiteController {
 
 	public function showChildSlug($slug, $childSlug)
 	{
-		dd(123);
+		$type = TypeNew::findBySlug($slug);
+		$typeName = $type->name;
+
+		$data = AdminNew::findBySlug($childSlug);
+
+		$related = AdminNew::where('type_new_id', $data->type_new_id)
+								->whereNotIn('id', [$data->id])
+								->orderBy('id', 'desc')
+								->limit(PAGINATE_RELATED)
+								->get();
+
+		return View::make('site.news.showNews')->with(compact('data', 'related', 'typeName', 'slug'));
 	}
 }
