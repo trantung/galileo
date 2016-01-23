@@ -10,8 +10,28 @@ class AboutController extends SiteController {
 	 */
 	public function index()
 	{
-		
-		return View::make('site.about.showAbout');
+		$viId = AdminLanguage::where('model_name', 'TypeAboutUs')->lists('model_id');
+		$enId = AdminLanguage::where('model_name', 'TypeAboutUs')->lists('relate_id');
+		$viData = TypeAboutUs::whereIn('id', $viId)->orderBy('position')->get();
+		$enData = TypeAboutUs::whereIn('id', $enId)->orderBy('position')->get();
+
+		// $viData = DB::table('type_about_us')
+		// 				->join('languages', 'languages.model_id', '=', 'type_about_us.id')
+		// 				->select('type_about_us.id', 'type_about_us.name', 'type_about_us.name_shadow', 'languages.position', 'languages.status')
+		// 				->whereNull('type_about_us.deleted_at')
+		// 				->distinct()
+		// 				->orderBy('languages.position', 'asc')
+		// 				->get();
+		// $enData = DB::table('type_about_us')
+		// 				->join('languages', 'languages.model_id', '=', 'type_about_us.id')
+		// 				->select('type_about_us.id', 'type_about_us.name', 'type_about_us.name_shadow', 'languages.position', 'languages.status')
+		// 				->whereNull('type_about_us.deleted_at')
+		// 				->distinct()
+		// 				->orderBy('languages.position', 'asc')
+		// 				->get();
+
+		return View::make('site.about.showAbout')->with(compact('viData', 'enData'));
+
 	}
 
 	/**
