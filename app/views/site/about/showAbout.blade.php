@@ -26,14 +26,14 @@
 								<strong>
 									{{ $valueAbout->title }}
 								</strong>
-								{{ $valueAbout->description }}
+								{{ removeTagsHtml($valueAbout->description) }}
 							@endforeach
 						@else
 							<table border="0">
 								@foreach(AboutUs::where('type_id', $value->id)->get() as $valueAbout)
 									<tr>
 									<td class="about2-1">{{ $valueAbout->title }}-</td>
-									<td class="about2-2">{{ $valueAbout->description }}</td>
+									<td class="about2-2">{{ removeTagsHtml($valueAbout->description) }}</td>
 									</tr>
 								@endforeach
 							 </table>
