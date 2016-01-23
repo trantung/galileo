@@ -40,6 +40,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 	Route::resource('/des_content', 'DesContentController');
 	Route::resource('/introduce', 'AdminIntroduceController');
+	Route::resource('/about_us_company', 'AdminAboutUsController');
+	Route::resource('/type_about_us', 'AdminTypeAboutController');
 
 });
 
