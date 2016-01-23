@@ -14,15 +14,18 @@
 				<div class="about1">
 					<h2>{{ $value->name }}</h2>
 					<h3>{{ $value->name_shadow }}</h3>
-					@foreach(AboutUs::where('type_id', $value->id) as $valueAbout)
+
+					@foreach(AboutUs::where('type_id', $value->id)->get() as $valueAbout)
+						{{ $valueAbout->id }}
 						@if($valueAbout->image_url)
-							<img src="{{ url('/assets/images/game5.png') }}" alt="" />
+							<img src="{{ url(UPLOADIMG . UPLOAD_ABOUT .'/'. Common::getIdVi($valueAbout->id, 'AboutUs') . '/' . Common::objectLanguage('AboutUs', $valueAbout->id, 'vi')->image_url) }}" alt="" />
 						@endif
 						<strong>
 							{{ $valueAbout->title }}
 						</strong>
 						{{ $valueAbout->description }}
 					@endforeach
+					
 				</div>
 			</div>
 			@endforeach

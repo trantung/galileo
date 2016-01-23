@@ -23,7 +23,7 @@ define('UPLOAD_SLIDE', '/slide');
 //folder upload image facebook
 define('FOLDER_SEO_NEWS', 'fb_news');
 define('FOLDER_SEO', 'seo');
-
+define('UPLOAD_ABOUT', '/about');
 //device
 define('MOBILE', 1);
 define('COMPUTER', 2);

@@ -29,6 +29,7 @@
 			  <th>Tên Vietnamese</th>
 			  <th>Tên English</th>
 			  <th>Vị trí sắp xếp</th>
+			  <th>Kiểu sắp xếp</th>
 			  <th style="width:200px;">Action</th>
 			</tr>
 			@foreach($typeAboutUs as $value)
@@ -37,6 +38,7 @@
 				  <td>{{ returnObjectLanguage($value, 'vi', 'TypeAboutUs')->name }}</td>
 				  <td>{{ returnObjectLanguage($value, 'en', 'TypeAboutUs')->name }}</td>
 				  <td>{{ $value->position }}</td>
+				  <td>{{ $value->status }}</td>
 				  <td>
 					<a href="{{ action('AdminTypeAboutController@edit', returnObjectLanguage($value, 'vi', 'TypeAboutUs')->id) }}" class="btn btn-primary">Sửa</a>
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('AdminTypeAboutController@destroy', returnObjectLanguage($value, 'vi', 'TypeAboutUs')->id), 'style' => 'display: inline-block;')) }}

@@ -21,11 +21,5 @@ class NewsManager
 		return $data;
 	}
 
-	public static function getTypeNews()
-	{
-		$listTypeId = AdminLanguage::where('model_name', 'TypeNew')
-			->lists('model_id');
-		return TypeNew::whereIn('id', $listTypeId)->lists('name', 'id');
-	}
 
 }

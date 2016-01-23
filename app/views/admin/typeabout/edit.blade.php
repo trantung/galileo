@@ -45,6 +45,12 @@
 						   {{ Form::text('position', Common::getValueLanguage('TypeAboutUs', $id, 'position'), textParentCategory('Vị trí sắp xếp(số nguyên dương)')) }}
 						</div>
 					</div>
+					<label for="name">Kiểu hiển thị</label>
+					<div class="row">
+						<div class="col-sm-6">
+						   {{ Form::select('status', [ 1 => 'Kiểu 1', 2 => 'Kiểu 2'], Common::getValueLanguage('TypeAboutUs', $id, 'status'), array('class' => 'form-control')) }}
+						</div>
+					</div>
 				</div>
 			  <!-- /.box-body -->
 
