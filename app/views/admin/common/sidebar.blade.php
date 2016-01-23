@@ -6,7 +6,7 @@
 			<li class="header">Menu</li>
 			<li><a href="{{ action('NewsController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Quản lý tin</span></a></li>
 			<li><a href="{{ action('NewsTypeController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Quản thể loại tin</span></a></li>
-			<li><a href=""><i class="fa fa-newspaper-o"></i> <span>Giới thiệu</span></a></li>
+			<li><a href="{{ action('AdminTypeAboutController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Giới thiệu</span></a></li>
 			<li><a href="{{ action('DesContentController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Giới thiệu trang chủ</span></a></li>
 			<li><a href="{{ action('AdminIntroduceController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Introduce</span></a></li>
 			<li><a href="{{ action('AdminContactController@index') }}"><i class="fa fa-newspaper-o"></i> <span>Liên hệ</span></a></li>
