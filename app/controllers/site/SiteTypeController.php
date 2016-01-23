@@ -84,23 +84,12 @@ class SiteTypeController extends SiteController {
 	public function showSlug($slug)
 	{
 		$type = TypeNew::findBySlug($slug);
-		// dd($type);
-		// $lang = LaravelLocalization::setLocale();
-		// if ($lang != LANG_EN) {
-			$TypeId = $type->id;
-		// }
-		// else {
-		// 	$TypeId = AdminLanguage::where('model_name', 'TypeNew')
-		// 		->where('model_id', $type->id)->first()->relate_id;
-		// }
-		// $viTypeId = TypeNew::findBySlug($slug)->id;
-		// $enTypeId = AdminLanguage::where('model_name', 'TypeNew')
-		// 	->where('model_id', $viTypeId);
-		$inputListNews = AdminNew::where('type_new_id', $TypeId)
-			->orderBy('id', 'desc')
-			->get();
-		// dd($inputListNews);
-		return View::make('site.news.listNews')->with(compact('inputListNews', 'slug'));
+
+		$typeName = $type->name;
+
+		$data = Common::getNews($type->id, getLang());
+
+		return View::make('site.news.listNews')->with(compact('data', 'typeName', 'slug'));
 	}
 
 	public function showChildSlug($slug, $childSlug)

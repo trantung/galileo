@@ -94,7 +94,7 @@ class Common {
 		return $object;
 	}
 	
-	public static function getNews($type, $lang)
+	public static function getNews($type, $lang, $limit=null)
 	{
 		if ($lang == LANG_VI) {
 			$list = DB::table('news')
@@ -105,6 +105,7 @@ class Common {
 						->whereNull('news.deleted_at')
 						->where('news.type_new_id', $type)
 						->distinct()
+						->limit($limit)
 						->orderBy('languages.position', 'asc')
 						->get();
 		}
@@ -117,6 +118,7 @@ class Common {
 						->whereNull('news.deleted_at')
 						->where('news.type_new_id', $type)
 						->distinct()
+						->limit($limit)
 						->orderBy('languages.position', 'asc')
 						->get();
 		}

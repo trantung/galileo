@@ -1,7 +1,7 @@
 <?php $types = Common::getObjectLanguageByStatus('TypeNew', getLang(), 2); ?>
 @if(count($types) > 0)
 	@foreach($types as $type)
-		<?php $news = Common::getNews($type->id, getLang()) ?>
+		<?php $news = Common::getNews($type->id, getLang(), 3) ?>
 		@if(count($news) > 0)
 		<div class="homebox newsbox">
 			<div class="container">
@@ -9,17 +9,7 @@
 				<div class="row">
 					@foreach($news as $new)
 					<div class="col-sm-4">
-						<?php 
-							switch (getLang()) {
-								case LANG_EN:
-									$newsId = Common::getIdVi($new->id, 'AdminNew');
-									break;
-								default:
-									$newsId = $new->id;
-									break;
-							}
-						?>
-						<img src="{{ url(UPLOADIMG . '/news'.'/'. $newsId . '/' . $new->image_url) }}" width="100%" height="200px" />
+						<img src="{{ url(UPLOADIMG . '/news'.'/'. Common::getIdVi($new->id, 'AdminNew') . '/' . $new->image_url) }}" width="100%" height="200px" />
 						<h3>{{ $new->name }}</h3>
 						<p>
 							{{ limit_text(removeTagsHtml($new->description), TEXTLENGH_DESCRIPTION) }}
