@@ -13,7 +13,7 @@
 					<img src="{{ url('/assets/images/logo.png') }}" />
 				</a>
 			</div>
-			<div class="col-sm-9">
+			<div class="col-sm-8">
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li {{ checkActive() }}><a href="{{ action('SiteIndexController@index') }}">{{ trans('captions.home') }}</a></li>
@@ -32,6 +32,11 @@
 			                {{{ $properties['native'] }}}
 			            </a>
 				    @endforeach
+				</div>
+			</div>
+			<div class="col-sm-1">
+				<div class="langbox">
+					@include('site.common.langscript')
 				</div>
 			</div>
 		</div>

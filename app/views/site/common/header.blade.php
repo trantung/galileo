@@ -12,6 +12,7 @@
     {{ HTML::style('assets/css/style.css') }}
 
     {{ HTML::script('assets/js/jquery.js') }}
+    {{ HTML::script('assets/js/jquery-ui.min.js') }}
     {{ HTML::script('assets/js/bootstrap.min.js') }}
     {{ HTML::script('assets/js/swiper.min.js') }}
     {{ HTML::script('assets/js/script.js') }}

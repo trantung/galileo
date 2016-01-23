@@ -419,6 +419,9 @@ body {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+.langbox {
+    margin-top: 30px;
+}
 
 @media (min-width: 670px) {
     .grid-item {

@@ -53,6 +53,8 @@ Route::group(
 	function()
 	{
 
+		Route::post('/sendLang', 'SiteIndexController@sendLang');
+
 		Route::post('/sendContact', array('uses' => 'ContactController@contact', 'as' => 'contact'));
 
 		// Route::get('/tin-tuc/{slug}', array('uses' => 'SiteNewsController@show', 'as' =>'showNews'));
