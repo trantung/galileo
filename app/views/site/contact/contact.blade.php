@@ -10,8 +10,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<input id = "latitude" type="hidden" value="0">
-	            <input id = "longitude" type="hidden" value="0">
+				<input id = "latitude" type="hidden" value="{{ $data->lat }}">
+	            <input id = "longitude" type="hidden" value="{{ $data->long }}">
                 <div class="map">
                     <div id="mapview" style="height: 400px; width: 100%; max-width: 100%;"></div>
                 </div>
@@ -22,7 +22,7 @@
 				<h2>{{ trans('captions.address') }}</h2>
 				<h3>{{ trans('captions.howtofind') }}</h3>
 				<div class="contact-address">
-					{{ Common::objectLanguage('Contact', 1, getLang())->description }}
+					{{ $data->description }}
 				</div>
 			</div>
 			<div class="col-sm-6">
