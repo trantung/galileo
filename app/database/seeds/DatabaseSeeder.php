@@ -18,8 +18,9 @@ class DatabaseSeeder extends Seeder {
 		$this->call('DesContentTableSeeder');
 		$this->call('BottomTextTable');
 		$this->call('ContactTableSeeder');
-		$this->call('LanguageTableSeeder');
 		$this->call('IntroduceTableSeeder');
+		$this->call('TypeAboutUsTableSeeder');
+		$this->call('LanguageTableSeeder');
 	}
 
 }
