@@ -53,6 +53,9 @@ class CommonNormal
 		if ($name == 'slider') {
 			return 'AdminSlide';
 		}
+		if ($name == 'type_about_us') {
+			return 'TypeAboutUs';
+		}
 
 	}
 }

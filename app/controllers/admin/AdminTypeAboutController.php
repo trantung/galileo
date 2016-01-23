@@ -9,7 +9,8 @@ class AdminTypeAboutController extends AdminController {
 	 */
 	public function index()
 	{
-		//
+		$typeAboutUs = AdminLanguage::where('model_name', 'TypeAboutUs')->orderBy('position', 'asc')->get();
+		return View::make('admin.typeabout.index')->with(compact('typeAboutUs'));
 	}
 
 
@@ -20,7 +21,7 @@ class AdminTypeAboutController extends AdminController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.typeabout.create');
 	}
 
 
@@ -31,7 +32,33 @@ class AdminTypeAboutController extends AdminController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			'name'   => 'required',
+			'name_shadow'   => 'required',
+			'en_name'   => 'required',
+			'en_name_shadow'   => 'required',
+			'position' => 'required|integer|min: 1'
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('AdminTypeAboutController@create')
+	            ->withErrors($validator)
+	            ->withInput(Input::except('name'));
+        } else {
+        	$viInput = Input::only('name', 'name_shadow');
+			$id = CommonNormal::create($viInput);
+			$enInput['name'] = Input::get('en_name');
+			$enInput['name_shadow'] = Input::get('en_name_shadow');
+			$enId = CommonNormal::create($enInput);
+			$language['model_name'] = 'TypeAboutUs';
+			$language['relate_name'] = 'TypeAboutUs';
+			$language['model_id'] = $id;
+			$language['relate_id'] = $enId;
+			$language['position'] = Input::get('position');
+			AdminLanguage::create($language);
+			return Redirect::action('AdminTypeAboutController@index');
+        }
 	}
 
 
@@ -55,7 +82,7 @@ class AdminTypeAboutController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		return View::make('admin.typeabout.edit')->with(compact('id'));
 	}
 
 
@@ -67,7 +94,32 @@ class AdminTypeAboutController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+            'name'   => 'required',
+			'name_shadow'   => 'required',
+			'en_name'   => 'required',
+			'en_name_shadow'   => 'required',
+			'position' => 'required|integer|min: 1'
+        );
+        $input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('AdminTypeAboutController@edit', $id)
+	            ->withErrors($validator);
+        } else {
+        	$inputUpdateMain = Input::only('name', 'name_shadow');
+        	$relateUpdateId = Common::getValueLanguage('TypeAboutUs', $id, 'relate_id');
+        	$inputUpdateRelate['name'] = $input['en_name'];
+        	$inputUpdateRelate['name_shadow'] = $input['en_name_shadow'];
+        	CommonNormal::update($id,$inputUpdateMain);
+        	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
+        	$inputLanguage = Input::only('position');
+        	AdminLanguage::where('model_name', 'TypeAboutUs')
+        		->where('model_id', $id)
+        		->where('relate_id', $relateUpdateId)
+        		->update($inputLanguage);
+			return Redirect::action('AdminTypeAboutController@index');
+        }
 	}
 
 
@@ -79,7 +131,12 @@ class AdminTypeAboutController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$about = AboutUs::where('type_id', $id)->first();
+		if ($about) {
+			AboutUs::where('type_id', $id)->delete();
+		}
+		Common::deleteLanguage($id, 'TypeAboutUs');
+		return Redirect::action('AdminTypeAboutController@index');
 	}
 
 
