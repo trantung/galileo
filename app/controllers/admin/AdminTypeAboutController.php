@@ -56,6 +56,7 @@ class AdminTypeAboutController extends AdminController {
 			$language['model_id'] = $id;
 			$language['relate_id'] = $enId;
 			$language['position'] = Input::get('position');
+			$language['status'] = Input::get('status');
 			AdminLanguage::create($language);
 			return Redirect::action('AdminTypeAboutController@index');
         }
@@ -113,7 +114,7 @@ class AdminTypeAboutController extends AdminController {
         	$inputUpdateRelate['name_shadow'] = $input['en_name_shadow'];
         	CommonNormal::update($id,$inputUpdateMain);
         	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
-        	$inputLanguage = Input::only('position');
+        	$inputLanguage = Input::only('position', 'status');
         	AdminLanguage::where('model_name', 'TypeAboutUs')
         		->where('model_id', $id)
         		->where('relate_id', $relateUpdateId)

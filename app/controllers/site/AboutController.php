@@ -10,7 +10,7 @@ class AboutController extends SiteController {
 	 */
 	public function index()
 	{
-		$lang = LaravelLocalization::setLocale();
+		
 		return View::make('site.about.showAbout');
 	}
 

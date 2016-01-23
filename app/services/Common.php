@@ -93,7 +93,7 @@ class Common {
 		}
 		return $object;
 	}
-	
+
 	public static function getNews($type, $lang, $limit=null)
 	{
 		if ($lang == LANG_VI) {
@@ -135,6 +135,13 @@ class Common {
 			return $idVi;
 		}
 		return $relateId;
+	}
+
+	public static function getTypeList($modelName)
+	{
+		$listTypeId = AdminLanguage::where('model_name', $modelName)
+			->lists('model_id');
+		return $modelName::whereIn('id', $listTypeId)->lists('name', 'id');
 	}
 
 }

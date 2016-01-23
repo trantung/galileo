@@ -6,12 +6,12 @@
 
 @section('content')
 
-<!-- inclue Search form 
+<!-- inclue Search form
 
 -->
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('AdminTypeAboutController@create') }}" class="btn btn-primary">Thêm loại</a>
+		<a href="{{ action('AdminAboutUsController@create') }}" class="btn btn-primary">Thêm</a>
 	</div>
 </div>
 
@@ -28,18 +28,16 @@
 			  <th>ID</th>
 			  <th>Tên Vietnamese</th>
 			  <th>Tên English</th>
-			  <th>Vị trí sắp xếp</th>
 			  <th style="width:200px;">Action</th>
 			</tr>
-			@foreach($inputNewType as $value)
+			@foreach($data as $value)
 				<tr>
 				  <td>{{ returnObjectLanguage($value, 'vi', 'AboutUs')->id }}</td>
-				  <td>{{ returnObjectLanguage($value, 'vi', 'AboutUs')->name }}</td>
-				  <td>{{ returnObjectLanguage($value, 'en', 'AboutUs')->name }}</td>
-				  <td>{{ $value->position }}</td>
+				  <td>{{ returnObjectLanguage($value, 'vi', 'AboutUs')->title }}</td>
+				  <td>{{ returnObjectLanguage($value, 'en', 'AboutUs')->title }}</td>
 				  <td>
-					<a href="{{ action('AdminTypeAboutController@edit', returnObjectLanguage($value, 'vi', 'AboutUs')->id) }}" class="btn btn-primary">Sửa</a>
-					{{ Form::open(array('method'=>'DELETE', 'action' => array('AdminTypeAboutController@destroy', returnObjectLanguage($value, 'vi', 'AboutUs')->id), 'style' => 'display: inline-block;')) }}
+					<a href="{{ action('AdminAboutUsController@edit', returnObjectLanguage($value, 'vi', 'AboutUs')->id) }}" class="btn btn-primary">Sửa</a>
+					{{ Form::open(array('method'=>'DELETE', 'action' => array('AdminAboutUsController@destroy', returnObjectLanguage($value, 'vi', 'AboutUs')->id), 'style' => 'display: inline-block;')) }}
 					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 					{{ Form::close() }}
 				  </td>

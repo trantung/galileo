@@ -12,6 +12,7 @@ class NewsController extends AdminController {
 		$inputNew = AdminLanguage::where('model_name', 'AdminNew')->orderBy('id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.news.index')->with(compact('inputNew'));
 	}
+
 	public function search()
 	{
 		$input = Input::all();

@@ -56,6 +56,9 @@ class CommonNormal
 		if ($name == 'type_about_us') {
 			return 'TypeAboutUs';
 		}
+		if ($name == 'about_us_company') {
+			return 'AboutUs';
+		}
 
 	}
 }
