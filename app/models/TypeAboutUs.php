@@ -8,7 +8,7 @@ class TypeAboutUs extends Eloquent
 {
 	use SoftDeletingTrait;
     protected $table = 'type_about_us';
-    protected $fillable = ['name', 'name_shadow', 'slug'];
+    protected $fillable = ['name', 'name_shadow', 'slug', 'position'];
     protected $dates = ['deleted_at'];
 
     public function aboutUs()
