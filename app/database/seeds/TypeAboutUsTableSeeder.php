@@ -35,6 +35,7 @@ class TypeAboutUsTableSeeder extends Seeder {
 			'relate_name' => 'TypeAboutUs',
 			'relate_id' => 2,
 			'position' => 1,
+			'status' => 1,
 		]);
 		AdminLanguage::create([
 			'model_name'=> 'TypeAboutUs',
@@ -42,6 +43,7 @@ class TypeAboutUsTableSeeder extends Seeder {
 			'relate_name' => 'TypeAboutUs',
 			'relate_id' => 4,
 			'position' => 2,
+			'status' => 2,
 		]);
 		AdminLanguage::create([
 			'model_name'=> 'TypeAboutUs',
@@ -49,6 +51,7 @@ class TypeAboutUsTableSeeder extends Seeder {
 			'relate_name' => 'TypeAboutUs',
 			'relate_id' => 6,
 			'position' => 3,
+			'status' => 1,
 		]);
 		
 	}
