@@ -52,7 +52,7 @@
 					</div>
 					<div class="form-group">
 						<label for="image_url">Upload ảnh tin</label>
-						<p>Kích thước: 360x230</p>
+						<p>Kích thước: 360x230 / Dung lượng < 1Mb</p>
 						<div class="row">
 							<div class="col-sm-6">
 								@if(Admin::isSeo())

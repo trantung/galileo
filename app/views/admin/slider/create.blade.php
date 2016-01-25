@@ -47,7 +47,7 @@
 
 				<div class="form-group">
 					<label for="name">Image</label>
-					<p>Kích thước: Banner: 1350x500 / đối tác: 250x130</p>
+					<p>Kích thước: Banner: 1350x500 / đối tác: 250x130 / Dung lượng < 1Mb</p>
 					<div class="row">
 						<div class="col-sm-6">
 							{{ Form::file('image_url') }}
