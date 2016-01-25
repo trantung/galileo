@@ -26,13 +26,7 @@
 						<li {{ checkActive(LaravelLocalization::transRoute('routes.contact')) }}><a href="{{ action('ContactController@index') }}">{{ trans('captions.contact') }}</a></li>
 					</ul>
 				</div>
-				<div class="language_bar_chooser">
-				    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-			            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}">
-			                {{{ $properties['native'] }}}
-			            </a>
-				    @endforeach
-				</div>
+				
 			</div>
 			<div class="col-sm-1">
 				<div class="langbox">
