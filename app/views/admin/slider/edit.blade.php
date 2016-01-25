@@ -48,6 +48,7 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<label for="name">Upload ảnh</label>
+							<p>Kích thước: Banner: 1350x500 / đối tác: 250x130</p>
 							{{ Form::file('image_url') }}
 							<img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $slide->id . '/' . $slide->image_url) }}" width="200px" height="auto"  />
 						</div>
