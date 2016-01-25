@@ -102,4 +102,16 @@ class SiteIndexController extends SiteController {
 		return Redirect::action('SiteIndexController@typeNew');
 	}
 
+	public function sendLang()
+	{
+		// $input = Input::all();
+		// if ($input->lang != LANG_EN) {
+		// 	$viUrl = $url;
+		// 	return $viUrl;
+		// }
+		// else{
+		// 	$enUrl = 
+		// }
+		// return $input;
+	}
 }

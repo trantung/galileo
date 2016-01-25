@@ -13,7 +13,7 @@
 					<img src="{{ url('/assets/images/logo.png') }}" />
 				</a>
 			</div>
-			<div class="col-sm-9">
+			<div class="col-sm-8">
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li {{ checkActive() }}><a href="{{ action('SiteIndexController@index') }}">{{ trans('captions.home') }}</a></li>
@@ -26,12 +26,11 @@
 						<li {{ checkActive(LaravelLocalization::transRoute('routes.contact')) }}><a href="{{ action('ContactController@index') }}">{{ trans('captions.contact') }}</a></li>
 					</ul>
 				</div>
-				<div class="language_bar_chooser">
-				    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-			            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}">
-			                {{{ $properties['native'] }}}
-			            </a>
-				    @endforeach
+				
+			</div>
+			<div class="col-sm-1">
+				<div class="langbox">
+					@include('site.common.langscript')
 				</div>
 			</div>
 		</div>
