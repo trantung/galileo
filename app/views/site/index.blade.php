@@ -1,7 +1,7 @@
 @extends('site.layout.default')
 
 @section('title')
-    {{ $title = 'Trang chủ' }}
+    {{ $title = trans('captions.home'); }}
 @stop
 
 @section('content')
