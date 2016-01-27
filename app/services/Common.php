@@ -155,4 +155,22 @@ class Common {
 		return $modelName::whereIn('id', $listTypeId)->lists('name', 'id');
 	}
 
+	public static function objectLanguage2($modelName, $modelId, $lang)
+	{
+		if ($lang == LANG_VI) {
+			$objectLanguage = AdminLanguage::where('model_name', $modelName)
+				->where('model_id', $modelId)
+				->first();
+			$relateId = $objectLanguage->relate_id;
+			return $modelName::find($relateId);
+		}
+		if ($lang == LANG_EN) {
+			$objectLanguage = AdminLanguage::where('model_name', $modelName)
+				->where('relate_id', $modelId)
+				->first();
+			$modelId = $objectLanguage->model_id;
+			return $modelName::find($modelId);
+		}
+	}
+
 }

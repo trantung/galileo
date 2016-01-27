@@ -270,7 +270,7 @@ function getNameStatus($status)
 function getLang()
 {
 	$lang = LaravelLocalization::setLocale();
-	if($lang == NULL) {
+	if($lang == NULL || $lang == 'vi') {
 		return 'vi';
 	}
 	return $lang;
