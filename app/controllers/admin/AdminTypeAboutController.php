@@ -34,9 +34,9 @@ class AdminTypeAboutController extends AdminController {
 	{
 		$rules = array(
 			'name'   => 'required',
-			'name_shadow'   => 'required',
+			// 'name_shadow'   => 'required',
 			'en_name'   => 'required',
-			'en_name_shadow'   => 'required',
+			// 'en_name_shadow'   => 'required',
 			'position' => 'required|integer|min: 1'
 		);
 		$input = Input::except('_token');
@@ -100,9 +100,9 @@ class AdminTypeAboutController extends AdminController {
 	{
 		$rules = array(
             'name'   => 'required',
-			'name_shadow'   => 'required',
+			// 'name_shadow'   => 'required',
 			'en_name'   => 'required',
-			'en_name_shadow'   => 'required',
+			// 'en_name_shadow'   => 'required',
 			'position' => 'required|integer|min: 1'
         );
         $input = Input::except('_token');
