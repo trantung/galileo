@@ -30,7 +30,7 @@
 			</div>
 			<div class="col-sm-1">
 				<div class="langbox">
-					@include('site.common.langscript')
+					<!-- @include('site.common.langscript') -->
 				</div>
 			</div>
 		</div>

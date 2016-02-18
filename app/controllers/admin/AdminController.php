@@ -101,8 +101,7 @@ class AdminController extends BaseController {
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
-            Auth::admin()->attempt($input);
-            $checkLogin = Auth::admin()->check();
+            $checkLogin = Auth::admin()->attempt($input);
             if($checkLogin) {
         		return Redirect::action('NewsController@index');
             } else {
