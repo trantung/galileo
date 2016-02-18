@@ -33,7 +33,7 @@ class AdminAboutUsController extends AdminController {
 	{
 		$rules = array(
 			'title'   => 'required',
-			'en_title'   => 'required',
+			// 'en_title'   => 'required',
 			'type_id' => 'required',
 			'position' => 'integer|min:1'
 		);
@@ -113,7 +113,7 @@ class AdminAboutUsController extends AdminController {
 	{
 		$rules = array(
 			'title'   => 'required',
-			'en_title'   => 'required',
+			// 'en_title'   => 'required',
 			'type_id' => 'required',
 			'position' => 'integer|min:1'
 		);

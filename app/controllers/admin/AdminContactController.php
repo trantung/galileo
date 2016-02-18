@@ -69,7 +69,7 @@ class AdminContactController extends AdminController {
 	{
 		$rules = array(
             'description'   => 'required',
-            'en_description' => 'required',
+            // 'en_description' => 'required',
         );
         $input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
