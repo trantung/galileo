@@ -34,7 +34,7 @@ class NewsTypeController extends AdminController {
 	{
 		$rules = array(
 			'name'   => 'required',
-            'en_name' => 'required',
+            // 'en_name' => 'required',
             'position' => 'required|integer|min: 1'
 		);
 		$input = Input::except('_token');
@@ -95,7 +95,7 @@ class NewsTypeController extends AdminController {
 	{
 		$rules = array(
             'name'   => 'required',
-            'en_name' => 'required',
+            // 'en_name' => 'required',
             'position' => 'required|integer|min: 1'
         );
         $input = Input::except('_token');

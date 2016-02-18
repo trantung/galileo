@@ -69,7 +69,7 @@ class BottomTextController extends AdminController {
 	{
 		$rules = array(
             'title'   => 'required',
-            'en_title' => 'required',
+            // 'en_title' => 'required',
         );
         $input = Input::except('_token');
 		$validator = Validator::make($input,$rules);

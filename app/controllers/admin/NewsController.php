@@ -123,7 +123,7 @@ class NewsController extends AdminController {
 		if(!Admin::isSeo()){
 			$rules = array(
 				'name'   => 'required',
-				'en_name' => 'required'
+				// 'en_name' => 'required'
 			);
 			$input = Input::except('_token');
 			$validator = Validator::make($input,$rules);
