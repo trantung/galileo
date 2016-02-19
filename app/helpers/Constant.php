@@ -56,7 +56,7 @@ define('BOTTOM', 'bottom');
 //define paging frontend
 define('PAGINATE_BOXGAME', 12);
 define('PAGINATE_LISTGAME', 12);
-define('PAGINATE_RELATED', 6);
+define('PAGINATE_RELATED', 5);
 //slide
 define('UPLOAD_IMAGE_SLIDE', '/slide');
 define('PAGINATE_SLIDE', 10);
@@ -73,7 +73,7 @@ define('SEO_META', 'Seo_Meta');
 define('TIMELIMITED', 60);
 //define size cut off text descript
 define('SIZETEXT', '200');
-define('TEXTLENGH_DESCRIPTION', 180);
+define('TEXTLENGH_DESCRIPTION', 300);
 //define cache time
 define('CACHETIME', 2);
 //type of slide or image

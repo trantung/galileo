@@ -22,7 +22,7 @@
 				</ul>
 			</div>
 			<div class="col-sm-4">
-				<h3>{{ trans('captions.address') }}</h3>
+				<h3>{{ trans('captions.contact') }}</h3>
 				<div class="footerAddress">
 					{{ Common::objectLanguage('Contact', 1, getLang())->description }}
 				</div>
