@@ -15,7 +15,7 @@ return array(
 
 	'home' => 'Trang chủ',
 	'menu' => 'Danh mục',
-	'follow' => 'Follow Us',
+	'follow' => 'Theo dõi',
 	'address' => 'Địa chỉ',
 
 	'contact' => 'Liên hệ',
@@ -27,7 +27,7 @@ return array(
 	'email' => 'Email',
 	'phone' => 'Điện thoại',
 	'message' => 'Tin nhắn',
-	'submit' => 'Gửi đi',
+	'submit' => 'Gửi',
 
 	'aboutus' => 'Giới thiệu',
 	'ourhistory' => 'Lịch sử',
