@@ -20,14 +20,12 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<h2>{{ trans('captions.address') }}</h2>
-				<h3>{{ trans('captions.howtofind') }}</h3>
 				<div class="contact-address">
 					{{ $data->description }}
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<h2>{{ trans('captions.contactform') }}</h2>
-				<h3>{{ trans('captions.contactus') }}</h3>
 				<div class="contact-form">
 					@include('message')
 					{{ Form::open(array('action' => 'ContactController@contact', 'method' => 'POST', 'class' => 'form-horizontal')) }}

@@ -20,7 +20,7 @@ return array(
 
 	'contact' => 'Liên hệ',
 	'howtofind' => 'How to find',
-	'contactform' => 'Liên hệ',
+	'contactform' => 'Liên hệ với chúng tôi',
 	'contactus' => 'Liên hệ với chúng tôi',
 
 	'name' => 'Tên',
