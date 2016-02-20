@@ -33,8 +33,10 @@ body {
 .navbar-default .navbar-nav > li.active > a,
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-nav > li > a:hover {
-	background-color: transparent;
-	color: #306E79;
+    background-color: transparent;
+    color: #306E79;
+}
+.navbar-default .navbar-nav > li.active > a {
 	border-top: 5px solid #306E79;
 }
 .navbar-default .navbar-nav > .active > a,
@@ -101,6 +103,9 @@ body {
 .about {
 
 }
+.about p {
+    text-align: justify;
+}
 .introduce {
     margin-top: 30px;
 }
@@ -112,7 +117,7 @@ body {
 	font-weight: bold;
 }
 .introduceInner p i.fa {
-	border: 1px solid #ff6666;
+	border: 2px solid #ff6666;
     border-radius: 100%;
     color: #ff6666;
     font-size: 30px;
@@ -121,8 +126,9 @@ body {
     width: 70px;
     margin-right: 10px;
 }
-.introduceInner span p{
-    font-weight: normal;	
+.introduceInner span p {
+    font-size: inherit;
+    font-weight: normal;
 }
 .introduceP1 i.fa {
     
@@ -330,7 +336,7 @@ body {
     color: #306e79;
     font-size: 30px;
     font-weight: bold;
-    margin-bottom: 0;
+    margin-bottom: 20px;
     margin-top: 20px;
     text-align: center;
     text-transform: uppercase;
@@ -351,6 +357,7 @@ body {
     color: #fff;
     margin-bottom: 9px;
     padding: 10px;
+    resize: vertical;
 }
 .contact-submit {
     background: #ff6666 none repeat scroll 0 0;
@@ -374,8 +381,8 @@ body {
 .about1 {
 
 }
-.about1 strong,
-.about3 strong {
+.about1 > strong,
+.about3 > strong {
     color: #306E79;
     text-transform: uppercase;
     font-size: 16px;
@@ -419,6 +426,15 @@ body {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+.newsbox h3 a {
+    color: #333;
+    text-decoration: none;
+}
+.newsbox h3 a:hover,
+.newsbox h3 a:focus {
+    color: #306e79;
+}
+
 .langbox {
     margin-top: 30px;
 }
