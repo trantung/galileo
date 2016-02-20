@@ -39,8 +39,9 @@
 					<tr>
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td>
-						<td>
+						<td>@if(NewsManager::getNameEnglish($value->id))
 							{{ NewsManager::getNameEnglish($value->id) }}
+							@endif
 						</td>
 						<td>{{ $value->position }}</td>
 						<td>{{ TypeNew::find($value->type_new_id)->name }}</td>
