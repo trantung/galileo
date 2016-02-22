@@ -21,7 +21,7 @@
 							{{-- $value->name_shadow --}}
 						<!-- </h3> -->
 						@if($value->sort == 1)
-							@foreach(AboutUs::where('type_id', $value->id)->get() as $valueAbout)
+							@foreach(AboutUs::where('type_id', $value->id)->orderBy('weight', 'asc')->get() as $valueAbout)
 								@if($valueAbout->image_url)
 									<img src="{{ url(UPLOADIMG . UPLOAD_ABOUT .'/'. Common::getIdVi($valueAbout->id, 'AboutUs') . '/' . Common::objectLanguage('AboutUs', $valueAbout->id, 'vi')->image_url) }}" alt="" />
 								@endif
@@ -32,7 +32,7 @@
 							@endforeach
 						@else
 							<table border="0">
-								@foreach(AboutUs::where('type_id', $value->id)->get() as $valueAbout)
+								@foreach(AboutUs::where('type_id', $value->id)->orderBy('weight', 'asc')->get() as $valueAbout)
 									<tr>
 									<td class="about2-1">{{ $valueAbout->title }}-</td>
 									<td class="about2-2">{{ $valueAbout->description }}</td>

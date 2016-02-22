@@ -21,5 +21,13 @@ class NewsManager
 		return $data;
 	}
 
-
+	public static function getNameEnglish($modelId)
+	{
+		$ob = AdminLanguage::where('model_name', 'AdminNew')
+			->where('model_id', $modelId)->first();
+		if ($ob) {
+			return AdminNew::find($ob->relate_id)->name;
+		}
+		return null;
+	}
 }

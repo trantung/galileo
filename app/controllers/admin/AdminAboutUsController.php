@@ -35,7 +35,8 @@ class AdminAboutUsController extends AdminController {
 			'title'   => 'required',
 			// 'en_title'   => 'required',
 			'type_id' => 'required',
-			'position' => 'integer|min:1'
+			'position' => 'integer|min:1',
+			'weight' => 'integer|min:1'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -45,7 +46,7 @@ class AdminAboutUsController extends AdminController {
 	            ->withInput(Input::except('title'));
         } else {
 
-        	$viInputAboutUs = Input::only('type_id', 'title', 'description');
+        	$viInputAboutUs = Input::only('type_id', 'title', 'description', 'weight');
 			$viId = CommonNormal::create($viInputAboutUs);
 
 			$enInput['title'] = Input::get('en_title');
@@ -115,7 +116,8 @@ class AdminAboutUsController extends AdminController {
 			'title'   => 'required',
 			// 'en_title'   => 'required',
 			'type_id' => 'required',
-			'position' => 'integer|min:1'
+			'position' => 'integer|min:1',
+			'weight' => 'integer|min:1'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -124,13 +126,14 @@ class AdminAboutUsController extends AdminController {
 	            ->withErrors($validator)
 	            ->withInput(Input::except('title'));
         } else {
-        	$inputNews = Input::only('type_id', 'title', 'description');
+        	$inputNews = Input::only('type_id', 'title', 'description', 'weight');
         	$relateUpdateId = Common::getValueLanguage('AboutUs', $id, 'relate_id');
         	$inputUpdateRelate['title'] = $input['en_title'];
         	$inputUpdateRelate['description'] = $input['en_description'];
         	$inputUpdateRelate['type_id'] = Common::getValueLanguage('TypeAboutUs', Input::get('type_id'), 'relate_id');
         	CommonNormal::update($id,$inputNews);
         	CommonNormal::update($relateUpdateId,$inputUpdateRelate);
+
         	// $inputLanguage = Input::only('position');
         	//AdminLanguage::where('model_name', 'AboutUs')->where('model_id', $id)->where('relate_id', $relateUpdateId)->update($inputLanguage);
 
