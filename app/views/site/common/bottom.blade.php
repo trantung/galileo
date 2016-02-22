@@ -6,7 +6,7 @@
 					<div class="col-sm-4">
 						<a href="{{ Common::objectLanguage('BottomText', 1, getLang())->link }}">{{ Common::objectLanguage('BottomText', 1, getLang())->title }}</a>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<span>{{ Common::objectLanguage('BottomText', 1, getLang())->description }}</span>
 					</div>
 				</div>
