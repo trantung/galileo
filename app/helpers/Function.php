@@ -44,9 +44,9 @@ function returnList($className)
 function returnCss()
 {
 	return array(
-			'fa fa-bar-chart' => 'Phát triển kinh doanh',
-			'fa fa-wrench' => 'Dịch vụ cao cấp',
-			'fa fa-phone' => 'Hỗ trợ khách hàng',
+			'fa fa-cog' => 'Sứ mệnh',
+			'fa fa-binoculars' => 'Tầm nhìn',
+			'fa fa-bar-chart' => 'Giá trị cốt lõi',
 		);
 }
 function returnPosition()

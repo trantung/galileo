@@ -168,10 +168,10 @@ body {
     text-transform: uppercase;
 }
 .bottom-right {
-    
+    text-align: right;
 }
 .bottom-right a {
-    
+    margin-left: 20px;
 }
 .bottom-right a i.fa {
     background-color: #799195;
@@ -428,6 +428,7 @@ body {
 }
 .newsbox h3 a {
     color: #333;
+    font-weight: bold;
     text-decoration: none;
 }
 .newsbox h3 a:hover,
