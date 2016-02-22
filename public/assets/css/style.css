@@ -362,11 +362,12 @@ body {
 .contact-submit {
     background: #ff6666 none repeat scroll 0 0;
     border: medium none;
+    border-radius: 5px;
     color: #fff;
     font-size: 20px;
     margin-top: 15px;
     padding: 10px;
-    width: 250px;
+    width: 100%;
 }
 
 .about {

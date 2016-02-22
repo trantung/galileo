@@ -40,7 +40,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12">
+							<div class="col-sm-4">
 								{{ Form::submit( trans('captions.submit') , array('class' => 'contact-submit')) }}
 							</div>
 						</div>
