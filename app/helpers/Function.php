@@ -44,9 +44,9 @@ function returnList($className)
 function returnCss()
 {
 	return array(
-			'fa fa-cog' => 'Sứ mệnh',
-			'fa fa-binoculars' => 'Tầm nhìn',
-			'fa fa-bar-chart' => 'Giá trị cốt lõi',
+			'fa fa-rocket' => 'Sứ mệnh',
+			'fa fa-road' => 'Tầm nhìn',
+			'fa fa-key' => 'Giá trị cốt lõi',
 		);
 }
 function returnPosition()
