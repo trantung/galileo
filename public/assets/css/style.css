@@ -357,7 +357,7 @@ body {
     color: #fff;
     margin-bottom: 9px;
     padding: 10px;
-    resize: vertical;
+    resize: none;
 }
 .contact-submit {
     background: #ff6666 none repeat scroll 0 0;
