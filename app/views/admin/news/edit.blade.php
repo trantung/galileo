@@ -32,7 +32,7 @@
 						<label for="name">Thể loại tin</label>
 						<div class="row">
 							<div class="col-sm-6">
-							   {{  Form::select('type_new_id', Common::getTypeList('TypeNew'), Common::getValueLanguage('AdminNew', $id, 'type_new_id'), array('class' => 'form-control' )) }}
+							   {{  Form::select('type_new_id', Common::getTypeList('TypeNew'), AdminNew::find($id)->type_new_id, array('class' => 'form-control' )) }}
 							</div>
 						</div>
 					</div>
