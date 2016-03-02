@@ -21,6 +21,7 @@
 			  <th>Email</th>
 			  <th>Phone</th>
 			  <th>Message</th>
+			  <th>Time </th>
 			  <th style="width:200px;">Action</th>
 			</tr>
 			@foreach($data as $value)
@@ -30,6 +31,7 @@
 				  <td>{{ $value->email }}</td>
 				  <td>{{ $value->phone }}</td>
 				  <td>{{ nl2br($value->message)}}</td>
+				  <td>{{ $value->created_at}}</td>
 				  <td>
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('AdminContactController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
