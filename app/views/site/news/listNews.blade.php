@@ -31,7 +31,7 @@
 							<p>{{ limit_text(strip_tags($value->description), TEXTLENGH_DESCRIPTION) }}</p>
 						</div>
 						<div class="grid-seemore">
-							<a href="{{ action('SiteTypeController@showChildSlug', [$slug, $value->slug]) }}">Xem thêm</a>
+							<a href="{{ action('SiteTypeController@showChildSlug', [$slug, $value->slug]) }}">{{ trans('captions.seemore') }}</a>
 						</div>
 					</div>
 				@endforeach

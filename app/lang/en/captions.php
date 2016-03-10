@@ -38,4 +38,6 @@ return array(
 
 	'partners' => 'Partners',
 
+	'seemore' => 'See more',
+
 );
