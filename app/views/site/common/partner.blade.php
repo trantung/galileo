@@ -9,7 +9,7 @@
 				<div class="partner-container">
 				    <div class="swiper-wrapper">
 				    	@foreach($slide as $image)
-				        <div class="partner-slide"><a href="{{ $image->link }}"><img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $image->id . '/' . $image->image_url) }}" /></a></div>
+				        <div class="partner-slide"><img src="{{ url(UPLOADIMG . UPLOAD_SLIDE . '/' . $image->id . '/' . $image->image_url) }}" /></a></div>
 				        @endforeach
 				    </div>
 				</div>
