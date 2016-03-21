@@ -39,4 +39,6 @@ return array(
 
 	'partners' => 'Đối tác',
 
+	'seemore' => 'Xem thêm',
+
 );
