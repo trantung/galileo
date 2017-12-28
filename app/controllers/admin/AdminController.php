@@ -1,7 +1,7 @@
 <?php
 class AdminController extends BaseController {
     public function __construct() {
-        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
 	/**
 	 * Display a listing of the resource.
@@ -10,6 +10,7 @@ class AdminController extends BaseController {
 	 */
 	public function index()
 	{
+		return 'test';
 		$checkLogin = Auth::admin()->check();
         if($checkLogin) {
     		return Redirect::action('ManagerController@edit', Auth::admin()->get()->id);
