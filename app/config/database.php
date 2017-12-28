@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'company',
+			'database'  => 'galileo',
 			'username'  => 'root',
 			'password'  => 'root',
 			'charset'   => 'utf8',

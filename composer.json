@@ -6,9 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"ollieread/multiauth": "dev-master",
-		"cviebrock/eloquent-sluggable": "2.0.*",
 		"barryvdh/laravel-debugbar": "~1.8",
-		"mcamara/laravel-localization": "0.15.*"
 	},
 	"autoload": {
 		"classmap": [
