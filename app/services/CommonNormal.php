@@ -29,36 +29,8 @@ class CommonNormal
 		if ($name == NULL) {
 			$name = Request::segment(2);
 		}
-		if ($name == '') {
-			return 'AdminNew';
+		if ($name == 'partner') {
+			return 'Partner';
 		}
-		if($name =='news'){
-			return 'AdminNew';
-		}
-		if($name =='newstype'){
-			return 'TypeNew';
-		}
-		if ($name == 'manager') {
-			return 'Admin';
-		}
-		if ($name == 'introduce') {
-			return 'Introduce';
-		}
-		if ($name == 'bottomtext') {
-			return 'BottomText';
-		}
-		if ($name == 'contact') {
-			return 'Contact';
-		}
-		if ($name == 'slider') {
-			return 'AdminSlide';
-		}
-		if ($name == 'type_about_us') {
-			return 'TypeAboutUs';
-		}
-		if ($name == 'about_us_company') {
-			return 'AboutUs';
-		}
-
 	}
 }
