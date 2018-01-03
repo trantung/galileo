@@ -17,6 +17,7 @@
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 			 folder instead of downloading all of them to reduce the load. -->
 	{{HTML::style('adminlte/dist/css/skins/_all-skins.min.css') }}
+	@yield('style_header')
 	<!-- Date Picker -->
 	{{-- {{HTML::style('adminlte/plugins/datepicker/datepicker3.css') }} --}}
 	<!-- Daterange picker -->
@@ -40,9 +41,9 @@
 	{{ HTML::script('adminlte/plugins/jQueryUI/jquery-ui.min.js') }}
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
-	<script>
+	{{-- <script>
 		$.widget.bridge('uibutton', $.ui.button);
-	</script>
+	</script> --}}
 	<!-- Bootstrap 3.3.5 -->
 	{{ HTML::script('adminlte/bootstrap/js/bootstrap.min.js') }}
 	<!-- daterangepicker -->
@@ -53,54 +54,11 @@
 	<!-- Bootstrap WYSIHTML5 -->
 	{{-- {{ HTML::script('adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }} --}}
 	<!-- datetimepicker -->
-	{{ HTML::script('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}
+	{{-- {{ HTML::script('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }} --}}
 	<!-- FastClick -->
-	{{ HTML::script('adminlte/plugins/fastclick/fastclick.js') }}
+	{{-- {{ HTML::script('adminlte/plugins/fastclick/fastclick.js') }} --}}
 	<!-- AdminLTE App -->
 	{{ HTML::script('adminlte/dist/js/app.min.js') }}
-
-	<script>
-	  $(function () {
-	    $('#start_date').datetimepicker({
-	    	format: "yyyy-mm-dd hh:ii:00",
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			forceParse: 0,
-	    });
-	    $('#end_date').datetimepicker({
-	    	format: "yyyy-mm-dd hh:ii:00",
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			forceParse: 0,
-	    });
-	    $('#start_update_date').datetimepicker({
-	    	format: "yyyy-mm-dd hh:ii:00",
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			forceParse: 0,
-	    });
-	    $('#end_update_date').datetimepicker({
-	    	format: "yyyy-mm-dd hh:ii:00",
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			forceParse: 0,
-	    });
-	
-	    $('#datepickerStartdate').datepicker({
-	    	dateFormat: 'yy-mm-dd',
-			});
-	    $('#datepickerEnddate').datepicker({
-	    	dateFormat: 'yy-mm-dd',
-			});
-	  });
-	</script>
+	@yield('js_header')
 
 </head>

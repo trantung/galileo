@@ -13,5 +13,9 @@
 
 Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/partner', 'PartnerController');
+	Route::resource('/class', 'ClassController');
+	Route::resource('/subject', 'SubjectController');
 	Route::resource('/user', 'UserController');
 });
+
+Route::post('/ajax/{method}', 'AjaxController@process');

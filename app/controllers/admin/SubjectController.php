@@ -1,5 +1,4 @@
-<?php namespace admin;
-
+<?php
 class SubjectController extends \BaseController {
 
 	/**
@@ -20,7 +19,7 @@ class SubjectController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.subject.create');
 	}
 
 
@@ -31,7 +30,9 @@ class SubjectController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$input = Input::all();
+		CommonNormal::create($input);
+		return Redirect::back()->withMessage('Save successful!');
 	}
 
 

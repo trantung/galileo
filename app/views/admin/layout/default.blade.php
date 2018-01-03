@@ -39,12 +39,12 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2015</strong>
+    <strong>Copyright &copy; 2017</strong>
   </footer>
 
 </div>
 <!-- ./wrapper -->
 
-{{-- @include('admin.common.footer') --}}
+@include('admin.common.footer')
 </body>
 </html>

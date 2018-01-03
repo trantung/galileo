@@ -20,7 +20,8 @@ class ClassController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$subjects = Common::getSubjectList();
+		return View::make('admin.class.create')->with(compact('subjects'));
 	}
 
 

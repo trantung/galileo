@@ -1,5 +1,6 @@
 <?php
-class CenterController extends \BaseController {
+
+class LevelController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.

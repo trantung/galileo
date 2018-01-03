@@ -17,15 +17,7 @@
       <ul class="nav navbar-nav">
 
         <li class="user">
-          <a href="#"><i class="fa fa-user"></i>{{ Auth::admin()->get()->username }}</a>
-        </li>
-
-        <li class="user">
-        	<a href="{{ action('ManagerController@edit', Auth::admin()->get()->id) }}"><i class="fa fa-user"></i>Tài khoản</a>
-        </li>
-
-        <li class="user">
-        	<a href="{{ action('AdminController@logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
+          <a href="#"><i class="fa fa-user"></i>{{ Common::getObject(Auth::admin()->get(), 'username') }}</a>
         </li>
 
       </ul>
