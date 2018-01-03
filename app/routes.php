@@ -12,5 +12,6 @@
 */
 
 Route::group(['prefix' => 'admin'], function () {
-	Route::resource('/', 'AdminController');
+	Route::resource('/partner', 'PartnerController');
+	Route::resource('/user', 'UserController');
 });
