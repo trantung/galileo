@@ -1,7 +1,7 @@
 <?php
 class AdminController extends BaseController {
     public function __construct() {
-        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
 	/**
 	 * Display a listing of the resource.
@@ -10,12 +10,12 @@ class AdminController extends BaseController {
 	 */
 	public function index()
 	{
-		$checkLogin = Auth::admin()->check();
-        if($checkLogin) {
-    		return Redirect::action('ManagerController@edit', Auth::admin()->get()->id);
-        } else {
-            return View::make('admin.layout.login');
-        }
+		// $checkLogin = Auth::admin()->check();
+  //       if($checkLogin) {
+  //   		return Redirect::action('ManagerController@edit', Auth::admin()->get()->id);
+  //       } else {
+            return View::make('admin.dashboard');
+        // }
 	}
 	/**
 	 * Show the form for creating a new resource.

@@ -54,7 +54,12 @@ Route::filter('admin', function()
 		return Redirect::route('admin.login');
 	}
 });
-
+// Route::filter('partner', function()
+// {
+// 	if (Auth::partner()->guest()){
+// 		return Redirect::route('partner.login');
+// 	}
+// });
 Route::filter('auth.basic', function()
 {
 	return Auth::basic();
