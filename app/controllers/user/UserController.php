@@ -10,6 +10,10 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
+		$roleId = Auth::user()->role_id;
+		if ($roleId == 1) {
+			//
+		}
 		$users = User::all();
 		return View::make('admin.user.index')->with(compact('users'));
 	}
