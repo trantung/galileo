@@ -12,6 +12,7 @@
 */
 
 Route::group(['prefix' => 'admin'], function () {
+
 	Route::resource('/', 'AdminController');
 });
 
