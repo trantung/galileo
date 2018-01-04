@@ -10,10 +10,10 @@ Tạo mới lớp học
 @stop
 
 @section('content')
-	{{ Form::open(['action' => ['SubjectController@store'], 'method' => 'POST', 'class' => 'col-sm-6']) }}
+	{{ Form::open(['action' => ['ClassController@store'], 'method' => 'POST', 'class' => 'col-sm-6']) }}
 		<div class="form-group">
-			{{ Form::label('class_name', 'Tên lớp học') }}
-			{{ Form::text('class_name', '', ['class' => 'form-control', 'required' =>'']) }}
+			{{ Form::label('name', 'Tên lớp học') }}
+			{{ Form::text('name', '', ['class' => 'form-control', 'required' =>'']) }}
 		</div>
 		<div class="form-group">
 			{{ Form::label('subject', 'Chọn các môn học') }}

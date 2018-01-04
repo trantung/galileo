@@ -11,6 +11,7 @@ class Center extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'centers';
+    public $timestamps = true;
 
 	/**
 	 * The attributes excluded from the model's JSON form.

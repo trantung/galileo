@@ -33,8 +33,30 @@ class ClassController extends \BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		dd($input);
-		
+		// dd($input);
+		$classId = CommonNormal::create($input);
+		if( $classId && count($input['subject']) ){
+
+			// Lay cac record moi them trong bang subject_class
+			$subject_classes = CommonNormal::attach($classId, null, 'subjects', $input['subject']);
+			// dd($subject_classes);
+			if( $subject_classes ){
+				foreach ($subject_classes as $subject_class) {
+					$subject_id = $subject_class->subject_id;
+					// Neu nhu mon hoc nay co nhap input "trinh do"
+					if( isset($input['level'][$subject_id]) ){
+						foreach ($input['level'][$subject_id] as $level) {
+							if( !empty($level) ){
+								/* Lay tat ca trinh do cua lop hoc moi them tai moi mon hoc tuong ung
+								 * de them vao bang level
+								 */
+								CommonNormal::create( ['name' => $level, 'subject_class_id' => $subject_class->id], 'Level');
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 
