@@ -13,7 +13,7 @@ $(document).ready(function(){
 			<div class="input-wrap">\
 				<div class="item select-level-wrapper" data-syn="#syn">\
 					<label class="inline-block">Trình độ: </label>\
-					<input style="width:300px" name="level['+id+'][]" id="syn" type="text" class="form-control inline-block">\
+					<input style="width:405px" name="level['+id+'][]" id="syn" type="text" class="form-control inline-block">\
 					<button type="button" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></button>\
 				</div>\
 			</div>\
@@ -25,6 +25,9 @@ $(document).ready(function(){
 		console.log('tset2');
 		var parent = $(this).parent().find('>.input-wrap'),
 		clone = parent.find('>.item').first().clone();
+		clone.find('input').val('');
+		clone.find('select').val('');
+		clone.find('area').empty();
 		clone.find('>div').empty();
 		parent.append(clone);
 	})

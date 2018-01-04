@@ -17,8 +17,8 @@ Tạo mới môn học
 @section('content')
 	{{ Form::open(['action' => ['SubjectController@store'], 'method' => 'POST', 'class' => 'col-sm-6']) }}
 		<div class="form-group">
-			{{ Form::label('subject_name', 'Tên môn học') }}
-			{{ Form::text('subject_name', '', ['class' => 'form-control', 'required' =>'']) }}
+			{{ Form::label('name', 'Tên môn học') }}
+			{{ Form::text('name', '', ['class' => 'form-control', 'required' =>'']) }}
 		</div>
 		<div class="form-group">
 			{{ Form::submit('Lưu', ['class'=>'btn btn-primary']) }}

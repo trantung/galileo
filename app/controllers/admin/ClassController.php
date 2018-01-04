@@ -32,7 +32,9 @@ class ClassController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$input = Input::all();
+		dd($input);
+		
 	}
 
 

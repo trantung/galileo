@@ -2,7 +2,7 @@
 class Common {
 
 	public static function getSubjectList(){
-		return Subject::lists('subject_name', 'id');
+		return Subject::lists('name', 'id');
 	}
 
 	public static function getValueOfObject($ob, $method, $field)

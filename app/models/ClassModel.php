@@ -1,12 +1,12 @@
 <?php
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Class extends Eloquent
+class ClassModel extends Eloquent
 {
     use SoftDeletingTrait;
     
     protected $table = 'classes';
-    protected $fillable = ['class_name'];
+    protected $fillable = ['name'];
 
     protected $dates = ['deleted_at'];
 }

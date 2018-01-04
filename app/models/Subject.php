@@ -6,7 +6,7 @@ class Subject extends Eloquent
     use SoftDeletingTrait;
     
     protected $table = 'subjects';
-    protected $fillable = ['subject_name'];
+    protected $fillable = ['name'];
 
     protected $dates = ['deleted_at'];
 }

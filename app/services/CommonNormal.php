@@ -28,14 +28,18 @@ class CommonNormal
 	{
 		if ($name == NULL) {
 			$name = Request::segment(2);
-		}
+		} else{
 			return $name;
 		}
+
 		if ($name == 'subject') {
 			return 'Subject';
 		}
 		if ($name == 'partner') {
 			return 'Partner';
+		}
+		if ($name == 'class') {
+			return 'ClassModel';
 		}
 	}
 }
