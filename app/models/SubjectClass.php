@@ -3,12 +3,12 @@
 // use Illuminate\Auth\UserInterface;
 // use Illuminate\Auth\Reminders\RemindableTrait;
 // use Illuminate\Auth\Reminders\RemindableInterface;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+// use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 // class SubjectClass extends Eloquent implements UserInterface, RemindableInterface
 class SubjectClass extends Eloquent
 {
-    use SoftDeletingTrait;
+    // use SoftDeletingTrait;
     // use UserTrait, RemindableTrait;
     public $timestamps = true;
     protected $table = 'subject_class';
@@ -16,9 +16,9 @@ class SubjectClass extends Eloquent
 
 
     // protected $hidden = array('password', 'remember_token');
-    protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
 
-    public function level()
+    public function levels()
     {
         return $this->hasMany('Level', 'subject_class_id', 'id');
     }

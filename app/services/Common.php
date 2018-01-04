@@ -1,16 +1,40 @@
 <?php
 class Common {
 
+	/**
+	 * Lay danh sach Level cua 1 mon hoc thuoc 1 lop, tra ve 1 mang
+	 */
+	public static function getLevelBySubject($classId, $subjectId){
+		$subjectClass = SubjectClass::where('class_id', '=', $classId)->where('subject_id', '=', $subjectId)->first();
+		$subjectClassId = Common::getObject($subjectClass, 'id');
+		if( $subjectClassId ){
+			$levels = Level::select('id', 'name')->where('subject_class_id', '=', $subjectClassId)->get();
+			return $levels;
+		}
+		return null;
+	}
+
+	/**
+	 * Lay danh sach Level cua 1 mon hoc thuoc 1 lop, tra ve 1 chuoi
+	 */
+	public static function renderLevelBySubject($classId, $subjectId, $separated = ', '){
+		$output = [];
+		$levels = self::getLevelBySubject($classId, $subjectId);
+		if( $levels ){
+			foreach ($levels as $key => $value) {
+				$output[] = $value->name;
+			}
+		}
+		return implode($separated, $output);
+	}
+
 	public static function getSubjectList(){
 		return Subject::lists('name', 'id');
 	}
 
 	public static function getValueOfObject($ob, $method, $field)
 	{
-		if (!($ob)) {
-			return null;
-		}
-		if (!($ob->$method)) {
+		if (!self::getObject($ob,$method)) {
 			return null;
 		}
 		if (!($ob->$method->$field)) {

@@ -9,7 +9,8 @@ class ClassController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$data = ClassModel::all();
+		return View::make('admin.class.index')->with(compact('data'));
 	}
 
 
@@ -38,6 +39,7 @@ class ClassController extends \BaseController {
 		if( $classId && count($input['subject']) ){
 
 			// Lay cac record moi them trong bang subject_class
+			// Chua validate cac subject trung nhau
 			$subject_classes = CommonNormal::attach($classId, null, 'subjects', $input['subject']);
 			// dd($subject_classes);
 			if( $subject_classes ){
@@ -57,6 +59,7 @@ class ClassController extends \BaseController {
 				}
 			}
 		}
+		return Redirect::action('ClassController@index')->withMessage('Lưu thành công');
 	}
 
 
