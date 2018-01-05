@@ -14,4 +14,5 @@ class Subject extends Eloquent
 	{
 		return $this->belongsToMany('ClassModel', 'subject_class', 'subject_id', 'class_id');
 	}
+
 }

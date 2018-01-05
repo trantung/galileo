@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLevelsTable extends Migration {
+class CreateSubjectClassTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreateLevelsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('levels', function($table)
+		Schema::create('subject_class', function($table)
 		{
 			$table->increments('id');
-		    $table->string('level_name', 255);
-		    $table->integer('subject_class_id');
+		    $table->integer('subject_id');
+		    $table->integer('class_id');
 		    $table->softDeletes();
 		    $table->timestamps();
 		});
@@ -29,7 +29,7 @@ class CreateLevelsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('levels');
+		Schema::dropIfExists('subject_class');
 	}
 
 }
