@@ -2,27 +2,28 @@
 use Carbon\Carbon;
 class CommonNormal
 {
-	public static function attach($id, $name = null, $relateModel, $input){
+	public static function attach($id, $relateMethod, $input, $name = null){
 		$name = self::commonName($name);
 		$model = $name::find($id);
 		// dd($model);
-		if( !method_exists($model, $relateModel) ){
+		if( !method_exists($model, $relateMethod) ){
 			return null;
+			dd($model . 'chưa khai báo quan hệ' . ':' . $relateMethod);
 		}
-
 		// Them record vao bang many_many
-		$model->$relateModel()->attach($input);
-
+		$model->$relateMethod()->attach($input);
+		return true;
+		// SubjectClass::where('class_id', $id)->lists('id');
 		// Lay ten bang many_many
-		$pivotTable = $model->$relateModel()->getTable();
-		// lay ten truong ma khoa chinh cua Model $name la khoa ngoai cua bang many_many
-		$foreignKey = $model->$relateModel()->getForeignKey();
-		// $otherKey = $model->$relateModel()->getOtherKey();
-		if( !empty($pivotTable) && !empty($foreignKey) ){
-			/// Tra ve 1 mang cac record vua insert trong bang many_many
-			return DB::table($pivotTable)->where($foreignKey, $id)->get();
-		}
-		return null;
+		// $pivotTable = $model->$relateMethod()->getTable();
+		// // lay ten truong ma khoa chinh cua Model $name la khoa ngoai cua bang many_many
+		// $foreignKey = $model->$relateMethod()->getForeignKey();
+		// // $otherKey = $model->$relateMethod()->getOtherKey();
+		// if( !empty($pivotTable) && !empty($foreignKey) ){
+		// 	/// Tra ve 1 mang cac record vua insert trong bang many_many
+		// 	return DB::table($pivotTable)->where($foreignKey, $id)->get();
+		// }
+		// return null;
 	}
 
 	public static function delete($id, $name)
@@ -48,9 +49,7 @@ class CommonNormal
 	{
 		if ($name == NULL) {
 			$name = Request::segment(2);
-		} else{
-			return $name;
-		}
+		} 
 		if ($name == 'subject') {
 			return 'Subject';
 		}
@@ -60,5 +59,11 @@ class CommonNormal
 		if ($name == 'class') {
 			return 'ClassModel';
 		}
+		return $name;
+	}
+	public static function getListRelateObject($modelName, $value, $field)
+	{
+		$list = $modelName::where($field, $value)->get();
+		return $list;
 	}
 }
