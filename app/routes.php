@@ -95,9 +95,7 @@ Route::get('/test/login/partner', function(){
     $checkLogin = Auth::admin()->attempt($input);
     // $checkLogin = Auth::partner()->attempt($input);
     dd($checkLogin);
-=======
     Route::resource('/', 'AdminController');
->>>>>>> 68a45398e2faf8cd385e2fb1febd2ad5fc5d8419
 });
 Route::group(['prefix' => 'partner'], function () {
     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
