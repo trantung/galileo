@@ -10,6 +10,7 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 	use SoftDeletingTrait;
+    public $timestamps = true;
 
 	/**
 	 * The database table used by the model.

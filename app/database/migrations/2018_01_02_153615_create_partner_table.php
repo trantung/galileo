@@ -20,7 +20,7 @@ class CreatePartnerTable extends Migration {
             $table->string('name', 256)->nullable();
             $table->string('address', 256)->nullable();
             $table->string('phone', 256)->nullable();
-            $table->string('remember_token', 256)->nullable();
+            $table->rememberToken()->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

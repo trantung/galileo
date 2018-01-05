@@ -22,6 +22,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/partner/{id}/reset-password', 'ManagerPartnerController@getResetPass');
     Route::post('/partner/{id}/reset-password', 'ManagerPartnerController@postResetPass');
     Route::resource('/partner', 'ManagerPartnerController');
+    Route::resource('/class', 'ClassController');
+	Route::resource('/subject', 'SubjectController');
     /*
         Quản lý trung tâm: CRUD trung tâm: tên, địa chỉ
         1. Controller: ManagerCenterController 
@@ -29,7 +31,6 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.center
     */
     Route::resource('/center', 'ManagerCenterController');
-
     Route::resource('/', 'AdminController');
 });
 
@@ -94,4 +95,18 @@ Route::get('/test/login/partner', function(){
     $checkLogin = Auth::admin()->attempt($input);
     // $checkLogin = Auth::partner()->attempt($input);
     dd($checkLogin);
+=======
+    Route::resource('/', 'AdminController');
+>>>>>>> 68a45398e2faf8cd385e2fb1febd2ad5fc5d8419
 });
+Route::group(['prefix' => 'partner'], function () {
+    // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
+    // Route::post('/login', array('uses' => 'UserController@doLogin'));
+    Route::resource('/', 'UserController');
+});
+Route::group(['prefix' => 'user'], function () {
+    // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
+    // Route::post('/login', array('uses' => 'UserController@doLogin'));
+    Route::resource('/', 'UserController');
+});
+Route::post('/ajax/{method}', 'AjaxController@process');

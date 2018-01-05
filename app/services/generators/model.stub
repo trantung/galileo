@@ -5,21 +5,15 @@
 // use Illuminate\Auth\Reminders\RemindableInterface;
 // use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-// class SubjectClass extends Eloquent implements UserInterface, RemindableInterface
-class SubjectClass extends Eloquent
+// class {{class}} extends Eloquent implements UserInterface, RemindableInterface
+class {{class}} extends Eloquent
 {
     // use SoftDeletingTrait;
     // use UserTrait, RemindableTrait;
-    public $timestamps = true;
-    protected $table = 'subject_class';
-    protected $fillable = ['subject_id', 'class_id'];
-
+    // public $timestamps = true;
+    protected $table = '{{table}}';
+    protected $fillable = [];
 
     // protected $hidden = array('password', 'remember_token');
     // protected $dates = ['deleted_at'];
-
-    public function levels()
-    {
-        return $this->hasMany('Level', 'subject_class_id', 'id');
-    }
 }
