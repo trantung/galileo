@@ -11,7 +11,7 @@ class Common {
 			$levels = Level::select('id', 'name')->where('subject_class_id', '=', $subjectClassId)->get();
 			return $levels;
 		}
-		return null;
+		return [];
 	}
 
 	/**

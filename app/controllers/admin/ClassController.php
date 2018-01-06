@@ -1,6 +1,5 @@
 <?php
-
-class ClassController extends \BaseController {
+class ClassController extends AdminController implements AdminInterface {
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +37,7 @@ class ClassController extends \BaseController {
         if($classId){
             // Lay cac record moi them trong bang subject_class
             // Chua validate cac subject trung nhau
-            CommonNormal::attach($classId, 'subjects', $input['subject']);
+            CommonNormal::relateAction($classId, 'subjects', $input['subject']);
             $subjectClasses = CommonNormal::getListRelateObject('SubjectClass', $classId, 'class_id');
             foreach ($subjectClasses as $subjectClass) {
                 $subjectId = $subjectClass->subject_id;
@@ -79,7 +78,10 @@ class ClassController extends \BaseController {
      */
     public function edit($id)
     {
-        //
+        $data = ClassModel::findOrFail($id);
+        $subjects = Common::getSubjectList();
+        // dd(count($data->subjects));
+        return View::make('admin.class.edit')->with(compact('subjects', 'data'));
     }
 
 
@@ -91,7 +93,30 @@ class ClassController extends \BaseController {
      */
     public function update($id)
     {
-        //
+        $input = Input::all();
+        // dd($input);
+        $classId = CommonNormal::update($id, $input);
+        if($classId){
+            // Lay cac record moi them trong bang subject_class
+            // Chua validate cac subject trung nhau
+            CommonNormal::relateAction($classId, 'subjects', $input['subject'], 'sync');
+            $subjectClasses = CommonNormal::getListRelateObject('SubjectClass', $classId, 'class_id');
+            foreach ($subjectClasses as $subjectClass) {
+                $subjectId = $subjectClass->subject_id;
+                // Neu nhu mon hoc nay co nhap input "trinh do"
+                if( isset($input['level'][$subjectId]) ){
+                    foreach ($input['level'][$subjectId] as $level) {
+                        if( !empty($level) ){
+                            /* Lay tat ca trinh do cua lop hoc moi them tai moi mon hoc tuong ung
+                             * de them vao bang level
+                             */
+                            CommonNormal::update( ['name' => $level, 'subject_class_id' => $subjectClass->id], 'Level');
+                        }
+                    }
+                }
+            }
+        }
+        return Redirect::back()->withMessage('Lưu thành công');
     }
 
 

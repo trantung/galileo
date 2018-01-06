@@ -14,7 +14,7 @@ $(document).ready(function(){
                 <div class="item select-level-wrapper" data-syn="#syn">\
                     <label class="inline-block">Trình độ: </label>\
                     <input style="width:300px" name="level['+id+'][]" id="syn" type="text" class="form-control inline-block">\
-                    <button type="button" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></button>\
+                    <a class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a>\
                 </div>\
             </div>\
             <button class="btn btn-success add-new" type="button"><i class="glyphicon glyphicon-plus"></i> Thêm mới</button>\
@@ -41,6 +41,7 @@ $(document).ready(function(){
         parent.hide(300, function(e){
             parent.remove();
         });
+        return false;
     })
 
 })

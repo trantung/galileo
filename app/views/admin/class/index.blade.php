@@ -17,6 +17,7 @@ Danh sách lớp học
 				<th>Tên lớp</th>
 				<th>Môn học</th>
 				<th>Trình độ</th>
+				<th>Thao tác</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,6 +33,7 @@ Danh sách lớp học
 								{{ Common::renderLevelBySubject($class->id, $class->subjects[0]->id) }}
 							@endif
 						</td>
+						<td rowspan="{{ $countSubject }}"><a href="{{ action('ClassController@edit', $class->id) }}">Sửa</a></td>
 					</tr>
 				@if( $countSubject > 1 )
 					@for ($i = 1; $i < $countSubject; $i++)

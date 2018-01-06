@@ -1,5 +1,5 @@
 <?php
-class SubjectController extends \BaseController {
+class SubjectController extends AdminController implements AdminInterface {
 
 	/**
 	 * Display a listing of the resource.
@@ -8,7 +8,8 @@ class SubjectController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$data = Subject::all();
+        return View::make('admin.subject.index')->with(compact('data'));
 	}
 
 
@@ -56,7 +57,8 @@ class SubjectController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = Subject::findOrFail($id);
+        return View::make('admin.subject.edit')->with(compact('data'));
 	}
 
 
@@ -68,7 +70,9 @@ class SubjectController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$input = Input::all();
+		CommonNormal::update($id, $input);
+		return Redirect::action('SubjectController@index')->withMessage('Save successful!');
 	}
 
 

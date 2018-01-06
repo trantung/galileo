@@ -2,7 +2,7 @@
 use Carbon\Carbon;
 class CommonNormal
 {
-	public static function attach($id, $relateMethod, $input, $name = null){
+	public static function relateAction($id, $relateMethod, $input, $method == 'attach', $name = null){
 		$name = self::commonName($name);
 		$model = $name::find($id);
 		// dd($model);
@@ -11,7 +11,7 @@ class CommonNormal
 			dd($model . 'chưa khai báo quan hệ' . ':' . $relateMethod);
 		}
 		// Them record vao bang many_many
-		$model->$relateMethod()->attach($input);
+		$model->$relateMethod()->$method($input);
 		return true;
 		// SubjectClass::where('class_id', $id)->lists('id');
 		// Lay ten bang many_many
