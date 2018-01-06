@@ -66,4 +66,24 @@ class CommonNormal
 		$list = $modelName::where($field, $value)->get();
 		return $list;
 	}
+	public static function createOrUpdateSubjectLevel($classId, $input)
+	{
+		self::relateAction($classId, 'subjects', $input['subject']);
+        $subjectClasses = self::getListRelateObject('SubjectClass', $classId, 'class_id');
+        foreach ($subjectClasses as $subjectClass) {
+            $subjectId = $subjectClass->subject_id;
+            // Neu nhu mon hoc nay co nhap input "trinh do"
+            if( isset($input['level'][$subjectId]) ){
+                foreach ($input['level'][$subjectId] as $level) {
+                    if( !empty($level) ){
+                        /* Lay tat ca trinh do cua lop hoc moi them tai moi mon hoc tuong ung
+                         * de them vao bang level
+                         */
+                        self::create( ['name' => $level, 'subject_class_id' => $subjectClass->id], 'Level');
+                    }
+                }
+            }
+        }
+        return true;
+	}
 }

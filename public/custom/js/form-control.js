@@ -21,12 +21,13 @@ $(document).ready(function(){
         </div>');
     })
 
-    $(document).on('click', '.js-multi-field >.add-new', function(){
+    $(document).on('click', '.js-multi-field >.add-new:not(.edit)', function(){
         console.log('tset2');
         var parent = $(this).parent().find('>.input-wrap'),
         clone = parent.find('>.item').first().clone();
         clone.find('input').val('');
         clone.find('select').val('');
+        clone.find('select').removeAttr('disabled');
         clone.find('area').empty();
         clone.find('>div').empty();
         parent.append(clone);
@@ -41,7 +42,18 @@ $(document).ready(function(){
         parent.hide(300, function(e){
             parent.remove();
         });
-        return false;
+        return true;
+    })
+    $(document).on('click', '.select-level .js-multi-field >.edit', function(){
+        console.log('edit class subject');
+        var id = $(this).parents('.item.select-subject-wrapper').find('>select').val();
+        var parent = $(this).parent().find('>.input-wrap');
+        var test = '<div class="item select-level-wrapper" data-syn="#syn">\
+                    <label class="inline-block">Trình độ: </label>\
+                    <input style="width:300px" name="level_new['+id+'][]" id="syn" type="text" class="form-control inline-block">\
+                    <a class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a>\
+                </div>';
+        parent.append(test);
     })
 
 })

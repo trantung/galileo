@@ -107,4 +107,8 @@ Route::group(['prefix' => 'user'], function () {
     // Route::post('/login', array('uses' => 'UserController@doLogin'));
     Route::resource('/', 'UserController');
 });
-Route::post('/ajax/{method}', 'AjaxController@process');
+// Route::post('/ajax/{method}', 'AjaxController@process');
+Route::controller('/ajax', 'AjaxController');
+
+
+

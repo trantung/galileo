@@ -5,7 +5,7 @@ Chỉnh sửa lớp học
 @stop
 
 @section('content')
-    {{ Form::open(['action' => ['ClassController@store'], 'method' => 'PUT', 'class' => 'col-sm-6']) }}
+    {{ Form::open(['action' => ['ClassController@update', $data->id], 'method' => 'PUT', 'class' => 'col-sm-6']) }}
         <div class="form-group">
             {{ Form::label('name', 'Tên lớp học') }}
             {{ Form::text('name', $data->name, ['class' => 'form-control', 'required' =>'']) }}
