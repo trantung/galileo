@@ -31,6 +31,21 @@
                     <div id="partner_form">
                         
                     </div>
+
+                    <div class="form-group">
+                        <label>Chọn lớp</label>
+                        <div class="list-class-in-center">
+                            @if( count($listClasses) )
+                                @foreach( $listClasses as $key => $_class )
+                                    <div class="form-group class-item checkbox">
+                                        <label for="class-{{ $key }}">{{ Form::checkbox('class['.$_class->id.']', $_class->id, false, ['id'=>'class-'.$key]) }}{{ $_class->name }}</label>
+                                    </div>
+                                @endforeach
+                            @else
+                            <a href="{{ action('Classcontroller@create') }}">Tạo mới môn học</a>
+                            @endif
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="title">Phone</label>
                         <div class="row">

@@ -20,8 +20,9 @@ class ManagerCenterController extends AdminController implements AdminInterface{
 	 */
 	public function create()
 	{
+		$listClasses = ClassModel::all();
 		$listPartners = Partner::lists('name', 'id');
-		return View::make('admin.center.create')->with(compact('listPartners'));
+		return View::make('admin.center.create')->with(compact('listPartners', 'listClasses'));
 	}
 	/**
 	 * Store a newly created resource in storage.

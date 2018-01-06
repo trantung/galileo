@@ -2,7 +2,7 @@
 use Carbon\Carbon;
 class CommonNormal
 {
-	public static function relateAction($id, $relateMethod, $input, $method == 'attach', $name = null){
+	public static function relateAction($id, $relateMethod, $input, $method = 'attach', $name = null){
 		$name = self::commonName($name);
 		$model = $name::find($id);
 		// dd($model);
