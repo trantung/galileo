@@ -15,6 +15,16 @@ class Common {
 	}
 
 	/**
+	 * Lay danh sach Level cua 1 mon hoc thuoc 1 lop, tra ve 1 mang
+	 */
+	public static function getSubjectClassByLevel($level){
+		$subjectClassId = SubjectClass::findOrFail($level->subject_class_id);
+		$classes = ClassModel::findOrFail(Common::getObject($subjectClassId, 'class_id'));
+		$subjects = Subject::findOrFail(Common::getObject($subjectClassId, 'subject_id'));
+		return ['class'=>$classes,'subject'=>$subjects];
+	}
+
+	/**
 	 * Lay danh sach Level cua 1 mon hoc thuoc 1 lop, tra ve 1 chuoi
 	 */
 	public static function renderLevelBySubject($classId, $subjectId, $separated = ', '){

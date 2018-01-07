@@ -1,5 +1,26 @@
 $(document).ready(function(){
 
+    //// Chon danh sach lop hoc, mon hoc, level cho Center
+    $('.list-class-in-center').on('change', '.item>label>input', function(){
+        var id = $(this).parent().attr('href');
+        if( $(this).is(':checked') ){
+            $(id).collapse('show');
+        }else{
+            $(this).parent().parent().find('input[type="checkbox"]').prop('checked', false);
+            $(id).collapse('hide');
+        }
+    })
+    if( $('.list-class-in-center .level-item>label>input').length ){
+        $('.list-class-in-center .level-item>label>input').each(function(){
+            if( $(this).is(':checked') ){
+                $(this).parents('.subject-item').find('>label>input').prop('checked', 'checked').change();
+                $(this).parents('.class-item').find('>label>input').prop('checked', 'checked').change();
+            }
+        })
+    }
+    /////////////////////////////
+
+    //// Tao input nhap trinh do khi chon mon hoc trong form Create Class
     $(document).on('change', '.select-subject-wrapper>select', function(){
         var parent = $(this).parent(), id = $(this).val();
         if( id == '' ){
@@ -21,6 +42,7 @@ $(document).ready(function(){
         </div>');
     })
 
+    // Khi them moi 1 o input
     $(document).on('click', '.js-multi-field >.add-new:not(.edit)', function(){
         console.log('tset2');
         var parent = $(this).parent().find('>.input-wrap'),
@@ -33,6 +55,7 @@ $(document).ready(function(){
         parent.append(clone);
     })
 
+    // Khi xoa 1 o input
     $(document).on('click', '.item >.remove', function(){
         // neu chi co 1 input duy nhat thi khong xoa duoc
         if( $(this).parent().parent().find('>.item').length <= 1 ){
@@ -44,6 +67,8 @@ $(document).ready(function(){
         });
         return true;
     })
+
+    //// Khi them moi 1 o input da co du lieu truoc do
     $(document).on('click', '.select-level .js-multi-field >.edit', function(){
         console.log('edit class subject');
         var id = $(this).parents('.item.select-subject-wrapper').find('>select').val();

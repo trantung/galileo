@@ -32,9 +32,12 @@ class ManagerCenterController extends AdminController implements AdminInterface{
 	public function store()
 	{
 		$input = Input::except('_token');
-		dd($input);
+		// dd($input);
 		
 		$centerId = Center::create($input)->id;
+		if( !empty($input['level']) && $centerId ){
+			CommonNormal::relateAction($centerId, 'levels', $input['level']);
+		}
 		return Redirect::action('ManagerCenterController@index');
 	}
 	/**
@@ -58,7 +61,15 @@ class ManagerCenterController extends AdminController implements AdminInterface{
 		$center = Center::find($id);
 		$partnerId = $center->partner_id;
 		$listPartners = Partner::lists('name', 'id');
-		return View::make('admin.center.edit')->with(compact('center', 'partnerId', 'listPartners'));
+		$listClasses = ClassModel::all();
+		$listLevels = [];
+		if(count($center->levels)){
+			foreach ($center->levels as $value) {
+				$listLevels[$value->id] = Common::getSubjectClassByLevel($value);
+			}
+		}
+		// dd($listLevels);
+		return View::make('admin.center.edit')->with(compact('center', 'partnerId', 'listPartners', 'listClasses', 'listLevels'));
     }
 	/**
 	 * Update the specified resource in storage.
@@ -69,8 +80,11 @@ class ManagerCenterController extends AdminController implements AdminInterface{
 	public function update($id)
 	{
 		$input = Input::except('_token', '_method');
-		$center = Center::find($id);
+		$center = Center::findOrFail($id);
 		$center->update($input);
+		if( !empty($input['level']) ){
+			CommonNormal::relateAction($id, 'levels', $input['level'], 'sync');
+		}
 		return Redirect::action('ManagerCenterController@index');
 	}
 	/**

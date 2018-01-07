@@ -25,6 +25,10 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>Chọn lớp</label>
+                    @include('admin.js.get_level_center_form', ['listClasses' => $listClasses, 'listLevels'=>$listLevels])
+                </div>
+                <div class="form-group">
                     <label for="title">Phone</label>
                     <div class="row">
                         <div class="col-sm-6">

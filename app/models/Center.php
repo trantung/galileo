@@ -23,5 +23,10 @@ class Center extends Eloquent {
 	);
     protected $dates = ['deleted_at'];
 
+	public function levels() 
+	{
+		return $this->belongsToMany('Level', 'center_level', 'center_id', 'level_id');
+
+	}
 
 }
