@@ -43,7 +43,6 @@ Route::group(['prefix' => 'admin'], function () {
         2. table: users
         3. view: admin.user
     */
-    Route::resource('/user', 'UserController');
 });
 
 Route::group(['prefix' => 'partner'], function () {

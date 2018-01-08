@@ -24,7 +24,9 @@ class AddCenteridIntoUserTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::table('users', function(Blueprint $table) {
+            $table->dropColumn('center_id');
+        });
 	}
 
 }

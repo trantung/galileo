@@ -48,7 +48,12 @@ class ClassController extends AdminController implements AdminInterface {
                             /* Lay tat ca trinh do cua lop hoc moi them tai moi mon hoc tuong ung
                              * de them vao bang level
                              */
-                            CommonNormal::create( ['name' => $level, 'subject_class_id' => $subjectClass->id], 'Level');
+                            CommonNormal::create([
+                                'name' => $level,
+                                'subject_class_id' => $subjectClass->id,
+                                'class_id' => $classId,
+                                'subject_id' => $subjectId,
+                            ], 'Level');
                         }
                     }
                 }
@@ -94,6 +99,7 @@ class ClassController extends AdminController implements AdminInterface {
     public function update($id)
     {
         $input = Input::all();
+        CommonNormal::update($id, ['name' => $input['name']]);
         $levels = $input['level'];
         $listLevelId = [];
         $listSubjectClassId = SubjectClass::where('class_id', $id)->lists('id');
@@ -120,7 +126,12 @@ class ClassController extends AdminController implements AdminInterface {
                 $subjectClass = SubjectClass::where('class_id', $id)->where('subject_id', $keyNew)->first();
                 $subjectClassId = $subjectClass->id;
                 foreach ($valueNews as $valueNew) {
-                    Level::create(['name' => $valueNew, 'subject_class_id' => $subjectClassId]);
+                    Level::create([
+                        'name' => $valueNew,
+                        'subject_class_id' => $subjectClassId,
+                        'class_id' => $id,
+                        'subject_id' => $keyNew,
+                    ]);
                 }
             }
         }
@@ -132,7 +143,12 @@ class ClassController extends AdminController implements AdminInterface {
                 ])->id;
                 $listLevel = $input['level'][$valueSubject];
                 foreach ($listLevel as $keyL => $valueL) {
-                    Level::create(['name' => $valueL, 'subject_class_id' => $subjectClassNewId]);
+                    Level::create([
+                        'name' => $valueL,
+                        'subject_class_id' => $subjectClassNewId,
+                        'class_id' => $id,
+                        'subject_id' => $valueSubject,
+                    ]);
                 }
             }
             
