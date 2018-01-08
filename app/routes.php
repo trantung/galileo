@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/partner', 'ManagerPartnerController');
     Route::resource('/class', 'ClassController');
 	Route::resource('/subject', 'SubjectController');
+
     /*
         Quản lý trung tâm: CRUD trung tâm: tên, địa chỉ
         1. Controller: ManagerCenterController 
@@ -33,6 +34,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/center', 'ManagerCenterController');
     Route::resource('/user', 'ManagerUserController');
     Route::resource('/', 'AdminController');
+
+    /*
+        Quản lý thành viên trung tâm: CRUD thành viên: tên, địa chỉ
+        1. Controller: user/UserController 
+        2. table: users
+        3. view: admin.user
+    */
+    Route::resource('/user', 'UserController');
 });
 
 Route::group(['prefix' => 'partner'], function () {
@@ -41,11 +50,11 @@ Route::group(['prefix' => 'partner'], function () {
     Route::resource('/', 'UserController');
 });
 
-Route::group(['prefix' => 'user'], function () {
-    // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
-    // Route::post('/login', array('uses' => 'UserController@doLogin'));
-    Route::resource('/', 'UserController');
-});
+// Route::group(['prefix' => 'user'], function () {
+//     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
+//     // Route::post('/login', array('uses' => 'UserController@doLogin'));
+//     Route::resource('/', 'UserController');
+// });
 
 
 

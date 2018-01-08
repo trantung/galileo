@@ -1,5 +1,5 @@
 <?php
-class UserController extends BaseController {
+class UserController extends AdminController implements AdminInterface {
     public function __construct() {
         // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
@@ -24,7 +24,7 @@ class UserController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.user.create');
 	}
 	/**
 	 * Store a newly created resource in storage.

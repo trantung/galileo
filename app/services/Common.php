@@ -2,6 +2,20 @@
 class Common {
 
 	/**
+	 * Lay danh sach cac quyen da khai bao trong helpers/Constant, tra ve 1 mang
+	 */
+	public static function getListRole(){
+		return [
+			QLTT 	=> 'Quản lý trung tâm',
+			GV 		=> 'Giáo vụ',
+			PTCM 	=> 'Phụ trách chuyên môn',
+			CVHT 	=> 'Cố vấn học tập',
+			SALE 	=> 'Bán hàng',
+			KT 		=> 'Kế toán',
+		];
+	}
+
+	/**
 	 * Lay danh sach Level cua 1 mon hoc thuoc 1 lop, tra ve 1 mang
 	 */
 	public static function getLevelBySubject($classId, $subjectId){
