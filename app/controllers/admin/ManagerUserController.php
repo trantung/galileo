@@ -141,5 +141,18 @@ class ManagerUserController extends BaseController {
         Session::flush();
         return Redirect::route('admin.login');
     }
+    public function getResetPass($id)
+	{
+		return View::make('admin.user.reset_password')->with(compact('id'));
+	}
+	public function postResetPass($id)
+	{
+		$input = Input::all();
+		$user = User::find($id);
+		$password = Hash::make($input['password']);
+		$user->update(['pass' => $password]);
+		return Redirect::action('ManagerUserController@index');
+
+	}
 }
 

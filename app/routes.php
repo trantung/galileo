@@ -31,6 +31,8 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.center
     */
     Route::resource('/center', 'ManagerCenterController');
+    Route::get('/user/{id}/reset-password', 'ManagerUserController@getResetPass');
+    Route::post('/user/{id}/reset-password', 'ManagerUserController@postResetPass');
     Route::resource('/user', 'ManagerUserController');
     Route::resource('/', 'AdminController');
 });
