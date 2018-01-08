@@ -48,8 +48,8 @@ class ClassController extends AdminController implements AdminInterface {
                             /* Lay tat ca trinh do cua lop hoc moi them tai moi mon hoc tuong ung
                              * de them vao bang level
                              */
-                            CommonNormal::create([
-                                'name' => $level,
+                            CommonNormal::create( [
+                                'name' => $level, 
                                 'subject_class_id' => $subjectClass->id,
                                 'class_id' => $classId,
                                 'subject_id' => $subjectId,
@@ -99,7 +99,6 @@ class ClassController extends AdminController implements AdminInterface {
     public function update($id)
     {
         $input = Input::all();
-        CommonNormal::update($id, ['name' => $input['name']]);
         $levels = $input['level'];
         $listLevelId = [];
         $listSubjectClassId = SubjectClass::where('class_id', $id)->lists('id');
@@ -127,7 +126,7 @@ class ClassController extends AdminController implements AdminInterface {
                 $subjectClassId = $subjectClass->id;
                 foreach ($valueNews as $valueNew) {
                     Level::create([
-                        'name' => $valueNew,
+                        'name' => $valueNew, 
                         'subject_class_id' => $subjectClassId,
                         'class_id' => $id,
                         'subject_id' => $keyNew,
@@ -144,7 +143,7 @@ class ClassController extends AdminController implements AdminInterface {
                 $listLevel = $input['level'][$valueSubject];
                 foreach ($listLevel as $keyL => $valueL) {
                     Level::create([
-                        'name' => $valueL,
+                        'name' => $valueL, 
                         'subject_class_id' => $subjectClassNewId,
                         'class_id' => $id,
                         'subject_id' => $valueSubject,
