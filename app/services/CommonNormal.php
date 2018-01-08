@@ -26,7 +26,7 @@ class CommonNormal
 		// return null;
 	}
 
-	public static function delete($id, $name)
+	public static function delete($id, $name = NULL)
 	{
 		$name = self::commonName($name);
 		$name::find($id)->delete();
@@ -58,6 +58,9 @@ class CommonNormal
 		}
 		if ($name == 'class') {
 			return 'ClassModel';
+		}
+		if ($name == 'user') {
+			return 'User';
 		}
 		return $name;
 	}

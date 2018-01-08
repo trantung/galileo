@@ -99,7 +99,8 @@ class ClassController extends AdminController implements AdminInterface {
     public function update($id)
     {
         $input = Input::all();
-        $levels = $input['level'];
+        ClassModel::find($id)->update($input);
+        $levels = !empty($input['level']) ? $input['level'] : [];
         $listLevelId = [];
         $listSubjectClassId = SubjectClass::where('class_id', $id)->lists('id');
         $list = Level::whereIn('subject_class_id', $listSubjectClassId)->lists('id');
@@ -107,7 +108,7 @@ class ClassController extends AdminController implements AdminInterface {
             $listLevelId[] = array_keys($value);
         }
         $listLevelId = call_user_func_array('array_merge', $listLevelId);
-        $levelToUpdate = $listLevelId;
+        // $levelToUpdate = $listLevelId;
 
         foreach ($levels as $k => $v) {
             foreach ($v as $keyV => $valueV) {

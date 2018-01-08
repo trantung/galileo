@@ -2,17 +2,35 @@
 class Common {
 
 	/**
-	 * Lay danh sach cac quyen da khai bao trong helpers/Constant, tra ve 1 mang
+	 * Lay danh sach level cua 1 User
 	 */
-	public static function getListRole(){
-		return [
-			QLTT 	=> 'Quản lý trung tâm',
-			GV 		=> 'Giáo vụ',
-			PTCM 	=> 'Phụ trách chuyên môn',
-			CVHT 	=> 'Cố vấn học tập',
-			SALE 	=> 'Bán hàng',
-			KT 		=> 'Kế toán',
-		];
+	public static function getLevelOfUser($uid){
+		$levels = UserCenterLevel::where('user_id', $uid)->lists('level_id');
+		return $levels;
+	}
+
+	/**
+	 * Lay danh sach Class, Subject, Level cua 1 trung tam
+	 */
+	public static function getClassSubjectLevelOfCenter($centerId){
+		$levelsObject = Center::find($centerId);
+		$arr = [
+            'listClasses' => [],
+            'listSubjects' => [],
+            'listLevels'    => [],
+        ];
+		if( count($levelsObject->levels) ){
+	        foreach ($levelsObject->levels as $level) {
+	            $arr['listLevels'][] = $level->id;
+	            if( !isset($arr['listClasses'][$level->class_id]) ){
+	                $arr['listClasses'][$level->class_id] = ClassModel::find($level->class_id);
+	            }
+	            if( !in_array($level->subject_id, $arr['listSubjects']) ){
+	                $arr['listSubjects'][] = $level->subject_id;
+	            }
+	        }
+		}
+        return $arr;
 	}
 
 	/**

@@ -2,11 +2,12 @@
 
 @section('js_header')
 @parent
+{{ HTML::script( asset('custom/js/form-control.js') ) }}
 {{ HTML::script( asset('custom/js/ajax.js') ) }}
 @stop
 
 @section('title')
-Tạo mới lớp học
+Tạo mới thành viên
 @stop
 
 @section('content')
@@ -17,7 +18,7 @@ Tạo mới lớp học
     </div>
     <div class="form-group">
         {{ Form::label('email', 'Email') }}
-        {{ Form::text('email', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+        {{ Form::email('email', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
     </div>
     <div class="form-group">
         {{ Form::label('password', 'password') }}

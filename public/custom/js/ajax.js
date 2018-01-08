@@ -5,12 +5,12 @@ $(document).ready(function(){
 		var subjectId = $(this).attr('subject-id');
 		$.ajax({
 			'url': '/ajax/delete',
-			'method':'POST',
+			'method': 'POST',
 			'data': {
 				'class_id': classId,
 				'subject_id': subjectId,
 			},
-			success:function(tung) {
+			success: function(tung) {
 				console.log(tung);
 			}
 		});
@@ -20,17 +20,21 @@ $(document).ready(function(){
     $('.user-create-form select.select-center').on('change', function(){
     	var id = $(this).val(),
     	wrapper = $(this).parents('form').find('.get-list-level-by-center-wrap');
-    	
+		console.log(id);
     	wrapper.empty();
     	if( id != '' ){
     		$.ajax({
 				'url': '/ajax/get-list-class-by-center',
-				'method':'POST',
+				'method': 'POST',
 				'data': {
 					center_id: id,
 				},
-				success:function(data) {
-					console.log(data);
+				success: function(data) {
+					console.log('get list class subject level success!');
+					wrapper.append(data);
+				},
+				error: function(error){
+					console.log(error);
 				}
 			});
     	}

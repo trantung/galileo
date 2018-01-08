@@ -57,6 +57,7 @@ class ManagerUserController extends BaseController {
 			UserCenterLevel::create([
 				'user_id' => $userId,
 				'center_level_id' => $userCenterLevelId,
+				'level_id' => $value
 			]);
 		}
 		return Redirect::action('ManagerUserController@index');
@@ -69,7 +70,7 @@ class ManagerUserController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -79,7 +80,10 @@ class ManagerUserController extends BaseController {
 	 */
 	public function edit($id)
 	{
-
+		$data = User::findOrFail($id);
+		$levelData = Common::getLevelOfUser($id);
+		$listData = Common::getClassSubjectLevelOfCenter($data->center_id);
+		return View::make('admin.user.edit')->with( compact('listData', 'data', 'levelData') );
     }
 	/**
 	 * Update the specified resource in storage.
@@ -89,7 +93,37 @@ class ManagerUserController extends BaseController {
 	 */
 	public function update($id)
 	{
+		$input = Input::all();
+		if( !empty($input['level']) ){
+			// Neu co nhap trinh do cua cac mon hoc
+			$levelIds = $input['level'];
+			$levelOlds = Common::getLevelOfUser($id);
+			$levelAdds = array_diff($levelIds, $levelOlds); // Lay cac Id moi de them vao
+			$levelDels = array_diff($levelOlds, $levelIds); // Lay cac Id se xoa
+			foreach ($levelDels as $key => $levelId) {
+				UserCenterLevel::where('user_id', $id)->where('level_id', $levelId)->delete();
+			}
+			foreach ($levelAdds as $key => $levelId) {
+				// Them moi level
+				$userCenterLevel = CenterLevel::where('level_id', $levelId)
+					->where('center_id', $input['center_id'])
+					->first();
+				if ($userCenterLevel != null) {
+					$userCenterLevelId = $userCenterLevel->id;
+					UserCenterLevel::create([
+						'user_id' => $id,
+						'center_level_id' => $userCenterLevelId,
+						'level_id' => $levelId
+					]);
+				}
+			}
 
+		} else{
+			// Neu khong nhap gi thi xoa het trong bang center_user_level
+			UserCenterLevel::find($id)->delete();
+		}
+		CommonNormal::update($id, $input);
+		return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
 	}
 	/**
 	 * Remove the specified resource from storage.
@@ -99,7 +133,8 @@ class ManagerUserController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		CommonNormal::delete($id);
+		return Redirect::action('ManagerUserController@index')->withMessage('Đã xóa thành công!');
 	}
     public function login()
     {

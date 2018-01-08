@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     //// Chon danh sach lop hoc, mon hoc, level cho Center
-    $('.list-class-in-center').on('change', '.item>label>input', function(){
+    $(document).on('change', '.list-class-in-center .item>label>input', function(){
         var id = $(this).parent().attr('href');
         if( $(this).is(':checked') ){
             $(id).collapse('show');

@@ -1,73 +1,47 @@
 @extends('admin.layout.default')
 
+@section('js_header')
+@parent
+{{ HTML::script( asset('custom/js/form-control.js') ) }}
+{{ HTML::script( asset('custom/js/ajax.js') ) }}
+@stop
+
 @section('title')
-{{ $title='Thêm mới introduce' }}
+Chỉnh sửa thành viên
 @stop
 
 @section('content')
+{{ Form::open(['action' => ['ManagerUserController@update', $data->id], 'method' => 'PUT', 'class' => 'col-sm-6 user-create-form']) }}
+    <div class="form-group">
+        {{ Form::label('username', 'Tên đăng nhập') }}
+        {{ Form::text('username', Common::getObject($data, 'username'), ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('email', 'Email') }}
+        {{ Form::email('email', Common::getObject($data, 'email'), ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('role_id', 'Phân quyền') }}
+        {{ Form::select('role_id', ['' => '-- Chọn --'] + Common::getRoleUser(), Common::getObject($data, 'role_id'), ['class' => 'form-control', 'required' =>'']) }}
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Thông tin thành viên</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                {{ Form::label('center_id', 'Trực thuộc trung tâm:') }}
+                {{ Form::select('center_id', ['' => '-- Chọn --'] + Common::getAllCenter(), Common::getObject($data, 'center_id'), ['class' => 'form-control select-center', 'required' =>'']) }}
+            </div>
+            <div class="get-list-level-by-center-wrap">
+            	@include('ajax.get_level_by_center', $listData+['levelData' => $levelData])
+            </div>
+        </div>
+    </div>
 
-<div class="row">
-	<div class="col-xs-12">
-		<div class="box box-primary">
-			<!-- form start -->
-			{{ Form::open(array('action' => array('AdminIntroduceController@update', $introduce->model_id), 'method' => 'PUT')) }}
-				<div class="box-body">
-					<div class="form-group">
-						<label for="title">Tiêu đề Vietnamese</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   {{ Form::text('title', Common::getValue($introduce->model_id, 'Introduce', 'title') , textParentCategory('Tiêu đề introduce')) }}
-							</div>
-						</div>
-						<label for="title">Tiêu đề English</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   {{ Form::text('en_title', Common::getValue($introduce->relate_id, 'Introduce', 'title') , textParentCategory('Tiêu đề introduce english')) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="name">Thể loại css</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   {{  Form::select('css', returnCss(),Common::getValue($introduce->model_id, 'Introduce', 'css'),array('class' => 'form-control' )) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="name">Vị trí</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   {{  Form::select('position', returnPosition(),Common::getValue($introduce->model_id, 'Introduce', 'position'),array('class' => 'form-control' )) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="description">Nội dung Vietnamese</label>
-						<div class="row">
-							<div class="col-sm-12">
-							   {{ Form::textarea('description', Common::getValue($introduce->model_id, 'Introduce', 'description'), array('class' => 'form-control',"rows"=>6, 'id' => 'editor1')) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="description">Nội dung English</label>
-						<div class="row">
-							<div class="col-sm-12">
-							   {{ Form::textarea('en_description', Common::getValue($introduce->relate_id, 'Introduce', 'description'), array('class' => 'form-control',"rows"=>6, 'id' => 'editor2')) }}
-							</div>
-						</div>
-					</div>
-					<!-- /.box-body -->
-
-					<div class="box-footer">
-					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
-					</div>
-				</div>
-			{{ Form::close() }}
-		  	<!-- /.box -->
-	  	</div>
-	</div>
-</div>
-@include('admin.common.ckeditor')
+    <div class="form-group">
+        {{ Form::submit('Lưu', ['class'=>'btn btn-primary']) }}
+    </div>
+{{ Form::close() }}
+<div class="clear clearfix"></div>
 @stop
