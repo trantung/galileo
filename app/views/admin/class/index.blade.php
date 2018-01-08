@@ -8,8 +8,12 @@
 @section('title')
 Danh sách lớp học
 @stop
-
 @section('content')
+<div class="row margin-bottom">
+    <div class="col-xs-12">
+        <a href="{{ action('ClassController@create') }}" class="btn btn-primary">Thêm mới lớp học</a>
+    </div>
+</div>
 	<table class="table table-bordered table-responsive">
 		<thead>
 			<tr class="bg-primary">
@@ -33,7 +37,12 @@ Danh sách lớp học
 								{{ Common::renderLevelBySubject($class->id, $class->subjects[0]->id) }}
 							@endif
 						</td>
-						<td rowspan="{{ $countSubject }}"><a href="{{ action('ClassController@edit', $class->id) }}">Sửa</a></td>
+						<td rowspan="{{ $countSubject }}"><a href="{{ action('ClassController@edit', $class->id) }}" class="btn btn-primary">Sửa</a>
+							{{ Form::open(array('method'=>'DELETE', 'action' => array('ClassController@destroy', $class->id), 'style' => 'display: inline-block;')) }}
+								<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+								</td>
+							{{ Form::close() }}
+						</td>
 					</tr>
 				@if( $countSubject > 1 )
 					@for ($i = 1; $i < $countSubject; $i++)

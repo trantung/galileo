@@ -38,7 +38,7 @@ $(document).ready(function(){
                     <a class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a>\
                 </div>\
             </div>\
-            <button class="btn btn-success add-new" type="button"><i class="glyphicon glyphicon-plus"></i> Thêm mới</button>\
+            <button class="btn btn-success add-new" type="button"><i class="glyphicon glyphicon-plus"></i> Thêm mới trình độ</button>\
         </div>');
     })
 

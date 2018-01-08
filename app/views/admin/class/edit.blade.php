@@ -20,7 +20,7 @@ Chỉnh sửa lớp học
             @endif
         </div>
         <div class="form-group">
-            {{ Form::submit('Lưu', ['class'=>'btn btn-primary']) }}
+            {{ Form::submit('submit', ['class'=>'btn btn-primary']) }}
         </div>
     {{ Form::close() }}
     <div class="clear clearfix"></div>

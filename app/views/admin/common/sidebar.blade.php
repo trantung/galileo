@@ -3,7 +3,7 @@
         <ul class="sidebar-menu">
             <li class="header">Menu</li>
             <li>
-                <a href="{{ action('AdminController@index') }}">
+                <a href="{{ action('ManagerUserController@index') }}">
                     <i class="fa fa-newspaper-o"></i> 
                     <span>Quản lý thành viên trung tâm</span>
                 </a>
@@ -20,6 +20,19 @@
                     <span>Quản lý các trung tâm</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ action('SubjectController@index') }}">
+                    <i class="fa fa-newspaper-o"></i> 
+                    <span>Quản lý các môn học</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ action('ClassController@index') }}">
+                    <i class="fa fa-newspaper-o"></i> 
+                    <span>Quản lý các lớp học</span>
+                </a>
+            </li>
+
         </ul>
     </section>
 </aside>

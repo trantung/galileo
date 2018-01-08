@@ -84,7 +84,8 @@ class SubjectController extends AdminController implements AdminInterface {
 	 */
 	public function destroy($id)
 	{
-		//
+		Subject::destroy($id);
+		return Redirect::action('SubjectController@index')->withMessage('Save successful!');
 	}
 
 

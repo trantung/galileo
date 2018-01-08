@@ -10,6 +10,7 @@ Tạo mới lớp học
 @stop
 
 @section('content')
+
     {{ Form::open(['action' => ['ClassController@store'], 'method' => 'POST', 'class' => 'col-sm-6']) }}
         <div class="form-group">
             {{ Form::label('name', 'Tên lớp học') }}

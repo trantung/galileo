@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.center
     */
     Route::resource('/center', 'ManagerCenterController');
+    Route::resource('/user', 'ManagerUserController');
     Route::resource('/', 'AdminController');
 });
 

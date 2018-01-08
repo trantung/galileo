@@ -94,7 +94,6 @@ class ClassController extends AdminController implements AdminInterface {
     public function update($id)
     {
         $input = Input::all();
-        // dd($input)  ;
         $levels = $input['level'];
         $listLevelId = [];
         $listSubjectClassId = SubjectClass::where('class_id', $id)->lists('id');
@@ -125,23 +124,19 @@ class ClassController extends AdminController implements AdminInterface {
                 }
             }
         }
-        //TODO: thêm mới môn học vào lớp học đang có vấn đề bị duplicate dữ liệu đã có
-
-
-        // if (isset($input['subject'])) {
-        //     foreach ($input['subject'] as $key => $value) {
-        //         $subjectClassNewId = SubjectClass::create([
-        //             'subject_id' => $value,
-        //             'class_id' => $id,
-        //         ])->id;
-        //         $listLevel = $input['level'][$value];
-        //         foreach ($listLevel as $keyL => $valueL) {
-        //             Level::create(['name' => $valueL, 'subject_class_id' => $subjectClassNewId]);
-        //         }
-        //     }
+        if (isset($input['subject'])) {
+            foreach ($input['subject'] as $valueSubject) {
+                $subjectClassNewId = SubjectClass::create([
+                    'subject_id' => $valueSubject,
+                    'class_id' => $id,
+                ])->id;
+                $listLevel = $input['level'][$valueSubject];
+                foreach ($listLevel as $keyL => $valueL) {
+                    Level::create(['name' => $valueL, 'subject_class_id' => $subjectClassNewId]);
+                }
+            }
             
-        //     CommonNormal::createOrUpdateSubjectLevel($id, $input);
-        // }
+        }
         return Redirect::back()->withMessage('Lưu thành công');
     }
 
@@ -154,6 +149,7 @@ class ClassController extends AdminController implements AdminInterface {
      */
     public function destroy($id)
     {
-        //
+        ClassModel::destroy($id);
+        return Redirect::action('ClassController@index')->withMessage('Lưu thành công');
     }
 }

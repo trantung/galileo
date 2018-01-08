@@ -1,73 +1,50 @@
 @extends('admin.layout.default')
 
+@section('css_header')
+@parent
+{{--  --}}
+@stop
+
 @section('title')
-{{ $title='Thêm mới introduce' }}
+Tạo mới lớp học
 @stop
 
 @section('content')
+{{ Form::open(['action' => ['ManagerUserController@store'], 'class' => 'col-sm-6']) }}
+    <div class="form-group">
+        {{ Form::label('username', 'Tên đăng nhập') }}
+        {{ Form::text('username', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('email', 'Email') }}
+        {{ Form::text('email', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('password', 'password') }}
+        {{ Form::password('password', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('role_id', 'Phân quyền') }}
+        {{ Form::select('role_id', ['' => '-- Chọn --'] + Common::getRoleUser(), '', ['class' => 'form-control', 'required' =>'']) }}
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Thông tin thành viên</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                {{ Form::label('center_id', 'Trực thuộc trung tâm:') }}
+                {{ Form::select('center_id', ['' => '-- Chọn --'] + Common::getAllCenter(), '', ['class' => 'form-control', 'required' =>'']) }}
+            </div>
+            <div>
+            	@include('admin.js.get_level_center_form', ['listClasses' => ClassModel::all(), 'listLevels' => []])
+            </div>
+        </div>
+    </div>
 
-<div class="row">
-	<div class="col-xs-12">
-		<div class="box box-primary">
-			<!-- form start -->
-			{{ Form::open(array('action' => array('AdminIntroduceController@store'))) }}
-				<div class="box-body">
-					<div class="form-group">
-						<label for="title">Tiêu đề Vietnamese</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   {{ Form::text('title', null , textParentCategory('Tiêu đề introduce')) }}
-							</div>
-						</div>
-						<label for="title">Tiêu đề English</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   {{ Form::text('en_title', null , textParentCategory('Tiêu đề introduce english')) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="name">Thể loại css</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   {{  Form::select('css', returnCss(),null,array('class' => 'form-control' )) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="name">Vị trí</label>
-						<div class="row">
-							<div class="col-sm-6">
-							   {{  Form::select('position', returnPosition(),null,array('class' => 'form-control' )) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="description">Nội dung Vietnamese</label>
-						<div class="row">
-							<div class="col-sm-12">
-							   {{ Form::textarea('description', '' , array('class' => 'form-control',"rows"=>6, 'id' => 'editor1')) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="description">Nội dung English</label>
-						<div class="row">
-							<div class="col-sm-12">
-							   {{ Form::textarea('en_description', '' , array('class' => 'form-control',"rows"=>6, 'id' => 'editor2')) }}
-							</div>
-						</div>
-					</div>
-					<!-- /.box-body -->
-
-					<div class="box-footer">
-					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
-					</div>
-				</div>
-			{{ Form::close() }}
-		  	<!-- /.box -->
-	  	</div>
-	</div>
-</div>
-@include('admin.common.ckeditor')
+    <div class="form-group">
+        {{ Form::submit('Lưu', ['class'=>'btn btn-primary']) }}
+    </div>
+{{ Form::close() }}
+<div class="clear clearfix"></div>
 @stop

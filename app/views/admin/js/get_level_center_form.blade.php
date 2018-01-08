@@ -32,6 +32,6 @@
             </li>
         @endforeach
     @else
-    <a href="{{ action('Classcontroller@create') }}">Tạo mới môn học</a>
+    <a href="{{ action('ClassController@create') }}">Tạo mới môn học</a>
     @endif
 </ul>

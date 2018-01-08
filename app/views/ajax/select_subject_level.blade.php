@@ -27,7 +27,7 @@
 					                </div>
 								@endforeach
 				            </div>
-				            <button class="btn btn-success add-new edit" type="button"><i class="glyphicon glyphicon-plus"></i> Thêm mới</button>
+				            <button class="btn btn-success add-new edit" type="button"><i class="glyphicon glyphicon-plus"></i> Thêm mới trình độ</button>
 				        </div>
 					</div>
 				</div>
@@ -42,5 +42,5 @@
 			</div>
 		@endif
 	</div>
-	<button class="btn btn-success add-new" type="button"><i class="glyphicon glyphicon-plus"></i> Thêm mới</button>
+	<button class="btn btn-success add-new" type="button"><i class="glyphicon glyphicon-plus"></i> Thêm mới môn học</button>
 </div>

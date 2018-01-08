@@ -6,7 +6,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('UserController@create') }}" class="btn btn-primary">Thêm mới nhân viên trung tâm</a>
+		<a href="{{ action('ManagerUserController@create') }}" class="btn btn-primary">Thêm mới nhân viên trung tâm</a>
 	</div>
 </div>
 <div class="row">
@@ -20,6 +20,7 @@
 		  <table class="table table-hover">
 			<tr>
 			  <th>ID</th>
+			  <th>Trung tâm</th>
 			  <th>Username</th>
 			  <th>Email</th>
 			  <th style="width:200px;">Action</th>
@@ -27,11 +28,12 @@
 			 @foreach($users as $user)
 			<tr>
 			  <td>{{ $user->id }}</td>
+			  <td>{{ $user->center->name }}</td>
 			  <td>{{ $user->username }}</td>
 			  <td>{{ $user->email }}</td>
 			  <td>
 				<a href=" " class="btn btn-primary">Sửa</a>
-				{{ Form::open(array('method'=>'DELETE', 'action' => array('UserController@destroy', $user->id), 'style' => 'display: inline-block;')) }}
+				{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerUserController@destroy', $user->id), 'style' => 'display: inline-block;')) }}
 					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 				{{ Form::close() }}
 			  </td>

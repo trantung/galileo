@@ -84,4 +84,11 @@ class Common {
     	];
     	return $list;
     }
+    public static function getAllCenter()
+    {
+    	$list = Center::lists('name', 'id');
+    	return $list;
+    }
+
+    
 }

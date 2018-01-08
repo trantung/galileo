@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassesTable extends Migration {
+class AddCenteridIntoUserTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,9 @@ class CreateClassesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('classes', function($table)
-		{
-			$table->increments('id');
-		    $table->string('class_name', 225);
-		    $table->softDeletes();
-		    $table->timestamps();
-		});
+		Schema::table('users', function(Blueprint $table) {
+            $table->integer('center_id')->after('id')->nullable();
+        });
 	}
 
 	/**
@@ -28,7 +24,7 @@ class CreateClassesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('classes');
+		//
 	}
 
 }

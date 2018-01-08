@@ -22,7 +22,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var array
 	 */
 	protected $hidden = array('password', 'remember_token');
-	protected $fillable = array('email', 'password', 'role_id', 'username','ip','status');
+	protected $fillable = array('email', 'password', 'role_id', 'username',
+		'center_id'
+	);
     protected $dates = ['deleted_at'];
 
+    public function center() 
+    {
+        return $this->belongsTo('Center', 'center_id');
+
+    }
 }

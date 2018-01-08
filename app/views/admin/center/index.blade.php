@@ -22,6 +22,7 @@
 			  <th>ID</th>
 			  <th>Tên trung tâm</th>
 			  <th>Mã trung tâm</th>
+			  <th>Đối tác</th>
 			  <th>Phone</th>
 			  <th>Địa chỉ</th>
 			  <th style="width:300px;">Action</th>
@@ -31,6 +32,7 @@
 			  <td>{{ $center->id }}</td>
 			  <td>{{ $center->name }}</td>
 			  <td>{{ $center->code }}</td>
+			  <td>{{ $center->partner->name }}</td>
 			  <td>{{ $center->phone }}</td>
 			  <td>{{ $center->address }}</td>
 			  <td>
