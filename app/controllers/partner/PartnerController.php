@@ -1,5 +1,5 @@
 <?php
-class PartnerController extends BaseController {
+class PartnerController extends AdminController implements AdminInterface {
     public function __construct() {
         $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
