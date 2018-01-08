@@ -1,8 +1,8 @@
 @extends('admin.layout.default')
 
-@section('css_header')
+@section('js_header')
 @parent
-{{--  --}}
+{{ HTML::script( asset('custom/js/ajax.js') ) }}
 @stop
 
 @section('title')
@@ -10,7 +10,7 @@ Tạo mới lớp học
 @stop
 
 @section('content')
-{{ Form::open(['action' => ['ManagerUserController@store'], 'class' => 'col-sm-6']) }}
+{{ Form::open(['action' => ['ManagerUserController@store'], 'class' => 'col-sm-6 user-create-form']) }}
     <div class="form-group">
         {{ Form::label('username', 'Tên đăng nhập') }}
         {{ Form::text('username', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
@@ -34,10 +34,10 @@ Tạo mới lớp học
         <div class="panel-body">
             <div class="form-group">
                 {{ Form::label('center_id', 'Trực thuộc trung tâm:') }}
-                {{ Form::select('center_id', ['' => '-- Chọn --'] + Common::getAllCenter(), '', ['class' => 'form-control', 'required' =>'']) }}
+                {{ Form::select('center_id', ['' => '-- Chọn --'] + Common::getAllCenter(), '', ['class' => 'form-control select-center', 'required' =>'']) }}
             </div>
-            <div>
-            	@include('admin.js.get_level_center_form', ['listClasses' => ClassModel::all(), 'listLevels' => []])
+            <div class="get-list-level-by-center-wrap">
+            	
             </div>
         </div>
     </div>

@@ -6,11 +6,14 @@ class AjaxController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function process()
-	{
-		$input = Input::all();
-		return Response::json($input);
+	public function postGetListClassByCenter(){
+		$centerId = Input::get('center_id');
+		if( !empty($centerId) ){
+			
+		}
 	}
+
+	/// Delete level by subject id - ajax
 	public function postDelete()
 	{
 		$input = Input::all();
