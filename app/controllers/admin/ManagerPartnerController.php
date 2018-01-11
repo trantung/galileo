@@ -1,7 +1,7 @@
 <?php
 class ManagerPartnerController extends AdminController implements AdminInterface{
     public function __construct() {
-        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+    	parent::__construct();
     }
 	/**
 	 * Display a listing of the resource.

@@ -10,10 +10,9 @@
     7. Quản lý học liệu 
 */
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/add_level_auto', function(){
-        $array = Common::getExcelLevel();
-        dd($array);
-    });
+    Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
+    Route::post('/login', array('uses' => 'AdminController@doLogin'));
+    Route::get('/logout', 'AdminController@logout');
     // Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     // Route::post('/login', array('uses' => 'AdminController@doLogin'));
    

@@ -7,7 +7,7 @@ class Subject extends Eloquent
     public $timestamps = true;
 
     protected $table = 'subjects';
-    protected $fillable = ['name'];
+    protected $fillable = ['name','code'];
     protected $dates = ['deleted_at'];
 
     public function subjects() 
