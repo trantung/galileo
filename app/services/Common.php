@@ -121,6 +121,13 @@ class Common {
     	$list = Center::lists('name', 'id');
     	return $list;
     }
-
+    public static function getExcelLevel()
+    {
+    	$string = '
+    		Học tốt A1, Học tốt B1, Học tốt C1, Học tốt D1, Học tốt E1, Nền tảng A1, Nền tảng B1, Nền tảng C1, Nền tảng D1, Nền tảng E1, Mục tiêu A1, Mục tiêu B1, Mục tiêu C1, Mục tiêu D1,Mục tiêu E1
+    	';
+    	$array = explode(',', $string);
+    	return $array;
+    }	
     
 }
