@@ -120,7 +120,10 @@ class ManagerUserController extends BaseController {
 
 		} else{
 			// Neu khong nhap gi thi xoa het trong bang center_user_level
-			UserCenterLevel::find($id)->delete();
+			$userCenterLevel = UserCenterLevel::where('user_id', $id)->delete();
+			// if( $userCenterLevel ){
+			// 	$userCenterLevel->delete();
+			// }
 		}
 		CommonNormal::update($id, $input);
 		return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
