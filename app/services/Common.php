@@ -152,6 +152,7 @@ class Common {
                     'class_id' => $classId,
                     'subject_id' => $subjectId,
                     'code' => $result,
+                    'name' => $value,
                 ]);
             }
         }
