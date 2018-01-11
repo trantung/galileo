@@ -30,7 +30,15 @@ class AddCodeToClassSubjectLevel extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::table('classes', function(Blueprint $table) {
+            $table->dropColumn('code');
+        });
+		Schema::table('subjects', function(Blueprint $table) {
+            $table->dropColumn('code');
+        });
+		Schema::table('levels', function(Blueprint $table) {
+            $table->dropColumn('code');
+        });
 	}
 
 }

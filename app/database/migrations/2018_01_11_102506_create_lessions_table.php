@@ -20,7 +20,7 @@ class CreateLessionsTable extends Migration {
 		    $table->integer('class_id');
 		    $table->integer('subject_id');
 		    $table->integer('level_id');
-		    $table->tinyInteger('status');
+		    $table->tinyInteger('status')->default(1);
 		    $table->softDeletes();
 		    $table->timestamps();
 		});

@@ -21,7 +21,7 @@ class CreateDocumentsTable extends Migration {
 		    $table->integer('subject_id');
 		    $table->integer('level_id');
 		    $table->integer('author_by');
-		    $table->tinyInteger('status');
+		    $table->tinyInteger('status')->default(1);
 		    $table->softDeletes();
 		    $table->timestamps();
 		});
