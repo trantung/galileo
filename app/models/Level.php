@@ -27,4 +27,14 @@ class Level extends Eloquent
         return $this->belongsToMany('Level', 'center_level', 'level_id', 'center_id');
 
     }
+
+    public function classes() 
+    {
+        return $this->belongsTo('ClassModel', 'class_id', 'id');
+    }
+
+    public function subjects() 
+    {
+        return $this->belongsTo('Subject', 'subject_id', 'id');
+    }
 }
