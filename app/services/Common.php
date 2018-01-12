@@ -147,16 +147,87 @@ class Common {
                 preg_match('/[0-9]/', $value, $number);
                 $result = $result.$number[0];
                 $result = strtoupper($result);
+                $numberLesson = self::getNumberLesson($result, $classId);
                 Level::create([
                     'subject_class_id' => $subjectClassId,
                     'class_id' => $classId,
                     'subject_id' => $subjectId,
                     'code' => $result,
+                    'name' => $value,
+                    'number_lesson' => $numberLesson,
                 ]);
             }
         }
         return true;
     }   
- 
+    public static function getNumberLesson($levelCode, $classId)
+    {
+        $arrayHocTot1 = self::getNameGroupLevel(1);
+        $arrayHocTot2 = self::getNameGroupLevel(2);
+        $arrayMucTieu1 = self::getNameGroupLevel(3);
+        $arrayMucTieu2 = self::getNameGroupLevel(4);
+        $arrayNenTang1 = self::getNameGroupLevel(5);
+        $arrayNenTang2 = self::getNameGroupLevel(6);
+        if (in_array($levelCode, $arrayHocTot1)) {
+            return $numberLesson = 35;
+        }
+        if (in_array($levelCode, $arrayHocTot2)) {
+            return $numberLesson = 70;
+        }
+        if (in_array($levelCode, $arrayMucTieu1)) {
+            return $numberLesson = 35;
+        }
+        if (in_array($levelCode, $arrayMucTieu2)) {
+            return $numberLesson = 70;
+        }
+        if (in_array($levelCode, $arrayNenTang1)) {
+            if ($classId == 4) {
+                return $numberLesson = 10;
+            }
+            return $numberLesson = 12;
+        }
+        if (in_array($levelCode, $arrayNenTang2)) {
+            if ($classId == 4) {
+                return $numberLesson = 16;
+            }
+            return $numberLesson = 24;
+        }
+        var_dump($levelCode. '<--->');
+    }
+
+    public static function getNameGroupLevel($groupId)
+    {
+        if ($groupId == 1) {
+            return [
+                'HTA1', 'HTB1', 'HTC1', 'HTD1', 'HTE1'
+            ];
+        }
+        if ($groupId == 2) {
+            return [
+                'HTA2', 'HTB2', 'HTC2', 'HTD2', 'HTE2'
+            ];
+        }
+        if ($groupId == 3) {
+            return [
+                'MTA1', 'MTB1', 'MTC1', 'MTD1', 'MTE1'
+            ];
+        }
+        if ($groupId == 4) {
+            return [
+                'MTA2', 'MTB2', 'MTC2', 'MTD2', 'MTE2'
+            ];
+        }
+        if ($groupId == 5) {
+            return [
+                'NTA1', 'NTB1', 'NTC1', 'NTD1', 'NTE1'
+            ];
+        }
+        if ($groupId == 6) {
+            return [
+                'NTA2', 'NTB2', 'NTC2', 'NTD2', 'NTE2'
+            ];
+        }
+
+    }
     
 }

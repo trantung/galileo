@@ -1,89 +1,80 @@
 <?php
 class AdminController extends BaseController {
     public function __construct() {
-        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		// $checkLogin = Auth::admin()->check();
-  //       if($checkLogin) {
-  //   		return Redirect::action('ManagerController@edit', Auth::admin()->get()->id);
-  //       } else {
-            return View::make('admin.dashboard');
-        // }
-	}
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        return View::make('admin.dashboard');
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        //
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
 
     }
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
 
-	}
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
     public function login()
     {
-    	$checkLogin = Auth::admin()->check();
+        $checkLogin = Auth::admin()->check();
         if($checkLogin) {
-	    	if (Auth::admin()->get()->status == ACTIVE) {
-	    		return Redirect::action('ManagerController@edit', Auth::admin()->get()->id);
-	    	}else{
-	    		return View::make('admin.layout.login')->with(compact('message','chưa kich hoat'));
-	    	}
+            return Redirect::action('AdminController@index');
         } else {
             return View::make('admin.layout.login');
         }
@@ -91,21 +82,21 @@ class AdminController extends BaseController {
     public function doLogin()
     {
         $rules = array(
-            'username'   => 'required',
-            'password'   => 'required',
+            'username' => 'required',
+            'password' => 'required',
         );
         $input = Input::except('_token');
         $validator = Validator::make($input, $rules);
         if ($validator->fails()) {
-            return Redirect::route('admin.login')
+            return Redirect::action('AdminController@login')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
             $checkLogin = Auth::admin()->attempt($input);
             if($checkLogin) {
-        		return Redirect::action('NewsController@index');
+                return Redirect::action('AdminController@index');
             } else {
-                return Redirect::route('admin.login');
+                return Redirect::action('AdminController@login');
             }
         }
     }
@@ -113,7 +104,30 @@ class AdminController extends BaseController {
     {
         Auth::admin()->logout();
         Session::flush();
-        return Redirect::route('admin.login');
+        return Redirect::action('AdminController@login');
+    }
+    public function getUpload()
+    {
+        return View::make('test_upload');
+    }
+    public function postUpload()
+    {
+        $input = Input::except('_token');
+        // $types = CloudConvert::conversionTypes();
+        // $types = CloudConvert::output('pdf')->conversionTypes();
+        // dd($types);
+        // dd($input);
+        // $file = Input::file('url');
+        // $filename = $file->getClientOriginalName();
+        $variables = ['name' => 'John Doe', 'address' => 'Wall Street'];
+        // CloudConvert::file('test.docx')->templating($variables)->to('invoice.pdf');
+
+        if (Input::hasFile('url'))
+        {
+            // CloudConvert::file( Input::file('url') )->to('/profile_image.jpg');
+            CloudConvert::file( Input::file('url') )->to('invoice.pdf');
+        }
+        dd(11);
     }
 }
 

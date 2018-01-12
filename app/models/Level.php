@@ -12,7 +12,7 @@ class Level extends Eloquent
     public $timestamps = true;
     
     protected $table = 'levels';
-    protected $fillable = ['name', 'subject_class_id', 'subject_id', 'class_id', 'code'];
+    protected $fillable = ['name', 'subject_class_id', 'subject_id', 'class_id', 'code', 'number_lesson'];
 
     // protected $hidden = array('password', 'remember_token');
     protected $dates = ['deleted_at'];

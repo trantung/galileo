@@ -9,11 +9,15 @@
     6. Quản lý khuyến mãi
     7. Quản lý học liệu 
 */
+// Route::get('/test', function(){
+//     return View::make('test_upload');
+// });
+Route::get('/test/upload', 'AdminController@getUpload');
+Route::post('/test/upload', 'AdminController@postUpload');
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/add_level_auto', function(){
-        $array = Common::getExcelLevel();
-        dd($array);
-    });
+    Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
+    Route::post('/login', array('uses' => 'AdminController@doLogin'));
+    Route::get('/logout', 'AdminController@logout');
     // Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     // Route::post('/login', array('uses' => 'AdminController@doLogin'));
    
