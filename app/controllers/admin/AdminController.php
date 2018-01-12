@@ -106,5 +106,28 @@ class AdminController extends BaseController {
         Session::flush();
         return Redirect::action('AdminController@login');
     }
+    public function getUpload()
+    {
+        return View::make('test_upload');
+    }
+    public function postUpload()
+    {
+        $input = Input::except('_token');
+        // $types = CloudConvert::conversionTypes();
+        // $types = CloudConvert::output('pdf')->conversionTypes();
+        // dd($types);
+        // dd($input);
+        // $file = Input::file('url');
+        // $filename = $file->getClientOriginalName();
+        $variables = ['name' => 'John Doe', 'address' => 'Wall Street'];
+        // CloudConvert::file('test.docx')->templating($variables)->to('invoice.pdf');
+
+        if (Input::hasFile('url'))
+        {
+            // CloudConvert::file( Input::file('url') )->to('/profile_image.jpg');
+            CloudConvert::file( Input::file('url') )->to('invoice.pdf');
+        }
+        dd(11);
+    }
 }
 
