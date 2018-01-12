@@ -6,25 +6,15 @@
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 // class AdminLevel extends Eloquent implements UserInterface, RemindableInterface
-class Level extends Eloquent
+class Lesson extends Eloquent
 {
     use SoftDeletingTrait;
     public $timestamps = true;
     
-    protected $table = 'levels';
-    protected $fillable = ['name', 'subject_class_id', 'subject_id', 'class_id', 'code', 'number_lesson'];
+    protected $table = 'lessons';
+    protected $fillable = ['level_id', 'subject_id', 'class_id', 'name', 'code', 'status'];
 
     // protected $hidden = array('password', 'remember_token');
     protected $dates = ['deleted_at'];
 
-    public function subject_class()
-    {
-        return $this->belongsTo('SubjectClass', 'subject_class_id', 'id');
-    }
-
-    public function centers() 
-    {
-        return $this->belongsToMany('Level', 'center_level', 'level_id', 'center_id');
-
-    }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddNumberLessionToLevelsTable extends Migration {
+class AddNumberLessonToLevelsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class AddNumberLessionToLevelsTable extends Migration {
 	public function up()
 	{
 		Schema::table('levels', function(Blueprint $table) {
-            $table->integer('number_lession')->after('subject_id')->nullable();
+            $table->integer('number_lesson')->after('subject_id')->nullable();
         });
 	}
 
@@ -25,7 +25,7 @@ class AddNumberLessionToLevelsTable extends Migration {
 	public function down()
 	{
 		Schema::table('levels', function(Blueprint $table) {
-            $table->dropColumn('number_lession');
+            $table->dropColumn('number_lesson');
         });
 	}
 

@@ -12,7 +12,7 @@ class CreateLessionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('lessions', function($table)
+		Schema::create('lessons', function($table)
 		{
 			$table->increments('id');
 		    $table->string('name', 225);
@@ -33,7 +33,7 @@ class CreateLessionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('lessions');
+		Schema::dropIfExists('lessons');
 	}
 
 }
