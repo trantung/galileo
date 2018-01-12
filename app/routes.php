@@ -12,6 +12,11 @@ Route::post('/test_upload','AdminController@postUpload');
     6. Quản lý khuyến mãi
     7. Quản lý học liệu 
 */
+// Route::get('/test', function(){
+//     return View::make('test_upload');
+// });
+Route::get('/test/upload', 'AdminController@getUpload');
+Route::post('/test/upload', 'AdminController@postUpload');
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));

@@ -112,12 +112,7 @@ class AdminController extends BaseController {
     }
     public function postUpload()
     {
-        if (Input::hasFile('url'))
-        {
-            $file = CloudConvert::file( Input::file('url') )->to('test.pdf');
-        }
-        dd($file);
-
+        
     }
 }
 
