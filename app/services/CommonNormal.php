@@ -62,6 +62,9 @@ class CommonNormal
 		if ($name == 'user') {
 			return 'User';
 		}
+		if ($name == 'level') {
+			return 'Level';
+		}
 		return $name;
 	}
 	public static function getListRelateObject($modelName, $value, $field)

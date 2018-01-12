@@ -36,10 +36,6 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.center
     */
     Route::resource('/center', 'ManagerCenterController');
-    Route::get('/user/{id}/reset-password', 'ManagerUserController@getResetPass');
-    Route::post('/user/{id}/reset-password', 'ManagerUserController@postResetPass');
-    Route::resource('/user', 'ManagerUserController');
-    Route::resource('/', 'AdminController');
 
     /*
         Quản lý thành viên trung tâm: CRUD thành viên: tên, địa chỉ
@@ -47,7 +43,18 @@ Route::group(['prefix' => 'admin'], function () {
         2. table: users
         3. view: admin.user
     */
-    // Route::resource('/user', 'UserController');
+    Route::get('/user/{id}/reset-password', 'ManagerUserController@getResetPass');
+    Route::post('/user/{id}/reset-password', 'ManagerUserController@postResetPass');
+    Route::resource('/user', 'ManagerUserController');
+    Route::resource('/', 'AdminController');
+
+    /*
+        Quản lý Level: CRUD level: tên, số buổi học
+        1. Controller: admin/LevelController 
+        2. table: levels
+        3. view: admin.level
+    */
+    Route::resource('/level', 'LevelController');
 });
 
 Route::group(['prefix' => 'partner'], function () {

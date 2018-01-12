@@ -9,7 +9,8 @@ class LevelController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$data = Level::all();
+		return View::make('admin.level.index')->with(compact('data'));
 	}
 
 
