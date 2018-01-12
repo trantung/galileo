@@ -29,10 +29,15 @@ Danh sách lớp học
 					<tr>
 						<td>{{ $key+1 }}</td>
 						<td>{{ $level->name }}</td>
-						<td>{{ CommonNormal::getValueOfObject($level, 'classes', 'name') }}</td>
-						<td>{{ CommonNormal::getValueOfObject($level, 'subjects', 'name') }}</td>
+						<td>{{ Common::getValueOfObject($level, 'classes', 'name') }}</td>
+						<td>{{ Common::getValueOfObject($level, 'subjects', 'name') }}</td>
 						<td>{{ $level->number_lession }}</td>
-						<td></td>
+						<td>
+							<a href="{{ action('LevelController@show', $level->id) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> Chi tiết</a>
+							{{ Form::open(['action'=>['LevelController@destroy', $level->id], 'method' => 'DELETE', 'class' => 'inline']) }}
+								<button class="btn btn-danger" onclick="return(confirm('Bạn có chắc chắn muốn xóa'));"><i class="glyphicon glyphicon-remove"></i> Xóa</button>
+							{{ Form::close() }}
+						</td>
 					</tr>
 				@endforeach
 			@else
@@ -40,4 +45,9 @@ Danh sách lớp học
 			@endif
 		</tbody>
 	</table>
+	<div class="row">
+		<div class="col-xs-12">
+			{{ $data->appends(Request::except('page'))->links() }}
+		</div>
+	</div>
 @stop

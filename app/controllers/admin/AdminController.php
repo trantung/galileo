@@ -92,7 +92,7 @@ class AdminController extends BaseController {
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
-            $checkLogin = Auth::admin()->attempt($input);
+            $checkLogin = Auth::admin()->attempt($input, true);
             if($checkLogin) {
                 return Redirect::action('AdminController@index');
             } else {
@@ -105,6 +105,19 @@ class AdminController extends BaseController {
         Auth::admin()->logout();
         Session::flush();
         return Redirect::action('AdminController@login');
+    }
+    public function getUpload()
+    {
+        return View::make('test_upload');
+    }
+    public function postUpload()
+    {
+        if (Input::hasFile('url'))
+        {
+            $file = CloudConvert::file( Input::file('url') )->to('test.pdf');
+        }
+        dd($file);
+
     }
 }
 

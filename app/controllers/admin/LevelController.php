@@ -13,7 +13,7 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function index()
 	{
-		$data = Level::all();
+		$data = Level::paginate(30);
 		return View::make('admin.level.index')->with(compact('data'));
 	}
 
@@ -48,7 +48,8 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function show($id)
 	{
-		//
+		$data = Level::findOrFail($id);
+		return View::make('admin.level.show')->with(compact('data'));
 	}
 
 

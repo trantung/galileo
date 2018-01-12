@@ -1,4 +1,7 @@
 <?php
+
+Route::get('/test_upload','AdminController@getUpload');
+Route::post('/test_upload','AdminController@postUpload');
 /*
     Hệ thống
     1. Quản lý partner
