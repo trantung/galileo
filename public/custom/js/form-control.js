@@ -1,5 +1,16 @@
 $(document).ready(function(){
 
+    //// Them moi hoc lieu trong trang quan ly cac buoi hoc cua 1 level
+    $(document).on('click', '.wrap-multi-file-each-lesson a.add-new-doc-to-lesson', function(){
+        var parent = $(this).parents('.wrap-multi-file-each-lesson'),
+        clone = parent.find('.element-to-clone').html(),
+        order = parent.find('>form .item-doc').length;
+
+        parent.find('>form .item-list').append( clone.replace(/@order/g, order) );
+        return false;
+    })
+    ////////////////////////////
+
     //// Chon danh sach lop hoc, mon hoc, level cho Center
     $(document).on('change', '.list-class-in-center .item>label>input', function(){
         var id = $(this).parent().attr('href');

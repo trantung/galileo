@@ -17,6 +17,8 @@ Route::post('/test_upload','AdminController@postUpload');
 // });
 Route::get('/test/upload', 'AdminController@getUpload');
 Route::post('/test/upload', 'AdminController@postUpload');
+
+Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
@@ -62,6 +64,14 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.level
     */
     Route::resource('/level', 'LevelController');
+
+    /*
+        Quản lý học liệu: CRUD học liệu
+        1. Controller: admin/DocumentController 
+        2. table: documents
+        3. view: admin.level.show
+    */
+    Route::resource('/doc', 'DocumentController');
 });
 
 Route::group(['prefix' => 'partner'], function () {
