@@ -2,7 +2,8 @@ $(document).ready(function(){
 
 	$(document).on('click', '.item.select-subject-wrapper >.remove.remove-ajax', function(){
 		var classId = $(this).attr('class-id');
-		var subjectId = $(this).attr('subject-id');
+		var subjectId = $(this).attr('subject-id'),
+		_this = $(this);
 		$.ajax({
 			'url': '/ajax/delete',
 			'method': 'POST',
@@ -18,8 +19,9 @@ $(document).ready(function(){
 
     //////// Save document in each lesson
     $(document).on('submit', 'form.document-of-lesson-form', function(e){
-    	var data = $(this).serializeArray();
-    	var form_data = new FormData(this);
+    	var data = $(this).serializeArray(),
+    	form_data = new FormData(this),
+		_this = $(this);
 
     	$.ajax({
 			url: '/ajax/save-document',
@@ -31,6 +33,11 @@ $(document).ready(function(){
     		cache: false,
 			data: form_data,
 			success: function(data) {
+				var parent = _this.parent().parent();
+				parent.find('>.wrap-multi-file-each-lesson').hide(300, function(){
+					$(this).remove();
+					parent.append(data);
+				})
 				console.log(data);
 			},
 			error: function(error){

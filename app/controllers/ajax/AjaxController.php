@@ -12,7 +12,7 @@ class AjaxController extends \BaseController {
         $doc['level_id'] = $input['level_id'];
         $array = Common::saveDocument('doc_new_file_p', P, $doc);
         Common::saveDocument('doc_new_file_d', D, $doc, $array);
-        return Response::json(Input::file('doc_new_file_p'));
+        return Response::json( View::make('admin.js.get_document_form_of_level', ['lesson' => Lesson::find($doc['lesson_id'])])->render() );
     }
 
     /**

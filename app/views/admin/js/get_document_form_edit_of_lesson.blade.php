@@ -30,16 +30,18 @@
 		<fieldset>
 			<legend>Phiếu học liệu câu hỏi:</legend>
 			<div class="form-group">
-				
+				<p><label>Tên tài liệu: </label> {{ Common::getObject($group['P'], 'name') }}</p>
+				<p><label>Mã phiếu: </label> {{ Common::getObject($group['P'], 'code') }}</p>
 			</div>
 		</fieldset>
 		<fieldset>
 			<legend>Phiếu học liệu đáp án:</legend>
 			<div class="form-group">
-				
+				<p><label>Tên tài liệu: </label> {{ Common::getObject($group['D'], 'name') }}</p>
+				<p><label>Mã phiếu: </label> {{ Common::getObject($group['D'], 'code') }}</p>
 			</div>
 		</fieldset>
-		<a href="#" class="btn btn-warning remove-item-doc no-ajax pull-right"><i class="fa fa-remove"></i> Xóa</a>
-		<div class="clearfix"></div>
+		{{-- <a href="#" class="btn btn-warning remove-item-doc no-ajax pull-right"><i class="fa fa-remove"></i> Xóa</a> --}}
+		{{-- <div class="clearfix"></div> --}}
 	@endif
 </div>
