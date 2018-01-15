@@ -1,7 +1,7 @@
 <?php
 define('ADMIN', 1);
 
-define('DOCUMENT_UPLOAD_DIR', 'uploads/documents');
+define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 /*
 	Các role của nhân viên trung tâm
 */

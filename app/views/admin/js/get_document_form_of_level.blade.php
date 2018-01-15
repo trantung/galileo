@@ -8,15 +8,15 @@
 			<fieldset>
 				<legend>Phiếu học liệu câu hỏi:</legend>
 				<div class="form-group">
-					{{ Form::text('doc_new_tile_p['.Common::getObject($lesson, 'id').'][@order]', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
+					{{ Form::text('doc_new_title_p['.Common::getObject($lesson, 'id').'][@order]', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
 					{{ Form::file('doc_new_file_p['.Common::getObject($lesson, 'id').'][@order]', ['class' => 'form-control']) }}
 				</div>
 			</fieldset>
 			<fieldset>
 				<legend>Phiếu học liệu đáp án:</legend>
 				<div class="form-group">
-					{{ Form::text('doc_new_title_a['.Common::getObject($lesson, 'id').'][@order]', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
-					{{ Form::file('doc_new_file_a['.Common::getObject($lesson, 'id').'][@order] ', ['class' => 'form-control']) }}
+					{{ Form::text('doc_new_title_d['.Common::getObject($lesson, 'id').'][@order]', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
+					{{ Form::file('test_d['.Common::getObject($lesson, 'id').'][@order] ', ['class' => 'form-control']) }}
 				</div>
 			</fieldset>
 			<a href="#" class="btn btn-warning remove-item-doc no-ajax pull-right"><i class="fa fa-remove"></i> Xóa</a>
@@ -33,15 +33,15 @@
 				<fieldset>
 					<legend>Phiếu học liệu câu hỏi:</legend>
 					<div class="form-group">
-						{{ Form::text('doc_new_tile_p['.Common::getObject($lesson, 'id').'][0]', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
+						{{ Form::text('doc_new_title_p['.Common::getObject($lesson, 'id').'][0]', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
 						{{ Form::file('doc_new_file_p['.Common::getObject($lesson, 'id').'][0]', ['class' => 'form-control']) }}
 					</div>
 				</fieldset>
 				<fieldset>
 					<legend>Phiếu học liệu đáp án:</legend>
 					<div class="form-group">
-						{{ Form::text('doc_new_title_a['.Common::getObject($lesson, 'id').'][0]', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
-						{{ Form::file('doc_new_file_a['.Common::getObject($lesson, 'id').'][0]', ['class' => 'form-control']) }}
+						{{ Form::text('doc_new_title_d['.Common::getObject($lesson, 'id').'][0]', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
+						{{ Form::file('test_d['.Common::getObject($lesson, 'id').'][0]', ['class' => 'form-control']) }}
 					</div>
 				</fieldset>
 				<a href="#" class="btn btn-warning remove-item-doc no-ajax pull-right"><i class="fa fa-remove"></i> Xóa</a>

@@ -19,24 +19,34 @@ $(document).ready(function(){
     //////// Save document in each lesson
     $(document).on('submit', 'form.document-of-lesson-form', function(e){
     	var data = $(this).serializeArray();
-    	var form_data = new FormData($(this)[0]);
-
+    	var form_data = new FormData(this);
+    	// console.log(data)
         $.each( $(this).find('input[type="file"]'), function(i, file) {
-        	console.log($(file).prop('files')[0]);
-		    form_data.append($(file).attr('name'), $(file).prop('files')[0]);
+        	// console.log($(file).attr('name'));
+		    // form_data.append($(file).attr('name'), $(file).prop('files')[0]);
+		    // console.log($(file).attr('name'));
 		});
+        $.each( $(this).find('input'), function(i, input) {
+        	if( $(input).attr('type') != 'file' ){
+		    	// form_data.append($(input).attr('name'), $(input).val());
+        	}
+		});
+		// console.log(form_data);
 
-    	console.log(form_data);
     	$.ajax({
 			url: '/ajax/save-document',
 			method: 'POST',
     		enctype: 'multipart/form-data',
     		processData: false,
     		contentType: false,
+    		dataType: 'json',
     		cache: false,
-			data: data,
+			data: form_data,
 			success: function(data) {
-				// console.log(data);
+				console.log(data);
+			},
+			error: function(error){
+				console.log(error);
 			}
 		});
     	e.preventDefault();
