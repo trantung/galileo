@@ -6,14 +6,9 @@ class AjaxController extends \BaseController {
      */
     public function postSaveDocument(){
         $input = Input::all();
-            // return $_FILES['doc_new_file_d'];
-            return $_FILES;
-
         $arrayP = [];
-        // return $input;
         if( $_FILES['doc_new_file_p'] ){
             foreach ($_FILES['doc_new_file_p']['tmp_name'] as $lessonId => $value) {
-                // if(move_uploaded_file($value[0], public_path().DOCUMENT_UPLOAD_DIR.'test.txt')) {
                 $doc = [];
                 $doc['class_id'] = $input['class_id'];
                 $doc['lesson_id'] = $input['lesson_id'];
@@ -28,6 +23,7 @@ class AjaxController extends \BaseController {
                 }
             }
         }
+        Common::saveDocument('doc_new_file_p',);
         if( $_FILES['doc_new_file_d'] ){
             foreach ($_FILES['doc_new_file_d']['tmp_name'] as $lessonId => $value) {
                 // if(move_uploaded_file($value[0], public_path().DOCUMENT_UPLOAD_DIR.'test.txt')) {
@@ -40,7 +36,7 @@ class AjaxController extends \BaseController {
                 foreach ($value as $kD => $vD) {
                     $name = $input['doc_new_title_d'][$lessonId][$kD];
                     $doc['name'] = $name;
-                    // $doc['parent_id'] = $arrayP[$kD];
+                    $doc['parent_id'] = $arrayP[$kD];
                     $docId = Document::create($doc)->id;
                     Document::find($docId)->update(['code' => $docId]);
                 }
