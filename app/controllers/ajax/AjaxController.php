@@ -10,45 +10,8 @@ class AjaxController extends \BaseController {
         $doc['lesson_id'] = $input['lesson_id'];
         $doc['subject_id'] = $input['subject_id'];
         $doc['level_id'] = $input['level_id'];
-        return $_FILES;
-        // if( $_FILES['doc_new_file_p'] ){
-        //     foreach ($_FILES['doc_new_file_p']['tmp_name'] as $lessonId => $value) {
-        //         // $doc['class_id'] = $input['class_id'];
-        //         // $doc['lesson_id'] = $input['lesson_id'];
-        //         // $doc['subject_id'] = $input['subject_id'];
-        //         // $doc['level_id'] = $input['level_id'];
-        //         $doc['type_id'] = P;
-        //         foreach ($value as $k => $v) {
-        //             $name = $input['doc_new_title_p'][$lessonId][$k];
-        //             $doc['name'] = $name;
-        //             $arrayP[$k] = $docId = Document::create($doc)->id;
-        //             move_uploaded_file($value[0], public_path().DOCUMENT_UPLOAD_DIR.P.'_'.time());
-        //             Document::find($docId)->update(['code' => $docId]);
-        //         }
-        //     }
-        // }
         $array = Common::saveDocument('doc_new_file_p', P, $doc);
         Common::saveDocument('doc_new_file_d', D, $doc, $array);
-
-        // if( $_FILES['doc_new_file_d'] ){
-        //     foreach ($_FILES['doc_new_file_d']['tmp_name'] as $lessonId => $value) {
-        //         // if(move_uploaded_file($value[0], public_path().DOCUMENT_UPLOAD_DIR.'test.txt')) {
-        //         $doc = [];
-        //         $doc['class_id'] = $input['class_id'];
-        //         $doc['lesson_id'] = $input['lesson_id'];
-        //         $doc['subject_id'] = $input['subject_id'];
-        //         $doc['level_id'] = $input['level_id'];
-        //         $doc['type_id'] = 2;
-        //         foreach ($value as $kD => $vD) {
-        //             $name = $input['doc_new_title_d'][$lessonId][$kD];
-        //             $doc['name'] = $name;
-        //             $doc['parent_id'] = $arrayP[$kD];
-        //             $docId = Document::create($doc)->id;
-        //             Document::find($docId)->update(['code' => $docId]);
-        //         }
-        //     }
-        // }
-        
         return Response::json(Input::file('doc_new_file_p'));
     }
 
