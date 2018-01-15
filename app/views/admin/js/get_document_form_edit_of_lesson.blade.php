@@ -1,0 +1,45 @@
+<div class="item-doc well well-sm">
+	{{ Form::hidden('lesson_id', Common::getObject($lesson, 'id')) }}
+	{{ Form::hidden('class_id', Common::getObject($lesson, 'class_id')) }}
+	{{ Form::hidden('subject_id', Common::getObject($lesson, 'subject_id')) }}
+	{{ Form::hidden('level_id', Common::getObject($lesson, 'level_id')) }}
+
+	@if( !isset($group) )
+		<?php
+		if( !isset($order) ){
+			$order = '';
+		}
+		?>
+		<fieldset>
+			<legend>Phiếu học liệu câu hỏi:</legend>
+			<div class="form-group">
+				{{ Form::text('doc_new_title_p['. Common::getObject($lesson, 'id') .']['. $order .']', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
+				{{ Form::file('doc_new_file_p['. Common::getObject($lesson, 'id') .']['. $order .']', ['class' => 'form-control']) }}
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>Phiếu học liệu đáp án:</legend>
+			<div class="form-group">
+				{{ Form::text('doc_new_title_d['. Common::getObject($lesson, 'id') .']['. $order .']', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
+				{{ Form::file('doc_new_file_d['. Common::getObject($lesson, 'id') .']['. $order .']', ['class' => 'form-control']) }}
+			</div>
+		</fieldset>
+		<a href="#" class="btn btn-warning remove-item-doc no-ajax pull-right"><i class="fa fa-remove"></i> Xóa</a>
+		<div class="clearfix"></div>
+	@else
+		<fieldset>
+			<legend>Phiếu học liệu câu hỏi:</legend>
+			<div class="form-group">
+				
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>Phiếu học liệu đáp án:</legend>
+			<div class="form-group">
+				
+			</div>
+		</fieldset>
+		<a href="#" class="btn btn-warning remove-item-doc no-ajax pull-right"><i class="fa fa-remove"></i> Xóa</a>
+		<div class="clearfix"></div>
+	@endif
+</div>

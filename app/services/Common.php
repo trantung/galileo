@@ -229,5 +229,29 @@ class Common {
         }
 
     }
-    
+    public static function getDocumentByLesson($lessonId)
+    {
+        $array = [];
+        $parentIds = Document::where('lesson_id', $lessonId)
+            ->groupBy('parent_id')
+            ->lists('parent_id');
+        foreach ($parentIds as $value) {
+            $array[$value] = [
+                'P' => self::getDocumentObject($value, 1),
+                'D' => self::getDocumentObject($value, 2),
+            ];
+        }
+        // dd($array);
+        return $array;
+    }
+    public static function getDocumentObject($parentId, $typeId)
+    {
+       $ob = Document::where('parent_id', $parentId)
+            ->where('type_id', $typeId)
+            ->first();
+        if ($ob) {
+            return $ob;
+        }
+        return null;
+    }
 }

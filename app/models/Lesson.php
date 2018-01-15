@@ -21,4 +21,9 @@ class Lesson extends Eloquent
     {
         return $this->belongsTo('Level', 'level_id', 'id');
     }
+
+    public function documents() 
+    {
+        return $this->hasMany('Document', 'lesson_id', 'id');
+    }
 }

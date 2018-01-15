@@ -7,7 +7,7 @@ class AjaxController extends \BaseController {
     public function postSaveDocument(){
         $input = Input::all();
             // return $_FILES['doc_new_file_d'];
-            return $_FILES;
+            return $input;
 
         $arrayP = [];
         // return $input;

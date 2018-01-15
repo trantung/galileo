@@ -32,7 +32,7 @@ Chi tiết trình độ <strong>{{ $data->name.', '.$data->subjects->name.', '.$
 								</div>
 								<div id="collapse{{ $i }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ $i }}">
 									<div class="panel-body">
-										@include('admin.js.get_document_form_of_level', ['lesson' => $data->lessons[$i], 'level' => $data])
+										@include('admin.js.get_document_form_of_level', ['lesson' => $data->lessons[$i]])
 									</div>
 								</div>
 							</div>
