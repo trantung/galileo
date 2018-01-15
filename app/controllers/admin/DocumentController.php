@@ -9,7 +9,8 @@ class DocumentController extends AdminController implements AdminInterface {
      */
     public function index()
     {
-        return View::make('admin.document.index');
+        $documents = Document::groupBy('parent_id')->get();
+        return View::make('admin.document.index')->with(compact('documents'));
     }
 
 
