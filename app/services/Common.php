@@ -249,14 +249,14 @@ class Common {
                     $doc['file_url'] = $fileUrl;
                     if ($arrayP == null) {
                         $array[$k] = $docId = Document::create($doc)->id;
-                        $doc['parent_id'] = $docId;
+                        $parentId = $docId;
                     }else{
-                        $doc['parent_id'] = $arrayP[$k];
+                        $parentId = $arrayP[$k];
                         $docId = Document::create($doc)->id;
                     }
                     move_uploaded_file($value[0], public_path().$fileUrl);
                     $code = getCodeDocument($docId);
-                    Document::find($docId)->update(['code' => $code]);
+                    Document::find($docId)->update(['code' => $code, 'parent_id' => $parentId]);
                 }
             }
         }

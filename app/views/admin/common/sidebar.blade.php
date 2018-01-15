@@ -38,6 +38,12 @@
                     <span>Quản lý các trình độ</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ action('DocumentController@index') }}">
+                    <i class="fa fa-newspaper-o"></i> 
+                    <span>Quản lý các học liệu</span>
+                </a>
+            </li>
 
         </ul>
     </section>
