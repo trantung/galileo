@@ -37,4 +37,9 @@ class Level extends Eloquent
     {
         return $this->belongsTo('Subject', 'subject_id', 'id');
     }
+
+    public function lessons() 
+    {
+        return $this->hasMany('Lesson', 'level_id', 'id');
+    }
 }

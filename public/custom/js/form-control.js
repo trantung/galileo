@@ -9,6 +9,16 @@ $(document).ready(function(){
         parent.find('>form .item-list').append( clone.replace(/@order/g, order) );
         return false;
     })
+    /////// Xoa 1 o nhap hoc lieu
+    $(document).on('click', '.document-of-lesson-form .remove-item-doc.no-ajax', function(){
+        if( $(this).parents('.item-list').find('>.item-doc').length > 1 ){
+            $(this).parent().hide(300, function(){
+                $(this).remove();
+            })
+        }
+        console.log('test');
+        return false;
+    })
     ////////////////////////////
 
     //// Chon danh sach lop hoc, mon hoc, level cho Center

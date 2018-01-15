@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTypeidToDocumentTable extends Migration {
+class AddLessonIdToDocumentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class AddTypeidToDocumentTable extends Migration {
 	public function up()
 	{
 		Schema::table('documents', function(Blueprint $table) {
-            $table->integer('type_id')->after('id')->nullable();
+            $table->integer('lesson_id')->after('level_id')->nullable();
         });
 	}
 
@@ -25,7 +25,7 @@ class AddTypeidToDocumentTable extends Migration {
 	public function down()
 	{
 		Schema::table('documents', function(Blueprint $table) {
-            $table->dropColumn('type_id');
+            $table->dropColumn('lesson_id');
         });
 	}
 

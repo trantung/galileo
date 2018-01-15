@@ -2,6 +2,14 @@
 class AjaxController extends \BaseController {
 
     /**
+     * Save document into a lesson
+     */
+    public function postSaveDocument(){
+        $input = Input::all();
+        return Response::json($input);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

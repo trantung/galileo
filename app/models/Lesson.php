@@ -17,4 +17,8 @@ class Lesson extends Eloquent
     // protected $hidden = array('password', 'remember_token');
     protected $dates = ['deleted_at'];
 
+    public function levels() 
+    {
+        return $this->belongsTo('Level', 'level_id', 'id');
+    }
 }

@@ -49,6 +49,7 @@ class LevelController extends AdminController implements AdminInterface {
 	public function show($id)
 	{
 		$data = Level::findOrFail($id);
+		// dd($data->lessons);
 		return View::make('admin.level.show')->with(compact('data'));
 	}
 

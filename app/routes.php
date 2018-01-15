@@ -92,24 +92,6 @@ Route::group(['prefix' => 'partner'], function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::get('/test', function() {
     $input = [
         'username' => 'partner1',
