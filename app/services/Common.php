@@ -254,4 +254,40 @@ class Common {
         }
         return null;
     }
+    public static function saveDocument($name, $documentType, $doc, $arrayP = null)
+    {
+        $array = [];
+        $input = Input::all();
+        $doc['type_id'] = $documentType;
+        if( $_FILES[$name] ){
+            foreach ($_FILES[$name]['tmp_name'] as $lessonId => $value) {
+                $doc['type_id'] = $documentType;
+                foreach ($value as $k => $v) {
+                    if ($arrayP) {
+                       $title = $input['doc_new_title_d'][$lessonId][$k];
+                    } else {
+                        $title = $input['doc_new_title_p'][$lessonId][$k];
+                    }
+                    $fileUrl = $_FILES[$name]['name'][$lessonId][$k];
+                    $fileUrl = DOCUMENT_UPLOAD_DIR.time().'_'.$fileUrl;
+                    $doc['name'] = $title;
+                    $doc['file_url'] = $fileUrl;
+                    if ($arrayP == null) {
+                        $array[$k] = $docId = Document::create($doc)->id;
+                        $doc['parent_id'] = $docId;
+                    }else{
+                        $doc['parent_id'] = $arrayP[$k];
+                        $docId = Document::create($doc)->id;
+                    }
+                    move_uploaded_file($value[0], public_path().$fileUrl);
+                    $code = getCodeDocument($docId);
+                    Document::find($docId)->update(['code' => $code]);
+                }
+            }
+        }
+       if ($arrayP == null) {
+        return $array;
+       }
+       return true;
+    }
 }

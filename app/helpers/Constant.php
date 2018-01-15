@@ -3,7 +3,7 @@ define('ADMIN', 1);
 
 define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 /*
-	Các role của nhân viên trung tâm
+    Các role của nhân viên trung tâm
 */
 //quản lý trung tâm
 define('QLTT', 1);
@@ -18,8 +18,14 @@ define('SALE', 5);
 //kế toán
 define('KT', 6);
 /*
--------------------------------------------------------	
+thể loại câu hỏi, đáp án
 */
+//Câu hỏi
+define('P', 1);
+//Đáp án
+define('D', 2);
 
-
+/*
+----------------------------
+*/
 
