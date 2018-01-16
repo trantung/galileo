@@ -96,9 +96,12 @@ class DocumentController extends AdminController implements AdminInterface {
         }
 
         if( !empty($input['doc_p_id']) ){
-            $field['name'] = $input['name_p'];
-            $field['file_url'] = $fileUrlP;
-            $doc = Document::find($input['doc_p_id'])->update($field);
+            // $field['name'] = $input['name_p'];
+            // $field['file_url'] = $fileUrlP;
+            $doc = Document::find($input['doc_p_id'])->update([
+                    'name' => $input['name_p'],
+                    'file_url' => $fileUrlP,
+                ]);
         } else{
             $field['name'] = $input['name_p'];
             $field['file_url'] = $fileUrlP;
@@ -106,9 +109,12 @@ class DocumentController extends AdminController implements AdminInterface {
         }
 
         if( !empty($input['doc_d_id']) ){
-            $field['name'] = $input['name_d'];
-            $field['file_url'] = $fileUrlD;
-            $doc = Document::find($input['doc_d_id'])->update($field);
+            // $field['name'] = $input['name_d'];
+            // $field['file_url'] = $fileUrlD;
+            $doc = Document::find($input['doc_d_id'])->update([
+                    'name' => $input['name_d'],
+                    'file_url' => $fileUrlD,
+                ]);
         } else{
             $field['file_url'] = $fileUrlD;
             $field['name'] = $input['name_d'];
