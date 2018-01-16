@@ -298,4 +298,14 @@ class Common {
        }
        return true;
     }
+    public static function getDocument($document, $typeId)
+    {
+        $ob = Document::where('parent_id', $document->id)
+            ->where('type_id', $typeId)
+            ->first();
+        if ($ob) {
+            return $ob;
+        }
+        return null;
+    }
 }

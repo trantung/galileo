@@ -126,7 +126,8 @@ class DocumentController extends AdminController implements AdminInterface {
      */
     public function destroy($id)
     {
-        //
+        Document::where('parent_id', $id)->delete();
+        return Redirect::action('DocumentController@index');
     }
 
 
