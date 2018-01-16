@@ -95,6 +95,7 @@ class Common {
         }
         return $ob->$method;
     }
+    
     public static function checkExist($modelName, $value, $field)
     {
         $check = $modelName::where($field, $value)->first();
@@ -103,6 +104,7 @@ class Common {
         }
         return false;
     }
+
     public static function getRoleUser()
     {
         $list = [
@@ -116,11 +118,13 @@ class Common {
         ];
         return $list;
     }
+
     public static function getAllCenter()
     {
         $list = Center::lists('name', 'id');
         return $list;
     }
+
     public static function getExcelLevel($subjectLevels, $classCode)
     {
         foreach ($subjectLevels as $subjectCode => $string) {
@@ -159,7 +163,8 @@ class Common {
             }
         }
         return true;
-    }   
+    }
+
     public static function getNumberLesson($levelCode, $classId)
     {
         $arrayHocTot1 = self::getNameGroupLevel(1);
@@ -229,6 +234,7 @@ class Common {
         }
 
     }
+
     public static function getDocumentByLesson($lessonId)
     {
         $array = [];
@@ -244,6 +250,7 @@ class Common {
         // dd($array);
         return $array;
     }
+
     public static function getDocumentObject($parentId, $typeId)
     {
        $ob = Document::where('parent_id', $parentId)
@@ -254,6 +261,7 @@ class Common {
         }
         return null;
     }
+
     public static function saveDocument($name, $documentType, $doc, $arrayP = null)
     {
         $array = [];

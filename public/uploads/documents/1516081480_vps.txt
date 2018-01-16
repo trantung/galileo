@@ -1,0 +1,8 @@
+Server IP address : 45.32.39.95
+Panel URL         : http://panel1.queentheme.net
+zadmin Password   : sTQSnjEnhagklaJW
+
+MySQL Root Password      : EsOxsnA7XCnkXkPn
+MySQL Postfix Password   : KRKhKff95cuHM99m
+MySQL ProFTPd Password   : yYfnmRkvHuISnNxO
+MySQL Roundcube Password : UZog1xIoDoSj9MBv
