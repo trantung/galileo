@@ -5,11 +5,10 @@
 	{{ Form::hidden('level_id', Common::getObject($lesson, 'level_id')) }}
 
 	@if( !isset($group) )
-		<?php
-		if( !isset($order) ){
+		{{-- Form create --}}
+		<?php if( !isset($order) ){
 			$order = '';
-		}
-		?>
+		} ?>
 		<fieldset>
 			<legend>Phiếu học liệu câu hỏi:</legend>
 			<div class="form-group">
@@ -27,18 +26,19 @@
 		<a href="#" class="btn btn-warning remove-item-doc no-ajax pull-right"><i class="fa fa-remove"></i> Xóa</a>
 		<div class="clearfix"></div>
 	@else
+		{{-- Form edit --}}
 		<fieldset>
 			<legend>Phiếu học liệu câu hỏi:</legend>
 			<div class="form-group">
 				<p><label>Tên tài liệu: </label> {{ Common::getObject($group['P'], 'name') }}</p>
-				<p><label>Mã phiếu: </label> {{ Common::getObject($group['P'], 'code') }}</p>
+				<p><label>Mã phiếu: </label> <a href="{{ action('DocumentController@edit', [Common::getObject($group['P'], 'id')]) }}">{{ Common::getObject($group['P'], 'code') }}</a></p>
 			</div>
 		</fieldset>
 		<fieldset>
 			<legend>Phiếu học liệu đáp án:</legend>
 			<div class="form-group">
 				<p><label>Tên tài liệu: </label> {{ Common::getObject($group['D'], 'name') }}</p>
-				<p><label>Mã phiếu: </label> {{ Common::getObject($group['D'], 'code') }}</p>
+				<p><label>Mã phiếu: </label> <a href="{{ action('DocumentController@edit', [Common::getObject($group['D'], 'id')]) }}">{{ Common::getObject($group['D'], 'code') }}</a></p>
 			</div>
 		</fieldset>
 		{{-- <a href="#" class="btn btn-warning remove-item-doc no-ajax pull-right"><i class="fa fa-remove"></i> Xóa</a> --}}
