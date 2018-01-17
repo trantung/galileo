@@ -1,8 +1,8 @@
 <?php
 class AdminController extends BaseController {
-    public function __construct() {
-        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-    }
+    // public function __construct() {
+    //     $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +19,7 @@ class AdminController extends BaseController {
      */
     public function create()
     {
-        //
+        // return View::make()
     }
     /**
      * Store a newly created resource in storage.

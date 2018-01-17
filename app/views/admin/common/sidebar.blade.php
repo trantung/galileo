@@ -23,7 +23,7 @@
             <li>
                 <a href="{{ action('SubjectController@index') }}">
                     <i class="fa fa-newspaper-o"></i> 
-                    <span>Quản lý các môn học</span>
+                    <span>Quản lý các môn học</span>p
                 </a>
             </li>
             <li>
