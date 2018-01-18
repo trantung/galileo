@@ -1,7 +1,7 @@
 <?php
 
-Route::get('/test_upload','AdminController@getUpload');
-Route::post('/test_upload','AdminController@postUpload');
+// Route::get('/test_upload','AdminController@getUpload');
+// Route::post('/test_upload','AdminController@postUpload');
 /*
     Hệ thống
     1. Quản lý partner
@@ -15,14 +15,17 @@ Route::post('/test_upload','AdminController@postUpload');
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
-Route::get('/test/upload', 'AdminController@getUpload');
-Route::post('/test/upload', 'AdminController@postUpload');
+// Route::get('/test/upload', 'AdminController@getUpload');
+// Route::post('/test/upload', 'AdminController@postUpload');
 
 Route::get('/', 'AdminController@index');
-Route::group(['prefix' => 'admin'], function () {
+// Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
+    
+    Route::resource('administrator', 'AdminController');
+    Route::resource('student', 'StudentController');
     // Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     // Route::post('/login', array('uses' => 'AdminController@doLogin'));
    
@@ -72,7 +75,7 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.level.show
     */
     Route::resource('/doc', 'DocumentController');
-});
+// });
 
 Route::group(['prefix' => 'partner'], function () {
     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
