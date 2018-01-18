@@ -43,3 +43,7 @@ function getLevelByDocument($document)
     $ob = Level::find($levelId);
     return $ob->name;
 }
+function getRoleAdmin()
+{
+    return Role::lists('id', 'name');
+}
