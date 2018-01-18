@@ -19,7 +19,7 @@
 // Route::post('/test/upload', 'AdminController@postUpload');
 
 Route::get('/', 'AdminController@index');
-// Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
@@ -75,7 +75,7 @@ Route::get('/', 'AdminController@index');
         3. view: admin.level.show
     */
     Route::resource('/doc', 'DocumentController');
-// });
+});
 
 Route::group(['prefix' => 'partner'], function () {
     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
