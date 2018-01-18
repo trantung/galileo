@@ -308,4 +308,10 @@ class Common {
         }
         return null;
     }
+    public static function getModelNameByController($controllerName)
+    {
+        if ($controllerName == 'SubjectController') {
+            return 'Subject';
+        }
+    }
 }

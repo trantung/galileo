@@ -45,5 +45,28 @@ function getLevelByDocument($document)
 }
 function getRoleAdmin()
 {
-    return Role::lists('id', 'name');
+    return Role::lists('name', 'id');
+}
+function getMethodDefault($classController)
+{
+    $array = [
+        'index' => $classController,
+        'create' => $classController,
+        'store' => $classController,
+        'edit' => $classController,
+        'update' => $classController,
+        'destroy' => $classController,
+    ];
+    return $array;
+}
+function checkActiveCheckbox($controllerName, $action, $groupId)
+{
+    $ob = Permission::where('controller', $controllerName)
+        ->where('action', $action)
+        ->where('group_id', $groupId)
+        ->first();
+    if ($ob) {
+        return true;
+    }
+    return false;
 }

@@ -10,8 +10,8 @@
 		<tr>
 			<th>Username</th>
 			<th>Email</th>
-			<th>Phone</th>
-			
+			<th>Role</th>
+			<th>Phân quyền</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
@@ -19,8 +19,10 @@
 		<tr>
 			<td>{{ $value->username }}</td>
 			<td>{{ $value->email }}</td>
-			<td>{{ $value->phone }}</td>
-			
+			<td>{{ $value->role_id }}</td>
+			<td>
+	           <a href="{{ action('AdminController@edit', $value->id) }}" class="btn btn-danger">Edit</a>
+			</td>
 			<td>
 	           <a href="{{ action('AdminController@edit', $value->id) }}" class="btn btn-danger">Edit</a>
 			</td>
