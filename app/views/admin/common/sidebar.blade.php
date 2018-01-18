@@ -45,6 +45,20 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ action('AdminController@index') }}">
+                    <i class="fa fa-newspaper-o"></i> 
+                    <span>Quản lý admin</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ action('StudentController@index') }}">
+                    <i class="fa fa-newspaper-o"></i> 
+                    <span>Quản lý học sinh</span>
+                </a>
+            </li>
+
         </ul>
     </section>
 </aside>

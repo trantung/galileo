@@ -1,5 +1,5 @@
 <?php
-class AdminController extends BaseController {
+class ParentController extends BaseController {
     // public function __construct() {
     //     $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     // }
@@ -11,7 +11,7 @@ class AdminController extends BaseController {
     public function index()
     {
         $data = Admin::all();
-        return View::make('administrator.index')->with(compact('data'));
+        return View::make('student.index')->with(compact('data'));
     }
     /**
      * Show the form for creating a new resource.
@@ -20,7 +20,7 @@ class AdminController extends BaseController {
      */
     public function create()
     {
-        return View::make('administrator.create');
+        return View::make('student.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -32,7 +32,7 @@ class AdminController extends BaseController {
         $input = Input::except('_token');
         $input['password'] = Hash::make($input['password']);
         $adminId = Admin::create($input)->id;
-        return Redirect::action('AdminController@index')->with('message','<i class="fa fa-check-square-o fa-lg"></i> 
+        return Redirect::action('ParentController@index')->with('message','<i class="fa fa-check-square-o fa-lg"></i> 
             Người dùng đã được tạo!');
     }
     /**
@@ -54,7 +54,7 @@ class AdminController extends BaseController {
     public function edit($id)
     {
         $admin = Admin::findOrFail($id);
-        return View::make('administrator.edit')->with(compact('admin'));
+        return View::make('student.edit')->with(compact('admin'));
     }
     /**
      * Update the specified resource in storage.
@@ -67,7 +67,7 @@ class AdminController extends BaseController {
         $input = Input::all();
         $input['password'] = Hash::make($input['password']);
         Admin::findOrFail($id)->update($input);
-        return Redirect::action('AdminController@index');
+        return Redirect::action('ParentController@index');
     }
     /**
      * Remove the specified resource from storage.
@@ -78,14 +78,14 @@ class AdminController extends BaseController {
     public function destroy($id)
     {
         Admin::findOrFail($id)->delete();
-        return Redirect::action('AdminController@index');
+        return Redirect::action('ParentController@index');
     }
 
     public function login()
     {
         $checkLogin = Auth::admin()->check();
         if($checkLogin) {
-            return Redirect::action('AdminController@index');
+            return Redirect::action('ParentController@index');
         } else {
             return View::make('admin.layout.login');
         }
@@ -99,15 +99,15 @@ class AdminController extends BaseController {
         $input = Input::except('_token');
         $validator = Validator::make($input, $rules);
         if ($validator->fails()) {
-            return Redirect::action('AdminController@login')
+            return Redirect::action('ParentController@login')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
             $checkLogin = Auth::admin()->attempt($input, true);
             if($checkLogin) {
-                return Redirect::action('AdminController@index');
+                return Redirect::action('ParentController@index');
             } else {
-                return Redirect::action('AdminController@login');
+                return Redirect::action('ParentController@login');
             }
         }
     }
@@ -115,7 +115,7 @@ class AdminController extends BaseController {
     {
         Auth::admin()->logout();
         Session::flush();
-        return Redirect::action('AdminController@login');
+        return Redirect::action('ParentController@login');
     }
     public function getUpload()
     {

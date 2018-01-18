@@ -3,21 +3,21 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminTable extends Migration {
+class CreateStudentsTable extends Migration {
 
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
     {
-        Schema::create('admins', function(Blueprint $table) {
+        Schema::create('students', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('role_id')->nullable();
             $table->string('email', 255)->nullable();
             $table->string('password', 255)->nullable();
             $table->string('username', 255)->nullable();
+            $table->string('phone', 255)->nullable();
             $table->string('remember_token', 255)->nullable();
             $table->softDeletes();
             $table->timestamps();
@@ -31,7 +31,7 @@ class CreateAdminTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('admins');
+        Schema::dropIfExists('students');
     }
 
 }
