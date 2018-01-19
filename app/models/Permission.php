@@ -1,8 +1,8 @@
 <?php
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+// use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class Permission extends Eloquent
 {
-    use SoftDeletingTrait;
+    // use SoftDeletingTrait;
     public $timestamps = true;
     
     protected $table = 'permissions';
