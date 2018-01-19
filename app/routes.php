@@ -19,12 +19,15 @@
 // Route::post('/test/upload', 'AdminController@postUpload');
 
 Route::get('/', 'AdminController@index');
-// Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
     
+    Route::get('administrator/{id}/reset', 'AdminController@getResetPass');
+    Route::post('/administrator/{id}/reset', 'AdminController@postResetPass');
     Route::resource('administrator', 'AdminController');
+    
     Route::resource('student', 'StudentController');
     // Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     // Route::post('/login', array('uses' => 'AdminController@doLogin'));
@@ -38,6 +41,7 @@ Route::get('/', 'AdminController@index');
     Route::get('/partner/{id}/reset-password', 'ManagerPartnerController@getResetPass');
     Route::post('/partner/{id}/reset-password', 'ManagerPartnerController@postResetPass');
     Route::resource('/partner', 'ManagerPartnerController');
+
     Route::resource('/class', 'ClassController');
 	Route::resource('/subject', 'SubjectController');
 
@@ -135,5 +139,5 @@ Route::group(['prefix' => 'user'], function () {
 // Route::post('/ajax/{method}', 'AjaxController@process');
 Route::controller('/ajax', 'AjaxController');
 
-
+});
 

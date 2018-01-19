@@ -1,8 +1,8 @@
 <?php
 class AdminController extends BaseController {
-    // public function __construct() {
-    //     $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-    // }
+    public function __construct() {
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -124,6 +124,20 @@ class AdminController extends BaseController {
     public function postUpload()
     {
         
+    }
+
+    public function getResetPass($id)
+    {
+        return View::make('administrator.reset')->with(compact('id'));
+    }
+    public function postResetPass($id)
+    {
+        $input = Input::all();
+        $admin = Admin::find($id);
+        $password = Hash::make($input['password']);
+        $admin->update(['password' => $password]);
+        return Redirect::action('AdminController@index');
+
     }
 }
 
