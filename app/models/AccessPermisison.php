@@ -1,11 +1,11 @@
 <?php
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+// use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class AccessPermisison extends Eloquent
 {
-    use SoftDeletingTrait;
+    // use SoftDeletingTrait;
     public $timestamps = true;
     
     protected $table = 'access_permission';
-    protected $fillable = ['model_name', 'model_id', 'permission_id'];
+    protected $fillable = ['model_name', 'model_id', 'permission_id', 'subject_id'];
    
 }

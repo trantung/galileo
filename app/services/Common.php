@@ -313,5 +313,9 @@ class Common {
         if ($controllerName == 'SubjectController') {
             return 'Subject';
         }
+        if ($controllerName == 'DocumentController') {
+            return 'Document';
+        }
+
     }
 }

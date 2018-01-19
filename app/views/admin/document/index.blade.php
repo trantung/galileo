@@ -52,11 +52,14 @@ Danh sách học liệu
                             {{ getLevelByDocument($document) }}
                         </td>
                     @endif
-                    <td rowspan="{{ $countSubject }}"><a href="{{ action('DocumentController@edit', $document->parent_id) }}" class="btn btn-primary">Sửa</a>
+                    <td rowspan="{{ $countSubject }}">
+                        {{ renderUrlByPermission('DocumentController@edit', 'Sửa', $document->parent_id, ['class'=>"btn btn-primary"]) }}
+                        @if(checkPermissionForm('DocumentController@destroy', 'Xoá', $document->parent_id))
                         {{ Form::open(array('method'=>'DELETE', 'action' => array('DocumentController@destroy', $document->parent_id), 'style' => 'display: inline-block;')) }}
                             <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
                             </td>
                         {{ Form::close() }}
+                        @endif
                     </td>
                 </tr>
             @if( $countSubject > 1 )

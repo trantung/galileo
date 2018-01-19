@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label for="title">Danh sách các quyền</label>
-                        @foreach(getMethodDefault('SubjectController') as $key => $value)
+                        @foreach(getMethodDefault('DocumentController') as $key => $value)
                         <div class="row">
                             <div class="col-sm-6">
                                {{ Form::checkbox('permission['.$value.']['.$key.']', null, checkActiveCheckbox($value, $key, $group->id)) }} {{ $key }}
