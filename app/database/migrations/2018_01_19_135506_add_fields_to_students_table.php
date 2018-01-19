@@ -18,13 +18,13 @@ class AddFieldsToStudentsTable extends Migration {
             $table->unique('phone');
             $table->integer('class_id')->nullable();
             $table->date('date_study')->nullable();
-            $table->string('author', 255)->nullable();
+            $table->integer('author')->nullable();
             $table->date('birthday')->nullable();
             $table->string('gender', 125)->nullable();
             $table->string('address', 255)->nullable();
             $table->string('school', 255)->nullable();
             $table->string('dad_fullname', 255)->nullable();
-            $table->string('dad_phone', 125)->nullable()->uniquie();
+            $table->string('dad_phone', 125)->nullable()->unique();
             $table->string('mom_fullname', 255)->nullable();
             $table->string('mom_phone', 125)->nullable()->unique();
             $table->string('link_fb', 255)->nullable();
@@ -36,8 +36,6 @@ class AddFieldsToStudentsTable extends Migration {
             $table->longText('program_learned')->nullable();
             $table->string('subject_current', 255)->nullable();
             $table->longText('program_current')->nullable();
-
-
 
         });
 	}
