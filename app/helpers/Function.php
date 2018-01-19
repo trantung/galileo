@@ -154,3 +154,27 @@ function checkPermissionForm($actionOld, $title, $parameter)
     }
     return false;
 }
+function checkUrlPermission($route)
+{
+    $admin = Auth::admin()->get();
+    if ($admin->role_id == ADMIN) {
+        return true;
+    }
+    $action = explode("@", $route);
+    $controllerName = $action[0];
+    $method = $action[1];
+    $listPer = Permission::where('controller', $controllerName)
+        ->where('action', $method)
+        ->lists('id');
+    if (count($listPer) == 0) {
+        return false;
+    }
+    $access = AccessPermisison::where('model_name', 'Admin')
+        ->where('model_id', $admin->id)
+        ->whereIn('permission_id', $listPer)
+        ->get();
+    if (count($access) == 0) {
+        return false;
+    }
+    return true;
+}

@@ -72,18 +72,6 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.level.show
     */
     Route::resource('/doc', 'DocumentController');
-// });
-
-Route::group(['prefix' => 'partner'], function () {
-    // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
-    // Route::post('/login', array('uses' => 'UserController@doLogin'));
-    Route::resource('/', 'UserController');
-});
-
-// Route::group(['prefix' => 'user'], function () {
-//     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
-//     // Route::post('/login', array('uses' => 'UserController@doLogin'));
-//     Route::resource('/', 'UserController');
 });
 
 

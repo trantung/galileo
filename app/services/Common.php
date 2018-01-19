@@ -318,4 +318,8 @@ class Common {
         }
 
     }
+    public static function getMethodLevel()
+    {
+        return ['index', 'show'];
+    }
 }

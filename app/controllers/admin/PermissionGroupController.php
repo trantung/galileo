@@ -76,22 +76,25 @@ class PermissionGroupController extends \BaseController {
 	public function update($id)
 	{
 		$input = Input::all();
-		// dd($input);
-		// $route = Route::getCurrentRoute()->getActionName();
-    // dd($route);
 		$permission = $input['permission'];
 		$controllerName = array_keys($permission)[0];
 		$modelName = Common::getModelNameByController($controllerName);
 		$inputPer['controller'] = array_keys($permission)[0];
 		$inputPer['model'] = $modelName;
 		$inputPer['group_id'] = $id;
-		// dd($permission);
-		Permission::where('group_id', $id)
-			->where('controller', $controllerName)
-			->where('model', $modelName)
-			->delete();
+		$group = PermissionGroup::find($id);
+		Permission::where('group_id', $id)->delete();
+		if ($group->code == THL) {
+			foreach (Common::getMethodLevel() as $key => $value) {
+				Permission::create([
+					'controller' => 'LevelController',
+					'group_id' => $id,
+					'model_name' => 'Level',
+					'action' => $value,
+				]);
+			}
+		}
 		foreach ($permission as $key => $value) {
-			// dd(array_keys($value));
 			foreach (array_keys($value) as $k => $v) {
 				$inputPer['action'] = $v;
 				Permission::create($inputPer);

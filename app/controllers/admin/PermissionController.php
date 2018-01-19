@@ -71,12 +71,15 @@ class PermissionController extends \BaseController {
 		$input = Input::all();
 		// dd($input);
 		AccessPermisison::where('model_name', 'Admin')
-				->where('model_id', $adminId)
-				->delete();
+			->where('model_id', $adminId)
+			->delete();
+		
 		if (isset($input['permission'])) {
 			$permission = $input['permission'];
+			
 			foreach ($permission as $subjectId => $value) {
 				foreach ($value as $groupId => $v) {
+					
 					$listPerIds = Permission::where('group_id', $groupId)
 						->lists('id');
 					$access = [];
