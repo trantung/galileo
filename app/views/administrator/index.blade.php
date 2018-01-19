@@ -21,7 +21,7 @@
 			<td>{{ $admin->email }}</td>
 			<td>{{ $admin->role_id }}</td>
 			<td>
-	           <a href="{{ action('PermissionController@edit', $admin->id) }}" class="btn btn-danger">Phân quyền</a>
+	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-danger">Phân quyền</a>
 			</td>
 			<td>
 	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-danger">Edit</a>
