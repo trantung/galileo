@@ -1,7 +1,4 @@
 <?php
-
-// Route::get('/test_upload','AdminController@getUpload');
-// Route::post('/test_upload','AdminController@postUpload');
 /*
     Hệ thống
     1. Quản lý partner
@@ -18,17 +15,17 @@
 // Route::get('/test/upload', 'AdminController@getUpload');
 // Route::post('/test/upload', 'AdminController@postUpload');
 
-Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
-    
+    //Quản lý phân quyền
+    Route::resource('/permission/group', 'PermissionGroupController');
+    Route::resource('/permission', 'PermissionController');
+
+    //
     Route::resource('administrator', 'AdminController');
     Route::resource('student', 'StudentController');
-    // Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
-    // Route::post('/login', array('uses' => 'AdminController@doLogin'));
-   
     /*
         Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
         1. Controller: ManagerPartnerController 
@@ -76,18 +73,6 @@ Route::group(['prefix' => 'admin'], function () {
     */
     Route::resource('/doc', 'DocumentController');
 });
-
-Route::group(['prefix' => 'partner'], function () {
-    // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
-    // Route::post('/login', array('uses' => 'UserController@doLogin'));
-    Route::resource('/', 'UserController');
-});
-
-// Route::group(['prefix' => 'user'], function () {
-//     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
-//     // Route::post('/login', array('uses' => 'UserController@doLogin'));
-//     Route::resource('/', 'UserController');
-// });
 
 
 

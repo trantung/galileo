@@ -10,22 +10,24 @@
 		<tr>
 			<th>Username</th>
 			<th>Email</th>
-			<th>Phone</th>
-			
+			<th>Role</th>
+			<th>Phân quyền</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
-		@foreach($data as $key => $value)
+		@foreach($data as $key => $admin)
 		<tr>
-			<td>{{ $value->username }}</td>
-			<td>{{ $value->email }}</td>
-			<td>{{ $value->phone }}</td>
-			
+			<td>{{ $admin->username }}</td>
+			<td>{{ $admin->email }}</td>
+			<td>{{ $admin->role_id }}</td>
 			<td>
-	           <a href="{{ action('AdminController@edit', $value->id) }}" class="btn btn-danger">Edit</a>
+	           <a href="{{ action('PermissionController@edit', $admin->id) }}" class="btn btn-danger">Phân quyền</a>
 			</td>
 			<td>
-			   {{ Form::open(array('method'=>'DELETE', 'action' => array('AdminController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-danger">Edit</a>
+			</td>
+			<td>
+			   {{ Form::open(array('method'=>'DELETE', 'action' => array('AdminController@destroy', $admin->id), 'style' => 'display: inline-block;')) }}
 	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Delete</button>
 	           {{ Form::close() }}
 			</td>

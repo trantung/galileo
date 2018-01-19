@@ -328,4 +328,18 @@ class Common {
         return $html;
     }
 
+    public static function getModelNameByController($controllerName)
+    {
+        if ($controllerName == 'SubjectController') {
+            return 'Subject';
+        }
+        if ($controllerName == 'DocumentController') {
+            return 'Document';
+        }
+
+    }
+    public static function getMethodLevel()
+    {
+        return ['index', 'show'];
+    }
 }

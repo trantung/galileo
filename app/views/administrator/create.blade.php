@@ -22,7 +22,7 @@
               <label for="role_id">Role id</label>
               <div class="row">
                 <div class="col-sm-6">
-                  {{  Form::select('role_id', ['1'=>'Admin', '2'=>'BTV'], null, array('class' => 'form-control', 'required' => 'required' )) }}
+                  {{  Form::select('role_id', getRoleAdmin(), null, array('class' => 'form-control', 'required' => 'required' )) }}
                 </div>
               </div>
             </div>

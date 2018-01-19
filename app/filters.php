@@ -53,7 +53,16 @@ Route::filter('admin', function()
 	if (Auth::admin()->guest()){
 		return Redirect::action('AdminController@login');
 	}
+	$admin = Auth::admin()->get();
+    if ($admin->role_id != ADMIN) {
+    	$route = Route::getCurrentRoute()->getActionName();
+    	$check = checkUrlPermission($route);
+    	if (!$check) {
+    		return View::make('403');
+    	}
+    }
 });
+
 // Route::filter('partner', function()
 // {
 // 	if (Auth::partner()->guest()){
