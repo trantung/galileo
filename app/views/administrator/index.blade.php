@@ -10,26 +10,27 @@
 		<tr>
 			<th>Username</th>
 			<th>Email</th>
+			<th>Role</th>
+			<th>Phân quyền</th>
 			<th>Edit</th>
 			<th>Delete</th>
-			<th>Reset password</th>
 		</tr>
-		@foreach($data as $key => $value)
+		@foreach($data as $key => $admin)
 		<tr>
-			<td>{{ $value->username }}</td>
-			<td>{{ $value->email }}</td>
+			<td>{{ $admin->username }}</td>
+			<td>{{ $admin->email }}</td>
+			<td>{{ $admin->role_id }}</td>
 			<td>
-	           <a href="{{ action('AdminController@edit', $value->id) }}" class="btn btn-primary">Edit</a>
+	           <a href="{{ action('PermissionController@edit', $admin->id) }}" class="btn btn-danger">Phân quyền</a>
 			</td>
 			<td>
-			   {{ Form::open(array('method'=>'DELETE', 'action' => array('AdminController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn methoduốn xóa?');">Delete</button>
+	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-danger">Edit</a>
+			</td>
+			<td>
+			   {{ Form::open(array('method'=>'DELETE', 'action' => array('AdminController@destroy', $admin->id), 'style' => 'display: inline-block;')) }}
+	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Delete</button>
 	           {{ Form::close() }}
-	        </td>
-	        <td>
-	           <a href=" {{ action('AdminController@getResetPass', $value->id) }} " class="btn btn-warning">Reset password</a>
-		    </td>
-					
+			</td>
 		</tr>
 		@endforeach
 	</table>
