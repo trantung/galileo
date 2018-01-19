@@ -1,8 +1,8 @@
 <?php
 class AdminController extends BaseController {
-    // public function __construct() {
-    //     $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-    // }
+    public function __construct() {
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -10,7 +10,8 @@ class AdminController extends BaseController {
      */
     public function index()
     {
-        return View::make('admin.dashboard');
+        $data = Admin::all();
+        return View::make('administrator.index')->with(compact('data'));
     }
     /**
      * Show the form for creating a new resource.
@@ -19,7 +20,7 @@ class AdminController extends BaseController {
      */
     public function create()
     {
-        // return View::make()
+        return View::make('administrator.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -28,7 +29,11 @@ class AdminController extends BaseController {
      */
     public function store()
     {
-        //
+        $input = Input::except('_token');
+        $input['password'] = Hash::make($input['password']);
+        $adminId = Admin::create($input)->id;
+        return Redirect::action('AdminController@index')->with('message','<i class="fa fa-check-square-o fa-lg"></i> 
+            Người dùng đã được tạo!');
     }
     /**
      * Display the specified resource.
@@ -48,7 +53,8 @@ class AdminController extends BaseController {
      */
     public function edit($id)
     {
-
+        $admin = Admin::findOrFail($id);
+        return View::make('administrator.edit')->with(compact('admin'));
     }
     /**
      * Update the specified resource in storage.
@@ -58,7 +64,10 @@ class AdminController extends BaseController {
      */
     public function update($id)
     {
-
+        $input = Input::all();
+        $input['password'] = Hash::make($input['password']);
+        Admin::findOrFail($id)->update($input);
+        return Redirect::action('AdminController@index');
     }
     /**
      * Remove the specified resource from storage.
@@ -68,8 +77,10 @@ class AdminController extends BaseController {
      */
     public function destroy($id)
     {
-        //
+        Admin::findOrFail($id)->delete();
+        return Redirect::action('AdminController@index');
     }
+
     public function login()
     {
         $checkLogin = Auth::admin()->check();

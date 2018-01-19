@@ -70,28 +70,24 @@ class Common {
         return implode($separated, $output);
     }
 
-    public static function getSubjectList(){
-        return Subject::lists('name', 'id');
-    }
-
-    public static function getValueOfObject($ob, $method, $field)
+    public static function getValueOfObject($ob, $method, $field, $default = null)
     {
         if (!self::getObject($ob,$method)) {
-            return null;
+            return $default;
         }
         if (!($ob->$method->$field)) {
-            return null;
+            return $default;
         }
         return $ob->$method->$field;
     }
 
-    public static function getObject($ob, $method)
+    public static function getObject($ob, $method, $default = null)
     {
         if (!($ob)) {
-            return null;
+            return $default;
         }
         if (!($ob->$method)) {
-            return null;
+            return $default;
         }
         return $ob->$method;
     }
@@ -298,6 +294,7 @@ class Common {
        }
        return true;
     }
+
     public static function getDocument($document, $typeId)
     {
         $ob = Document::where('parent_id', $document->id)
@@ -307,5 +304,42 @@ class Common {
             return $ob;
         }
         return null;
+    }
+
+    public static function getClassList()
+    {
+        return ClassModel::orderBy('created_at', 'desc')->lists('name','id');
+    }
+
+    public static function getSubjectList()
+    {
+        return Subject::orderBy('created_at', 'desc')->lists('name','id');
+    }
+
+    public static function getLevelDropdownList($name, $default = null)
+    {
+        $levels = Level::orderBy('created_at', 'desc')->get();
+        $html = '<select name="'. $name .'" class="form-control">
+            <option value="">--Tất cả--</option>';
+        foreach ($levels as $key => $value) {
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
+        }
+        $html .= '<select>';
+        return $html;
+    }
+
+    public static function getModelNameByController($controllerName)
+    {
+        if ($controllerName == 'SubjectController') {
+            return 'Subject';
+        }
+        if ($controllerName == 'DocumentController') {
+            return 'Document';
+        }
+
+    }
+    public static function getMethodLevel()
+    {
+        return ['index', 'show'];
     }
 }

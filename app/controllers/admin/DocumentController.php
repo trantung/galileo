@@ -1,7 +1,10 @@
 <?php
 
 class DocumentController extends AdminController implements AdminInterface {
-
+    public function __construct() {
+        parent::__construct();
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -9,7 +12,18 @@ class DocumentController extends AdminController implements AdminInterface {
      */
     public function index()
     {
-        $documents = Document::groupBy('parent_id')->get();
+        $input = Input::all();
+        $documents = Document::groupBy('parent_id');
+        if( !empty($input['class_id']) ){
+            $documents = $documents->where('class_id', $input['class_id']);
+        }
+        if( !empty($input['subject_id']) ){
+            $documents = $documents->where('subject_id', $input['subject_id']);
+        }
+        if( !empty($input['level_id']) ){
+            $documents = $documents->where('level_id', $input['level_id']);
+        }
+        $documents = $documents->get();
         return View::make('admin.document.index')->with(compact('documents'));
     }
 

@@ -1,9 +1,11 @@
 <?php
 class ManagerCenterController extends AdminController implements AdminInterface{
+
     public function __construct() {
         parent::__construct();
-        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +16,7 @@ class ManagerCenterController extends AdminController implements AdminInterface{
         $centers = Center::all();   
         return View::make('admin.center.index')->with(compact('centers'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -23,8 +26,10 @@ class ManagerCenterController extends AdminController implements AdminInterface{
     {
         $listClasses = ClassModel::all();
         $listPartners = Partner::lists('name', 'id');
-        return View::make('admin.center.create')->with(compact('listPartners', 'listClasses'));
+        $listLevels = Level::lists('name', 'id');
+        return View::make('admin.center.create')->with(compact('listPartners', 'listClasses', 'listLevels'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -41,6 +46,7 @@ class ManagerCenterController extends AdminController implements AdminInterface{
         }
         return Redirect::action('ManagerCenterController@index');
     }
+
     /**
      * Display the specified resource.
      *
@@ -51,6 +57,7 @@ class ManagerCenterController extends AdminController implements AdminInterface{
     {
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -64,7 +71,7 @@ class ManagerCenterController extends AdminController implements AdminInterface{
         $listPartners = Partner::lists('name', 'id');
         $listClasses = ClassModel::all();
         $listLevels = [];
-        if(count($center->levels)){
+        if( count($center->levels) ){
             foreach ($center->levels as $value) {
                 $listLevels[$value->id] = Common::getSubjectClassByLevel($value);
             }
@@ -72,6 +79,7 @@ class ManagerCenterController extends AdminController implements AdminInterface{
         // dd($listLevels);
         return View::make('admin.center.edit')->with(compact('center', 'partnerId', 'listPartners', 'listClasses', 'listLevels'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -88,6 +96,7 @@ class ManagerCenterController extends AdminController implements AdminInterface{
         }
         return Redirect::action('ManagerCenterController@index');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -96,21 +105,8 @@ class ManagerCenterController extends AdminController implements AdminInterface{
      */
     public function destroy($id)
     {
-        Partner::find($id)->delete();
+        CommonNormal::delete($id);
         return Redirect::action('ManagerCenterController@index');
-    }
-    public function getResetPass($id)
-    {
-        return View::make('admin.center.reset_password')->with(compact('id'));
-    }
-    public function postResetPass($id)
-    {
-        $input = Input::all();
-        $partner = Partner::find($id);
-        $password = Hash::make($input['password']);
-        $partner->update(['pass' => $password]);
-        return Redirect::action('ManagerCenterController@index');
-
     }
 
 }

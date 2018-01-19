@@ -1,14 +1,17 @@
 @extends('admin.layout.default')
 
-@section('css_header')
+@section('js_header')
 @parent
-{{--  --}}
+{{ HTML::script('adminlte/dist/js/app.min.js') }}
 @stop
 
 @section('title')
 Danh sách học liệu
 @stop
+
 @section('content')
+
+@include('admin.document.filter')
 
 <table class="table table-bordered table-responsive">
     <thead>
@@ -26,61 +29,54 @@ Danh sách học liệu
     <tbody>
         @foreach ($documents as $key => $document)
             <?php 
-                $countSubject = 2;
+                $documentP = Common::getDocument($document, P);
+                $documentD = Common::getDocument($document, D);
             ?>
-                <tr class="bg-warning">
-                    <td rowspan="{{ $countSubject }}" class="text-center"><strong>{{ $key+1 }}</strong></td>
-                    @if($document->type_id == P)
-                    <?php 
-                        $documentP = Common::getDocument($document, P);
-                        $documentD = Common::getDocument($document, D);
-                    ?>
-                        <td>{{ $documentP->name }}</td>
-                        <td>
-                            {{ getNameTypeId($documentP->type_id) }}
-                        </td>
-                        <td>
-                            {{ $documentP->code }}
-                        </td>
-                        <td>
-                            {{ getClassByDocument($document) }}
-                        </td>
-                        <td>
-                           {{ getSubjectByDocument($document) }}
-                        </td>
-                        <td>
-                            {{ getLevelByDocument($document) }}
-                        </td>
-                    @endif
-                    <td rowspan="{{ $countSubject }}"><a href="{{ action('DocumentController@edit', $document->parent_id) }}" class="btn btn-primary">Sửa</a>
+            <tr class="bg-warning">
+                <td rowspan="2" class="text-center"><strong>{{ $key+1 }}</strong></td>
+                <td>{{ Common::getObject($documentP, 'name') }}</td>
+                <td>
+                    {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
+                </td>
+                <td>
+                    {{ Common::getObject($documentP, 'code') }}
+                </td>
+                <td>
+                    {{ getClassByDocument($document) }}
+                </td>
+                <td>
+                    {{ getSubjectByDocument($document) }}
+                </td>
+                <td>
+                    {{ getLevelByDocument($document) }}
+                </td>
+                <td rowspan="2">
+                    {{ renderUrlByPermission('DocumentController@edit', 'Sửa', $document->parent_id, ['class'=>"btn btn-primary"]) }}
+                    @if(checkPermissionForm('DocumentController@destroy', 'Xoá', $document->parent_id))
                         {{ Form::open(array('method'=>'DELETE', 'action' => array('DocumentController@destroy', $document->parent_id), 'style' => 'display: inline-block;')) }}
                             <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-                            </td>
                         {{ Form::close() }}
-                    </td>
-                </tr>
-            @if( $countSubject > 1 )
-                @for ($i = 1; $i < $countSubject; $i++)
-                    <tr class="bg-warning">
-                        <td>{{ $documentD->name }}</td>
-                        <td>
-                            {{ getNameTypeId($documentD->type_id) }}
-                        </td>
-                        <td>
-                            {{ $documentD->code }}
-                        </td>
-                        <td>
-                            {{ getClassByDocument($document) }}
-                        </td>
-                        <td>
-                           {{ getSubjectByDocument($document) }}
-                        </td>
-                        <td>
-                            {{ getLevelByDocument($document) }}
-                        </td>
-                    </tr>
-                @endfor
-            @endif
+                    @endif
+                </td>
+            </tr>
+            <tr class="bg-warning">
+                <td>{{ Common::getObject($documentD, 'name') }}</td>
+                <td>
+                    {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
+                </td>
+                <td>
+                    {{ Common::getObject($documentD, 'code') }}
+                </td>
+                <td>
+                    {{ getClassByDocument($document) }}
+                </td>
+                <td>
+                    {{ getSubjectByDocument($document) }}
+                </td>
+                <td>
+                    {{ getLevelByDocument($document) }}
+                </td>
+            </tr>
         @endforeach
     </tbody>
 </table>
