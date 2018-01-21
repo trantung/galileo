@@ -14,6 +14,7 @@
 			<th>Phân quyền</th>
 			<th>Edit</th>
 			<th>Delete</th>
+			<th>Reset password</th>
 		</tr>
 		@foreach($data as $key => $admin)
 		<tr>
@@ -31,6 +32,7 @@
 	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Delete</button>
 	           {{ Form::close() }}
 			</td>
+			<td><a href=" {{ action('AdminController@getResetPass', $admin->id) }} " class="btn btn-warning">Reset password</a></td>
 		</tr>
 		@endforeach
 	</table>

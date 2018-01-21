@@ -34,4 +34,9 @@ class Center extends Eloquent {
 
     }
 
+    public function students() 
+    {
+        return $this->hasMany('Student', 'center_id', 'id');
+    }
+
 }

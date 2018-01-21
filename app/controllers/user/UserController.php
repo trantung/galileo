@@ -10,10 +10,10 @@ class UserController extends AdminController implements AdminInterface {
 	 */
 	public function index()
 	{
-		$roleId = Auth::user()->role_id;
-		if ($roleId == 1) {
-			//
-		}
+		// $roleId = Auth::user()->role_id;
+		// if ($roleId == 1) {
+		// 	//
+		// }
 		$users = User::all();
 		return View::make('admin.user.index')->with(compact('users'));
 	}

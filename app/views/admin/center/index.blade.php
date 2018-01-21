@@ -32,7 +32,7 @@
 			  <td>{{ $center->id }}</td>
 			  <td>{{ $center->name }}</td>
 			  <td>{{ $center->code }}</td>
-			  <td>{{ $center->partner->name }}</td>
+			  <td>{{ Common::getObject($center->partner, 'name', 'Chưa có') }}</td>
 			  <td>{{ $center->phone }}</td>
 			  <td>{{ $center->address }}</td>
 			  <td>

@@ -1,7 +1,4 @@
 <?php
-
-// Route::get('/test_upload','AdminController@getUpload');
-// Route::post('/test_upload','AdminController@postUpload');
 /*
     Hệ thống
     1. Quản lý partner
@@ -26,12 +23,14 @@ Route::group(['prefix' => 'admin'], function () {
     
     Route::get('administrator/{id}/reset', 'AdminController@getResetPass');
     Route::post('/administrator/{id}/reset', 'AdminController@postResetPass');
+    //Quản lý phân quyền
+    Route::resource('/permission/group', 'PermissionGroupController');
+    Route::resource('/permission', 'PermissionController');
+
+    //
     Route::resource('administrator', 'AdminController');
     
     Route::resource('student', 'StudentController');
-    // Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
-    // Route::post('/login', array('uses' => 'AdminController@doLogin'));
-   
     /*
         Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
         1. Controller: ManagerPartnerController 
@@ -79,19 +78,7 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.level.show
     */
     Route::resource('/doc', 'DocumentController');
-// });
-
-Route::group(['prefix' => 'partner'], function () {
-    // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
-    // Route::post('/login', array('uses' => 'UserController@doLogin'));
-    Route::resource('/', 'UserController');
 });
-
-// Route::group(['prefix' => 'user'], function () {
-//     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
-//     // Route::post('/login', array('uses' => 'UserController@doLogin'));
-//     Route::resource('/', 'UserController');
-// });
 
 
 
@@ -138,6 +125,3 @@ Route::group(['prefix' => 'user'], function () {
 });
 // Route::post('/ajax/{method}', 'AjaxController@process');
 Route::controller('/ajax', 'AjaxController');
-
-});
-

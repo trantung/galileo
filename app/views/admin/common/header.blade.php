@@ -28,6 +28,7 @@
 	{{HTML::style('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}
 	
 	{{ HTML::style('adminlte/plugins/jQueryUI/jquery-ui.css') }}
+	{{ HTML::style('custom/css/style.css') }}
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
