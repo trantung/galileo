@@ -379,7 +379,12 @@ class Common {
             //luu vao db với code = null;
             $levelId = self::getLevelId($level, $classId, 2, $input);
             $lessonId = self::getLessonId($levelId, $classId, 2, $numberLesson);
-            $code = $type.$subject.$class.'_'.$level.'_'.$numberLesson.'_'.$docId.$version;
+            if ($numberLesson < 10) {
+                $numberLessonText = '0'.$numberLesson;
+            } else {
+                $numberLessonText = $numberLesson;
+            }
+            $code = $type.$subject.$class.'_'.$level.'_'.$numberLessonText.'_'.$docId.$version;
 
             $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$code.'.docx';
             $doc['code'] = $code;
@@ -408,14 +413,14 @@ class Common {
                     $parentId = null;
                 }
             }
-            $code = $type.$subject.$class.'_'.$level.'_'.$numberLesson.'_'.$docId.$version;
+            $code = $type.$subject.$class.'_'.$level.'_'.$numberLessonText.'_'.$docId.$version;
             $fileUrl = DOCUMENT_UPLOAD_DIR.$code.'.pdf';
             Document::find($docId)->update([
                 'file_url' => $fileUrl,
                 'code' => $code,
                 'parent_id' => $parentId,
             ]);
-            return $type.$subject.$class.'_'.$level.'_'.$numberLesson.'_'.$docId.$version;
+            return $type.$subject.$class.'_'.$level.'_'.$numberLessonText.'_'.$docId.$version;
             // $array = explode("_", $fileName);
             // dd($array);
             // foreach ($array as $key => $value) {
@@ -497,9 +502,7 @@ class Common {
                 $test1 = explode("-", $test);
                 $a = array_search('buoi', $test1);
                 $numberLesson = $test1[$a+1];
-                if ($numberLesson < 10) {
-                    return '0'.$numberLesson;
-                }
+                
                 return $numberLesson;
             }
         }
