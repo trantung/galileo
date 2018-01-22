@@ -30,11 +30,11 @@ Danh sách học liệu
             ?>
                 <tr class="bg-warning">
                     <td rowspan="{{ $countSubject }}" class="text-center"><strong>{{ $key+1 }}</strong></td>
-                    @if($document->type_id == P)
                     <?php 
                         $documentP = Common::getDocument($document, P);
-                        
+                        $documentD = Common::getDocument($document, D);
                     ?>
+                    @if($documentP)
                         <td>{{ Common::getObject($documentP, 'name') }}</td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
@@ -72,9 +72,6 @@ Danh sách học liệu
             @if( $countSubject > 1 )
                 @for ($i = 1; $i < $countSubject; $i++)
                     <tr class="bg-warning">
-                    <?php 
-                        $documentD = Common::getDocument($document, D);
-                    ?>
                         @if($documentD)
                         <td>{{ Common::getObject($documentD, 'name') }}</td>
                         <td>
