@@ -65,6 +65,7 @@ Danh sách học liệu
             @if( $countSubject > 1 )
                 @for ($i = 1; $i < $countSubject; $i++)
                     <tr class="bg-warning">
+                        @if($documentD)
                         <td>{{ Common::getObject($documentD, 'name') }}</td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
@@ -72,6 +73,11 @@ Danh sách học liệu
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
                         </td>
+                        @else
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        @endif
                         <td>
                             {{ getClassByDocument($document) }}
                         </td>
