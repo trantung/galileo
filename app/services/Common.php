@@ -377,8 +377,8 @@ class Common {
             $docId = '';
             $version = self::getVersionDocByName($fileName);
             //luu vao db với code = null;
-            $levelId = self::getLevelId($level, $class, 2, $input);
-            $lessonId = self::getLessonId($levelId, $class, 2, $numberLesson);
+            $levelId = self::getLevelId($level, $classId, 2, $input);
+            $lessonId = self::getLessonId($levelId, $classId, 2, $numberLesson);
             $code = $type.$subject.$class.'_'.$level.'_'.$numberLesson.'_'.$docId.$version;
 
             $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$code.'.docx';
