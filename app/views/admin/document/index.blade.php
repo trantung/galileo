@@ -51,6 +51,13 @@ Danh sách học liệu
                         <td>
                             {{ getLevelByDocument($document) }}
                         </td>
+                    @else
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     @endif
                     <td rowspan="{{ $countSubject }}">
                         {{ renderUrlByPermission('DocumentController@edit', 'Sửa', $document->parent_id, ['class'=>"btn btn-primary"]) }}
