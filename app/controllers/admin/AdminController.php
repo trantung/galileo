@@ -145,7 +145,7 @@ class AdminController extends BaseController {
             $result = convert_api('docx', 'pdf', $files, $parameters);
             $result = $result->Files[0]->FileData;
             $result = base64_decode($result);
-            file_put_contents($destinationPath.$fileNameConvert.'.pdf', $result);
+            file_put_contents($link.$fileNameConvert.'.pdf', $result);
         }
         dd(555);
     }
