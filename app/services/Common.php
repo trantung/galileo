@@ -414,7 +414,7 @@ class Common {
                 }
             }
             $code = $type.$subject.$class.'_'.$level.'_'.$numberLessonText.'_'.$docId.$version;
-            $fileUrl = DOCUMENT_UPLOAD_DIR.$input['class'].'/'.$input['subject'].'/'.$input['level-code'].'/'.$code.'.pdf';
+            $fileUrl = DOCUMENT_UPLOAD_DIR.$input['class'].'/'.$input['subject'].'/'.$input['level_code'].'/'.$code.'.pdf';
             Document::find($docId)->update([
                 'file_url' => $fileUrl,
                 'code' => $code,
