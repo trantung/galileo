@@ -86,7 +86,11 @@ function checkActiveUserPerCheckbox($modelName, $modelId, $groupId, $subjectId)
 
 function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
 {
-
+    $url = app('html')->linkAction($actionOld, $title, $parameter, $att);
+    $admin = Auth::admin()->get();
+    if ($admin->role_id == ADMIN) {
+        return $url;
+    }
     $array = checkPermission();
     if ($array) {
         $action = explode("@", $actionOld);
@@ -112,7 +116,7 @@ function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
         if (!in_array($permissionId, $listPermission)) {
             return false;
         }
-        $url = app('html')->linkAction($actionOld, $title, $parameter, $att);
+        
         return $url;
     }
     return false;
