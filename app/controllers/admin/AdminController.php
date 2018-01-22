@@ -127,13 +127,16 @@ class AdminController extends BaseController {
         $destinationPath = public_path().DOCUMENT_UPLOAD_DIR;
         foreach ($input['files'] as $key => $file) {
             $filename = $file->getClientOriginalName();
-            $fileNameConvert = Common::getFileNameConvert($filename);
-            $uploadSuccess = $file->move($destinationPath, $fileNameConvert.'.docx');
+            $classCode = $input['class'];
+            $subjectCode = $input['subject'];
+            $levelCode = $input['level_code'];
+            $fileNameConvert = Common::getFileNameConvert($filename, $input);
+            $uploadSuccess = $file->move($destinationPath.$classCode.'/'.$subjectCode.'/'.$levelCode.'/', $fileNameConvert.'.docx');
             //luu vao db
-            $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
-            $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
-
-            $files = $destinationPath.$fileNameConvert.'.docx';
+            $link = $destinationPath.$classCode.'/'.$subjectCode.'/'.$levelCode.'/';
+            // $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
+            // $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
+            $files = $link.$fileNameConvert.'.docx';
 
             $parameters = array(
                 'Secret' => KEY_API,
