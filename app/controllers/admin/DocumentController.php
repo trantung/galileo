@@ -13,7 +13,7 @@ class DocumentController extends AdminController implements AdminInterface {
     public function index()
     {
         $input = Input::all();
-        $documents = Document::groupBy('parent_id');
+        $documents = Document::whereNotNull('parent_id')->groupBy('parent_id');
         if( !empty($input['class_id']) ){
             $documents = $documents->where('class_id', $input['class_id']);
         }
