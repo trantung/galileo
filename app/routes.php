@@ -27,6 +27,7 @@ Route::get('/parent/update', function(){
             }
         }
     }
+    dd(123);
 });
 Route::get('/test/upload', 'AdminController@getUpload');
 Route::post('/test/upload', 'AdminController@postUpload');
