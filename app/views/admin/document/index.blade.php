@@ -35,18 +35,18 @@ Danh sách học liệu
                         $documentP = Common::getDocument($document, P);
                         $documentD = Common::getDocument($document, D);
                     ?>
-                        <td>{{ $documentP->name }}</td>
+                        <td>{{ Common::getObject($documentP, 'name') }}</td>
                         <td>
-                            {{ getNameTypeId($documentP->type_id) }}
+                            {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
                         </td>
                         <td>
-                            {{ $documentP->code }}
+                            {{ Common::getObject($documentP, 'code') }}
                         </td>
                         <td>
                             {{ getClassByDocument($document) }}
                         </td>
                         <td>
-                           {{ getSubjectByDocument($document) }}
+                            {{ getSubjectByDocument($document) }}
                         </td>
                         <td>
                             {{ getLevelByDocument($document) }}
@@ -65,18 +65,18 @@ Danh sách học liệu
             @if( $countSubject > 1 )
                 @for ($i = 1; $i < $countSubject; $i++)
                     <tr class="bg-warning">
-                        <td>{{ $documentD->name }}</td>
+                        <td>{{ Common::getObject($documentD, 'name') }}</td>
                         <td>
-                            {{ getNameTypeId($documentD->type_id) }}
+                            {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
                         </td>
                         <td>
-                            {{ $documentD->code }}
+                            {{ Common::getObject($documentD, 'code') }}
                         </td>
                         <td>
                             {{ getClassByDocument($document) }}
                         </td>
                         <td>
-                           {{ getSubjectByDocument($document) }}
+                            {{ getSubjectByDocument($document) }}
                         </td>
                         <td>
                             {{ getLevelByDocument($document) }}
