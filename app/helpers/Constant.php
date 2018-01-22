@@ -29,5 +29,6 @@ define('D', 2);
 ----------------------------
 */
 define('THL', 'THL');
+define('KEY_API', '0Awysl3eP1j6tdmH');
 
 
