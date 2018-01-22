@@ -12,8 +12,8 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
-// Route::get('/test/upload', 'AdminController@getUpload');
-// Route::post('/test/upload', 'AdminController@postUpload');
+Route::get('/test/upload', 'AdminController@getUpload');
+Route::post('/test/upload', 'AdminController@postUpload');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));

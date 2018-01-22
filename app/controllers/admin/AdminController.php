@@ -119,11 +119,31 @@ class AdminController extends BaseController {
     }
     public function getUpload()
     {
-        return View::make('test_upload');
+        return View::make('upload_doc');
     }
     public function postUpload()
     {
-        
+        $input = Input::except('_token');
+        $destinationPath = public_path().DOCUMENT_UPLOAD_DIR;
+        foreach ($input['files'] as $key => $file) {
+            $filename = $file->getClientOriginalName();
+            $fileNameConvert = Common::getFileNameConvert($filename);
+            $uploadSuccess = $file->move($destinationPath, $fileNameConvert.'.docx');
+            //luu vao db
+            $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
+            $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
+
+            $files = $destinationPath.$fileNameConvert.'.docx';
+
+            $parameters = array(
+                'Secret' => KEY_API,
+            );
+            $result = convert_api('docx', 'pdf', $files, $parameters);
+            $result = $result->Files[0]->FileData;
+            $result = base64_decode($result);
+            file_put_contents($destinationPath.$fileNameConvert.'.pdf', $result);
+        }
+        dd(555);
     }
 }
 
