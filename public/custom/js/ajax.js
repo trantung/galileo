@@ -22,6 +22,7 @@ $(document).ready(function(){
     	var data = $(this).serializeArray(),
     	form_data = new FormData(this),
 		_this = $(this);
+		_this.addClass('loading');
 
     	$.ajax({
 			url: '/ajax/save-document',
@@ -41,6 +42,8 @@ $(document).ready(function(){
 				console.log(data);
 			},
 			error: function(error){
+				_this.removeClass('loading');
+				alert('Error! can not send data');
 				console.log(error);
 			}
 		});

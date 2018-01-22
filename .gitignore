@@ -3,6 +3,7 @@
 /app/config/*
 /app/config/database.php
 /app/config/app.php
+/public/uploads/*
 composer.phar
 composer.lock
 .env.*.php
