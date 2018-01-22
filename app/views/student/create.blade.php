@@ -58,17 +58,17 @@
         <div class="form-group well well-sm">
           <fieldset>
             <legend>Chương trình đã học</legend>
-            <div class="col-sm-4">
+            <div class="input-group inline-block">
               <label style="display: block;">Lớp</label>
               {{ Form::select('class_old_id', ['' => '--Tất cả--'] + Common::getClassList(), '', ['class' => 'form-control select-class']) }}
             </div>
-            <div class="col-sm-4">
+            <div class="input-group inline-block">
               <label style="display: block;">Môn học</label>
               {{ Form::select('subject_old_id', ['' => '--Tất cả--'] + Common::getSubjectList(), '', ['class' => 'form-control select-subject', 'multiple' => true]) }}
             </div>
-            <div class="col-sm-4 select-level-from-class-subject">
+            <div class="input-group inline-block select-level-from-class-subject">
               <label style="display: block;">Trình độ</label>
-              {{ Common::getLevelDropdownList('level_old_id[]', null, true) }}
+              {{ Common::getLevelMultiDropdownList('level_old_id[]') }}
             </div>
           </fieldset>
         </div>
@@ -76,17 +76,17 @@
         <div class="form-group well well-sm">
           <fieldset>
             <legend>Chương trình đang học</legend>
-            <div class="col-sm-4">
+            <div class="input-group inline-block">
               <label style="display: block;">Lớp</label>
               {{ Form::select('class_id', ['' => '--Tất cả--'] + Common::getClassList(), '', ['class' => 'form-control select-class', 'required' => true]) }}
             </div>
-            <div class="col-sm-4">
+            <div class="input-group inline-block">
               <label style="display: block;">Môn học</label>
               {{ Form::select('subject_id', ['' => '--Tất cả--'] + Common::getSubjectList(), '', ['class' => 'form-control select-subject', 'required' => true, 'multiple' => true]) }}
             </div>
-            <div class="col-sm-4 select-level-from-class-subject">
+            <div class="input-group inline-block select-level-from-class-subject">
               <label style="display: block;">Trình độ</label>
-              {{ Common::getLevelDropdownList('level_id[]', null, true) }}
+              {{ Common::getLevelMultiDropdownList('level_id[]') }}
             </div>
           </fieldset>
         </div>
@@ -173,7 +173,7 @@
 
         <div class="form-group">
           <label for="comment">Lưu ý về học sinh</label>
-          {{ Form::textarea('comment', '', ['class' => 'form-control', 'placeholder' => 'Lưu ý về học sinh']) }}
+          {{ Form::textarea('comment', '', ['class' => 'form-control', 'placeholder' => 'Lưu ý về học sinh' , 'rows'=>3]) }}
         </div>
 <!-- 
         <div class="form-group">

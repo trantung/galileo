@@ -1,22 +1,13 @@
 $(document).ready(function(){
 
     ////// chon trinh do trong bo loc trang danh sach hoc lieu
-    $(document).on('change', 'form.filter-document-form select.select-class, form.filter-document-form select.select-subject', function(){
+    $(document).on('change', 'form.filter-document-form select.select-class, form.filter-document-form select.select-subject', 
+        function(){
         var classId = $('form.filter-document-form select.select-class').val(),
         subjectId = $('form.filter-document-form select.select-subject').val();
         $('form.filter-document-form .select-level-from-class-subject > select').val('').change();
         $('form.filter-document-form .select-level-from-class-subject > select>option').addClass('hidden');
         $('form.filter-document-form .select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
-    })
-
-    ////// chon trinh do trong bo loc trang danh sach hoc lieu
-    $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){
-        var parent = $(this).parents('fieldset'),
-        classId = parent.find('select.select-class').val(),
-        subjectId = parent.find('select.select-subject').val();
-        parent.find('.select-level-from-class-subject > select').val('').change();
-        parent.find('.select-level-from-class-subject > select>option').addClass('hidden');
-        parent.find('.select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
     })
 
     //// Them moi hoc lieu trong trang quan ly cac buoi hoc cua 1 level
