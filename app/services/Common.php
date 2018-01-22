@@ -258,14 +258,13 @@ class Common {
         return null;
     }
 
-    public static function saveDocument($name, $documentType, $doc, $arrayP = null)
+    public static function saveDocument($name, $doc, $arrayP = null)
     {
         $array = [];
         $input = Input::all();
-        $doc['type_id'] = $documentType;
+        $doc['type_id'] = ($arrayP) ? D : P;
         if( $_FILES[$name] ){
             foreach ($_FILES[$name]['tmp_name'] as $lessonId => $value) {
-                $doc['type_id'] = $documentType;
                 foreach ($value as $k => $v) {
                     if ($arrayP) {
                        $title = $input['doc_new_title_d'][$lessonId][$k];
@@ -275,24 +274,29 @@ class Common {
                     $fileUrl = $_FILES[$name]['name'][$lessonId][$k];
                     $fileUrl = DOCUMENT_UPLOAD_DIR.time().'_'.$fileUrl;
                     $doc['name'] = $title;
-                    $doc['file_url'] = $fileUrl;
-                    if ($arrayP == null) {
-                        $array[$k] = $docId = Document::create($doc)->id;
-                        $parentId = $docId;
-                    }else{
-                        $parentId = $arrayP[$k];
-                        $docId = Document::create($doc)->id;
-                    }
-                    move_uploaded_file($value[0], public_path().$fileUrl);
-                    $code = getCodeDocument($docId);
-                    Document::find($docId)->update(['code' => $code, 'parent_id' => $parentId]);
-                }
-            }
+                    $uploadSuccess = move_uploaded_file($v, public_path().$fileUrl);
+                    if( $uploadSuccess ){
+                        $doc['file_url'] = $fileUrl;
+                        if ($arrayP == null) {
+                            $array[$k] = $docId = Document::create($doc)->id;
+                            $parentId = $docId;
+                        }else{
+                            $parentId = $arrayP[$k];
+                            $docId = Document::create($doc)->id;
+                        }
+
+                        /// Update code after insert document
+                        $code = getCodeDocument($docId);
+                        Document::find($docId)->update(['code' => $code, 'parent_id' => $parentId]);
+
+                    } // End if
+                } // End foreach
+            } //End foreach
+        } // End if
+        if ($arrayP == null) {
+            return $array;
         }
-       if ($arrayP == null) {
-        return $array;
-       }
-       return true;
+        return true;
     }
 
     public static function getDocument($document, $typeId)

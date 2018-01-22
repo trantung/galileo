@@ -6,12 +6,13 @@ class AjaxController extends \BaseController {
      */
     public function postSaveDocument(){
         $input = Input::all();
+        // return $input;
         $doc['class_id'] = $input['class_id'];
         $doc['lesson_id'] = $input['lesson_id'];
         $doc['subject_id'] = $input['subject_id'];
         $doc['level_id'] = $input['level_id'];
-        $array = Common::saveDocument('doc_new_file_p', P, $doc);
-        Common::saveDocument('doc_new_file_d', D, $doc, $array);
+        $arrayP = Common::saveDocument('doc_new_file_p', $doc);
+        Common::saveDocument('doc_new_file_d', $doc, $arrayP);
         return Response::json( View::make('admin.js.get_document_form_of_level', ['lesson' => Lesson::find($doc['lesson_id'])])->render() );
     }
 

@@ -12,8 +12,8 @@
 		<fieldset>
 			<legend>Phiếu học liệu câu hỏi:</legend>
 			<div class="form-group">
-				{{ Form::text('doc_new_title_p['. Common::getObject($lesson, 'id') .']['. $order .']', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề']) }}
-				{{ Form::file('doc_new_file_p['. Common::getObject($lesson, 'id') .']['. $order .']', ['class' => 'form-control']) }}
+				{{ Form::text('doc_new_title_p['. Common::getObject($lesson, 'id') .']['. $order .']', '', ['class' => 'form-control form-group', 'placeholder' => 'Tiêu đề', 'required' => 'required']) }}
+				{{ Form::file('doc_new_file_p['. Common::getObject($lesson, 'id') .']['. $order .']', ['class' => 'form-control', 'required' => 'required']) }}
 			</div>
 		</fieldset>
 		<fieldset>
