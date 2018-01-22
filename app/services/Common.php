@@ -443,7 +443,7 @@ class Common {
         foreach ($array as $key => $value) {
             $test = clean($value);
             $test = strtolower($test);
-            if (strstr($test, 'an')) {
+            if (strstr($test, 'an') && strstr($test, 'ap')) {
                 $test1 = explode("-", $test);
                 $a = array_search('an', $test1);
                 return D;
