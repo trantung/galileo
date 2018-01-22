@@ -12,6 +12,17 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/parent/update', function(){
+    $docs = Document::groupBy('lesson_id')->get();
+    foreach ($docs as $key => $doc) {
+        $ob = Document::where('lesson_id', $doc->lesson_id)
+            ->where('type_id', P)
+            ->first();
+        if ($ob) {
+            $doc->update(['parent_id' => $ob->id]);
+        }
+    }
+});
 Route::get('/test/upload', 'AdminController@getUpload');
 Route::post('/test/upload', 'AdminController@postUpload');
 
