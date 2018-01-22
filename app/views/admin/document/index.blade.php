@@ -33,7 +33,7 @@ Danh sách học liệu
                     @if($document->type_id == P)
                     <?php 
                         $documentP = Common::getDocument($document, P);
-                        $documentD = Common::getDocument($document, D);
+                        
                     ?>
                         <td>{{ Common::getObject($documentP, 'name') }}</td>
                         <td>
@@ -65,6 +65,9 @@ Danh sách học liệu
             @if( $countSubject > 1 )
                 @for ($i = 1; $i < $countSubject; $i++)
                     <tr class="bg-warning">
+                    <?php 
+                        $documentD = Common::getDocument($document, D);
+                    ?>
                         @if($documentD)
                         <td>{{ Common::getObject($documentD, 'name') }}</td>
                         <td>
