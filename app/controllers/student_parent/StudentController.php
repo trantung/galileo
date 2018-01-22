@@ -21,6 +21,7 @@ class StudentController extends BaseController {
     public function create()
     {
        $class = ClassModel::lists('name', 'id');
+
        $subject = Subject::lists('name', 'id');
        $level = Level::lists('name', 'id');
        $center = Center::lists('name', 'id');
@@ -34,14 +35,33 @@ class StudentController extends BaseController {
     public function store()
     {
         $input = Input::except('_token');
+        // dd($input);
         $input['password'] = Hash::make($input['password']);
-        $studentId = Student::create($input);
-        if($studentId){
-            foreach($input['subject_id'] as $value){
-                $studentlevel = StudentLevel::create(['student_id' => $studentId->id, 'level_id' => $input['program_learned'], 'class_id' => $input['class_id'], 'subject_id' => $value]);
+
+        $student = Student::create($input);
+        if( !empty($student->id) ){
+            if( count($input['level_old_id']) ){
+                $student->levels()->attach(
+                    $input['level_old_id'], 
+                    [
+                        'status' => 0,
+                        'class_id' => $input['class_old_id'],
+                        'subject_id' => $input['subject_old_id']
+                    ]
+                );
+            }
+            if( !empty($input['level_id']) ){
+                $student->levels()->attach(
+                    $input['level_id'],
+                    [
+                        'status' => 1,
+                        'class_id' => $input['class_id'],
+                        'subject_id' => $input['subject_id']
+                    ]
+                );
             }
         }
-        return Redirect::action('StudentController@index')->with('message','<i class="fa fa-check-square-o fa-lg"></i> 
+        return Redirect::action('StudentController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
             Người dùng đã được tạo!');
     }
     /**

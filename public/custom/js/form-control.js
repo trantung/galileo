@@ -9,6 +9,16 @@ $(document).ready(function(){
         $('form.filter-document-form .select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
     })
 
+    ////// chon trinh do trong bo loc trang danh sach hoc lieu
+    $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){
+        var parent = $(this).parents('fieldset'),
+        classId = parent.find('select.select-class').val(),
+        subjectId = parent.find('select.select-subject').val();
+        parent.find('.select-level-from-class-subject > select').val('').change();
+        parent.find('.select-level-from-class-subject > select>option').addClass('hidden');
+        parent.find('.select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
+    })
+
     //// Them moi hoc lieu trong trang quan ly cac buoi hoc cua 1 level
     $(document).on('click', '.wrap-multi-file-each-lesson a.add-new-doc-to-lesson', function(){
         var parent = $(this).parents('.wrap-multi-file-each-lesson'),

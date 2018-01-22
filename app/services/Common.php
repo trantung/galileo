@@ -316,10 +316,10 @@ class Common {
         return Subject::orderBy('created_at', 'desc')->lists('name','id');
     }
 
-    public static function getLevelDropdownList($name, $default = null)
+    public static function getLevelDropdownList($name, $default = null, $multi = false)
     {
         $levels = Level::orderBy('created_at', 'desc')->get();
-        $html = '<select name="'. $name .'" class="form-control">
+        $html = '<select name="'. $name .'" class="form-control" '.( ($multi) ? 'multiple' : '' ).'>
             <option value="">--Tất cả--</option>';
         foreach ($levels as $key => $value) {
             $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
@@ -327,6 +327,19 @@ class Common {
         $html .= '<select>';
         return $html;
     }
+
+    // public static function getLevelMultiDropdownList($name, $default = null)
+    // {
+    //     $levels = Level::orderBy('created_at', 'desc');
+    //     // dd($levels->groupBy('subject_id')->get());
+    //     $html = '<select name="'. $name .'" class="form-control" multiple>
+    //         <option value="">--Tất cả--</option>';
+    //     foreach ($levels as $key => $value) {
+    //         $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
+    //     }
+    //     $html .= '<select>';
+    //     return $html;
+    // }
 
     public static function getModelNameByController($controllerName)
     {
