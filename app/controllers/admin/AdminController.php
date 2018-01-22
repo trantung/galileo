@@ -127,6 +127,7 @@ class AdminController extends BaseController {
         $destinationPath = public_path().DOCUMENT_UPLOAD_DIR;
         foreach ($input['files'] as $key => $file) {
             $filename = $file->getClientOriginalName();
+            
             $classCode = $input['class'];
             $subjectCode = $input['subject'];
             $levelCode = $input['level_code'];

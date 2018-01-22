@@ -365,6 +365,13 @@ class Common {
             }
             $subject = self::getSubjectDocByName($fileName, $input);
             $class = self::getClassDocByName($fileName, $input);
+            $ob = ClassModel::where('code', $input['class'])->first();
+            if ($ob) {
+                $classId = $ob->id;
+            } else {
+                $classId = 0;
+            }
+            
             $level = self::getLevelDocByName($fileName, $input);
             $numberLesson = self::getNumberLessonDocByName($fileName, $input);
             $docId = '';
@@ -377,7 +384,7 @@ class Common {
             $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$code.'.docx';
             $doc['code'] = $code;
             $doc['type_id'] = $typeId;
-            $doc['class_id'] = $class;
+            $doc['class_id'] = $classId;
             $doc['subject_id'] = 2;
             $doc['level_id'] = $levelId;
             $doc['lesson_id'] = $lessonId;
@@ -466,6 +473,10 @@ class Common {
     }
     public static function getClassDocByName($fileName, $input)
     {
+        if ($input['class'] < 10) {
+            return '0'.$input['class'];
+        }
+        return $input['class'];
         $ob = ClassModel::where('code', $input['class'])->first();
         if ($ob) {
             return $ob->id;
@@ -474,7 +485,6 @@ class Common {
     }
     public static function getLevelDocByName($fileName, $input)
     {
-        return 'HTB1';
         return $input['level_code'];
     }
     public static function getNumberLessonDocByName($fileName)
@@ -487,6 +497,9 @@ class Common {
                 $test1 = explode("-", $test);
                 $a = array_search('buoi', $test1);
                 $numberLesson = $test1[$a+1];
+                if ($numberLesson < 10) {
+                    return '0'.$numberLesson;
+                }
                 return $numberLesson;
             }
         }
