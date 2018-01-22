@@ -346,7 +346,7 @@ class Common {
     {
         return ['index', 'show'];
     }
-    public static function getFileNameConvert($fileName)
+    public static function getFileNameConvert($fileName, $input)
     {
         // dd($fileName);
 
@@ -356,30 +356,35 @@ class Common {
             $fileName = str_replace('.docx', "", $fileName);
         }
         $fileName = str_replace('.', '_', $fileName);
-            // $fileName = utf8tourl(utf8convert($fileName));
-            // $fileName = clean($fileName);
-            $typeId = self::getTypeDocByName($fileName);
+            $typeId = self::getTypeDocByName($fileName, $input);
             if ($typeId == P) {
                 $type = 'P';
             }
             if ($typeId == D) {
                 $type = 'D';
             }
-            $subject = self::getSubjectDocByName($fileName);
-            $class = self::getClassDocByName($fileName);
-            $level = self::getLevelDocByName($fileName);
-            $numberLesson = self::getNumberLessonDocByName($fileName);
+            $subject = self::getSubjectDocByName($fileName, $input);
+            $class = self::getClassDocByName($fileName, $input);
+            $ob = ClassModel::where('code', $input['class'])->first();
+            if ($ob) {
+                $classId = $ob->id;
+            } else {
+                $classId = 0;
+            }
+            
+            $level = self::getLevelDocByName($fileName, $input);
+            $numberLesson = self::getNumberLessonDocByName($fileName, $input);
             $docId = '';
             $version = self::getVersionDocByName($fileName);
             //luu vao db với code = null;
-            $levelId = self::getLevelId($level, $class, 2);
+            $levelId = self::getLevelId($level, $class, 2, $input);
             $lessonId = self::getLessonId($levelId, $class, 2, $numberLesson);
             $code = $type.$subject.$class.'_'.$level.'_'.$numberLesson.'_'.$docId.$version;
 
             $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$code.'.docx';
             $doc['code'] = $code;
             $doc['type_id'] = $typeId;
-            $doc['class_id'] = $class;
+            $doc['class_id'] = $classId;
             $doc['subject_id'] = 2;
             $doc['level_id'] = $levelId;
             $doc['lesson_id'] = $lessonId;
@@ -404,7 +409,7 @@ class Common {
                 }
             }
             $code = $type.$subject.$class.'_'.$level.'_'.$numberLesson.'_'.$docId.$version;
-            $fileUrl = DOCUMENT_UPLOAD_DIR.$code.'.docx';
+            $fileUrl = DOCUMENT_UPLOAD_DIR.$code.'.pdf';
             Document::find($docId)->update([
                 'file_url' => $fileUrl,
                 'code' => $code,
@@ -427,7 +432,7 @@ class Common {
             // dd($fileName);
             
     }
-    public static function getTypeDocByName($fileName)
+    public static function getTypeDocByName($fileName, $input)
     {   
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
@@ -446,8 +451,9 @@ class Common {
         }
         return $fileName.'_';
     }
-    public static function getSubjectDocByName($fileName)
+    public static function getSubjectDocByName($fileName, $input)
     {
+        return $input['subject'];
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
             $test = clean($value);
@@ -465,13 +471,21 @@ class Common {
         }
         return '';
     }
-    public static function getClassDocByName($fileName)
+    public static function getClassDocByName($fileName, $input)
     {
-        return 5;
+        if ($input['class'] < 10) {
+            return '0'.$input['class'];
+        }
+        return $input['class'];
+        $ob = ClassModel::where('code', $input['class'])->first();
+        if ($ob) {
+            return $ob->id;
+        }
+        return 0;
     }
-    public static function getLevelDocByName($fileName)
+    public static function getLevelDocByName($fileName, $input)
     {
-        return 'HTB1';
+        return $input['level_code'];
     }
     public static function getNumberLessonDocByName($fileName)
     {
@@ -483,6 +497,9 @@ class Common {
                 $test1 = explode("-", $test);
                 $a = array_search('buoi', $test1);
                 $numberLesson = $test1[$a+1];
+                if ($numberLesson < 10) {
+                    return '0'.$numberLesson;
+                }
                 return $numberLesson;
             }
         }
