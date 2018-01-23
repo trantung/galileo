@@ -13,7 +13,21 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function index()
 	{
-		$data = Level::paginate(30);
+		$input = Input::all();
+        $data = Level::orderBy('created_at', 'desc');
+        if( !empty($input['name']) ){
+            $data = $data->where('name', 'LIKE', '%'.$input['name'].'%');
+        }
+        if( !empty($input['class_id']) ){
+            $data = $data->where('class_id', $input['class_id']);
+        }
+        if( !empty($input['subject_id']) ){
+            $data = $data->where('subject_id', $input['subject_id']);
+        }
+        if( !empty($input['level_id']) ){
+            $data = $data->where('level_id', $input['level_id']);
+        }
+		$data = $data->paginate(30);
 		return View::make('admin.level.index')->with(compact('data'));
 	}
 
