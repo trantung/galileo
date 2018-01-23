@@ -1,0 +1,19 @@
+<?php
+// use Illuminate\Auth\UserTrait;
+// use Illuminate\Auth\UserInterface;
+// use Illuminate\Auth\Reminders\RemindableTrait;
+// use Illuminate\Auth\Reminders\RemindableInterface;
+// use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
+// class {{class}} extends Eloquent implements UserInterface, RemindableInterface
+class {{class}} extends Eloquent
+{
+    // use SoftDeletingTrait;
+    // use UserTrait, RemindableTrait;
+    // public $timestamps = true;
+    protected $table = '{{table}}';
+    protected $fillable = [];
+
+    // protected $hidden = array('password', 'remember_token');
+    // protected $dates = ['deleted_at'];
+}

@@ -1,22 +1,18 @@
 <?php
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-class Subject extends Eloquent {
 
-	//use SoftDeletingTrait;
-    //protected $dates = ['deleted_at'];
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'subjects';
+class Subject extends Eloquent
+{
+    use SoftDeletingTrait;
+    public $timestamps = true;
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	// protected $hidden = array('password', 'remember_token');
-	 protected $fillable = array('subject_name');
+    protected $table = 'subjects';
+    protected $fillable = ['name','code'];
+    protected $dates = ['deleted_at'];
+
+    public function subjects() 
+	{
+		return $this->belongsToMany('ClassModel', 'subject_class', 'subject_id', 'class_id');
+	}
 
 }

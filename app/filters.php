@@ -51,10 +51,24 @@ Route::filter('auth', function()
 Route::filter('admin', function()
 {
 	if (Auth::admin()->guest()){
-		return Redirect::route('admin.login');
+		return Redirect::action('AdminController@login');
 	}
+	$admin = Auth::admin()->get();
+    if ($admin->role_id != ADMIN) {
+    	$route = Route::getCurrentRoute()->getActionName();
+    	$check = checkUrlPermission($route);
+    	if (!$check) {
+    		return View::make('403');
+    	}
+    }
 });
 
+// Route::filter('partner', function()
+// {
+// 	if (Auth::partner()->guest()){
+// 		return Redirect::route('partner.login');
+// 	}
+// });
 Route::filter('auth.basic', function()
 {
 	return Auth::basic();

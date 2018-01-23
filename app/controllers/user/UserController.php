@@ -1,7 +1,7 @@
 <?php
-class UserController extends BaseController {
+class UserController extends AdminController implements AdminInterface {
     public function __construct() {
-        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
 	/**
 	 * Display a listing of the resource.
@@ -10,12 +10,12 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		$checkLogin = Auth::admin()->check();
-        if($checkLogin) {
-    		return Redirect::action('ManagerController@edit', Auth::admin()->get()->id);
-        } else {
-            return View::make('admin.layout.login');
-        }
+		// $roleId = Auth::user()->role_id;
+		// if ($roleId == 1) {
+		// 	//
+		// }
+		$users = User::all();
+		return View::make('admin.user.index')->with(compact('users'));
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -24,7 +24,7 @@ class UserController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.user.create');
 	}
 	/**
 	 * Store a newly created resource in storage.

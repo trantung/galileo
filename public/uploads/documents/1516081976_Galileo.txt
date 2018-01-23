@@ -1,0 +1,18 @@
+﻿PTCM update quá trình học thử
+Tạo schedule khi học thử
+Partner không thể tạo thành viên
+
+Bỏ quản lý học liệu từ giáo vụ
+Giáo vụ quản lý cơ sở vật chất
+
+Admin phụ trách quản lý học liệu. Mỗi học liệu có trình độ, buổi học, môn học
+Admin quản lý môn học
+Admin quản lý doanh thu
+
+Phụ trách chuyên môn: quản lý toàn bộ thông tin học sinh, xem thống kê liên quan đến CVHT và học sinh
+
+Quản lý trung tâm: bỏ quản lý nhân viên, bỏ phân quyền, không full chức năng.
+
+Học sinh chuyển đổi trung tâm và giữ nguyên lịch học.
+
+Demo: quản lý học sinh, quản lý lịch học, học phí, thống kê học sinh. Hệ thống admin, partner, trung tâm
