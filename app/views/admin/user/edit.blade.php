@@ -11,7 +11,7 @@ Chỉnh sửa thành viên
 @stop
 
 @section('content')
-{{ Form::open(['action' => ['ManagerUserController@update', $data->id], 'method' => 'PUT', 'class' => 'col-sm-6 user-create-form']) }}
+{{ Form::open(['action' => ['ManagerUserController@update', $data->id], 'method' => 'PUT', 'class' => 'col-sm-6 user-edit-form user-form']) }}
     <div class="form-group">
         {{ Form::label('username', 'Tên đăng nhập') }}
         {{ Form::text('username', Common::getObject($data, 'username'), ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
