@@ -12,6 +12,8 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::resource('/', 'AdminController');
+    
 Route::get('/parent/update', function(){
     $docs = Document::groupBy('lesson_id')->get();
     foreach ($docs as $key => $doc) {
@@ -122,7 +124,6 @@ Route::get('/test/login/partner', function(){
     $checkLogin = Auth::admin()->attempt($input);
     // $checkLogin = Auth::partner()->attempt($input);
     dd($checkLogin);
-    Route::resource('/', 'AdminController');
 });
 Route::group(['prefix' => 'partner'], function () {
     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
