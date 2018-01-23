@@ -332,4 +332,213 @@ class Common {
         return $html;
     }
 
+    public static function getModelNameByController($controllerName)
+    {
+        if ($controllerName == 'SubjectController') {
+            return 'Subject';
+        }
+        if ($controllerName == 'DocumentController') {
+            return 'Document';
+        }
+
+    }
+    public static function getMethodLevel()
+    {
+        return ['index', 'show'];
+    }
+    public static function getFileNameConvert($fileName, $input)
+    {
+        // dd($fileName);
+
+        // PT04_HTB1_01_1A
+        //loại bỏ chũ docx ở cuối file;
+        if (strstr($fileName, 'docx')) {
+            $fileName = str_replace('.docx', "", $fileName);
+        }
+        $fileName = str_replace('.', '_', $fileName);
+            $typeId = self::getTypeDocByName($fileName, $input);
+            if ($typeId == P) {
+                $type = 'P';
+            }
+            if ($typeId == D) {
+                $type = 'D';
+            }
+            $subject = self::getSubjectDocByName($fileName, $input);
+            $class = self::getClassDocByName($fileName, $input);
+            $ob = ClassModel::where('code', $input['class'])->first();
+            if ($ob) {
+                $classId = $ob->id;
+            } else {
+                $classId = 0;
+            }
+            
+            $level = self::getLevelDocByName($fileName, $input);
+            $numberLesson = self::getNumberLessonDocByName($fileName, $input);
+            $docId = '';
+            $version = self::getVersionDocByName($fileName);
+            //luu vao db với code = null;
+            $levelId = self::getLevelId($level, $classId, 2, $input);
+            $lessonId = self::getLessonId($levelId, $classId, 2, $numberLesson);
+            if ($numberLesson < 10) {
+                $numberLessonText = '0'.$numberLesson;
+            } else {
+                $numberLessonText = $numberLesson;
+            }
+            $code = $type.$subject.$class.'_'.$level.'_'.$numberLessonText.'_'.$docId.$version;
+
+            $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$code.'.docx';
+            $doc['code'] = $code;
+            $doc['type_id'] = $typeId;
+            $doc['class_id'] = $classId;
+            $doc['subject_id'] = 2;
+            $doc['level_id'] = $levelId;
+            $doc['lesson_id'] = $lessonId;
+            $doc['parent_id'] = 0;
+            $docId = Document::create($doc)->id;
+
+            //update document
+            if ($typeId == P) {
+                $parentId = $docId;
+            }
+            if ($typeId == D) {
+                $docP = Document::where('level_id', $levelId)
+                    ->where('class_id', $class)
+                    ->where('subject_id', 2)
+                    ->where('lesson_id', $lessonId)
+                    ->where('type_id', P)
+                    ->first();
+                if ($docP) {
+                    $parentId = $docP->id;
+                } else {
+                    $parentId = null;
+                }
+            }
+            $code = $type.$subject.$class.'_'.$level.'_'.$numberLessonText.'_'.$docId.$version;
+            $fileUrl = DOCUMENT_UPLOAD_DIR.$input['class'].'/'.$input['subject'].'/'.$input['level_code'].'/'.$code.'.pdf';
+            Document::find($docId)->update([
+                'file_url' => $fileUrl,
+                'code' => $code,
+                'parent_id' => $parentId,
+            ]);
+            return $type.$subject.$class.'_'.$level.'_'.$numberLessonText.'_'.$docId.$version;
+            // $array = explode("_", $fileName);
+            // dd($array);
+            // foreach ($array as $key => $value) {
+            //     $test = clean($value);
+            //     $test = strtolower($test);
+            //     if (strstr($test, 'buoi')) {
+            //         $test1 = explode("-", $test);
+            //         $a = array_search('buoi', $test1);
+            //         $numberLesson = $test1[$a+1];
+            //         dd($numberLesson);
+            //         return $numberLesson;
+            //     }
+            // }
+            // dd($fileName);
+            
+    }
+    public static function getTypeDocByName($fileName, $input)
+    {   
+        $array = explode("_", $fileName);
+        foreach ($array as $key => $value) {
+            $test = clean($value);
+            $test = strtolower($test);
+            if (strstr($test, 'an') && strstr($test, 'ap')) {
+                $test1 = explode("-", $test);
+                $a = array_search('an', $test1);
+                return D;
+            }
+            if (strstr($test, 'phieu')) {
+                $test1 = explode("-", $test);
+                $a = array_search('phieu', $test1);
+                return P;
+            }
+        }
+        return $fileName.'_';
+    }
+    public static function getSubjectDocByName($fileName, $input)
+    {
+        return $input['subject'];
+        $array = explode("_", $fileName);
+        foreach ($array as $key => $value) {
+            $test = clean($value);
+            $test = strtolower($test);
+            if (strstr($test, 'van')) {
+                $test1 = explode("-", $test);
+                $a = array_search('an', $test1);
+                return 'V';
+            }
+            if (strstr($test, 'toan')) {
+                $test1 = explode("-", $test);
+                $a = array_search('phieu', $test1);
+                return 'T';
+            }
+        }
+        return '';
+    }
+    public static function getClassDocByName($fileName, $input)
+    {
+        if ($input['class'] < 10) {
+            return '0'.$input['class'];
+        }
+        return $input['class'];
+        $ob = ClassModel::where('code', $input['class'])->first();
+        if ($ob) {
+            return $ob->id;
+        }
+        return 0;
+    }
+    public static function getLevelDocByName($fileName, $input)
+    {
+        return $input['level_code'];
+    }
+    public static function getNumberLessonDocByName($fileName)
+    {
+        $array = explode("_", $fileName);
+        foreach ($array as $key => $value) {
+            $test = clean($value);
+            $test = strtolower($test);
+            if (strstr($test, 'buoi')) {
+                $test1 = explode("-", $test);
+                $a = array_search('buoi', $test1);
+                $numberLesson = $test1[$a+1];
+                
+                return $numberLesson;
+            }
+        }
+        return '';
+    }
+    public static function getIdDocByName($fileName)
+    {
+        $id = 1;
+        return $id;
+    }
+    public static function getVersionDocByName($fileName)
+    {
+        return 'A';
+    }
+    public static function getLevelId($code, $classId, $subjectId)
+    {
+        $level = Level::where('code', $code)
+            ->where('class_id', $classId)
+            ->where('subject_id', $subjectId)
+            ->first();
+        if ($level) {
+            return $level->id;
+        }
+        return 0;
+    }
+    public static function getLessonId($levelId, $classId, $subjectId, $numberLesson)
+    {
+        $lesson = Lesson::where('level_id', $levelId)
+            ->where('class_id', $classId)
+            ->where('subject_id', $subjectId)
+            ->where('code', $numberLesson)
+            ->first();
+        if ($lesson) {
+            return $lesson->id;
+        }
+        return 0;
+    }
+
 }

@@ -3,7 +3,7 @@ class ManagerCenterController extends AdminController implements AdminInterface{
 
     public function __construct() {
         parent::__construct();
-        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
 
     /**

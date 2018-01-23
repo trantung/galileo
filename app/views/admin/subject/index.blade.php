@@ -24,7 +24,8 @@ Danh sách môn học
 				<tr class="bg-warning">
 					<td>{{ $subject->id }}</td>
 					<td>{{ $subject->name }}</td>
-					<td><a href="{{ action('SubjectController@edit', $subject->id) }}" class="btn btn-primary">Sửa</a>
+					<td>
+					{{ app('html')->linkAction('SubjectController@edit', 'Sửa', $subject->id, ['class'=>"btn btn-primary"]) }}
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('SubjectController@destroy', $subject->id), 'style' => 'display: inline-block;')) }}
 						<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 						</td>

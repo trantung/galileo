@@ -3,7 +3,7 @@
 class DocumentController extends AdminController implements AdminInterface {
     public function __construct() {
         parent::__construct();
-        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class DocumentController extends AdminController implements AdminInterface {
     public function index()
     {
         $input = Input::all();
-        $documents = Document::groupBy('parent_id');
+        $documents = Document::whereNotNull('parent_id')->groupBy('parent_id');
         if( !empty($input['name']) ){
             $documents = $documents->where('name', 'LIKE', '%'.$input['name'].'%');
         }
