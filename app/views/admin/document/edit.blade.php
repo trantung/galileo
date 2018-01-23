@@ -5,6 +5,9 @@
 @stop
 
 @section('content')
+
+<a href="{{ action('DocumentController@index') }}" class="btn btn-primary">Danh sách học liệu</a>
+
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-primary">

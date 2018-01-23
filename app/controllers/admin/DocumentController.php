@@ -14,16 +14,16 @@ class DocumentController extends AdminController implements AdminInterface {
     {
         $input = Input::all();
         $documents = Document::groupBy('parent_id');
+        if( !empty($input['name']) ){
+            $documents = $documents->where('name', 'LIKE', '%'.$input['name'].'%');
+        }
         if( !empty($input['class_id']) ){
             $documents = $documents->where('class_id', $input['class_id']);
         }
         if( !empty($input['subject_id']) ){
             $documents = $documents->where('subject_id', $input['subject_id']);
         }
-        if( !empty($input['level_id']) ){
-            $documents = $documents->where('level_id', $input['level_id']);
-        }
-        $documents = $documents->get();
+        $documents = $documents->paginate(30);
         return View::make('admin.document.index')->with(compact('documents'));
     }
 
