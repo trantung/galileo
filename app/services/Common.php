@@ -330,13 +330,12 @@ class Common {
 
     public static function getLevelMultiDropdownList($name, $levels = [], $default = null)
     {
-        // dd($levels->groupBy('subject_id')->get());
         $html = '<select name="'. $name .'" class="form-control" multiple>
             <option value="">--Tất cả--</option>';
         foreach ($levels as $key => $value) {
             $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->subjects->name.' '.$value->name .'</option>';
         }
-        $html .= '<select>';
+        $html .= '<select>';                                                                            
         return $html;
     }
 

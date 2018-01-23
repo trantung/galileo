@@ -24,7 +24,7 @@
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
-			<td>#{{ $key + 1 }}</td>
+			<td>{{ $key + 1 }}</td>
 			<td>{{ $value->fullname }}</td>
 			<td>{{ $value->code }}</td>
 			<td>{{ $value->username }}</td>

@@ -18,9 +18,7 @@ class Center extends Eloquent {
      *
      * @var array
      */
-    protected $fillable = array('name', 'phone',
-        'address', 'code', 'partner_id'
-    );
+    protected $fillable = array('name', 'phone','address', 'code', 'partner_id');
     protected $dates = ['deleted_at'];
 
     public function levels() 

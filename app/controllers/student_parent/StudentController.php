@@ -60,6 +60,7 @@ class StudentController extends BaseController {
                     ]
                 );
             }
+            $family = Family::create(['fullname_dad' => $input['dad_fullname']]);
         }
         return Redirect::action('StudentController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
             Người dùng đã được tạo!');
