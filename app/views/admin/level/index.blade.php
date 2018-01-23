@@ -6,11 +6,11 @@
 @stop
 
 @section('title')
-Danh sách lớp học
+Danh sách trình độ
 @stop
 @section('content')
 <div class="margin-bottom">
-    bộ lọc
+    @include('admin.level.filter')
 </div>
 	<table class="table table-bordered table-responsive">
 		<thead>

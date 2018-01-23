@@ -1,7 +1,7 @@
 <?php
 class AdminController extends BaseController {
     public function __construct() {
-        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin', 'logout')));
     }
     /**
      * Display a listing of the resource.
@@ -85,7 +85,7 @@ class AdminController extends BaseController {
     {
         $checkLogin = Auth::admin()->check();
         if($checkLogin) {
-            return Redirect::action('AdminController@index');
+            return Redirect::action('DocumentController@index');
         } else {
             return View::make('admin.layout.login');
         }
@@ -105,7 +105,7 @@ class AdminController extends BaseController {
         } else {
             $checkLogin = Auth::admin()->attempt($input, true);
             if($checkLogin) {
-                return Redirect::action('AdminController@index');
+                return Redirect::action('DocumentController@index');
             } else {
                 return Redirect::action('AdminController@login');
             }
@@ -114,16 +114,40 @@ class AdminController extends BaseController {
     public function logout()
     {
         Auth::admin()->logout();
-        Session::flush();
+        // Session::flush();
         return Redirect::action('AdminController@login');
     }
     public function getUpload()
     {
-        return View::make('test_upload');
+        return View::make('upload_doc');
     }
     public function postUpload()
     {
-        
+        $input = Input::except('_token');
+        $destinationPath = public_path().DOCUMENT_UPLOAD_DIR;
+        foreach ($input['files'] as $key => $file) {
+            $filename = $file->getClientOriginalName();
+            
+            $classCode = $input['class'];
+            $subjectCode = $input['subject'];
+            $levelCode = $input['level_code'];
+            $fileNameConvert = Common::getFileNameConvert($filename, $input);
+            $uploadSuccess = $file->move($destinationPath.$subjectCode.'/'.$classCode.'/'.$levelCode.'/', $fileNameConvert.'.docx');
+            //luu vao db
+            $link = $destinationPath.$subjectCode.'/'.$classCode.'/'.$levelCode.'/';
+            // $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
+            // $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
+            $files = $link.$fileNameConvert.'.docx';
+
+            $parameters = array(
+                'Secret' => KEY_API,
+            );
+            $result = convert_api('docx', 'pdf', $files, $parameters);
+            $result = $result->Files[0]->FileData;
+            $result = base64_decode($result);
+            file_put_contents($link.$fileNameConvert.'.pdf', $result);
+        }
+        dd(555);
     }
 
     public function getResetPass($id)

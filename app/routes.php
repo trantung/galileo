@@ -12,8 +12,25 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
-// Route::get('/test/upload', 'AdminController@getUpload');
-// Route::post('/test/upload', 'AdminController@postUpload');
+Route::get('/parent/update', function(){
+    $docs = Document::groupBy('lesson_id')->get();
+    foreach ($docs as $key => $doc) {
+        $docP = Document::where('lesson_id', $doc->lesson_id)
+            ->where('type_id', P)
+            ->first();
+        if ($docP) {
+            $docD = Document::where('lesson_id', $doc->lesson_id)
+                ->where('type_id', D)
+                ->first();
+            if ($docD) {
+                $docD->update(['parent_id' => $docP->id]);
+            }
+        }
+    }
+    dd(123);
+});
+Route::get('/test/upload', 'AdminController@getUpload');
+Route::post('/test/upload', 'AdminController@postUpload');
 
 Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
@@ -125,3 +142,24 @@ Route::group(['prefix' => 'user'], function () {
 });
 // Route::post('/ajax/{method}', 'AjaxController@process');
 Route::controller('/ajax', 'AjaxController');
+
+
+App::error( function(Exception $exception, $code){
+    $pathInfo = Request::getPathInfo();
+    $message = $exception->getMessage() ?: 'Exception';
+    Log::error("$code - $message @ $pathInfo\r\n$exception");
+    switch ($code)
+    {
+        case 403:
+            return View::make('errors.404', array('code' => 403, 'message' => 'Quyền truy cập bị từ chối!'));
+
+        case 404:
+            return View::make('errors.404', array('code' => 404, 'message' => 'Trang không tìm thấy!'));
+
+        default:
+            if (Config::get('app.debug')) {
+                return;
+            }
+    }
+});
+

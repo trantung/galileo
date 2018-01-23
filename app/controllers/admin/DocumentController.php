@@ -13,17 +13,18 @@ class DocumentController extends AdminController implements AdminInterface {
     public function index()
     {
         $input = Input::all();
-        $documents = Document::groupBy('parent_id');
+        $documents = Document::whereNotNull('parent_id')->groupBy('parent_id');
+        // $documents = Document::groupBy('parent_id');
+        if( !empty($input['name']) ){
+            $documents = $documents->where('name', 'LIKE', '%'.$input['name'].'%');
+        }
         if( !empty($input['class_id']) ){
             $documents = $documents->where('class_id', $input['class_id']);
         }
         if( !empty($input['subject_id']) ){
             $documents = $documents->where('subject_id', $input['subject_id']);
         }
-        if( !empty($input['level_id']) ){
-            $documents = $documents->where('level_id', $input['level_id']);
-        }
-        $documents = $documents->get();
+        $documents = $documents->paginate(30);
         return View::make('admin.document.index')->with(compact('documents'));
     }
 
@@ -72,9 +73,9 @@ class DocumentController extends AdminController implements AdminInterface {
     {
         $document = Document::where('parent_id', $id)->first();
         $lessonId = Common::getObject($document, 'lesson_id');
-        $group = Common::getDocumentByLesson($lessonId);
-        // dd($group);
-        return View::make('admin.document.edit')->with(compact('group', 'document', 'id'));
+        $groups = Common::getDocumentByLesson($lessonId);
+        // dd($group[$id]['D']);
+        return View::make('admin.document.edit')->with(compact('groups', 'document', 'id'));
     }
 
 
@@ -87,52 +88,40 @@ class DocumentController extends AdminController implements AdminInterface {
     public function update($id)
     {
         $input = Input::all();
+        $files = Input::file('doc_file');
         $field = [
-            'lesson_id' => $input['lesson_id'],
             'class_id' => $input['class_id'],
             'subject_id' => $input['subject_id'],
             'level_id' => $input['level_id'],
-            'parent_id' => $id
+            'lesson_id' => $input['lesson_id'],
         ];
-        $fileUrlP = $fileUrlD = '';
-
-        if( Input::hasFile('doc_file_p') ){
-            $file = Input::file('doc_file_p');
-            $filename = $file->getClientOriginalName();
-            $uploadSuccess = $file->move(public_path().DOCUMENT_UPLOAD_DIR, time().'_'.$filename);
-            $fileUrlP = DOCUMENT_UPLOAD_DIR . time().'_'.$filename;
-        }
-        if( Input::hasFile('doc_file_d') ){
-            $file = Input::file('doc_file_d');
-            $filename = $file->getClientOriginalName();
-            $uploadSuccess = $file->move(public_path().DOCUMENT_UPLOAD_DIR, time().'_'.$filename);
-            $fileUrlD = DOCUMENT_UPLOAD_DIR . time().'_'.$filename;
-        }
-
-        if( !empty($input['doc_p_id']) ){
-            // $field['name'] = $input['name_p'];
-            // $field['file_url'] = $fileUrlP;
-            $doc = Document::find($input['doc_p_id'])->update([
-                    'name' => $input['name_p'],
-                    'file_url' => $fileUrlP,
-                ]);
-        } else{
-            $field['name'] = $input['name_p'];
-            $field['file_url'] = $fileUrlP;
-            $doc = Document::create($field);
-        }
-
-        if( !empty($input['doc_d_id']) ){
-            // $field['name'] = $input['name_d'];
-            // $field['file_url'] = $fileUrlD;
-            $doc = Document::find($input['doc_d_id'])->update([
-                    'name' => $input['name_d'],
-                    'file_url' => $fileUrlD,
-                ]);
-        } else{
-            $field['file_url'] = $fileUrlD;
-            $field['name'] = $input['name_d'];
-            $doc = Document::create($field);
+        foreach ($files as $type => $value) {
+            foreach ($value as $parentId => $docs) {
+                foreach ($docs as $docId => $file) {
+                    $field['name'] = isset($input['name'][$type][$parentId][$docId]) ? $input['name'][$type][$parentId][$docId] : '';
+                    $field['type_id'] = ($type == 'p') ? P : D;
+                    $field['parent_id'] = $parentId;
+                    if( $file ){
+                        $fileName = $file->getClientOriginalName();
+                        $fileUrl = DOCUMENT_UPLOAD_DIR.time(). '_' .$fileName;
+                        $uploadSuccess = $file->move(public_path().DOCUMENT_UPLOAD_DIR, time(). '_' .$fileName);
+                        if( $uploadSuccess ){
+                            ////////// Neu upload thanh cong thi luu url vao database
+                            $field['file_url'] = $fileUrl;
+                        }
+                    }
+                    if( is_numeric($docId) ){
+                        ///// update old document
+                        Document::find($docId)->update($field);
+                    }
+                    else{
+                        ///// Create new document
+                        $docId = Document::create($field)->id;
+                        $code = getCodeDocument($docId);
+                        Document::find($docId)->update(['code' => $code]);
+                    }
+                }
+            }
         }
         return Redirect::back()->withMessage('Lưu thành công!');
     }

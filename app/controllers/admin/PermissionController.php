@@ -107,6 +107,4 @@ class PermissionController extends \BaseController {
 	{
 		//
 	}
-
-
 }

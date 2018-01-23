@@ -5,7 +5,7 @@
 @stop
 
 <div class="box alert">
-	{{ Form::open(['action' => 'DocumentController@index', 'method' => 'GET', 'class' => 'filter-document-form']) }}
+	{{ Form::open(['action' => 'LevelController@index', 'method' => 'GET', 'class' => 'filter-document-form']) }}
 		<div class="input-group inline-block">
 			<label>Tiêu đề</label>
 			{{ Form::text('name', Input::get('name'), ['class' => 'form-control', 'placeholder' => 'Tiêu đề']) }}
@@ -17,18 +17,18 @@
 		<div class="input-group inline-block">
 			<label style="display: block;">Môn học</label>
 		  	{{ Form::select('subject_id', ['' => '--Tất cả--'] + Common::getSubjectList(), Input::get('subject_id'), ['class' => 'form-control select-subject']) }}
-		</div>
+		</div>{{-- 
 		<div class="input-group inline-block select-level-from-class-subject">
 			<label style="display: block;">Trình độ</label>
 			{{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
-		</div>
-		<div class="input-group inline-block">
+		</div> --}}
+		{{-- <div class="input-group inline-block">
 			<label style="display: block;">Trạng thái</label>
 		  	{{ Form::select('status', ['' => '--Tất cả--', '0' => 'Chưa công bố', 1 => 'Đã công bố'], Input::get('status'), ['class' => 'form-control']) }}
-		</div>
+		</div> --}}
 		<div class="input-group inline-block" style="vertical-align: bottom;">
 			<button type="submit" class="btn btn-primary">Tìm kiếm</button>
-			{{ link_to_action('DocumentController@index', 'Reset', null, ['class' => 'btn btn-primary']) }}
+			{{ link_to_action('LevelController@index', 'Reset', null, ['class' => 'btn btn-primary']) }}
 		</div>
 	{{ Form::close() }}
 </div>

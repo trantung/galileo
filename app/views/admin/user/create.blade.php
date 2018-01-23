@@ -11,7 +11,7 @@ Tạo mới thành viên
 @stop
 
 @section('content')
-{{ Form::open(['action' => ['ManagerUserController@store'], 'class' => 'col-sm-6 user-create-form']) }}
+{{ Form::open(['action' => ['ManagerUserController@store'], 'class' => 'col-sm-6 user-create-form user-form']) }}
     <div class="form-group">
         {{ Form::label('username', 'Tên đăng nhập') }}
         {{ Form::text('username', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
@@ -26,7 +26,7 @@ Tạo mới thành viên
     </div>
     <div class="form-group">
         {{ Form::label('role_id', 'Phân quyền') }}
-        {{ Form::select('role_id', ['' => '-- Chọn --'] + Common::getRoleUser(), '', ['class' => 'form-control', 'required' =>'']) }}
+        {{ Form::select('role_id', ['' => '-- Chọn --'] + Common::getRoleUser(), '', ['class' => 'form-control select-role-for-user', 'required' =>'']) }}
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
