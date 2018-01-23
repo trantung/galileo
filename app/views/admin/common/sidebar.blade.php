@@ -15,7 +15,7 @@
             <li>
                 <a href="{{ action('ManagerCenterController@index') }}">
                     <i class="fa fa-newspaper-o"></i> 
-                    <span>Quản lý các trung tâm</span>
+                    <span>Quản lý trung tâm</span>
                 </a>
             </li>
             @endif
@@ -33,7 +33,7 @@
             <li>
                 <a href="{{ action('SubjectController@index') }}">
                     <i class="fa fa-newspaper-o"></i> 
-                    <span>Quản lý các môn học</span>p
+                    <span>Quản lý môn học</span>
                 </a>
             </li>
             @endif
@@ -42,7 +42,7 @@
             <li>
                 <a href="{{ action('ClassController@index') }}">
                     <i class="fa fa-newspaper-o"></i> 
-                    <span>Quản lý các lớp học</span>
+                    <span>Quản lý lớp học</span>
                 </a>
             </li>
             @endif
