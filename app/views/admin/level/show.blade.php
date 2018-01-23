@@ -7,7 +7,7 @@
 @stop
 
 @section('title')
-Chi tiết trình độ <strong>{{ $data->name.', '.$data->subjects->name.', '.$data->classes->name }}</strong>
+Chi tiết trình độ | {{ $data->name.', '.$data->subjects->name.', '.$data->classes->name }}
 @stop
 
 @section('content')
