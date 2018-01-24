@@ -132,9 +132,9 @@ class AdminController extends BaseController {
             $subjectCode = $input['subject'];
             $levelCode = $input['level_code'];
             $fileNameConvert = Common::getFileNameConvert($filename, $input);
-            $uploadSuccess = $file->move($destinationPath.$classCode.'/'.$subjectCode.'/'.$levelCode.'/', $fileNameConvert.'.docx');
+            $uploadSuccess = $file->move($destinationPath.$subjectCode.'/'.$classCode.'/'.$levelCode.'/', $fileNameConvert.'.docx');
             //luu vao db
-            $link = $destinationPath.$classCode.'/'.$subjectCode.'/'.$levelCode.'/';
+            $link = $destinationPath.$subjectCode.'/'.$classCode.'/'.$levelCode.'/';
             // $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
             // $doc['file_url'] = DOCUMENT_UPLOAD_DIR.$fileNameConvert.'.docx';
             $files = $link.$fileNameConvert.'.docx';
