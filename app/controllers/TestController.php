@@ -7,10 +7,11 @@ class TestController extends AdminController implements AdminInterface {
 		// ini_set('default_charset', 'utf-8');
 		// header('Content-Type: text/html; charset=utf-8');
 		$directory = 'F:/HocMai Drive/PDF_Galileo/T/4/D';
+		$text = 'Galileo_Bu?i 01_��p �n_Ch��ng tr?nh h?c t?t_to�n_l?p 4_nh�m A1_ver 3.0.2017';
+		dd(clean($text));
 		$files = Common::listFolderFiles($directory);
 		foreach ($files as $key => $file) {
-			setlocale(LC_ALL,'en_US.UTF-8');
-			echo utf8convert($file).'<br>';
+			echo basename($file).'<br>';
 		}
 	}
 
