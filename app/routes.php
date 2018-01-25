@@ -12,6 +12,8 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/test/import', 'TestController@import');
+
 Route::resource('/', 'AdminController');
     
 Route::get('/parent/update', function(){

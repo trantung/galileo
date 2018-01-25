@@ -11,7 +11,7 @@
                         @if( in_array($_subject->id, $listSubjects) )
                             <li class="form-group item subject-item checkbox">
                                 <label for="subject-{{ $key.$keyS }}" href="#subjectCollapse-{{ $key.$keyS }}">
-                                    {{ Form::checkbox('', $_subject->id, false, ['id'=>'subject-'.$key.$keyS]).$_subject->name }}
+                                    {{ Form::checkbox('', $_subject->id, false, ['id'=>'subject-'.$key.$keyS]).$_subject->name }} (<a href="#">Chọn hết</a>)
                                 </label>
                                 <ul class="collapse level" id="subjectCollapse-{{ $key.$keyS }}">
                                     @foreach( Common::getLevelBySubject($_class->id, $_subject->id) as $_level )

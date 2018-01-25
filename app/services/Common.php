@@ -1,6 +1,31 @@
 <?php
 class Common {
 
+    public static function listFolderFiles($dir){
+        if( !is_dir($dir) ){
+            return [];
+        }
+        $ffs = scandir($dir);
+
+        unset($ffs[array_search('.', $ffs, true)]);
+        unset($ffs[array_search('..', $ffs, true)]);
+
+        // prevent empty ordered elements
+        if (count($ffs) < 1){
+            return [];
+        }
+
+        $files = [];
+        foreach($ffs as $ff){
+            if( !is_dir($dir.'/'.$ff) ){
+                $files[] = $dir.'/'.$ff;
+            }else{
+                $files = array_merge($files, self::listFolderFiles($dir.'/'.$ff));
+            }
+        }
+        return $files;
+    }
+
     /**
      * Lay danh sach level cua 1 User
      */
