@@ -9,7 +9,7 @@
         @foreach( $listClasses as $key => $_class )
             <li class="form-group item class-item checkbox">
                 <label for="class-{{ $key }}" href="#classCollapse-{{ $key }}">
-                    {{ Form::checkbox('', $_class->id, false, ['id'=>'class-'.$key]).$_class->name }}
+                    {{ Form::checkbox('', $_class->id, false, ['id'=>'class-'.$key]) . $_class->name }}
                 </label>
                 <ul class="collapse subject" id="classCollapse-{{ $key }}">
                     @foreach( $_class->subjects as $keyS => $_subject )
