@@ -351,10 +351,6 @@ class TestController extends AdminController implements AdminInterface {
      *
      * @return Response
      */
-    public function index()
-    {
-        //
-    }
 
 
     /**
