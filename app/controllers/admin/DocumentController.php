@@ -34,6 +34,17 @@ class DocumentController extends AdminController implements AdminInterface {
         if( !empty($input['subject_id']) ){
             $documents = $documents->where('subject_id', $input['subject_id']);
         }
+        if( !empty($input['level_id']) ){
+            $documents = $documents->where('level_id', $input['level_id']);
+            if( isset($input['lesson_code']) ){
+                $lesson = Lesson::where('level_id', $input['level_id'])
+                    ->where('code', $input['lesson_code'])
+                    ->first();
+                if ($lesson) {
+                    $documents = $documents->where('lesson_id', $lesson->id);
+                }
+            }
+        }
         $documents = $documents->paginate(30);
         return View::make('admin.document.index')->with(compact('documents'));
     }
