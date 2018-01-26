@@ -4,14 +4,14 @@
         @foreach( $listClasses as $key => $_class )
             <li class="form-group item class-item checkbox">
                 <label for="class-{{ $key }}" href="#classCollapse-{{ $key }}">
-                    {{ Form::checkbox('', $_class->id, false, ['id'=>'class-'.$key]).$_class->name }}
+                    {{ Form::checkbox('', $_class->id, false, ['id'=>'class-'.$key]).$_class->name }}  (<a href="#" class="select-all">Chọn hết</a>)
                 </label>
                 <ul class="collapse subject" id="classCollapse-{{ $key }}">
                     @foreach( $_class->subjects as $keyS => $_subject )
                         @if( in_array($_subject->id, $listSubjects) )
                             <li class="form-group item subject-item checkbox">
                                 <label for="subject-{{ $key.$keyS }}" href="#subjectCollapse-{{ $key.$keyS }}">
-                                    {{ Form::checkbox('', $_subject->id, false, ['id'=>'subject-'.$key.$keyS]).$_subject->name }} (<a href="#">Chọn hết</a>)
+                                    {{ Form::checkbox('', $_subject->id, false, ['id'=>'subject-'.$key.$keyS]).$_subject->name }} (<a href="#" class="select-all">Chọn hết</a>)
                                 </label>
                                 <ul class="collapse level" id="subjectCollapse-{{ $key.$keyS }}">
                                     @foreach( Common::getLevelBySubject($_class->id, $_subject->id) as $_level )
