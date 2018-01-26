@@ -13,6 +13,7 @@
 //     return View::make('test_upload');
 // });
 Route::get('/test/import', 'TestController@import');
+Route::controller('/test', 'TestController');
 
 Route::resource('/', 'AdminController');
     
