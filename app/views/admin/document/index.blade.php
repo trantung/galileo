@@ -8,7 +8,10 @@
 @section('title')
 Danh sách học liệu
 @stop
+
 @section('content')
+
+@include('admin.document.filter')
 
 <table class="table table-bordered table-responsive">
     <thead>
@@ -100,4 +103,10 @@ Danh sách học liệu
         @endforeach
     </tbody>
 </table>
+
+<div class="row">
+    <div class="col-xs-12">
+        {{ $documents->appends(Request::except('page'))->links() }}
+    </div>
+</div>
 @stop
