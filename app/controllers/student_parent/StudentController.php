@@ -21,7 +21,6 @@ class StudentController extends BaseController {
     public function create()
     {
        $class = ClassModel::lists('name', 'id');
-
        $subject = Subject::lists('name', 'id');
        $level = Level::lists('name', 'id');
        $center = Center::lists('name', 'id');
@@ -35,35 +34,15 @@ class StudentController extends BaseController {
     public function store()
     {
         $input = Input::except('_token');
-        // dd($input);
-        $input['password'] = Hash::make($input['password']);
-
-        $student = Student::create($input);
-        if( !empty($student->id) ){
-            if( count($input['level_old_id']) ){
-                $student->levels()->attach(
-                    $input['level_old_id'], 
-                    [
-                        'status' => 0,
-                        'class_id' => $input['class_old_id'],
-                        'subject_id' => $input['subject_old_id']
-                    ]
-                );
-            }
-            if( !empty($input['level_id']) ){
-                $student->levels()->attach(
-                    $input['level_id'],
-                    [
-                        'status' => 1,
-                        'class_id' => $input['class_id'],
-                        'subject_id' => $input['subject_id']
-                    ]
-                );
-            }
-            $family = Family::create(['fullname_dad' => $input['dad_fullname']]);
+        $familyId1 = Family::create(['fullname' => $input['mom_fullname'], 'phone' => $input['mom_phone'], 'gender' => $input['mom_gender']])->id;
+        $familyId2 = Family::create(['fullname' => $input['dad_fullname'], 'phone' => $input['dad_phone'], 'gender' => $input['dad_gender']])->id;
+        if($familyId1 && $familyId2){
+            $studentId = Student::create($input)->id;
         }
+        $family = Family::findOrFail($familyId1)->update(['group_id', $familyId1]);
+        $student = Student::findOrFail($family)->update(['family_id', $familyId1]);
         return Redirect::action('StudentController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
-            Người dùng đã được tạo!');
+            Học sinh đã được tạo!');
     }
     /**
      * Display the specified resource.

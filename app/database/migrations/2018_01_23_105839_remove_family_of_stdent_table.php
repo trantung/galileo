@@ -17,6 +17,9 @@ class RemoveFamilyOfStdentTable extends Migration {
             $table->dropColumn('dad_phone');
             $table->dropColumn('mom_fullname');
             $table->dropColumn('mom_phone');
+            $table->dropColumn('number_program');
+            $table->dropColumn('program_learned');
+            $table->integer('family_id')->nullable();
         });
 	}
 
@@ -32,6 +35,9 @@ class RemoveFamilyOfStdentTable extends Migration {
             $table->string('dad_phone', 125)->nullable()->unique();
             $table->string('mom_fullname', 255)->nullable();
             $table->string('mom_phone', 125)->nullable()->unique();
+            $table->integer('number_program')->nullable();
+            $table->longText('program_learned')->nullable();
+            $table->dropColumn('family_id');
         });
 	}
 
