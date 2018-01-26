@@ -15,6 +15,7 @@
 Route::get('/test/insertdb/T', 'TestController@insert');
 Route::get('/test/insertdb/V', 'TestController@insertVan');
 Route::get('/test/updatedb', 'TestController@updatedb');
+Route::get('/test/updatedb/T', 'TestController@updatedbT');
 Route::get('/test/import', 'TestController@import');
 Route::controller('/test', 'TestController');
 

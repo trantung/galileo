@@ -346,81 +346,6 @@ class TestController extends AdminController implements AdminInterface {
         dd($fileName);
         return $fileName;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function insert()
     {
         $directory = public_path().DOCUMENT_UPLOAD_DIR.'T';
@@ -479,6 +404,12 @@ class TestController extends AdminController implements AdminInterface {
                                         dd('sai'.'--'.$typeCode.'--'.$fileName);
                                     }
                                     $fileUrl = DOCUMENT_UPLOAD_DIR.'T'.'/'.$classCode.'/'.$levelCode.'/'.$fileName;
+                                    // dd($fileUrl);
+                                    // dd(is_dir(public_path().DOCUMENT_UPLOAD_DIR.'T'.'/'.$classCode.'/'.$levelCode));
+                                    if (!is_dir(public_path().DOCUMENT_UPLOAD_DIR.'T'.'/'.$classCode.'/'.$levelCode)) {
+                                        mkdir(public_path().DOCUMENT_UPLOAD_DIR.'T'.'/'.$classCode.'/'.$levelCode, 0777);
+                                    }
+                                    rename($directory.'/'.$classCode.'/'.$typeName.'/'.$fileName, public_path().$fileUrl);
 
                                     $typeId = $type->id;
                                     $doc['class_id'] = $classId;
@@ -619,5 +550,42 @@ class TestController extends AdminController implements AdminInterface {
         }
         dd(123);
     }
+    public function updatedbT()
+    {
+        $subjectCode = 'T';
+        $subject = Subject::where('code', $subjectCode)->first();
+        $subjectId = $subject->id;
+        $docs = Document::groupBy('lesson_id')->where('subject_id', $subjectId)->get();
+        foreach ($docs as $key => $value) {
+            $list = Document::where('lesson_id', $value->lesson_id)->get();
+            foreach ($list as $key => $doc) {
+                $code = $doc->code;
+                $code = explode("_", $code);
+                $code[3] = '1A';
+                $code = implode("_", $code);
+                $order = 1;
+                $docP = Document::where('lesson_id', $doc->lesson_id)
+                    ->where('type_id', P)->first();
+                $parentId = null;
+                if ($docP) {
+                    $parentId = $docP->id;
+                    // Document::where('lesson_id', $doc->lesson_id)
+                    // ->where('type_id', D)->update(['parent_id' => $docP->id]);
+                }
+                // $fileUrl = $doc->file_url;
+                // $fileUrl = explode("/", $fileUrl);
+                // $fileUrl[6] = $code.'.pdf';
+                // $fileUrl = implode("/", $fileUrl);
+                $doc->update([
+                    'parent_id' => $parentId,
+                    'code' => $code,
+                    'order' => $order,
+                ]);
+            }
+                
+        }
+        dd(123);
+    }
+
 
 }
