@@ -28,7 +28,7 @@
 			 @foreach($users as $user)
 			<tr>
 			  <td>{{ $user->id }}</td>
-			  <td>{{ $user->center->name }}</td>
+			  <td>trung tam 1</td>
 			  <td>{{ $user->username }}</td>
 			  <td>{{ $user->email }}</td>
 			  <td>

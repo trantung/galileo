@@ -23,6 +23,10 @@
 			{{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
 		</div>
 		<div class="input-group inline-block">
+			<label style="display: block;">Buổi số</label>
+		  	{{ Form::select('lesson_code', ['' => '--Tất cả--'] + Common::getListLessonCode(), Input::get('lesson_code'), ['class' => 'form-control']) }}
+		</div>
+		<div class="input-group inline-block">
 			<label style="display: block;">Trạng thái</label>
 		  	{{ Form::select('status', ['' => '--Tất cả--', '0' => 'Chưa công bố', 1 => 'Đã công bố'], Input::get('status'), ['class' => 'form-control']) }}
 		</div>

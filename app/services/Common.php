@@ -568,5 +568,22 @@ class Common {
         }
         return 0;
     }
-
+    public static function getListLessonCode()
+    {
+        $lesson = Lesson::groupBy('code')->orderBy('code', 'asc')->lists('code','code');
+        // dd($lesson);
+        usort($lesson, function($a, $b){
+            if( (int)$a > (int)$b ) {
+                return 1;
+            }
+            return -1;
+        });
+        $array = [];
+        foreach ($lesson as $key => $value) {
+            $array[$value] = $value;
+        }
+        return $array;
+        // dd(array_filter($lesson));
+        // return $lesson;
+    }
 }
