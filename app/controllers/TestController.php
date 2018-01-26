@@ -523,14 +523,13 @@ class TestController extends AdminController implements AdminInterface {
                     // Document::where('lesson_id', $doc->lesson_id)
                     // ->where('type_id', D)->update(['parent_id' => $docP->id]);
                 }
-                $fileUrl = $doc->file_url;
-                $fileUrl = explode("/", $fileUrl);
-                $fileUrl[6] = $code.'.pdf';
-                $fileUrl = implode("/", $fileUrl);
+                // $fileUrl = $doc->file_url;
+                // $fileUrl = explode("/", $fileUrl);
+                // $fileUrl[6] = $code.'.pdf';
+                // $fileUrl = implode("/", $fileUrl);
                 $doc->update([
                     'parent_id' => $parentId,
                     'code' => $code,
-                    'file_url' => $fileUrl,
                     'order' => $order,
                 ]);
             }
