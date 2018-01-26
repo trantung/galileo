@@ -348,173 +348,11 @@ class TestController extends AdminController implements AdminInterface {
     }
     public function insert()
     {
-        $directory = public_path().DOCUMENT_UPLOAD_DIR.'T';
-        $check = scandir($directory);
-        foreach ($check as $key => $classCode) {
-            if ($classCode > 0) {
-                $checkClass = scandir($directory.'/'.$classCode);
-                foreach ($checkClass as $k => $typeName) {
-                    if ($typeName == 'P' || $typeName =='D') {
-                        $data = scandir($directory.'/'.$classCode.'/'.$typeName);
-                        foreach ($data as $keyData => $fileName) {
-                            if (!is_dir($directory.'/'.$classCode.'/'.$typeName.'/'.$fileName)) {
-                                if (pathinfo($fileName, PATHINFO_EXTENSION) == 'docx') {
-                                    unlink($fileName);
-                                }
-                                if (pathinfo($fileName, PATHINFO_EXTENSION) == 'pdf') {
-                                    if (strstr($fileName, 'pdf')) {
-                                        $fileNameNew = str_replace('.pdf', "", $fileName);
-                                    }
-                                    $array = explode("_", $fileNameNew);
-                                    $levelCode = $array[1];
-                                    $lessonCode = $array[2];
-                                    $classCode = substr($array[0], -2);
-                                    if ($classCode < 10) {
-                                        $classCode = substr($classCode, -1);
-                                    }
-                                    if ($lessonCode < 10) {
-                                        $lessonCode = substr($lessonCode, -1);
-                                    }
-                                    $subjectCode = 'T';
-                                    $subject = Subject::where('code', $subjectCode)->first();
-                                    $subjectId = $subject->id;
-                                    $class = ClassModel::where('code', $classCode)->first();
-                                    $classId = $class->id;
-                                    $code = $fileNameNew;
-                                    $level = Level::where('code', $levelCode)
-                                        ->where('class_id', $classId)
-                                        ->where('subject_id', $subjectId)
-                                        ->first();
-                                    if (!$level) {
-                                        dd($fileName.'-----'.$levelCode. '--class: '.$classId.'---mon: '. $subjectId);
-                                    }
-                                    $levelId = $level->id;
-                                    $lesson = Lesson::where('level_id', $levelId)
-                                        ->where('class_id', $classId)
-                                        ->where('subject_id', $subjectId)
-                                        ->where('code', $lessonCode)
-                                        ->first();
-                                    if (!$lesson) {
-                                        dd($levelId.'----'.$lessonCode);
-                                    }
-                                    $lessonId = $lesson->id;
-                                    $typeCode = substr($array[0], 0, 1);
-                                    $type = DocumentType::where('code', $typeCode)->first();
-                                    if (!$type) {
-                                        dd('sai'.'--'.$typeCode.'--'.$fileName);
-                                    }
-                                    $fileUrl = DOCUMENT_UPLOAD_DIR.'T'.'/'.$classCode.'/'.$levelCode.'/'.$fileName;
-                                    // dd($fileUrl);
-                                    // dd(is_dir(public_path().DOCUMENT_UPLOAD_DIR.'T'.'/'.$classCode.'/'.$levelCode));
-                                    if (!is_dir(public_path().DOCUMENT_UPLOAD_DIR.'T'.'/'.$classCode.'/'.$levelCode)) {
-                                        mkdir(public_path().DOCUMENT_UPLOAD_DIR.'T'.'/'.$classCode.'/'.$levelCode, 0777);
-                                    }
-                                    rename($directory.'/'.$classCode.'/'.$typeName.'/'.$fileName, public_path().$fileUrl);
-
-                                    $typeId = $type->id;
-                                    $doc['class_id'] = $classId;
-                                    $doc['subject_id'] = $subjectId;
-                                    $doc['level_id'] = $levelId;
-                                    $doc['file_url'] = $fileUrl;
-                                    $doc['type_id'] = $typeId;
-                                    $doc['code'] = $code;
-                                    $doc['lesson_id'] = $lessonId;
-                                    Document::create($doc);
-                                }
-                            }
-                        }
-                    }
-                    
-                }
-            }
-        }
-        dd(123);
+        $this->commonInsert('T');
     }
     public function insertVan()
     {
-        $directory = public_path().DOCUMENT_UPLOAD_DIR.'V';
-        $check = scandir($directory);
-        foreach ($check as $key => $classCode) {
-            if ($classCode > 0) {
-                $checkClass = scandir($directory.'/'.$classCode);
-                foreach ($checkClass as $k => $v) {
-                    if (is_dir($directory.'/'.$classCode.'/'.$v)) {
-                        $data = scandir($directory.'/'.$classCode.'/'.$v);
-                        foreach ($data as $keyData => $fileName) {
-                            if (!is_dir($directory.'/'.$classCode.'/'.$v.'/'.$fileName)) {
-                                if (pathinfo($fileName, PATHINFO_EXTENSION) == 'docx') {
-                                    unlink($directory.'/'.$classCode.'/'.$v.'/'.$fileName);
-                                }
-
-                                if (pathinfo($fileName, PATHINFO_EXTENSION) == 'pdf') {
-                                    $fileNameOld =$fileName;
-                                    if (strstr($fileName, 'pdf')) {
-                                        $fileNameNew = str_replace('.pdf', "", $fileName);
-                                    }
-                                    if (strpos($fileNameNew, '(') || strpos($fileNameNew, 'v1')) {
-                                        unlink($directory.'/'.$classCode.'/'.$v.'/'.$fileNameOld);
-                                    }
-
-                                    if (!strpos($fileNameNew, '(') && !strpos($fileNameNew, 'v1')) {
-                                        $array = explode("_", $fileNameNew);
-                                        $levelCode = $array[1];
-                                        $lessonCode = $array[2];
-                                        $classCode = substr($array[0], -2);
-                                        if ($classCode < 10) {
-                                            $classCode = substr($classCode, -1);
-                                        }
-                                        if ($lessonCode < 10) {
-                                            $lessonCode = substr($lessonCode, -1);
-                                        }
-                                        $subjectCode = 'V';
-                                        $subject = Subject::where('code', $subjectCode)->first();
-                                        $subjectId = $subject->id;
-                                        $class = ClassModel::where('code', $classCode)->first();
-                                        $classId = $class->id;
-                                        $code = $fileNameNew;
-                                        $level = Level::where('code', $levelCode)
-                                            ->where('class_id', $classId)
-                                            ->where('subject_id', $subjectId)
-                                            ->first();
-                                        if (!$level) {
-                                            dd($fileName.'-----'.$levelCode. '--class: '.$classId.'---mon: '. $subjectId);
-                                        }
-                                        $levelId = $level->id;
-                                        $lesson = Lesson::where('level_id', $levelId)
-                                            ->where('class_id', $classId)
-                                            ->where('subject_id', $subjectId)
-                                            ->where('code', $lessonCode)
-                                            ->first();
-                                        if (!$lesson) {
-                                            dd($levelId.'----'.$lessonCode.'----'.$fileName);
-                                        }
-                                        $lessonId = $lesson->id;
-                                        $typeCode = substr($array[0], 0, 1);
-                                        $type = DocumentType::where('code', $typeCode)->first();
-                                        if (!$type) {
-                                            dd('sai'.'--'.$typeCode.'--'.$fileName);
-                                        }
-                                        $fileUrl = DOCUMENT_UPLOAD_DIR.'V'.'/'.$classCode.'/'.$levelCode.'/'.$fileName;
-
-                                        $typeId = $type->id;
-                                        $doc['class_id'] = $classId;
-                                        $doc['subject_id'] = $subjectId;
-                                        $doc['level_id'] = $levelId;
-                                        $doc['file_url'] = $fileUrl;
-                                        $doc['type_id'] = $typeId;
-                                        $doc['code'] = $code;
-                                        $doc['lesson_id'] = $lessonId;
-                                        Document::create($doc);
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        dd(123);
+        $this->commonInsert('V');
     }
 
     public function updatedb()
@@ -586,7 +424,92 @@ class TestController extends AdminController implements AdminInterface {
         }
         dd(123);
     }
+    public function commonInsert($text)
+    {
+        $directory = public_path().DOCUMENT_UPLOAD_DIR.$text;
+        $check = scandir($directory);
+        foreach ($check as $key => $classCode) {
+            if ($classCode > 0) {
+                $checkClass = scandir($directory.'/'.$classCode);
+                foreach ($checkClass as $k => $v) {
+                    if (is_dir($directory.'/'.$classCode.'/'.$v)) {
+                        $data = scandir($directory.'/'.$classCode.'/'.$v);
+                        foreach ($data as $keyData => $fileName) {
+                            if (!is_dir($directory.'/'.$classCode.'/'.$v.'/'.$fileName)) {
+                                if (pathinfo($fileName, PATHINFO_EXTENSION) == 'docx') {
+                                    unlink($directory.'/'.$classCode.'/'.$v.'/'.$fileName);
+                                }
 
+                                if (pathinfo($fileName, PATHINFO_EXTENSION) == 'pdf') {
+                                    $fileNameOld =$fileName;
+                                    if (strstr($fileName, 'pdf')) {
+                                        $fileNameNew = str_replace('.pdf', "", $fileName);
+                                    }
+                                    if (strpos($fileNameNew, '(') || strpos($fileNameNew, 'v1')) {
+                                        unlink($directory.'/'.$classCode.'/'.$v.'/'.$fileNameOld);
+                                    }
+
+                                    if (!strpos($fileNameNew, '(') && !strpos($fileNameNew, 'v1')) {
+                                        $array = explode("_", $fileNameNew);
+                                        $levelCode = $array[1];
+                                        $lessonCode = $array[2];
+                                        $classCode = substr($array[0], -2);
+                                        if ($classCode < 10) {
+                                            $classCode = substr($classCode, -1);
+                                        }
+                                        if ($lessonCode < 10) {
+                                            $lessonCode = substr($lessonCode, -1);
+                                        }
+                                        $subjectCode = $text;
+                                        $subject = Subject::where('code', $subjectCode)->first();
+                                        $subjectId = $subject->id;
+                                        $class = ClassModel::where('code', $classCode)->first();
+                                        $classId = $class->id;
+                                        $code = $fileNameNew;
+                                        $level = Level::where('code', $levelCode)
+                                            ->where('class_id', $classId)
+                                            ->where('subject_id', $subjectId)
+                                            ->first();
+                                        if (!$level) {
+                                            dd($fileName.'-----'.$levelCode. '--class: '.$classId.'---mon: '. $subjectId);
+                                        }
+                                        $levelId = $level->id;
+                                        $lesson = Lesson::where('level_id', $levelId)
+                                            ->where('class_id', $classId)
+                                            ->where('subject_id', $subjectId)
+                                            ->where('code', $lessonCode)
+                                            ->first();
+                                        if (!$lesson) {
+                                            dd($levelId.'----'.$lessonCode.'----'.$fileName);
+                                        }
+                                        $lessonId = $lesson->id;
+                                        $typeCode = substr($array[0], 0, 1);
+                                        $type = DocumentType::where('code', $typeCode)->first();
+                                        if (!$type) {
+                                            dd('sai'.'--'.$typeCode.'--'.$fileName);
+                                        }
+                                        $fileUrl = DOCUMENT_UPLOAD_DIR.$text.'/'.$classCode.'/'.$levelCode.'/'.$fileName;
+
+                                        $typeId = $type->id;
+                                        $doc['class_id'] = $classId;
+                                        $doc['subject_id'] = $subjectId;
+                                        $doc['level_id'] = $levelId;
+                                        $doc['file_url'] = $fileUrl;
+                                        $doc['type_id'] = $typeId;
+                                        $doc['code'] = $code;
+                                        $doc['lesson_id'] = $lessonId;
+                                        Document::create($doc);
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        dd(123);
+    }
 
 }
 
