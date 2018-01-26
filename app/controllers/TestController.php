@@ -507,8 +507,8 @@ class TestController extends AdminController implements AdminInterface {
             if ($classCode > 0) {
                 $checkClass = scandir($directory.'/'.$classCode);
                 foreach ($checkClass as $k => $v) {
-                    $data = scandir($directory.'/'.$classCode.'/'.$v);
                     if (is_dir($directory.'/'.$classCode.'/'.$v)) {
+                        $data = scandir($directory.'/'.$classCode.'/'.$v);
                         foreach ($data as $keyData => $fileName) {
                             if (!is_dir($directory.'/'.$classCode.'/'.$v.'/'.$fileName)) {
                                 if (pathinfo($fileName, PATHINFO_EXTENSION) == 'docx') {
