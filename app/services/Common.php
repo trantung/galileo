@@ -1,6 +1,31 @@
 <?php
 class Common {
 
+    public static function listFolderFiles($dir){
+        if( !is_dir($dir) ){
+            return [];
+        }
+        $ffs = scandir($dir);
+
+        unset($ffs[array_search('.', $ffs, true)]);
+        unset($ffs[array_search('..', $ffs, true)]);
+
+        // prevent empty ordered elements
+        if (count($ffs) < 1){
+            return [];
+        }
+
+        $files = [];
+        foreach($ffs as $ff){
+            if( !is_dir($dir.'/'.$ff) ){
+                $files[] = $dir.'/'.$ff;
+            }else{
+                $files = array_merge($files, self::listFolderFiles($dir.'/'.$ff));
+            }
+        }
+        return $files;
+    }
+
     /**
      * Lay danh sach level cua 1 User
      */
@@ -301,7 +326,8 @@ class Common {
 
     public static function getDocument($document, $typeId)
     {
-        $ob = Document::where('parent_id', $document->id)
+        // dd($document->id);
+        $ob = Document::where('parent_id', $document->parent_id)
             ->where('type_id', $typeId)
             ->first();
         if ($ob) {
@@ -500,13 +526,15 @@ class Common {
             $test = strtolower($test);
             if (strstr($test, 'buoi')) {
                 $test1 = explode("-", $test);
-                $a = array_search('buoi', $test1);
-                $numberLesson = $test1[$a+1];
+                if (count($test1) > 0) {
+                   $a = array_search('buoi', $test1);
+                    $numberLesson = $test1[$a+1];
+                    return $numberLesson;
+                }
                 
-                return $numberLesson;
             }
         }
-        return '';
+        return 0;
     }
     public static function getIdDocByName($fileName)
     {
@@ -540,5 +568,22 @@ class Common {
         }
         return 0;
     }
-
+    public static function getListLessonCode()
+    {
+        $lesson = Lesson::groupBy('code')->orderBy('code', 'asc')->lists('code','code');
+        // dd($lesson);
+        usort($lesson, function($a, $b){
+            if( (int)$a > (int)$b ) {
+                return 1;
+            }
+            return -1;
+        });
+        $array = [];
+        foreach ($lesson as $key => $value) {
+            $array[$value] = $value;
+        }
+        return $array;
+        // dd(array_filter($lesson));
+        // return $lesson;
+    }
 }

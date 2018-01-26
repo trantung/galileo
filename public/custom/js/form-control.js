@@ -48,6 +48,12 @@ $(document).ready(function(){
             }
         })
     }
+    $(document).on('click', '.list-class-in-center .item>label>a.select-all', function(){
+        console.log('test');
+        $(this).parent().find('>input').prop('checked', 'checked').change();
+        $(this).parent().parent().find('>ul>li>label>input').prop('checked', 'checked').change();
+        return false;
+    })
     /////////////////////////////
 
     //// Tao input nhap trinh do khi chon mon hoc trong form Create Class
