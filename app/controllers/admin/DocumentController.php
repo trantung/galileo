@@ -15,15 +15,14 @@ class DocumentController extends AdminController implements AdminInterface {
         $input = Input::all();
         $admin = Auth::admin()->get();
         if ($admin->role_id == ADMIN) {
-            $documents = Document::whereNotNull('parent_id')->groupBy('parent_id');
+            $documents = Document::whereNotNull('parent_id');
         }
         if ($admin->role_id == BTV) {
             $listSubject = AccessPermisison::where('model_name', 'Admin')
                 ->where('model_id', $admin->id)
                 ->lists('subject_id');
              $documents = Document::whereIn('subject_id', $listSubject)
-                ->whereNotNull('parent_id')
-                ->groupBy('parent_id');
+                ->whereNotNull('parent_id');
         }
         if( !empty($input['name']) ){
             $documents = $documents->where('name', 'LIKE', '%'.$input['name'].'%');
@@ -45,7 +44,7 @@ class DocumentController extends AdminController implements AdminInterface {
                 }
             }
         }
-        $documents = $documents->paginate(30);
+        $documents = $documents->groupBy('parent_id')->paginate(30);
         return View::make('admin.document.index')->with(compact('documents'));
     }
 
