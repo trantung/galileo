@@ -14,6 +14,7 @@
 	<!-- Theme style -->
 	{{HTML::style('adminlte/dist/css/AdminLTE.min.css') }}
 	{{HTML::style('adminlte/dist/css/admin.css') }}
+	{{HTML::style('custom/css/print.min.css') }}
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 			 folder instead of downloading all of them to reduce the load. -->
 	{{HTML::style('adminlte/dist/css/skins/_all-skins.min.css') }}
@@ -60,6 +61,7 @@
 	{{-- {{ HTML::script('adminlte/plugins/fastclick/fastclick.js') }} --}}
 	<!-- AdminLTE App -->
 	{{ HTML::script('adminlte/dist/js/app.min.js') }}
+	{{ HTML::script('custom/js/print.min.js') }}
 	@yield('js_header')
 
 </head>

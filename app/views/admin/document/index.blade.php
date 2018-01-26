@@ -12,7 +12,6 @@ Danh sách học liệu
 @section('content')
 
 @include('admin.document.filter')
-
 <table class="table table-bordered table-responsive">
     <thead>
         <tr class="bg-primary">
@@ -44,6 +43,9 @@ Danh sách học liệu
                         </td>
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
+                            @if( Common::getObject($documentP, 'file_url') )
+                                <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                            @endif
                         </td>
                         <td>
                             {{ getClassByDocument($document) }}
@@ -82,6 +84,9 @@ Danh sách học liệu
                         </td>
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
+                            @if( Common::getObject($documentP, 'file_url') )
+                                <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                            @endif
                         </td>
                         @else
                         <td></td>
