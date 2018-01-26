@@ -89,15 +89,16 @@ class DocumentController extends AdminController implements AdminInterface {
     {
         $input = Input::all();
         $files = Input::file('doc_file');
-        $field = [
-            'class_id' => $input['class_id'],
-            'subject_id' => $input['subject_id'],
-            'level_id' => $input['level_id'],
-            'lesson_id' => $input['lesson_id'],
-        ];
+        // dd($input);
         foreach ($files as $type => $value) {
             foreach ($value as $parentId => $docs) {
                 foreach ($docs as $docId => $file) {
+                    $field = [
+                        'class_id' => $input['class_id'],
+                        'subject_id' => $input['subject_id'],
+                        'level_id' => $input['level_id'],
+                        'lesson_id' => $input['lesson_id'],
+                    ];
                     $field['name'] = isset($input['name'][$type][$parentId][$docId]) ? $input['name'][$type][$parentId][$docId] : '';
                     $field['type_id'] = ($type == 'p') ? P : D;
                     $field['parent_id'] = $parentId;
