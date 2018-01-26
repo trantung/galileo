@@ -326,7 +326,8 @@ class Common {
 
     public static function getDocument($document, $typeId)
     {
-        $ob = Document::where('parent_id', $document->id)
+        // dd($document->id);
+        $ob = Document::where('parent_id', $document->parent_id)
             ->where('type_id', $typeId)
             ->first();
         if ($ob) {
