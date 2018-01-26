@@ -12,7 +12,6 @@ Danh sách học liệu
 @section('content')
 
 @include('admin.document.filter')
-
 <table class="table table-bordered table-responsive">
     <thead>
         <tr class="bg-primary">

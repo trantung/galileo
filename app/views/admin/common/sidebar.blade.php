@@ -52,14 +52,6 @@
                     </li>
                     @endif
 
-<<<<<<< HEAD
-            @if(checkUrlPermission('AdminController@index'))
-            <li>
-                <a href="{{ action('AdminController@index') }}">
-                    <i class="fa fa-newspaper-o"></i> 
-                    <span>Quản lý admin</span>
-                </a>
-=======
                     @if(checkUrlPermission('AdminController@index'))
                     <li>
                         <a href="{{ action('AdminController@index') }}">
@@ -69,7 +61,6 @@
                     </li>
                     @endif
                </ul> 
->>>>>>> d36d69d8f70f443bdb8b1b478fbae748c7a096e7
             </li>
             
             
@@ -77,20 +68,7 @@
             <li>
                 <a href="{{ action('StudentController@index') }}">
                     <i class="fa fa-newspaper-o"></i> 
-<<<<<<< HEAD
-                    <span>Quản lý học sinh</span>
-                </a>
-            </li>
-            @endif
-
-            @if(checkUrlPermission('LevelController@index'))
-            <li>
-                <a href="{{ action('LevelController@index') }}">
-                    <i class="fa fa-newspaper-o"></i> 
-                    <span>Quản lý các trình độ</span>
-=======
                     <span>Quản lý học sinh </span>
->>>>>>> d36d69d8f70f443bdb8b1b478fbae748c7a096e7
                 </a>
             </li>
             @endif
