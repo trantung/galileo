@@ -525,13 +525,15 @@ class Common {
             $test = strtolower($test);
             if (strstr($test, 'buoi')) {
                 $test1 = explode("-", $test);
-                $a = array_search('buoi', $test1);
-                $numberLesson = $test1[$a+1];
+                if (count($test1) > 0) {
+                   $a = array_search('buoi', $test1);
+                    $numberLesson = $test1[$a+1];
+                    return $numberLesson;
+                }
                 
-                return $numberLesson;
             }
         }
-        return '';
+        return 0;
     }
     public static function getIdDocByName($fileName)
     {
