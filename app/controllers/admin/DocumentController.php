@@ -14,15 +14,20 @@ class DocumentController extends AdminController implements AdminInterface {
     {
         $input = Input::all();
         $admin = Auth::admin()->get();
-        if ($admin->role_id == ADMIN) {
+        if (isset($admin)) {
+            if ($admin->role_id == ADMIN) {
+                $documents = Document::whereNotNull('parent_id');
+            }
+            if ($admin->role_id == BTV) {
+                $listSubject = AccessPermisison::where('model_name', 'Admin')
+                    ->where('model_id', $admin->id)
+                    ->lists('subject_id');
+                // dd($listSubject);
+                 $documents = Document::whereIn('subject_id', $listSubject)
+                    ->whereNotNull('parent_id');
+            }
+        } else {
             $documents = Document::whereNotNull('parent_id');
-        }
-        if ($admin->role_id == BTV) {
-            $listSubject = AccessPermisison::where('model_name', 'Admin')
-                ->where('model_id', $admin->id)
-                ->lists('subject_id');
-             $documents = Document::whereIn('subject_id', $listSubject)
-                ->whereNotNull('parent_id');
         }
         if( !empty($input['name']) ){
             $documents = $documents->where('name', 'LIKE', '%'.$input['name'].'%');
@@ -32,6 +37,9 @@ class DocumentController extends AdminController implements AdminInterface {
         }
         if( !empty($input['subject_id']) ){
             $documents = $documents->where('subject_id', $input['subject_id']);
+        }
+        if( !empty($input['status']) ){
+            $documents = $documents->where('status', $input['status']);
         }
         if( !empty($input['level_id']) ){
             $documents = $documents->where('level_id', $input['level_id']);
@@ -159,7 +167,10 @@ class DocumentController extends AdminController implements AdminInterface {
         Document::where('parent_id', $id)->delete();
         return Redirect::action('DocumentController@index');
     }
+    public function getPrint()
+    {
 
+    }
 
 }
 

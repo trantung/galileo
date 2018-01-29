@@ -30,6 +30,7 @@ define('D', 2);
 ----------------------------
 */
 define('THL', 'THL');
-define('KEY_API', 'ahuAvNg1udtQ2xsF');
+define('ACTIVE', 1);
+define('INACTIVE', 2);
 
 
