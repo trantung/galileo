@@ -610,4 +610,17 @@ class Common {
         }
         return true;
     }
+    public static function getCenterByUser($userId)
+    {
+       $centerLevel = UserCenterLevel::where('user_id', $userId)
+            ->groupBy('center_level_id')
+            ->lists('center_level_id');
+        $listCenter = CenterLevel::whereIn('id', $centerLevel)->groupBy('center_id')->lists('center_id');
+        $name = '';
+        foreach ($listCenter as $key => $value) {
+            $center = Center::find($value);
+            $name .= $name.$center->name.',';
+        }
+        return $name;
+    }
 }
