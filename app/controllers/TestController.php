@@ -2,6 +2,14 @@
 
 class TestController extends AdminController implements AdminInterface {
 
+	public function getImportStudent(){
+		Excel::load('public/students.xlsx', function($reader) {
+			$reader->formatDates(false);
+			$results = $reader->formatDates(false)->toArray();
+			dd($results);
+		});
+	}
+
 	public function getImportTUser(){
 		Excel::load('public/CTV_T.xlsx', function($reader) {
 			$results = $reader->toArray();
@@ -26,6 +34,7 @@ class TestController extends AdminController implements AdminInterface {
 						'job' => !empty($value['nghe_nghiep']) ? $value['nghe_nghiep'] : '',
 						'personal_email' => !empty($value['email_ca_nhan']) ? $value['email_ca_nhan'] : '',
 						'role_id' => CVHT,
+						'center_id' => $centerId,
 						// 'full_name' => !empty($value['full_name']) ? $value['full_name'] : '',
 						// 'full_name' => !empty($value['full_name']) ? $value['full_name'] : '',
 					];
@@ -85,6 +94,7 @@ class TestController extends AdminController implements AdminInterface {
 						'job' => $bangCap.$khoa.$truong.$xepLoai,
 						'personal_email' => !empty($value['email']) ? $value['email'] : '',
 						'role_id' => CVHT,
+						'center_id' => $centerId,
 						// 'full_name' => !empty($value['full_name']) ? $value['full_name'] : '',
 						// 'full_name' => !empty($value['full_name']) ? $value['full_name'] : '',
 					];
