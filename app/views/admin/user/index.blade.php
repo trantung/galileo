@@ -33,7 +33,7 @@
 			  <td>{{ $user->username }}</td>
 			  <td>{{ $user->email }}</td>
 			  <td>
-				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Sửa</a>
+				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Phân quyền</a>
 			  </td>
 			  <td>
 				<a href=" {{ action('ManagerUserController@edit', $user->id) }} " class="btn btn-primary">Sửa</a>

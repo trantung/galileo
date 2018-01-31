@@ -27,7 +27,15 @@ class DocumentController extends AdminController implements AdminInterface {
                     ->whereNotNull('parent_id');
             }
         } else {
-            $documents = Document::whereNotNull('parent_id');
+            $user = Auth::user()->get();
+            if (isset($user)) {
+                 $listSubject = AccessPermisison::where('model_name', 'User')
+                    ->where('model_id', $user->id)
+                    ->lists('subject_id');
+                // dd($listSubject);
+                 $documents = Document::whereIn('subject_id', $listSubject)
+                    ->whereNotNull('parent_id');
+            }
         }
         if( !empty($input['name']) ){
             $documents = $documents->where('name', 'LIKE', '%'.$input['name'].'%');
