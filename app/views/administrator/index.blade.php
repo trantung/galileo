@@ -22,17 +22,18 @@
 			<td>{{ $admin->email }}</td>
 			<td>{{ $admin->role_id }}</td>
 			<td>
-	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-danger">Phân quyền</a>
+	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-primary">Phân quyền</a>
 			</td>
 			<td>
-	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-danger">Edit</a>
+	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-primary">Edit</a>
 			</td>
+			</td>
+			<td><a href=" {{ action('AdminController@getResetPass', $admin->id) }} " class="btn btn-warning">Reset password</a></td>
 			<td>
 			   {{ Form::open(array('method'=>'DELETE', 'action' => array('AdminController@destroy', $admin->id), 'style' => 'display: inline-block;')) }}
 	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Delete</button>
 	           {{ Form::close() }}
-			</td>
-			<td><a href=" {{ action('AdminController@getResetPass', $admin->id) }} " class="btn btn-warning">Reset password</a></td>
+			
 		</tr>
 		@endforeach
 	</table>

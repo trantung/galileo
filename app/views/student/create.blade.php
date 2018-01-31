@@ -93,7 +93,7 @@
                         <label for="dad_gender">Giới tính </label>
                         <div class="row">
                             <div class="col-sm-6">
-                              {{ Form::select('dad_gender', ['1' => 'nữ', '2' => 'nam'], null, ['class' => 'form-control']) }}
+                              {{ Form::select('dad_gender', ['0' => 'nữ', '1' => 'nam'], null, ['class' => 'form-control']) }}
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
 
     <div class="form-group">
         <label for="gender">Giới tính</label>
-        {{ Form::select('gender', ['nữ' => '1', 'nam' => '2'], null, ['class' => 'form-control']) }}
+        {{ Form::select('gender', ['0' => 'nữ', '1' => 'nam'], null, ['class' => 'form-control']) }}
     </div>
 
     <div class="form-group">

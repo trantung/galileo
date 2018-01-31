@@ -11,8 +11,8 @@ class Family extends Eloquent
     protected $fillable = ['group_id', 'username', 'email', 'password', 'address', 'fullname', 'phone', 'gender'];
     protected $dates = ['deleted_at'];
 
-    public function students() 
+   public function students() 
     {
-        return $this->belongsToMany('Student', 'phone', 'phone_family', 'phone_student');
+        return $this->hasMany('Family', 'id', 'family_id');
     }
 }

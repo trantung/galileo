@@ -33,6 +33,6 @@ class Student extends Eloquent
 
     public function family() 
     {
-        return $this->belongsToMany('Family', 'phone', 'phone_student', 'phone_family');
+        return $this->belongsTo('Family', 'family_id', 'id');
     }
 }

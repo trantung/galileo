@@ -16,22 +16,43 @@
 			<th>Tên đăng nhập</th>
 			<th>Email</th>
 			<th>Số điện thoại</th>
+			<th>Họ tên bố</th>
+			<th>Họ tên mẹ</th>
 			<th>Trung tâm</th>
 			<th>Lớp</td>
+			<th>Ngày nhập học</td>
+			<th>Nguồn</td>
+			<th>Ngày sinh</td>
+			<th>Giới tính</td>
+			<th>Địa chỉ</td>
+			<th>Link facebook</td>
+			<th>Thông tin người đón</th>
+			<th>Lưu ý về học sinh</th>
 			<th>Chương trình đang học</th>
 			<th>Mục tiêu</th>
 			<th width="140px">Action</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
+
 			<td>{{ $key + 1 }}</td>
 			<td>{{ $value->fullname }}</td>
 			<td>{{ $value->code }}</td>
 			<td>{{ $value->username }}</td>
 			<td>{{ $value->email }}</td>
 			<td>{{ $value->phone }}</td>
-			<td>{{ Common::getObject($value->centers , 'name') }}</td>
+			<td>{{ Common::getObject($value->family, 'fullname') }}</td>
+			<td>{{ Common::getObject($value->family, 'phone') }}</td>
+			<td>{{ Common::getObject($value->centers, 'name') }}</td>
 			<td>{{ Common::getObject($value->classes, 'name') }}</td>
+			<td>{{ $value->date_study }}</td>
+			<td>{{ $value->model_name }}</td>
+			<td>{{ $value->birthday }}</td>
+			<td>{{ $value->gender }}</td>
+			<td>{{ $value->address }}</td>
+			<td>{{ $value->link_fb }}</td>
+			<td>{{ $value->info_user }}</td>
+			<td>{{ $value->comment }}</td>
 			<td>
 				@foreach(StudentLevel::where('student_id', $value->id)->where('status', 1)->get() as $studentLevel)
 					{{ Common::getObject($studentLevel->subjects, 'name').' '.Common::getObject($studentLevel->levels, 'name') }}, 

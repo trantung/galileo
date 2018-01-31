@@ -35,12 +35,15 @@ class StudentController extends BaseController {
     {
         $input = Input::except('_token');
         $familyId1 = Family::create(['fullname' => $input['mom_fullname'], 'phone' => $input['mom_phone'], 'gender' => $input['mom_gender']])->id;
+        
         $familyId2 = Family::create(['fullname' => $input['dad_fullname'], 'phone' => $input['dad_phone'], 'gender' => $input['dad_gender']])->id;
+        $input['password'] = Hash::make($input['password']);
         if($familyId1 && $familyId2){
             $studentId = Student::create($input)->id;
         }
-        $family = Family::findOrFail($familyId1)->update(['group_id', $familyId1]);
-        $student = Student::findOrFail($family)->update(['family_id', $familyId1]);
+        $family1 = Family::findOrFail($familyId1)->update(['group_id', $familyId1]);
+        $family2 = Family::findOrFail($familyId2)->update(['group_id', $familyId1]);
+        $student = Student::findOrFail($studentId)->update(['family_id', $familyId1]);
         return Redirect::action('StudentController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
             Học sinh đã được tạo!');
     }

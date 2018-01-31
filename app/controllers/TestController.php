@@ -2,20 +2,102 @@
 
 class TestController extends AdminController implements AdminInterface {
 
+    public function getImportStudent(){
+        Excel::load('public/students.xlsx', function($reader) {
+            $results = $reader->toArray();
+            dd($results);
+            $countInsert = $countUpdate = 0;
+            $countInsert_fa = $countUpdate_fa = 0;
+            foreach ($results as $key => $value) {
+                if(!empty($value['ho_va_ten_hoc_sinh'])){
+                    $field = [
+                        'fullname' => !empty($value['ho_va_ten_hoc_sinh']) ? $value['ho_va_ten_hoc_sinh'] : '',
+                        // 'phone' => !empty($value['phone']) ? $value['phone'] : '',
+                        'code' => !empty($value['ma_hs']) ? $value['ma_hs'] : '',
+                        // 'class_id' => !empty($value['lop']) ? $value['lop'] : '',
+                        // 'center_id' => !empty($value['center_id']) ? $value['center_id'] : '',
+                        'date_study' => !empty($value['ngay_nhap_hoc']) ? $value['ngay_nhap_hoc']->toDateTimeString() : '',
+                        // 'model_name' => !empty($value['nguon']) ? $value['nguon'] : '',
+                        'birthday' => is_object($value['ngay_sinh']) ? $value['ngay_sinh']->toDateTimeString() : '',
+                        'gender' => !empty($value['gioi_tinh']) ? (strtolower($value['gioi_tinh']) == 'nam' ? 1 : 0) : '', 
+                        'address' => !empty($value['dia_chi_hien_tai']) ? $value['dia_chi_hien_tai'] : '',
+                        'school' => !empty($value['truong_hoc']) ? $value['truong_hoc'] : '',
+                        // 'dad_fullname' => !empty($value['ho_va_ten_bo']) ? $value['ho_va_ten_bo'] : '',
+                        // 'dad_phone' => !empty($value['sdt_bo']) ? $value['sdt_bo'] : '',
+                        // 'mom_fullname' => !empty($value['ho_va_ten_me']) ? $value['ho_va_ten_bme'] : '',
+                        // 'mom_phone' => !empty($value['sdt_me']) ? $value['sdt_me'] : '',
+                        'email' => !empty($value['email_nhan_thong_tin']) ? $value['email_nhan_thong_tin'] : '',
+                        'link_fb' => !empty($value['link_fb_ph']) ? $value['link_fb_ph'] : '',
+                        'description' => !empty($value['muc_tieu_sau_khi_hoc_tai_trung_tam']) ? $value['muc_tieu_sau_khi_hoc_tai_trung_tam'] : '',
+                        'time_target' => !empty($value['thoi_gian_can_dat_muc_tieu']) ? $value['thoi_gian_can_dat_muc_tieu'] : '',
+                        'info_user' => !empty($value['thong_tin_nguoi_don']) ? $value['thong_tin_nguoi_don'] : '',
+                        'comment' => !empty($value['luu_y_ve_hoc_sinh']) ? $value['luu_y_ve_hoc_sinh'] : '',
+                        // 'subject_current' => !empty($value['mon_dang_hoc']) ? $value['mon_dang_hoc'] : '',
+                        // 'program_current' => !empty($value['chuong_trinh_dang_hoc']) ? $value['chuong_trinh_dang_hoc'] : '',
+                    ];
+
+                    if(!empty($value['sdt_me'])){
+                        $field_mom = [
+                            'fullname' => !empty($value['ho_va_ten_me']) ? $value['ho_va_ten_me'] : '',
+                            'phone' => !empty($value['sdt_me']) ? $value['sdt_me'] : '',
+                            'gender' => 0
+                        ];
+                        $momId = Common::getObject(Family::Where('phone', $field_mom['phone'])->first(), 'id');
+
+                        if($momId){
+                            CommonNormal::update($momId, $field_mom, 'Family');
+                        }
+                        else{
+                            CommonNormal::create($field_mom, 'Family');
+                        }
+                    }
+
+                    if(!empty($value['sdt_bo'])){
+                        $field_dad = [
+                            'fullname' => !empty($value['ho_va_ten_bo']) ? $value['ho_va_ten_bo'] : '',
+                            'phone' => !empty($value['sdt_bo']) ? $value['sdt_bo'] : '',
+                            'gender' => 1
+                        ];
+                        $dadId = Common::getObject(Family::Where('phone', $field_dad['phone'])->first(), 'id');
+
+                        if($dadId){
+                            CommonNormal::update($dadId, $field_dad, 'Family');
+                        }
+                        else{
+                            CommonNormal::create($field_dad, 'Family');
+                        }
+                    }
+
+                    $studentId = Common::getObject(Student::where('email', $field['email'])->first(), 'id');
+                    if($studentId){
+                        CommonNormal::update($studentId, $field, 'Student');
+                        $countUpdate++;
+                    }
+                    else{
+                        CommonNormal::create($field, 'Student');
+                        $countInsert++;
+                    }
+                }
+            } //End foreach
+            echo 'Đã tạo mới: '.$countInsert.'<br>Đã cập nhật: '.$countUpdate.'<br/>';
+            // echo 'Đã tạo mới: '.$countInsert_fa.'<br>Đã cập nhật: '.$countUpdate_fa;
+        });
+    }
+
     public function getImportTUser(){
+        dd(23232);
         Excel::load('public/CTV_T.xlsx', function($reader) {
             $results = $reader->toArray();
             $centerId = Center::first()->id;
             $centerLevels = CenterLevel::where('center_id', $centerId)->get();
             $subjectId = Subject::where('code', 'T')->first()->id;
-            // dd($subjectId);
             $countInsert = $countUpdate = 0;
             foreach ($results as $key => $value) {
                 if( !empty( $value['email_galileo'] ) ){
                     $field = [
                         'full_name' => !empty($value['ho_ten_day_du']) ? $value['ho_ten_day_du'] : '',
                         'email' => !empty($value['email_galileo']) ? $value['email_galileo'] : '',
-                        'start_date' => !empty($value['ngay_bat_dau_lam']) ? $value['ngay_bat_dau_lam']->toDateTimeString() : '',
+                        'start_date' => is_object($value['ngay_bat_dau_lam']) ? $value['ngay_bat_dau_lam']->toDateTimeString() : '',
                         'birth_day' => is_object($value['ngay_sinh']) ? $value['ngay_sinh']->toDateTimeString() : '',
                         'phone' => !empty($value['so_dien_thoai']) ? '0'.$value['so_dien_thoai'] : '',
                         'current_address' => !empty($value['noi_o_hien_tai']) ? $value['noi_o_hien_tai'] : '',
