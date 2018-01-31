@@ -88,7 +88,7 @@ Danh sách học liệu
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                 @if( Common::getObject($documentP, 'file_url') )
-                                    <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                                    <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentD, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
                                 @endif
                             @endif
                         </td>
