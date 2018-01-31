@@ -29,7 +29,7 @@
 			 @foreach($users as $user)
 			<tr>
 			  <td>{{ $user->id }}</td>
-			  <td>trung tam 1</td>
+			  <td>{{ Common::getCenterByUser($user->id) }}</td>
 			  <td>{{ $user->username }}</td>
 			  <td>{{ $user->email }}</td>
 			  <td>
