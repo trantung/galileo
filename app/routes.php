@@ -113,6 +113,14 @@ Route::group(['prefix' => 'admin'], function () {
     */
     Route::resource('/doc', 'DocumentController');
     Route::controller('/doc', 'DocumentController');
+
+    /*
+        Quản lý gói sản phẩm: CRUD
+        1. Controller: admin/PackageController
+        2. table: packages
+        3. view: admin.package
+    */
+    Route::resource('/package', 'PackageController');
 });
 
 Route::get('/test', function() {

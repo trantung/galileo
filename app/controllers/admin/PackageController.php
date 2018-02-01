@@ -10,7 +10,7 @@ class PackageController extends \BaseController {
 	public function index()
 	{
 		$data = Package::all();
-		return View::make('package.index')->with(compact('data'));
+		return View::make('admin.package.index')->with(compact('data'));
 	}
 
 
@@ -21,7 +21,7 @@ class PackageController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('package.create');
+		return View::make('admin.package.create');
 	}
 
 
@@ -60,7 +60,7 @@ class PackageController extends \BaseController {
 	public function edit($id)
 	{
 		$package = Package::findOrFail($id);
-		return View::make('package.edit')->with(compact('package'));
+		return View::make('admin.package.edit')->with(compact('package'));
 		
 	}
 
