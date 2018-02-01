@@ -27,22 +27,22 @@
 
             <div class="form-group">
                 <label for="fullname">Họ và tên</label>
-                <input type="text" class="form-control" required id="fullname" placeholder="Họ và tên" name="fullname">
+                {{  Form::text('fullname', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Họ và tên' )) }}
             </div>
 
             <div class="form-group">
                 <label for="code">Mã học sinh</label>
-                <input type="text" class="form-control" id="code" placeholder="Mã học sinh" name="code" hidden="hidden">
+                {{  Form::text('code', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Mã học sinh' )) }}
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" required id="email" placeholder="Email" name="email">
+                {{  Form::email('email', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Email' )) }}
             </div>
 
             <div class="form-group">
                 <label for="username">Tên đăng nhập</label>
-                <input type="text" class="form-control" required id="username" placeholder="Tên đăng nhập" name="username">
+                {{  Form::text('username', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Tên đăng nhập' )) }}
             </div>
 
             <div class="form-group">
@@ -52,7 +52,7 @@
 
             <div class="form-group">
                 <label for="center_id">Trung tâm</label>
-                {{  Form::select('center_id',$center, null, array('class' => 'form-control', 'required' => 'required' )) }}
+                {{  Form::select('center_id', ['null' => '--chọn--'] +$center, null, array('class' => 'form-control', 'required' => 'required' )) }}
             </div>
 
             <div class="form-group well well-sm">
@@ -60,20 +60,12 @@
                     <legend>Thông tin về mẹ</legend>
                     <div class="input-group inline-block">
                         <label for="mom_fullname">Họ tên mẹ</label>
-                        <input type="text" class="form-control" required id="mom_fullname" placeholder="Họ tên me" name="mom_fullname" >
+                        {{  Form::text('mom_fullname', null, array('class' => 'form-control', 'placeholder' => 'Họ tên mẹ' )) }} 
+
                     </div>
                     <div class="input-group inline-block">
                         <label for="mom_phone">Số điện thoại</label>
-                        <input type="text" class="form-control" required id="mom_phone" placeholder="Số điện thoại" name="mom_phone">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mom_gender">Giới tính </label>
-                        <div class="row">
-                            <div class="col-sm-6">
-                              {{ Form::select('mom_gender', ['1' => 'nữ', '2' => 'nam'], null, ['class' => 'form-control']) }}
-                            </div>
-                        </div>
+                        {{  Form::text('mom_phone', null, array('class' => 'form-control', 'placeholder' => 'Số điện thoại' )) }}
                     </div>
                 </fieldset>
             </div>
@@ -83,41 +75,14 @@
                 <legend>Thông tin về bố</legend>
                 <div class="input-group inline-block">
                     <label for="dad_fullname">Họ tên bố</label>
-                    <input type="text" class="form-control" required id="dad_fullname" placeholder="Họ tên bố" name="dad_fullname" >
+                    {{  Form::text('dad_fullname', null, array('class' => 'form-control', 'placeholder' => 'Họ tên bố' )) }}
                 </div>
                 <div class="input-group inline-block">
                     <label for="dad_phone">Số điện thoại</label>
-                    <input type="text" class="form-control" required id="dad_phone" placeholder="Số điện thoại" name="dad_phone">
+                    {{  Form::text('dad_phone', null, array('class' => 'form-control', 'placeholder' => 'Số điện thoại' )) }}
                 </div>
-                <div class="form-group">
-                        <label for="dad_gender">Giới tính </label>
-                        <div class="row">
-                            <div class="col-sm-6">
-                              {{ Form::select('dad_gender', ['0' => 'nữ', '1' => 'nam'], null, ['class' => 'form-control']) }}
-                            </div>
-                        </div>
-                    </div>
             </fieldset>
         </div>
-
-
-      <!-- <div class="form-group well well-sm">
-        <fieldset>
-            <legend>Chương trình đang học</legend>
-            <div class="input-group inline-block">
-                <label style="display: block;">Lớp</label>
-                {{ Form::select('class_id', ['' => '-Tất cả-'] + Common::getClassList(), '', ['class' => 'form-control select-class', 'required' => true]) }}
-            </div>
-            <div class="input-group inline-block">
-                <label style="display: block;">Môn học</label>
-                {{ Form::select('subject_id', ['' => '-Tất cả-'] + Common::getSubjectList(), '', ['class' => 'form-control select-subject', 'required' => true, 'multiple' => true]) }}
-            </div>
-            <div class="input-group inline-block select-level-from-class-subject">
-                <label style="display: block;">Trình độ</label>
-                {{ Common::getLevelMultiDropdownList('level_id[]') }}
-            </div>
-        </fieldset>
-    </div> -->
 
     <div class="form-group">
         <label for="date_study">Ngày nhập học</label>
@@ -125,13 +90,8 @@
     </div>
 
     <div class="form-group">
-        <label for="model_id">model id</label>
-        <input type="integer"  class="form-control" required id="model_id" placeholder="Model id" name="model_id">
-    </div>
-
-    <div class="form-group">
-        <label for="model_name">model name</label>
-        <input type="text"  class="form-control" required id="model_name" placeholder="Model name" name="model_name">
+        <label for="model_name">Nguồn</label>
+        {{  Form::text('model_name', null, array('class' => 'form-control', 'placeholder' => 'Người giới thiệu' )) }}
     </div>
 
     <div class="form-group">
@@ -141,42 +101,42 @@
 
     <div class="form-group">
         <label for="gender">Giới tính</label>
-        {{ Form::select('gender', ['0' => 'nữ', '1' => 'nam'], null, ['class' => 'form-control']) }}
+        {{ Form::select('gender', ['null' => '--chọn--', '0' => 'nữ', '1' => 'nam'], null, ['class' => 'form-control']) }}
     </div>
 
     <div class="form-group">
         <label for="address">Địa chỉ</label>
-        <input type="text"  class="form-control" required id="address" placeholder="Địa chỉ" name="address">
+        {{  Form::text('address', null, array('class' => 'form-control', 'placeholder' => 'Địa chỉ' )) }}
     </div>
 
     <div class="form-group">
         <label for="phone">Số điện thoại</label>
-        <input type="text" class="form-control" required id="phone" placeholder="Phone number" name="phone">
+        {{  Form::text('phone', null, array('class' => 'form-control', 'placeholder' => 'Số điện thoại' )) }}
     </div>
 
     <div class="form-group">
         <label for="school">Trường học</label>
-        <input type="text" class="form-control" id="school" placeholder="Trường học" name="school">
+        {{  Form::text('school', null, array('class' => 'form-control', 'placeholder' => 'Trường học' )) }}
     </div>
     
     <div class="form-group">
         <label for="link_fb">Link facebook</label>
-        <input type="text" class="form-control" id="link_fb" placeholder="Link facebook" name="link_fb">
+        {{  Form::text('link_fb', null, array('class' => 'form-control', 'placeholder' => 'Link facebook' )) }}
     </div>
 
     <div class="form-group">
         <label for="description">Mục tiêu</label>
-        <input type="text" class="form-control" id="description" placeholder="Mục tiêu" name="description">
+        {{  Form::text('description', null, array('class' => 'form-control', 'placeholder' => 'Mục tiêu' )) }}
     </div>
 
     <div class="form-group">
         <label for="time_target">Thời gian để đạt mục tiêu</label>
-        <input type="text" class="form-control" id="time_target" placeholder="Thời gian để đạt mục tiêu" name="time_target">
+        {{  Form::text('time_target', null, array('class' => 'form-control', 'placeholder' => 'Thời gian để đạt mục tiêu' )) }}
     </div>
 
     <div class="form-group">
         <label for="info_user">Thông tin người đón</label>
-        <input type="text" class="form-control" id="info_user" placeholder="Thông tin người đón" name="info_user">
+        {{  Form::text('info_user', null, array('class' => 'form-control', 'placeholder' => 'Thông tin người đón' )) }}
     </div>
 
     <div class="form-group">
@@ -186,7 +146,7 @@
 
     <div class="form-group">
         <label for="program_current">Chương trình đang học</label>
-        <input type="text"  class="form-control" required id="program_curent" placeholder="Chương trình đang học" name="program_current">
+        {{  Form::text('program_current', null, array('class' => 'form-control', 'placeholder' => 'Chương trình đang học' )) }}
     </div>
 
 </div>
