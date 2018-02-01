@@ -23,14 +23,18 @@
 			  <th>Trung tâm</th>
 			  <th>Username</th>
 			  <th>Email</th>
+			  <th>Phân quyền</th>
 			  <th style="width:300px;">Action</th>
 			</tr>
 			 @foreach($users as $user)
 			<tr>
 			  <td>{{ $user->id }}</td>
-			  <td>{{ $user->center->name }}</td>
+			  <td>{{ Common::getCenterByUser($user->id) }}</td>
 			  <td>{{ $user->username }}</td>
 			  <td>{{ $user->email }}</td>
+			  <td>
+				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Phân quyền</a>
+			  </td>
 			  <td>
 				<a href=" {{ action('ManagerUserController@edit', $user->id) }} " class="btn btn-primary">Sửa</a>
 				<a href=" {{ action('ManagerUserController@getResetPass', $user->id) }} " class="btn btn-primary">Reset password</a>

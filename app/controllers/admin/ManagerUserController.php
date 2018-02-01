@@ -193,5 +193,16 @@ class ManagerUserController extends AdminController implements AdminInterface{
         return Redirect::action('ManagerUserController@index');
 
     }
+    public function getPermission($userId)
+    {
+        $user = User::find($userId);
+        return View::make('admin.user.permission')->with(compact('userId', 'user'));
+    }
+    public function postPermission($userId)
+    {
+        $input = Input::all();
+        Common::permissionDoc('User', $userId, $input);
+        return Redirect::action('ManagerUserController@getPermission', $userId);
+    }
 }
 

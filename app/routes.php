@@ -12,6 +12,28 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/update_password_user', function(){
+    User::orderBy('id','asc')->update(['password' => Hash::make('123456')]);
+    dd(111);
+});
+Route::get('/update_username_user', function(){
+    $list = User::all();
+    foreach ($list as $key => $value) {
+        $email = $value->email;
+        $str = explode('@', $email);
+        $value->update(['username' => $str[0]]);
+    }
+    dd(111);
+});
+Route::get('/test/insertdb/T', 'TestController@insert');
+Route::get('/test/insertdb/V', 'TestController@insertVan');
+Route::get('/test/updatedb', 'TestController@updatedb');
+Route::get('/test/updatedb/T', 'TestController@updatedbT');
+Route::get('/test/import', 'TestController@import');
+Route::controller('/test', 'TestController');
+
+Route::resource('/', 'AdminController');
+    
 Route::get('/parent/update', function(){
     $docs = Document::groupBy('lesson_id')->get();
     foreach ($docs as $key => $doc) {
@@ -72,6 +94,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/user/{id}/reset-password', 'ManagerUserController@getResetPass');
     Route::post('/user/{id}/reset-password', 'ManagerUserController@postResetPass');
     Route::resource('/user', 'ManagerUserController');
+    Route::controller('/user', 'ManagerUserController');
     Route::resource('/', 'AdminController');
 
     /*
@@ -89,13 +112,8 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.level.show
     */
     Route::resource('/doc', 'DocumentController');
+    Route::controller('/doc', 'DocumentController');
 });
-
-
-
-
-
-
 
 Route::get('/test', function() {
     $input = [
@@ -122,16 +140,16 @@ Route::get('/test/login/partner', function(){
     $checkLogin = Auth::admin()->attempt($input);
     // $checkLogin = Auth::partner()->attempt($input);
     dd($checkLogin);
-    Route::resource('/', 'AdminController');
 });
 Route::group(['prefix' => 'partner'], function () {
     // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
     // Route::post('/login', array('uses' => 'UserController@doLogin'));
-    Route::resource('/', 'UserController');
+    // Route::resource('/', 'UserController');
 });
 Route::group(['prefix' => 'user'], function () {
-    // Route::get('/login', array('uses' => 'UserController@login', 'as' => 'admin.login'));
-    // Route::post('/login', array('uses' => 'UserController@doLogin'));
+    Route::get('/login', array('uses' => 'UserController@login'));
+    Route::post('/login', array('uses' => 'UserController@doLogin'));
+    Route::get('/logout', 'UserController@logout');
     Route::resource('/', 'UserController');
 });
 // Route::post('/ajax/{method}', 'AjaxController@process');

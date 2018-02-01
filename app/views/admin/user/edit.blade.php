@@ -31,7 +31,7 @@ Chỉnh sửa thành viên
         <div class="panel-body">
             <div class="form-group">
                 {{ Form::label('center_id', 'Trực thuộc trung tâm:') }}
-                {{ Form::select('center_id', ['' => '-- Chọn --'] + Common::getAllCenter(), Common::getObject($data, 'center_id'), ['class' => 'form-control select-center', 'required' =>'']) }}
+                {{ Form::select('center_id', ['' => '-- Chọn --'] + Common::getAllCenter(), Common::getObject($listDatata, 'center_id'), ['class' => 'form-control select-center', 'required' =>'']) }}
             </div>
             <div class="get-list-level-by-center-wrap">
             	@include('ajax.get_level_by_center', $listData+['levelData' => $levelData])
