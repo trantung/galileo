@@ -9,7 +9,7 @@
 	<table class ="table table-bordered table-striped table-hover">
 		<tr>
 			<th>Tên gói</th>
-			<th>Sô buổi học trong tuần</th>
+			<th>Số buổi học trong tuần</th>
 			<th>Tổng số buổi</th>
 			<th>Thời gian mỗi buổi học</th>
 			<th>Giá tiền</th>						
