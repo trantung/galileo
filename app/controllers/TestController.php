@@ -102,19 +102,19 @@ class TestController extends AdminController implements AdminInterface {
     }
 
     public function getImportTUser(){
-        dd(23232);
         Excel::load('public/CTV_T.xlsx', function($reader) {
             $results = $reader->toArray();
             $centerId = Center::first()->id;
             $centerLevels = CenterLevel::where('center_id', $centerId)->get();
             $subjectId = Subject::where('code', 'T')->first()->id;
+            // dd($subjectId);
             $countInsert = $countUpdate = 0;
             foreach ($results as $key => $value) {
                 if( !empty( $value['email_galileo'] ) ){
                     $field = [
                         'full_name' => !empty($value['ho_ten_day_du']) ? $value['ho_ten_day_du'] : '',
                         'email' => !empty($value['email_galileo']) ? $value['email_galileo'] : '',
-                        'start_date' => is_object($value['ngay_bat_dau_lam']) ? $value['ngay_bat_dau_lam']->toDateTimeString() : '',
+                        'start_date' => !empty($value['ngay_bat_dau_lam']) ? $value['ngay_bat_dau_lam']->toDateTimeString() : '',
                         'birth_day' => is_object($value['ngay_sinh']) ? $value['ngay_sinh']->toDateTimeString() : '',
                         'phone' => !empty($value['so_dien_thoai']) ? '0'.$value['so_dien_thoai'] : '',
                         'current_address' => !empty($value['noi_o_hien_tai']) ? $value['noi_o_hien_tai'] : '',
