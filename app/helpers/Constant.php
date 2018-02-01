@@ -29,6 +29,14 @@ define('D', 2);
 define('NAM', 1);
 define('NU', 0);
 
+define('T2', 2);
+define('T3', 3);
+define('T4', 4);
+define('T5', 5);
+define('T6', 6);
+define('T7', 7);
+define('CN', 8);
+
 /*
 ----------------------------
 */

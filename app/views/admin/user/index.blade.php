@@ -23,7 +23,7 @@
 			  <th>Trung tâm</th>
 			  <th>Username</th>
 			  <th>Email</th>
-			  <th style="width:300px;">Action</th>
+			  <th style="width:350px;">Action</th>
 			</tr>
 			 @foreach($users as $user)
 			<tr>
@@ -32,6 +32,7 @@
 			  <td>{{ $user->username }}</td>
 			  <td>{{ $user->email }}</td>
 			  <td>
+			  	<a href=" {{ action('ManagerUserController@getSetTime', $user->id) }} " class="btn btn-primary">Set lịch</a>
 				<a href=" {{ action('ManagerUserController@edit', $user->id) }} " class="btn btn-primary">Sửa</a>
 				<a href=" {{ action('ManagerUserController@getResetPass', $user->id) }} " class="btn btn-primary">Reset password</a>
 

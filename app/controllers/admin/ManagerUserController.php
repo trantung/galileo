@@ -23,6 +23,17 @@ class ManagerUserController extends AdminController implements AdminInterface{
      *
      * @return Response
      */
+
+    public function getSetTime($id){
+        return View::make('admin.user.set-time')->with(compact('id'));
+    }
+
+    public function postSetTime($id){
+        $input = Input::all();
+        
+
+    }
+
     public function create()
     {
         return View::make('admin.user.create');

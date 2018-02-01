@@ -67,6 +67,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/partner/{id}/reset-password', 'ManagerPartnerController@postResetPass');
     Route::resource('/partner', 'ManagerPartnerController');
 
+     Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
+    Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
+
     Route::resource('/class', 'ClassController');
 	Route::resource('/subject', 'SubjectController');
 
