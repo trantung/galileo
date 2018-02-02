@@ -6,6 +6,9 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.5 -->
 	
+    {{ HTML::style('calendar/fullcalendar.min.css') }}
+    {{ HTML::style('calendar/fullcalendar.print.css') }}
+
 	{{HTML::style('adminlte/bootstrap/css/bootstrap.min.css') }}
 	<!-- Font Awesome -->
 	{{HTML::style('adminlte/dist/css/font-awesome.min.css') }}
@@ -41,6 +44,7 @@
 	{{ HTML::script('adminlte/plugins/jQuery/jQuery-2.1.4.min.js') }}
 	<!-- jQuery UI 1.11.4 -->
 	{{ HTML::script('adminlte/plugins/jQueryUI/jquery-ui.min.js') }}
+
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
 	{{-- <script>
@@ -62,6 +66,9 @@
 	<!-- AdminLTE App -->
 	{{ HTML::script('adminlte/dist/js/app.min.js') }}
 	{{ HTML::script('custom/js/print.min.js') }}
+	
+	{{ HTML::script('calendar/moment.min.js') }}
+	{{ HTML::script('calendar/fullcalendar.min.js') }}
 	@yield('js_header')
 
 </head>

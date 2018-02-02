@@ -12,6 +12,8 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/calendar_test', 'TestController@calendar');
+
 Route::get('/update_password_user', function(){
     User::orderBy('id','asc')->update(['password' => Hash::make('123456')]);
     dd(111);
