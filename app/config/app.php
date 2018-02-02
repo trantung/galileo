@@ -123,7 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		"Ollieread\Multiauth\MultiauthServiceProvider",
 		"Maatwebsite\Excel\ExcelServiceProvider",
-	    // 'Barryvdh\Debugbar\ServiceProvider',
+	    'Barryvdh\Debugbar\ServiceProvider',
 
 	),
 
@@ -192,8 +192,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Excel' 		  => 'Maatwebsite\Excel\Facades\Excel',
-		// 'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
-
+		'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
 	),
 
 );
