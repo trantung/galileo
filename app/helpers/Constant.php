@@ -1,5 +1,6 @@
 <?php
 define('ADMIN', 1);
+define('BTV', 2);
 
 define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 /*
@@ -25,10 +26,19 @@ define('P', 1);
 //Đáp án
 define('D', 2);
 
+////// các ngày trong tuần
+define('T2', 2);
+define('T3', 3);
+define('T4', 4);
+define('T5', 5);
+define('T6', 6);
+define('T7', 7);
+define('CN', 8);
 /*
 ----------------------------
 */
 define('THL', 'THL');
-define('KEY_API', '0Awysl3eP1j6tdmH');
+define('ACTIVE', 1);
+define('INACTIVE', 2);
 
 
