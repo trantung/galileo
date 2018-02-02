@@ -18,6 +18,29 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $users = User::paginate(30);
         return View::make('admin.user.index')->with(compact('users'));
     }
+
+    public function getSetTime($id){
+        return View::make('admin.user.set-time')->with(compact('id'));
+    }
+
+    public function postSetTime($id){
+        $input = Input::all();
+        foreach ($input['time'] as $key => $value) {
+            foreach ($value as $key2 => $time) {
+                dd($input);
+                if(!empty($time['start']) && !empty($time['end']) ){
+                    FreeTimeUser::create([
+                        'user_id' => $id, 
+                        'time_id' => $key,
+                        'start_time' => $time['start'],
+                        'end_time' => $time['end']
+                    ]);
+                }
+            }
+        }
+        return View::make('admin.user.set-time')->with(compact('id'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -83,7 +106,6 @@ class ManagerUserController extends AdminController implements AdminInterface{
     {
         $data = User::findOrFail($id);
         $levelData = Common::getLevelOfUser($id);
-        $listData = Common::getClassSubjectLevelOfCenter($data->center_id);
         return View::make('admin.user.edit')->with( compact('listData', 'data', 'levelData') );
     }
     /**
@@ -192,6 +214,17 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $user->update(['pass' => $password]);
         return Redirect::action('ManagerUserController@index');
 
+    }
+    public function getPermission($userId)
+    {
+        $user = User::find($userId);
+        return View::make('admin.user.permission')->with(compact('userId', 'user'));
+    }
+    public function postPermission($userId)
+    {
+        $input = Input::all();
+        Common::permissionDoc('User', $userId, $input);
+        return Redirect::action('ManagerUserController@getPermission', $userId);
     }
 }
 

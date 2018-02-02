@@ -12,12 +12,11 @@ Danh sách học liệu
 @section('content')
 
 @include('admin.document.filter')
-
 <table class="table table-bordered table-responsive">
     <thead>
         <tr class="bg-primary">
             <th width="50px" class="text-center">STT</th>
-            <th>Tên học liệu</th>
+            <th>Trạng thái</th>
             <th>Loại học liệu</th>
             <th>Mã phiếu</th>
             <th>Lớp</th>
@@ -38,14 +37,16 @@ Danh sách học liệu
                         $documentD = Common::getDocument($document, D);
                     ?>
                     @if($documentP)
-                        <td>{{ Common::getObject($documentP, 'name') }}</td>
+                        <td>{{ getStatusDoc($document) }}</td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
                         </td>
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
-                            @if( Common::getObject($documentP, 'file_url') )
-                                <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                            @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
+                                @if( Common::getObject($documentP, 'file_url') )
+                                    <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                                @endif
                             @endif
                         </td>
                         <td>
@@ -79,14 +80,16 @@ Danh sách học liệu
                 @for ($i = 1; $i < $countSubject; $i++)
                     <tr class="bg-warning">
                         @if($documentD)
-                        <td>{{ Common::getObject($documentD, 'name') }}</td>
+                        <td>{{ getStatusDoc($document) }}</td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
                         </td>
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
-                            @if( Common::getObject($documentP, 'file_url') )
-                                <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                            @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
+                                @if( Common::getObject($documentP, 'file_url') )
+                                    <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentD, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                                @endif
                             @endif
                         </td>
                         @else

@@ -43,4 +43,8 @@ class AjaxController extends \BaseController {
 
         return Response::json($input);
     }
+    public function getPrint()
+    {
+
+    }
 }

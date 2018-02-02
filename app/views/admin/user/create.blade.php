@@ -33,13 +33,18 @@ Tạo mới thành viên
             <h3 class="panel-title">Thông tin thành viên</h3>
         </div>
         <div class="panel-body">
-            <div class="form-group">
-                {{ Form::label('center_id', 'Trực thuộc trung tâm:') }}
-                {{ Form::select('center_id', ['' => '-- Chọn --'] + Common::getAllCenter(), '', ['class' => 'form-control select-center', 'required' =>'']) }}
-            </div>
-            <div class="get-list-level-by-center-wrap">
-            	
-            </div>
+            @foreach (Common::getAllCenter() as $centerId => $center)
+                <?php $listData = Common::getClassSubjectLevelOfCenter($centerId); ?>
+                <div class="form-group checkbox">
+                    <label for="center-{{ $centerId }}">
+                        {{ Form::checkbox( '', $centerId, false, ['id' => 'center-'.$centerId] ) . $center }}
+                    </label>
+
+                    <div class="get-list-level-by-center-wrap">
+                        @include('ajax.get_level_by_center', $listData+['centerId' => $centerId])
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 

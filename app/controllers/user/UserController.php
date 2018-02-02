@@ -1,7 +1,7 @@
 <?php
-class UserController extends AdminController implements AdminInterface {
+class UserController extends BaseController implements UserInterface {
     public function __construct() {
-        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        $this->beforeFilter('user', array('except'=>array('login','doLogin', 'logout')));
     }
 	/**
 	 * Display a listing of the resource.
@@ -10,12 +10,7 @@ class UserController extends AdminController implements AdminInterface {
 	 */
 	public function index()
 	{
-		// $roleId = Auth::user()->role_id;
-		// if ($roleId == 1) {
-		// 	//
-		// }
-		$users = User::all();
-		return View::make('admin.user.index')->with(compact('users'));
+		return View::make('user.index');
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -77,15 +72,11 @@ class UserController extends AdminController implements AdminInterface {
 	}
     public function login()
     {
-    	$checkLogin = Auth::admin()->check();
+    	$checkLogin = Auth::user()->check();
         if($checkLogin) {
-	    	if (Auth::admin()->get()->status == ACTIVE) {
-	    		return Redirect::action('ManagerController@edit', Auth::admin()->get()->id);
-	    	}else{
-	    		return View::make('admin.layout.login')->with(compact('message','chưa kich hoat'));
-	    	}
+	    	return Redirect::action('UserController@index');
         } else {
-            return View::make('admin.layout.login');
+            return View::make('user.layout.login');
         }
     }
     public function doLogin()
@@ -97,23 +88,24 @@ class UserController extends AdminController implements AdminInterface {
         $input = Input::except('_token');
         $validator = Validator::make($input, $rules);
         if ($validator->fails()) {
-            return Redirect::route('admin.login')
+            return Redirect::action('UserController@login')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
-            $checkLogin = Auth::admin()->attempt($input);
+            $checkLogin = Auth::user()->attempt($input);
             if($checkLogin) {
-        		return Redirect::action('NewsController@index');
+            	// dd(5555);
+        		return Redirect::action('UserController@index');
             } else {
-                return Redirect::route('admin.login');
+                return Redirect::action('UserController@login');
             }
         }
     }
     public function logout()
     {
-        Auth::admin()->logout();
+        Auth::user()->logout();
         Session::flush();
-        return Redirect::route('admin.login');
+        return Redirect::action('UserController@login');
     }
 }
 
