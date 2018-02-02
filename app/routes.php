@@ -93,6 +93,10 @@ Route::group(['prefix' => 'admin'], function () {
     */
     Route::get('/user/{id}/reset-password', 'ManagerUserController@getResetPass');
     Route::post('/user/{id}/reset-password', 'ManagerUserController@postResetPass');
+    
+    Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
+    Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
+
     Route::resource('/user', 'ManagerUserController');
     Route::controller('/user', 'ManagerUserController');
     Route::resource('/', 'AdminController');

@@ -18,6 +18,29 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $users = User::all();
         return View::make('admin.user.index')->with(compact('users'));
     }
+
+    public function getSetTime($id){
+        return View::make('admin.user.set-time')->with(compact('id'));
+    }
+
+    public function postSetTime($id){
+        $input = Input::all();
+        foreach ($input['time'] as $key => $value) {
+            foreach ($value as $key2 => $time) {
+                dd($input);
+                if(!empty($time['start']) && !empty($time['end']) ){
+                    FreeTimeUser::create([
+                        'user_id' => $id, 
+                        'time_id' => $key,
+                        'start_time' => $time['start'],
+                        'end_time' => $time['end']
+                    ]);
+                }
+            }
+        }
+        return View::make('admin.user.set-time')->with(compact('id'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
