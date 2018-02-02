@@ -302,6 +302,8 @@ class Common {
                     $uploadSuccess = move_uploaded_file($v, public_path().$fileUrl);
                     if( $uploadSuccess ){
                         $doc['file_url'] = $fileUrl;
+                        $count = Document::where('lesson_id', $doc['lesson_id'])->count();
+                        $doc['order'] = $count + 1;
                         if ($arrayP == null) {
                             $array[$k] = $docId = Document::create($doc)->id;
                             $parentId = $docId;
@@ -309,7 +311,6 @@ class Common {
                             $parentId = $arrayP[$k];
                             $docId = Document::create($doc)->id;
                         }
-
                         /// Update code after insert document
                         $code = getCodeDocument($docId);
                         Document::find($docId)->update(['code' => $code, 'parent_id' => $parentId]);

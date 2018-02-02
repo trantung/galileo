@@ -102,10 +102,11 @@ function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
         $permissionId = null;
         $permission = Permission::where('controller', $controllerName)
             ->where('action', $method)
-            ->first();
-        if ($permission) {
-            $permissionId = $permission->id;
-        }
+            ->lists('id');
+        // dd($permission);
+        // if ($permission) {
+        //     $permissionId = $permission->id;
+        // }
         $subjectId = null;
         if ($action = 'DocumentController') {
             $parentId = $parameter;
@@ -114,14 +115,21 @@ function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
                 $subjectId = $doc->subject_id;
             }
         }
-        $listPermission = getListPermission($subjectId);
-        if (!$permissionId) {
-            return false;
+        // dd($permission);
+        $listPermissionUser = getListPermission($subjectId);
+        // dd($permission);
+        // dd($listPermissionUser);
+        // if (!$permissionId) {
+        //     return false;
+        // }
+        // if (!array_diff($listPermissionUser, $permission)) {
+        //     return false;
+        // }
+        foreach ($permission as $k => $perId) {
+            if (!in_array($perId, $listPermissionUser)) {
+                return false;
+            }
         }
-        if (!in_array($permissionId, $listPermission)) {
-            return false;
-        }
-        
         return $url;
     }
     return false;
