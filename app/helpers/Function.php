@@ -56,6 +56,7 @@ function getMethodDefault($classController)
         'edit' => $classController,
         'update' => $classController,
         'destroy' => $classController,
+        'getPrint' => $classController,
     ];
     return $array;
 }
@@ -88,8 +89,10 @@ function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
 {
     $url = app('html')->linkAction($actionOld, $title, $parameter, $att);
     $admin = Auth::admin()->get();
-    if ($admin->role_id == ADMIN) {
-        return $url;
+    if (isset($admin)) {
+        if ($admin->role_id == ADMIN) {
+            return $url;
+        }
     }
     $array = checkPermission();
     if ($array) {
@@ -107,7 +110,9 @@ function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
         if ($action = 'DocumentController') {
             $parentId = $parameter;
             $doc = Document::where('parent_id', $parentId)->first();
-            $subjectId = $doc->subject_id;
+            if ($doc) {
+                $subjectId = $doc->subject_id;
+            }
         }
         $listPermission = getListPermission($subjectId);
         if (!$permissionId) {
@@ -130,6 +135,13 @@ function checkPermission()
         $array = [];
         $array['model_name'] = 'Admin';
         $array['model_id'] = $admin->id;
+        return $array;
+    }
+    $user = Auth::user()->get();
+    if ($user) {
+        $array = [];
+        $array['model_name'] = 'User';
+        $array['model_id'] = $user->id;
         return $array;
     }
     return false;
@@ -161,9 +173,12 @@ function checkPermissionForm($actionOld, $title, $parameter)
 function checkUrlPermission($route)
 {
     $admin = Auth::admin()->get();
-    if ($admin->role_id == ADMIN) {
-        return true;
+    if (isset($admin)) {
+        if ($admin->role_id == ADMIN) {
+            return true;
+        }
     }
+    $array = checkPermission();
     $action = explode("@", $route);
     $controllerName = $action[0];
     $method = $action[1];
@@ -173,8 +188,8 @@ function checkUrlPermission($route)
     if (count($listPer) == 0) {
         return false;
     }
-    $access = AccessPermisison::where('model_name', 'Admin')
-        ->where('model_id', $admin->id)
+    $access = AccessPermisison::where('model_name', $array['model_name'])
+        ->where('model_id', $array['model_id'])
         ->whereIn('permission_id', $listPer)
         ->get();
     if (count($access) == 0) {
@@ -182,6 +197,7 @@ function checkUrlPermission($route)
     }
     return true;
 }
+
 function convert_api($src_format, $dst_format, $files, $parameters) {
     $parameters = array_change_key_case($parameters);
     $auth_param = array_key_exists('secret', $parameters) ? 'secret='.$parameters['secret'] : 'token='.$parameters['token'];
@@ -270,4 +286,13 @@ function clean($string) {
    $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 
    return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+}
+function getStatusDoc($doc)
+{
+    if ($doc->status == ACTIVE) {
+        return 'Đã kiểm duyệt';
+    }
+    if ($doc->status == INACTIVE) {
+        return 'Chưa kiểm duyệt';
+    }
 }

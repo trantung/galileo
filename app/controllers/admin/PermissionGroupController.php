@@ -60,9 +60,6 @@ class PermissionGroupController extends \BaseController {
 	public function edit($id)
 	{
 		$group = PermissionGroup::find($id);
-		// $methods = get_class_methods ('SubjectController');
-		// dd($methods);
-
 		return View::make('admin.permission.group.edit')->with(compact('group'));
 	}
 

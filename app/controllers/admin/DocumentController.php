@@ -14,16 +14,28 @@ class DocumentController extends AdminController implements AdminInterface {
     {
         $input = Input::all();
         $admin = Auth::admin()->get();
-        if ($admin->role_id == ADMIN) {
-            $documents = Document::whereNotNull('parent_id')->groupBy('parent_id');
-        }
-        if ($admin->role_id == BTV) {
-            $listSubject = AccessPermisison::where('model_name', 'Admin')
-                ->where('model_id', $admin->id)
-                ->lists('subject_id');
-             $documents = Document::whereIn('subject_id', $listSubject)
-                ->whereNotNull('parent_id')
-                ->groupBy('parent_id');
+        if (isset($admin)) {
+            if ($admin->role_id == ADMIN) {
+                $documents = Document::whereNotNull('parent_id');
+            }
+            if ($admin->role_id == BTV) {
+                $listSubject = AccessPermisison::where('model_name', 'Admin')
+                    ->where('model_id', $admin->id)
+                    ->lists('subject_id');
+                // dd($listSubject);
+                 $documents = Document::whereIn('subject_id', $listSubject)
+                    ->whereNotNull('parent_id');
+            }
+        } else {
+            $user = Auth::user()->get();
+            if (isset($user)) {
+                 $listSubject = AccessPermisison::where('model_name', 'User')
+                    ->where('model_id', $user->id)
+                    ->lists('subject_id');
+                // dd($listSubject);
+                 $documents = Document::whereIn('subject_id', $listSubject)
+                    ->whereNotNull('parent_id');
+            }
         }
         if( !empty($input['name']) ){
             $documents = $documents->where('name', 'LIKE', '%'.$input['name'].'%');
@@ -34,7 +46,21 @@ class DocumentController extends AdminController implements AdminInterface {
         if( !empty($input['subject_id']) ){
             $documents = $documents->where('subject_id', $input['subject_id']);
         }
-        $documents = $documents->paginate(30);
+        if( !empty($input['status']) ){
+            $documents = $documents->where('status', $input['status']);
+        }
+        if( !empty($input['level_id']) ){
+            $documents = $documents->where('level_id', $input['level_id']);
+            if( isset($input['lesson_code']) ){
+                $lesson = Lesson::where('level_id', $input['level_id'])
+                    ->where('code', $input['lesson_code'])
+                    ->first();
+                if ($lesson) {
+                    $documents = $documents->where('lesson_id', $lesson->id);
+                }
+            }
+        }
+        $documents = $documents->groupBy('parent_id')->paginate(30);
         return View::make('admin.document.index')->with(compact('documents'));
     }
 
@@ -149,7 +175,10 @@ class DocumentController extends AdminController implements AdminInterface {
         Document::where('parent_id', $id)->delete();
         return Redirect::action('DocumentController@index');
     }
+    public function getPrint()
+    {
 
+    }
 
 }
 

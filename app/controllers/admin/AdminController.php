@@ -110,10 +110,26 @@ class AdminController extends BaseController {
                 return Redirect::action('AdminController@login');
             }
         }
+        
+        if ($validator->fails()) {
+            return Redirect::action('UserController@login')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            $checkLogin = Auth::user()->attempt($input);
+            if($checkLogin) {
+                // dd(5555);
+                return Redirect::action('UserController@index');
+            } else {
+                return Redirect::action('UserController@login');
+            }
+        }
+
     }
     public function logout()
     {
         Auth::admin()->logout();
+        Auth::user()->logout();
         // Session::flush();
         return Redirect::action('AdminController@login');
     }
