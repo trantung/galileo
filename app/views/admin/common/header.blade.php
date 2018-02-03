@@ -45,6 +45,19 @@
 
 	{{-- <script>
 		$.widget.bridge('uibutton', $.ui.button);
+
+		$('#datepairExample .time').timepicker({
+        'showDuration': true,
+        'timeFormat': 'g:ia'
+	    });
+
+	    $('#datepairExample .date').datepicker({
+	        'format': 'yyyy-m-d',
+	        'autoclose': true
+	    });
+
+	    // initialize datepair
+	    $('#datepairExample').datepair();
 	</script> --}}
 	<!-- Bootstrap 3.3.5 -->
 	{{ HTML::script('adminlte/bootstrap/js/bootstrap.min.js') }}

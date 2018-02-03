@@ -33,10 +33,6 @@ class AddFieldsToStudentsTable extends Migration {
             $table->string('info_user', 255)->nullable();
             $table->longText('comment')->nullable();
             $table->integer('number_program')->nullable();
-            $table->longText('program_learned')->nullable();
-            $table->string('subject_current', 255)->nullable();
-            $table->longText('program_current')->nullable();
-
         });
 	}
 
@@ -68,9 +64,6 @@ class AddFieldsToStudentsTable extends Migration {
             $table->dropColumn('info_user');
             $table->dropColumn('comment');
             $table->dropColumn('number_program');
-            $table->dropColumn('program_learned');
-            $table->dropColumn('subject_current');
-            $table->dropColumn('program_current');
         });
 	}
 

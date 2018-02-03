@@ -19,7 +19,7 @@ class FreeTimeUserTable extends Migration {
 		    $table->integer('time_id')->nullable();
 		    $table->string('start_time', 225)->nullable();
 		    $table->string('end_time', 225)->nullable();
-		    $table->tinyInteger('status')->nullable();
+		    $table->tinyInteger('status')->default(1)->nullable();
 		    $table->softDeletes();
 		    $table->timestamps();
 		});
