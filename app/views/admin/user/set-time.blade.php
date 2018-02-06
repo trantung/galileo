@@ -39,12 +39,7 @@ Tạo lịch cố vấn học tập
                   {{ Form::text('end_time_old[2]['.$key2.']', $value2->end_time, array('class' => 'time end')) }}
                   <button type="button" class="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                  </button>  
-
-                  {{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerUserController@detroy', $value2->user_id), 'style' => 'display: inline-block;')) }}
-                  <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Delete</button>
-                    
-                  {{ Form::close() }}
+                  </button>                
                 </div>  <!-- thứ 2     -->          
               @endforeach
               <hr>
@@ -197,8 +192,7 @@ Tạo lịch cố vấn học tập
 {{ Form::close() }}
 <div class="clear clearfix"></div>
   <!-- time picker -->
-<!--     <script src="http://jonthornton.github.io/Datepair.js/dist/datepair.js"></script>
-    <script src="http://jonthornton.github.io/Datepair.js/dist/jquery.datepair.js"></script> -->
+
     <script type="text/javascript" src="{{ asset('jquery-timepicker/datepair.js') }}"></script>
     <script type="text/javascript" src="{{ asset('jquery-timepicker/jquery.datepair.js') }}"></script>
     <script>
