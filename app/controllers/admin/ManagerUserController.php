@@ -126,7 +126,15 @@ class ManagerUserController extends AdminController implements AdminInterface{
     {
         $data = User::findOrFail($id);
         $levelData = Common::getLevelOfUser($id);
-        $listData = Common::getClassSubjectLevelOfCenter($data->center_id);
+        $centerLevelId = UserCenterLevel::where('user_id', $id)
+            ->groupBy('center_level_id')
+            ->lists('center_level_id');
+        //TODO
+        $center = CenterLevel::whereIn('id', $centerLevelId)
+            ->groupBy('center_id')
+            ->first();
+        $centerId = $center->id;
+        $listData = Common::getClassSubjectLevelOfCenter($centerId);
         return View::make('admin.user.edit')->with( compact('listData', 'data', 'levelData') );
     }
 
