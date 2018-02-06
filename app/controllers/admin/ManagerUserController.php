@@ -31,14 +31,13 @@ class ManagerUserController extends AdminController implements AdminInterface{
                 'end_time' => $value->end_time,
             ];
         }
-        // dd($data);
 
         return View::make('admin.user.set-time')->with(compact('id', 'data'));
     }
 
     public function postSetTime($id)
     {
-        
+
         $input = Input::all();
         FreeTimeUser::where('user_id', $id)->delete();
         foreach ($input['start_time'] as $key => $value) {

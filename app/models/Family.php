@@ -8,7 +8,7 @@ class Family extends Eloquent
 
     protected $table = 'family';
     protected $hidden = array('password', 'remember_token');
-    protected $fillable = ['group_id', 'username', 'email', 'password', 'address', 'fullname', 'phone', 'gender'];
+    protected $fillable = ['group_id', 'email', 'password', 'gender', 'username', 'fullname', 'phone', 'address'];
     protected $dates = ['deleted_at'];
 
    public function students() 

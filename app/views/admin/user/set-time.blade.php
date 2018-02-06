@@ -19,7 +19,7 @@ Tạo lịch cố vấn học tập
                     <fieldset class="form-group col-sm-4">
                         <div class="well well-sm col-sm-12">
                             <legend>{{ ($i == 8) ? 'Chủ nhật' : 'Thứ '.$i }}</legend>
-                            @for( $j = 0; $j < 8; $j++ )
+                            @for( $j = 0; $j < 8 ; $j++ )
                                 <div class="item new">
                                     <div class="form-group col-sm-6">
                                         <label>Bắt đầu:</label>
