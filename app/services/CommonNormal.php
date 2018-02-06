@@ -37,7 +37,7 @@ class CommonNormal
 		$name = self::commonName($name);
 		$name::find($id)->update($input);
 	}
-
+	
 	public static function create($input, $name = NULL)
 	{
 		$name = self::commonName($name);
@@ -111,5 +111,5 @@ class CommonNormal
 			} return true;
 		} return false;
 	}
-
+	
 }

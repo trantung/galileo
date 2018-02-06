@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateParentsStudentsTable extends Migration {
+class CreateStudentLevelTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,12 @@ class CreateParentsStudentsTable extends Migration {
 	 */
 	public function up()
     {
-        Schema::create('parent_student', function(Blueprint $table) {
+        Schema::create('student_level', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id')->nullable();
-            $table->integer('student_id')->nullable();
+            $table->integer('student_id');
+            $table->integer('level_id');
+            $table->integer('class_id');
+            $table->integer('subject_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,7 +30,7 @@ class CreateParentsStudentsTable extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('parent_student');
+        Schema::dropIfExists('student_level');
     }
 
 }

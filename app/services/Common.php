@@ -359,6 +359,17 @@ class Common {
         return $html;
     }
 
+    public static function getLevelMultiDropdownList($name, $levels = [], $default = null)
+    {
+        $html = '<select name="'. $name .'" class="form-control" multiple>
+            <option value="">--Tất cả--</option>';
+        foreach ($levels as $key => $value) {
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->subjects->name.' '.$value->name .'</option>';
+        }
+        $html .= '<select>';                                                                            
+        return $html;
+    }
+
     public static function getModelNameByController($controllerName)
     {
         if ($controllerName == 'SubjectController') {
@@ -468,36 +479,32 @@ class Common {
     {   
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
-            if (strstr($test, 'an') && strstr($test, 'ap')) {
-                $test1 = explode("-", $test);
-                $a = array_search('an', $test1);
+            if (strstr($test, 'an')&&strstr($test, 'ap')) {
                 return D;
             }
-            if (strstr($test, 'phieu')) {
-                $test1 = explode("-", $test);
-                $a = array_search('phieu', $test1);
+            if (strstr($test, 'phi')) {
                 return P;
             }
+            if (strstr($test, 'an')) {
+                return D;
+            }
         }
-        return $fileName.'_';
+        dd($fileName);
+        // return P;
     }
     public static function getSubjectDocByName($fileName, $input)
     {
         return $input['subject'];
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
             if (strstr($test, 'van')) {
-                $test1 = explode("-", $test);
-                $a = array_search('an', $test1);
                 return 'V';
             }
             if (strstr($test, 'toan')) {
-                $test1 = explode("-", $test);
-                $a = array_search('phieu', $test1);
                 return 'T';
             }
         }
@@ -523,7 +530,7 @@ class Common {
     {
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
             if (strstr($test, 'buoi')) {
                 $test1 = explode("-", $test);

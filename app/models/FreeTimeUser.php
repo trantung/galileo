@@ -3,7 +3,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class FreeTimeUser extends Eloquent
 {
-    use SoftDeletingTrait;
+    // use SoftDeletingTrait;
     public $timestamps = true;
     
     protected $table = 'free_time_user';

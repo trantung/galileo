@@ -26,6 +26,9 @@ define('P', 1);
 //Đáp án
 define('D', 2);
 
+define('NAM', 1);
+define('NU', 0);
+
 ////// các ngày trong tuần
 define('T2', 2);
 define('T3', 3);
@@ -38,7 +41,6 @@ define('CN', 8);
 ----------------------------
 */
 define('THL', 'THL');
+define('KEY_API', 'AVwtTTSaWpn7LfDW');
 define('ACTIVE', 1);
 define('INACTIVE', 2);
-
-
