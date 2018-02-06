@@ -1,9 +1,11 @@
 <?php
 class ManagerUserController extends AdminController implements AdminInterface{
+
     public function __construct() {
         parent::__construct();
         $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,23 +23,39 @@ class ManagerUserController extends AdminController implements AdminInterface{
 
     public function getSetTime($id)
     {
-         $data2 = FreeTimeUser::where('time_id', 2)->get();
-         $data3 = FreeTimeUser::where('time_id', 3)->get();
-         $data4 = FreeTimeUser::where('time_id', 4)->get();
-         $data5 = FreeTimeUser::where('time_id', 5)->get();
-         $data6 = FreeTimeUser::where('time_id', 6)->get();
-         $data7 = FreeTimeUser::where('time_id', 7)->get();
-         $data8 = FreeTimeUser::where('time_id', 8)->get();
-        return View::make('admin.user.set-time')->with(compact('id', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8'));
+        $data = [];
+        $times = FreeTimeUser::where('user_id', $id)->get();
+        foreach ($times as $key => $value) {
+            $data[$value->time_id][] = [
+                'start_time' => $value->start_time,
+                'end_time' => $value->end_time,
+            ];
+        }
+        // dd($data);
+
+        return View::make('admin.user.set-time')->with(compact('id', 'data'));
     }
 
     public function postSetTime($id)
     {
-        $input = Input::all();
-        FreeTimeUser::where('user_id', $id)->delete(); 
-        CommonNormal::commonSaveTime('start_time_old', 'end_time_old', $input, $id);
-        CommonNormal::commonSaveTime('start_time_new', 'end_time_new', $input, $id);
         
+        $input = Input::all();
+        FreeTimeUser::where('user_id', $id)->delete();
+        foreach ($input['start_time'] as $key => $value) {
+            foreach ($value as $k => $time) {
+                if( !empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k]) ){
+                    if (!empty($time)) {
+                         $field = [
+                            'user_id' => $id, 
+                            'time_id' => $key,
+                            'start_time' => $time,
+                            'end_time' => $input['end_time'][$key][$k]
+                        ];
+                        CommonNormal::create($field, 'FreeTimeUser');
+                    }
+                }
+            }
+        }
         return Redirect::action('ManagerUserController@getSetTime', $id);
     }
     
@@ -50,6 +68,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
     {
         return View::make('admin.user.create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -86,6 +105,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         }
         return Redirect::action('ManagerUserController@index');
     }
+
     /**
      * Display the specified resource.
      *
@@ -96,12 +116,14 @@ class ManagerUserController extends AdminController implements AdminInterface{
     {
         
     }
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return Response
      */
+
     public function edit($id)
     {
         $data = User::findOrFail($id);
@@ -109,6 +131,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $listData = Common::getClassSubjectLevelOfCenter($data->center_id);
         return View::make('admin.user.edit')->with( compact('listData', 'data', 'levelData') );
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -152,6 +175,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         CommonNormal::update($id, $input);
         return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -163,6 +187,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         CommonNormal::delete($id);
         return Redirect::action('ManagerUserController@index')->withMessage('Đã xóa thành công!');
     }
+
     public function login()
     {
         $checkLogin = Auth::admin()->check();
@@ -176,6 +201,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
             return View::make('admin.layout.login');
         }
     }
+
     public function doLogin()
     {
         $rules = array(
@@ -197,16 +223,19 @@ class ManagerUserController extends AdminController implements AdminInterface{
             }
         }
     }
+
     public function logout()
     {
         Auth::admin()->logout();
         Session::flush();
         return Redirect::route('admin.login');
     }
+
     public function getResetPass($id)
     {
         return View::make('admin.user.reset_password')->with(compact('id'));
     }
+
     public function postResetPass($id)
     {
         $input = Input::all();
@@ -227,8 +256,9 @@ class ManagerUserController extends AdminController implements AdminInterface{
         Common::permissionDoc('User', $userId, $input);
         return Redirect::action('ManagerUserController@getPermission', $userId);
     }
-    public function detroyFreeTime($userId, $timeId, $startTime, $endTime)
+    public function detroyFreeTime()
     {
+        $input = Input::all();
         FreeTimeUser::where('user_id', $userId)
             ->where('time_id', $timeId)
             ->where('start_time', $startTime)

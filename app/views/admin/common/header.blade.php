@@ -14,6 +14,7 @@
 	<!-- Theme style -->
 	{{HTML::style('adminlte/dist/css/AdminLTE.min.css') }}
 	{{HTML::style('adminlte/dist/css/admin.css') }}
+	{{HTML::style('custom/css/jquery.timepicker.min.css') }}
 	{{HTML::style('custom/css/print.min.css') }}
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 			 folder instead of downloading all of them to reduce the load. -->
@@ -46,35 +47,41 @@
 	{{-- <script>
 		$.widget.bridge('uibutton', $.ui.button);
 
-		$('#datepairExample .time').timepicker({
-        'showDuration': true,
-        'timeFormat': 'g:ia'
-	    });
 
-	    $('#datepairExample .date').datepicker({
-	        'format': 'yyyy-m-d',
-	        'autoclose': true
-	    });
-
-	    // initialize datepair
-	    $('#datepairExample').datepair();
 	</script> --}}
 	<!-- Bootstrap 3.3.5 -->
 	{{ HTML::script('adminlte/bootstrap/js/bootstrap.min.js') }}
 	<!-- daterangepicker -->
-	{{-- {{ HTML::script('adminlte/plugins/daterangepicker/moment.min.js') }} --}}
+	{{ HTML::script('adminlte/plugins/daterangepicker/moment.min.js') }}
 	{{-- {{ HTML::script('adminlte/plugins/daterangepicker/daterangepicker.js') }} --}}
 	<!-- datepicker -->
 	{{-- {{ HTML::script('adminlte/plugins/datepicker/bootstrap-datepicker.js') }} --}}
 	<!-- Bootstrap WYSIHTML5 -->
 	{{-- {{ HTML::script('adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }} --}}
 	<!-- datetimepicker -->
-	{{-- {{ HTML::script('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }} --}}
+	{{ HTML::script('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}
 	<!-- FastClick -->
 	{{-- {{ HTML::script('adminlte/plugins/fastclick/fastclick.js') }} --}}
 	<!-- AdminLTE App -->
 	{{ HTML::script('adminlte/dist/js/app.min.js') }}
+	{{ HTML::script('custom/js/jquery.timepicker.min.js') }}
 	{{ HTML::script('custom/js/print.min.js') }}
 	@yield('js_header')
 
+	<script>
+	  $(function () {
+	    
+	    $('#datepickerStartdate').datepicker({
+	    	dateFormat: 'yy-mm-dd',
+			});
+
+	    $('.timepicker').timepicker({
+		    'minTime': '6:00am',
+		    'maxTime': '10:00pm',
+		    'show2400': true,
+		    'timeFormat': 'H:i'
+		})
+
+	  });
+	</script>
 </head>
