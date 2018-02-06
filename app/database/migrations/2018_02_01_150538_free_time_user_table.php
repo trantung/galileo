@@ -15,12 +15,12 @@ class FreeTimeUserTable extends Migration {
 		Schema::create('free_time_user', function($table)
 		{
 			$table->increments('id');
-		    $table->integer('user_id');
-		    $table->integer('time_id');
-		   	$table->string('start_time', 255);
-		   	$table->string('end_time', 255);
-		    $table->tinyInteger('status')->default(1);
-			$table->softDeletes();
+		    $table->integer('user_id')->nullable();
+		    $table->integer('time_id')->nullable();
+		    $table->string('start_time', 225)->nullable();
+		    $table->string('end_time', 225)->nullable();
+		    $table->tinyInteger('status')->default(1)->nullable();
+		    $table->softDeletes();
 		    $table->timestamps();
 		});
 	}
@@ -32,7 +32,7 @@ class FreeTimeUserTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('free_time_user');
+		Schema::drop('free_time_user');
 	}
 
 }

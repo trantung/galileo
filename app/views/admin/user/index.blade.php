@@ -24,7 +24,7 @@
 			  <th>Username</th>
 			  <th>Email</th>
 			  <th>Phân quyền</th>
-			  <th style="width:300px;">Action</th>
+			  <th style="width:330px;">Action</th>
 			</tr>
 			 @foreach($users as $user)
 			<tr>
@@ -36,6 +36,7 @@
 				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Phân quyền</a>
 			  </td>
 			  <td>
+			  	<a href="{{ action('ManagerUserController@getSetTime', [$user->id]) }}" class="btn btn-primary" > Set lịch</a>
 				<a href=" {{ action('ManagerUserController@edit', $user->id) }} " class="btn btn-primary">Sửa</a>
 				<a href=" {{ action('ManagerUserController@getResetPass', $user->id) }} " class="btn btn-primary">Reset password</a>
 
