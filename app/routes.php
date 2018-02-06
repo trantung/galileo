@@ -12,6 +12,26 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/update_permission_user_depend_subject', function(){
+    $listUser = User::all();
+    $group = PermissionGroup::where('code', 'VHL')->first();
+    if (!$group) {
+        dd(1);
+    }
+    $groupId = $group->id;
+    foreach ($listUser as $key => $user) {
+        $userCenterLevel = UserCenterLevel::where('user_id', $user->id)
+            ->first();
+        $level = Level::find($userCenterLevel->level_id);
+        $subjectId = $level->subject_id;
+        $input['group_id'] = $groupId;
+        $input['subject_id'] = $subjectId;
+        $input['model_name'] = 'User';
+        $input['model_id'] = $user->id;
+        AccessPermisison::create($input);
+    }
+    dd(4444);
+});
 Route::get('/per-update', function(){
     $array = getMethodDefault('DocumentController');
     foreach ($array as $key => $value) {
