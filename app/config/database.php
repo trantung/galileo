@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'galileo',
 			'username'  => 'root',
-			'password'  => '5B3NqrTumvtrh38GuPFp',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

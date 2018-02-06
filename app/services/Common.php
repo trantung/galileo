@@ -584,8 +584,6 @@ class Common {
             $array[$value] = $value;
         }
         return $array;
-        // dd(array_filter($lesson));
-        // return $lesson;
     }
     public static function permissionDoc($modelName, $modelId, $input)
     {
@@ -596,16 +594,12 @@ class Common {
             $permission = $input['permission'];
             foreach ($permission as $subjectId => $value) {
                 foreach ($value as $groupId => $v) {
-                    $listPerIds = Permission::where('group_id', $groupId)
-                        ->lists('id');
                     $access = [];
                     $access['subject_id'] = $subjectId;
                     $access['model_name'] = $modelName;
                     $access['model_id'] = $modelId;
-                    foreach ($listPerIds as $k => $permissionId) {
-                        $access['permission_id'] = $permissionId;
-                        AccessPermisison::create($access);
-                    }
+                    $access['group_id'] = $groupId;
+                    AccessPermisison::create($access);
                 }
             }
         }

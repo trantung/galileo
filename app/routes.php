@@ -12,6 +12,25 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/per-update', function(){
+    $array = getMethodDefault('DocumentController');
+    foreach ($array as $key => $value) {
+        Permission::create([
+            'controller' => $value,
+            'action' => $key,
+            'model' => 'Document',
+        ]);
+    }
+    $array1 = ['index', 'show'];
+
+    foreach ($array1 as $k => $v) {
+        Permission::create([
+            'controller' => 'LevelController',
+            'action' => $v,
+        ]);
+    }
+});
+
 Route::get('/update_password_user', function(){
     User::orderBy('id','asc')->update(['password' => Hash::make('123456')]);
     dd(111);

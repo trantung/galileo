@@ -87,7 +87,6 @@
                         </a>
                     </li>
                     @endif
-                    
                     @if(checkUrlPermission('DocumentController@index'))
                     <li>
                         <a href="{{ action('DocumentController@index') }}">
