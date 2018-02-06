@@ -40,7 +40,8 @@ class ManagerUserController extends AdminController implements AdminInterface{
         return Redirect::action('ManagerUserController@getSetTime', $id);
     }
     public function detroyFreeTime($userId, $timeId, $startTime, $endTime)
-    {   FreeTimeUser::where('user_id', $userId)
+    {   
+        FreeTimeUser::where('user_id', $userId)
         ->where('time_id', $timeId)
         ->where('start_time', $startTime)
         ->where('end_time', $endTime)

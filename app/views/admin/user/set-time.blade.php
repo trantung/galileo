@@ -41,7 +41,7 @@ Tạo lịch cố vấn học tập
                     <span aria-hidden="true">&times;</span>
                   </button>  
 
-                  {{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerUserController@detroyFreeTime', $value2->user_id), 'style' => 'display: inline-block;')) }}
+                  {{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerUserController@detroy', $value2->user_id), 'style' => 'display: inline-block;')) }}
                   <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Delete</button>
                     
                   {{ Form::close() }}
