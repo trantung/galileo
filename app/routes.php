@@ -96,6 +96,7 @@ Route::group(['prefix' => 'admin'], function () {
     
     Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
     Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
+    Route::post('/user/{userId}/{timeId}/{startTime}/{endTime}/set-time', 'ManagerUserController@detroyFreeTime');
 
     Route::resource('/user', 'ManagerUserController');
     Route::controller('/user', 'ManagerUserController');

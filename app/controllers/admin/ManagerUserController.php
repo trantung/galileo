@@ -18,28 +18,54 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $users = User::all();
         return View::make('admin.user.index')->with(compact('users'));
     }
-
-    public function getSetTime($id){
-        return View::make('admin.user.set-time')->with(compact('id'));
+    public function getSetTime($id)
+    {
+         $data2 = FreeTimeUser::where('time_id', 2)->get();
+         $data3 = FreeTimeUser::where('time_id', 3)->get();
+         $data4 = FreeTimeUser::where('time_id', 4)->get();
+         $data5 = FreeTimeUser::where('time_id', 5)->get();
+         $data6 = FreeTimeUser::where('time_id', 6)->get();
+         $data7 = FreeTimeUser::where('time_id', 7)->get();
+         $data8 = FreeTimeUser::where('time_id', 8)->get();
+        return View::make('admin.user.set-time')->with(compact('id', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8'));
     }
 
-    public function postSetTime($id){
+   public function postSetTime($id)
+    {
         $input = Input::all();
-        foreach ($input['time'] as $key => $value) {
-            foreach ($value as $key2 => $time) {
-                dd($input);
-                if(!empty($time['start']) && !empty($time['end']) ){
-                    FreeTimeUser::create([
-                        'user_id' => $id, 
-                        'time_id' => $key,
-                        'start_time' => $time['start'],
-                        'end_time' => $time['end']
-                    ]);
-                }
-            }
-        }
-        return View::make('admin.user.set-time')->with(compact('id'));
+        FreeTimeUser::where('user_id', $id)->delete(); 
+        CommonNormal::commonSaveTime('start_time_old', 'end_time_old', $input, $id);
+        CommonNormal::commonSaveTime('start_time_new', 'end_time_new', $input, $id);
+        
+        return Redirect::action('ManagerUserController@getSetTime', $id);
     }
+    public function detroyFreeTime($userId, $timeId, $startTime, $endTime)
+    {   FreeTimeUser::where('user_id', $userId)
+        ->where('time_id', $timeId)
+        ->where('start_time', $startTime)
+        ->where('end_time', $endTime)
+        ->delete();
+        // return Response::json(['đã xóa rồi nhé ']); 
+        return View::make('admin.user.set-time');
+    }
+
+    // public function postSetTime($id){
+    //     $input = Input::all();
+    //     foreach ($input['time'] as $key => $value) {
+    //         foreach ($value as $key2 => $time) {
+         
+    //             if(!empty($time['start']) && !empty($time['end']) ){
+    //                 FreeTimeUser::create([
+    //                     'user_id' => $id, 
+    //                     'time_id' => $key,
+    //                     'start_time' => $time['start'],
+    //                     'end_time' => $time['end']
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    //     return View::make('admin.user.set-time')->with(compact('id'));
+    // }
 
     /**
      * Show the form for creating a new resource.
