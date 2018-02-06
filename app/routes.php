@@ -30,6 +30,7 @@ Route::get('/per-update', function(){
         ]);
     }
 });
+Route::get('/calendar_test', 'TestController@calendar');
 
 Route::get('/update_password_user', function(){
     User::orderBy('id','asc')->update(['password' => Hash::make('123456')]);
@@ -112,6 +113,11 @@ Route::group(['prefix' => 'admin'], function () {
     */
     Route::get('/user/{id}/reset-password', 'ManagerUserController@getResetPass');
     Route::post('/user/{id}/reset-password', 'ManagerUserController@postResetPass');
+    
+    Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
+    Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
+    Route::post('/user/{userId}/{timeId}/{startTime}/{endTime}/set-time', 'ManagerUserController@detroyFreeTime');
+
     Route::resource('/user', 'ManagerUserController');
     Route::controller('/user', 'ManagerUserController');
     Route::resource('/', 'AdminController');
@@ -132,6 +138,14 @@ Route::group(['prefix' => 'admin'], function () {
     */
     Route::resource('/doc', 'DocumentController');
     Route::controller('/doc', 'DocumentController');
+
+    /*
+        Quản lý gói sản phẩm: CRUD
+        1. Controller: admin/PackageController
+        2. table: packages
+        3. view: admin.package
+    */
+    Route::resource('/package', 'PackageController');
 });
 
 Route::get('/test', function() {

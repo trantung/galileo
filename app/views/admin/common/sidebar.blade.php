@@ -2,10 +2,12 @@
     <section class="sidebar">
         <ul class="sidebar-menu">
             <li class="treeview">
-                <a href=""><i class="fa fa-newspaper-o"></i>
-                    <span>Quản lý hệ thống</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
-                </a>
+                @if(checkUrlPermission('ManagerPartnerController@index'))
+                    <a href=""><i class="fa fa-newspaper-o"></i>
+                        <span>Quản lý hệ thống</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                    </a>
+                @endif
                 <ul class="treeview-menu">
                     @if(checkUrlPermission('ManagerPartnerController@index'))
                     <li>
@@ -57,6 +59,15 @@
                         <a href="{{ action('AdminController@index') }}">
                             <i class="fa fa-newspaper-o"></i> 
                             <span>Quản lý admin</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(checkUrlPermission('AdminPackageController@index'))
+                    <li>
+                        <a href="{{ action('PackageController@index') }}">
+                            <i class="fa fa-newspaper-o"></i> 
+                            <span>Quản lý Package</span>
                         </a>
                     </li>
                     @endif
