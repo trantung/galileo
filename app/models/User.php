@@ -31,7 +31,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function center() 
     {
-        return $this->belongsTo('Center', 'center_id');
+        return $this->belongsTo('Center', 'center_id', 'id');
 
     }
     public function free_time_user()

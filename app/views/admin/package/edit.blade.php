@@ -20,7 +20,7 @@
               {{ Form::label('name', 'Tên gói') }}
               <div class="row">
                 <div class="col-sm-6">
-                  {{ Form::number('name', $package->name, ['class' => 'form-control', 'required' => true]) }}
+                  {{ Form::text('name', $package->name, ['class' => 'form-control', 'required' => true]) }}
                 </div>
               </div>
             </div>

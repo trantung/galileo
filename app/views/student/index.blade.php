@@ -4,69 +4,65 @@
 {{ $title='Quản lý học sinh' }}
 @stop
 @section('content')
+	
+	<!-- Bo loc -->
 
 	<a href="{{ action('StudentController@create') }}" class="btn btn-primary " style=" background-color: green">Thêm học sinh mới</a>
-	<table class ="table table-bordered table-striped table-hover">
-		<table class ="table table-bordered table-striped table-hover">
-	<tr>
-		<th>Stt</th>
-		<th>Họ và tên HS</th>
-		<th>Mã Hs</th>
-		<th>Lớp</th>
-		<th>Ngày nhập học</th>
-		<th>Nguồn</th>
-		<th>Ngày sinh</th>
-		<th>Giới tính</th>
-		<th>Địa chỉ hiện tại</th>
-		<th>Trường học</th>
-		<th>Họ và tên bố</th>
-		<th>SĐT bố</th>
-		<th>Họ và tên mẹ</th>
-		<th>SDT mẹ</th>
-		<th>Email nhạn thông tin</th>
-		<th>Link FB</th>	
-		<th>Mục tiên sau khi học tai trung tâm</th>
-		<th>Thời gian cần đạt mục tiêu</th>
-		<th>Thông tin người đón</th>
-		<th>Lưu ý về học sinh</th>
-		<th>tùy chọn</th>
 
-	
-	</tr>
-	<tr>
-		
-		
-	</tr>
-
-</table>
+	<table class ="table table-bordered table-striped table-hover table-responsive ">
+		<tr>
+			<th>STT</th>
+			<th>Họ và tên HS</th>
+			<th>Family Id</th>
+			<!-- <th>Mã HS</th> -->
+			<!-- <th>Tên đăng nhập</th> -->
+			<th>Email</th>
+			<!-- <th>Số điện thoại</th> -->
+			<th>Họ tên bố</th>
+			<th>Họ tên mẹ</th>
+			<!-- <th>Trung tâm</th> -->
+			<!-- <th>Lớp</td> -->
+			<!-- <th>Ngày nhập học</td> -->
+			<!-- <th>Nguồn</td> -->
+			<!-- <th>Ngày sinh</td> -->
+			<th>Giới tính</td>
+			<th>Địa chỉ</td>
+			<!-- <th>Link facebook</td> -->
+			<!-- <th>Thông tin người đón</th> -->
+			<th>Lưu ý về học sinh</th>
+			<!-- <th>Chương trình đang học</th> -->
+			<th>Mục tiêu</th>
+			<th width="140px">Action</th>
+		</tr>
 		@foreach($data as $key => $value)
 		<tr>
-			<td>Stt</td>
-			<td>Họ và tên học sinh</td>
-			<td>Mã Hs</td>
-			<td>Lớp</td>
-			<td>Ngày nhập học</td>
-			<td>Nguồn</td>
-			<td>Ngày sinh</td>
-			<td>Giới tính</td>
-			<td>Địa chỉ hiện tại</td>
-			<td>Trường học</td>
-			<td>Họ và tên bố</td>
-			<td>SĐT bố</td>
-			<td>Họ và tên mẹ</td>
-			<td>SDT mẹ</td>
-			<td>Email nhạn tdông tin</td>
-			<td>Linh FBPH</td>
-			<td>Tên FBPH</td>
-			<td>Mục tiên sau khi học tai trung tâm</td>
-			<td>Tdời gian cần đạt mục tiêu</td>
-			<td>Tdông tin người đón</td>
-			<td>Lưu ý về học sinh</td>
-			
+
+			<td>{{ $key + 1 }}</td>
+			<td>{{ $value->fullname }}</td>
+			<td>{{ $value->family_id }}</td>
+			<!-- <td>{{ $value->code }}</td> -->
+			<!-- <td>{{ $value->username }}</td> -->
+			<td>{{ $value->email }}</td>
+			<!-- <td>{{ $value->phone }}</td> -->
+			<td>{{ Common::getObject($value->family, 'fullname') }}</td>
+			<td>{{ Common::getObject($value->family, 'phone') }}</td>
+			<!-- <td>{{ Common::getObject($value->centers, 'name') }}</td> -->
+			<!-- <td>{{ Common::getObject($value->classes, 'name') }}</td> -->
+			<!-- <td>{{ $value->date_study }}</td> -->
+			<!-- <td>{{ $value->model_name }}</td> -->
+			<!-- <td>{{ $value->birthday }}</td> -->
+			<td>{{ $value->gender }}</td>
+			<td>{{ $value->address }}</td>
+			<!-- <td>{{ $value->link_fb }}</td> -->
+			<!-- <td>{{ $value->info_user }}</td> -->
+			<td>{{ $value->comment }}</td>
+			<!-- <td>
+				@foreach(StudentLevel::where('student_id', $value->id)->where('status', 1)->get() as $studentLevel)
+					{{ Common::getObject($studentLevel->subjects, 'name').' '.Common::getObject($studentLevel->levels, 'name') }}, 
+				@endforeach</td> -->
+			<td>{{ $value->description }}</td>
 			<td>
-	           <a href="{{ action('StudentController@edit', $value->id) }}" class="btn btn-danger">Sửa</a>
-			</td>
-			<td>
+	           <a href="{{ action('StudentController@edit', $value->id) }}" class="btn btn-primary">Edit</a>
 			   {{ Form::open(array('method'=>'DELETE', 'action' => array('StudentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 	           {{ Form::close() }}

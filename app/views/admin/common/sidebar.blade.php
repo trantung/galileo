@@ -51,7 +51,6 @@
                         </a>
                     </li>
                     @endif
-
                     @if(checkUrlPermission('AdminController@index'))
                     <li>
                         <a href="{{ action('AdminController@index') }}">
@@ -60,7 +59,6 @@
                         </a>
                     </li>
                     @endif
-
                     @if(checkUrlPermission('AdminPackageController@index'))
                     <li>
                         <a href="{{ action('PackageController@index') }}">
@@ -71,7 +69,6 @@
                     @endif
                </ul> 
             </li>
-            
             
             @if(checkUrlPermission('StudentController@index'))
             <li>

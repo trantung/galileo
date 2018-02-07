@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
     ////// chon trinh do trong bo loc trang danh sach hoc lieu
-    $(document).on('change', 'form.filter-document-form select.select-class, form.filter-document-form select.select-subject', function(){
+    $(document).on('change', 'form.filter-document-form select.select-class, form.filter-document-form select.select-subject', 
+        function(){
         var classId = $('form.filter-document-form select.select-class').val(),
         subjectId = $('form.filter-document-form select.select-subject').val();
         $('form.filter-document-form .select-level-from-class-subject > select').val('').change();

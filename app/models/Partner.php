@@ -24,11 +24,15 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
 	 */
+	// protected $hidden = array('password', 'remember_token');
+
+	public function center()
+    {
+        return $this->hasMany('centers');
+    }
 	protected $hidden = array('password', 'remember_token');
 	protected $fillable = array('email', 'password', 'username', 'phone',
 		'address', 'name'
 	);
     protected $dates = ['deleted_at'];
-
-
 }
