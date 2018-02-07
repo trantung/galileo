@@ -29,7 +29,7 @@
               {{ Form::label('number_lesson', 'Số buổi học trong tuần') }}
               <div class="row">
                 <div class="col-sm-6">
-                  {{ Form::number('number_lesson', $package->number_lesson, [ 'class' => 'form-control', 'required' => true]) }}
+                  {{ Form::number('number_lesson', $package->lesson_per_week, [ 'class' => 'form-control', 'required' => true]) }}
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
             </div>
 
             <div class="form-group">
-              {{ Form::label('price', 'Giá tiền') }}       
+              {{ Form::label('price', 'Giá tiền mỗi buổi') }}       
               <div class="row">
                 <div class="col-sm-6">
                   {{ Form::number('price', $package->price, [ 'class' => 'form-control', 'required' => true]) }}                  

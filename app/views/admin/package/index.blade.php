@@ -12,7 +12,7 @@
 			<th>Số buổi học trong tuần</th>
 			<th>Tổng số buổi</th>
 			<th>Thời gian mỗi buổi học</th>
-			<th>Giá tiền</th>						
+			<th>Giá tiền mỗi buổi</th>						
 			<th>Học sinh học</th>		
 			<th> Sửa</th>
 			<th> Xóa</th>

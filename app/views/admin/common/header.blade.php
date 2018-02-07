@@ -61,7 +61,21 @@
 	{{-- {{ HTML::script('adminlte/plugins/fastclick/fastclick.js') }} --}}
 	<!-- AdminLTE App -->
 	{{ HTML::script('adminlte/dist/js/app.min.js') }}
+	{{ HTML::script('custom/js/jquery.timepicker.min.js') }}
 	{{ HTML::script('custom/js/print.min.js') }}
 	@yield('js_header')
+
+	<script>
+    $('.timepicker' ).timepicker({
+        'minTime': '6:00am',
+        'maxTime': '11:30pm',
+        'showDuration': true,
+        'timeFormat': 'g:ia'
+
+    });
+  
+    $('#time_start').datepair();
+
+    </script>
 
 </head>

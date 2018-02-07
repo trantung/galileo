@@ -18,37 +18,42 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $users = User::all();
         return View::make('admin.user.index')->with(compact('users'));
     }
+    
     public function getSetTime($id)
     {
-         $data2 = FreeTimeUser::where('time_id', 2)->get();
-         $data3 = FreeTimeUser::where('time_id', 3)->get();
-         $data4 = FreeTimeUser::where('time_id', 4)->get();
-         $data5 = FreeTimeUser::where('time_id', 5)->get();
-         $data6 = FreeTimeUser::where('time_id', 6)->get();
-         $data7 = FreeTimeUser::where('time_id', 7)->get();
-         $data8 = FreeTimeUser::where('time_id', 8)->get();
-        return View::make('admin.user.set-time')->with(compact('id', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data8'));
+       $data = [];
+       $time = FreeTimeUser::where('user_id',$id)->get();
+       foreach ($time as $key => $value) {
+        $data[$value->time_id][] =[
+           'start_time' => $value->start_time,
+           'end_time' => $value->end_time
+            ];
+       }
+       // dd($data);
+       return View::make('admin.user.set-time')->with(compact('data','id'));
+
     }
 
-   public function postSetTime($id)
+    public function postSetTime($id)
     {
-        $input = Input::all();
-        FreeTimeUser::where('user_id', $id)->delete(); 
-        CommonNormal::commonSaveTime('start_time_old', 'end_time_old', $input, $id);
-        CommonNormal::commonSaveTime('start_time_new', 'end_time_new', $input, $id);
-        
+       $input =Input::all();
+       FreeTimeUser::where('user_id',$id)->delete();
+        foreach($input['start_time'] as $key => $value) {
+            foreach ($value as $k => $time) {
+                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k])){
+                    $field = [
+                        'user_id'=>$id,
+                        'time_id'=> $key,
+                        'start_time' => $input['start_time'][$key][$k],
+                        'end_time' => $input['end_time'][$key][$k]
+                    ];
+                    CommonNormal::create($field, 'FreeTimeUser');
+                }
+            }
+        }
         return Redirect::action('ManagerUserController@getSetTime', $id);
     }
-    public function detroyFreeTime($userId, $timeId, $startTime, $endTime)
-    {   
-        FreeTimeUser::where('user_id', $userId)
-        ->where('time_id', $timeId)
-        ->where('start_time', $startTime)
-        ->where('end_time', $endTime)
-        ->delete();
-        // return Response::json(['đã xóa rồi nhé ']); 
-        return View::make('admin.user.set-time');
-    }
+    
 
     // public function postSetTime($id){
     //     $input = Input::all();
