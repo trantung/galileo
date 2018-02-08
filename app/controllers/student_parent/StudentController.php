@@ -10,7 +10,7 @@ class StudentController extends BaseController {
      */
     public function index()
     {
-        $data = Student::all();
+        $data = Student::paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));
     }
     /**

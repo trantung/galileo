@@ -1,6 +1,7 @@
 <?php
 define('ADMIN', 1);
 define('BTV', 2);
+define('PAGINATE',20);
 
 define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 /*
