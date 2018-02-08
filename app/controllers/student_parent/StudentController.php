@@ -32,6 +32,7 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function store()
+
     {
         $input = Input::except('_token');
         if( !empty($input['mom_phone']) ){

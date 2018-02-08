@@ -352,7 +352,7 @@ class Common {
         $html = '<select name="'. $name .'" class="form-control">
             <option value="">--Tất cả--</option>';
         foreach ($levels as $key => $value) {
-            $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
+            $html .= '<option '. (($value->id == $default) ? 'selected' : (( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id')) ? 'class="hidden"' : '')) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
         }
         $html .= '<select>';
         return $html;

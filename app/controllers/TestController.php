@@ -8,6 +8,7 @@ class TestController extends AdminController implements AdminInterface {
             // dd($ results);
             $countInsert = $countUpdate = 0;
             foreach ($results as $key => $value) {
+                $groupId = null;
                 if(!empty($value['ho_va_ten_hoc_sinh'])){
                     if( empty($value['sdt_me']) && empty($value['sdt_bo']) ){
                         /////////// neu khong co bo me thi bo qua

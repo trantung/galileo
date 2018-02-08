@@ -13,10 +13,10 @@
 			<th>STT</th>
 			<th>Họ và tên HS</th>
 			<th>Family Id</th>
-			<!-- <th>Mã HS</th> -->
-			<!-- <th>Tên đăng nhập</th> -->
+			<th>Mã HS</th>
+			<th>Tên đăng nhập</th>
 			<th>Email</th>
-			<!-- <th>Số điện thoại</th> -->
+			{{-- <th>Số điện thoại</th> --}}
 			<th>Họ tên bố</th>
 			<th>Họ tên mẹ</th>
 			<!-- <th>Trung tâm</th> -->
@@ -39,10 +39,10 @@
 			<td>{{ $key + 1 }}</td>
 			<td>{{ $value->fullname }}</td>
 			<td>{{ $value->family_id }}</td>
-			<!-- <td>{{ $value->code }}</td> -->
-			<!-- <td>{{ $value->username }}</td> -->
+			<td>{{ $value->code }}</td>
+			<td>{{ $value->username }}</td>
 			<td>{{ $value->email }}</td>
-			<!-- <td>{{ $value->phone }}</td> -->
+			{{-- <td>{{ $value->phone }}</td> --}}
 			<td>{{ Common::getObject($value->family, 'fullname') }}</td>
 			<td>{{ Common::getObject($value->family, 'phone') }}</td>
 			<!-- <td>{{ Common::getObject($value->centers, 'name') }}</td> -->

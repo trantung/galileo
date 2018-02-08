@@ -8,6 +8,7 @@
 @parent
 {{ HTML::script( asset('custom/js/form-control.js') ) }}
 {{ HTML::script( asset('custom/js/ajax.js') ) }}
+
 @stop
 
 @section('content')
@@ -118,7 +119,34 @@
         <label for="school">Trường học</label>
         {{  Form::text('school', null, array('class' => 'form-control', 'placeholder' => 'Trường học' )) }}
     </div>
-    
+
+    <div class="box alert">
+            <div class="input-group inline-block">
+                <label style="display: block;">Lớp</label>
+                {{ Form::select('class_id', ['' => '--Tất cả--'] + Common::getClassList(), Input::get('class_id'), ['class' => 'form-control select-class']) }}
+            </div>
+            <div class="input-group inline-block">
+                <label style="display: block;">Môn học</label>
+                {{ Form::select('subject_id', ['' => '--Tất cả--'] + Common::getSubjectList(), Input::get('subject_id'), ['class' => 'form-control select-subject']) }}
+            </div>
+            <div class="input-group inline-block select-level-from-class-subject">
+                <label style="display: block;">Trình độ</label>
+                {{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
+            </div>
+
+            <div class="input-group inline-block">
+                <label style="display: block;">Gói học</label>
+                {{ Form::select('subject_id', ['' => '--Tất cả--'] + Common::getSubjectList(), Input::get('subject_id'), ['class' => 'form-control select-subject']) }}
+            </div>
+
+            <div class="input-group inline-block">
+                <label style="display: block;">Buổi số</label>
+                {{ Form::select('lesson_code', ['' => '--Tất cả--'] + Common::getListLessonCode(), Input::get('lesson_code'), ['class' => 'form-control']) }}
+            </div>
+            
+            
+    </div>
+
     <div class="form-group">
         <label for="link_fb">Link facebook</label>
         {{  Form::text('link_fb', null, array('class' => 'form-control', 'placeholder' => 'Link facebook' )) }}
@@ -144,10 +172,7 @@
         {{ Form::textarea('comment', '', ['class' => 'form-control', 'placeholder' => 'Lưu ý về học sinh' , 'rows'=>3]) }}
     </div>
 
-    <div class="form-group">
-        <label for="program_current">Chương trình đang học</label>
-        {{  Form::text('program_current', null, array('class' => 'form-control', 'placeholder' => 'Chương trình đang học' )) }}
-    </div>
+    
 
 </div>
 <!-- /.box-body -->
