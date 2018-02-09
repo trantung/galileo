@@ -80,9 +80,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/partner/{id}/reset-password', 'ManagerPartnerController@postResetPass');
     Route::resource('/partner', 'ManagerPartnerController');
 
-     Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
-    Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
-
     Route::resource('/class', 'ClassController');
 	Route::resource('/subject', 'SubjectController');
 
@@ -102,9 +99,10 @@ Route::group(['prefix' => 'admin'], function () {
     */
     Route::get('/user/{id}/reset-password', 'ManagerUserController@getResetPass');
     Route::post('/user/{id}/reset-password', 'ManagerUserController@postResetPass');
-    
+
     Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
     Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
+    Route::post('/user/{userId}/{timeId}/{startTime}/{endTime}/set-time', 'ManagerUserController@detroyFreeTime');
 
     Route::resource('/user', 'ManagerUserController');
     Route::controller('/user', 'ManagerUserController');
@@ -134,6 +132,7 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.package
     */
     Route::resource('/package', 'PackageController');
+
 });
 
 Route::get('/test', function() {

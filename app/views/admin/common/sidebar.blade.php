@@ -69,8 +69,6 @@
                     @endif
                </ul> 
             </li>
-            
-            
             @if(checkUrlPermission('StudentController@index'))
             <li>
                 <a href="{{ action('StudentController@index') }}">

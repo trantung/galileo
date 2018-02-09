@@ -8,7 +8,11 @@ class Student extends Eloquent
 
     protected $table = 'students';
     protected $hidden = array('password', 'remember_token');
-    protected $fillable = ['family_id', 'center_id', 'email', 'password', 'username', 'phone', 'fullname', 'code', 'class_id', 'date_study', 'model_id', 'birthday', 'gender', 'address', 'school', 'link_fb', 'description', 'time_target', 'info_user', 'comment', 'model_name', 'model_id', 'program_current'];
+    protected $fillable = ['family_id','fullname', 'username', 'fullname', 'email', 'password', 'phone', 'code',
+'center_id','class_id', 'date_study', 'model_id', 'model_name', 'birthday', 'gender', 'address', 'school', 'link_fb',
+ 'description', 'time_target', 'info_user', 'comment', ];
+
+
     protected $dates = ['deleted_at'];
 
     public function parents() 
