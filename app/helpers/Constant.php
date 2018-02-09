@@ -6,6 +6,9 @@ define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 /*
     Các role của nhân viên trung tâm
 */
+
+
+define('PAGINATE', 15);
 //quản lý trung tâm
 define('QLTT', 1);
 //giáo vụ

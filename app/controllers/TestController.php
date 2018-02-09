@@ -5,63 +5,92 @@ class TestController extends AdminController implements AdminInterface {
     public function getImportStudent(){
         Excel::load('public/students.xlsx', function($reader) {
             $results = $reader->toArray();
-            // dd($ results);
-            $countInsert = $countUpdate = 0;
+            $countInsert = $countUpdate = $countFalse = 0;
+           
             foreach ($results as $key => $value) {
-                $groupId = null;
+                 $groupId = null;
+                $momId = null;
                 if(!empty($value['ho_va_ten_hoc_sinh'])){
-                    if( empty($value['sdt_me']) && empty($value['sdt_bo']) ){
-                        /////////// neu khong co bo me thi bo qua
-                        continue;
-                    }
+                    // if( empty($value['sdt_me']) && empty($value['sdt_bo']) ){
+                    //     /////////// neu khong co bo me thi bo qua
+                    //     // var_dump($value['ho_va_ten_hoc_sinh']);
+                    //     // var_dump('-----');
+                    //     // $countFalse++;
+                    //     continue;
+                    // }
 
                     /////////////// Luu thong tin me trong bang family
-                    if(!empty($value['sdt_me'])){
+                    if($value['sdt_me']){
                         $fieldMom = [
                             'fullname' => !empty($value['ho_va_ten_me']) ? $value['ho_va_ten_me'] : '',
                             'phone' => !empty($value['sdt_me']) ? $value['sdt_me'] : '',
                             'gender' => 0
                         ];
-                        $momId = Common::getObject(Family::where('phone', $fieldMom['phone'])->first(), 'id');
+                        $check = Family::where('phone', $fieldMom['phone'])->first();
+                        if (!$check) {
+                            $momId = Family::create($fieldMom)->id;
+                            $family = Family::find($momId);
+                            $family->update(['group_id' => $momId]);
+                            $groupId = $momId;
+                        } 
+                        // $momId = Common::getObject(Family::where('phone', $fieldMom['phone'])->first(), 'id');
 
-                        if($momId){
-                            $fieldMom['group_id'] = $momId;
-                            CommonNormal::update($momId, $fieldMom, 'Family');
-                        }
-                        else{
-                            $momId = CommonNormal::create($fieldMom, 'Family');
-                        }
+                        // if($momId){
+                        //     $fieldMom['group_id'] = $momId;
+                        //     CommonNormal::update($momId, $fieldMom, 'Family');
+                        // }
+                        // else{
+                        //     $momId = CommonNormal::create($fieldMom, 'Family');
+                        // }
 
-                        $groupId = $momId;
-                        $fieldMom['group_id'] = $groupId;
-                        ///// lay Id cua me lam groupId
-                        CommonNormal::update($momId, $fieldMom, 'Family');
+                        // $groupId = $momId;
+                        // $fieldMom['group_id'] = $groupId;
+                        // ///// lay Id cua me lam groupId
+                        // CommonNormal::update($momId, $fieldMom, 'Family');
                     }
 
                     //////////// Luu thong tin cua bo vao Family
-                    if(!empty($value['sdt_bo'])){
+                    if($value['sdt_bo']){
                         $fieldDad = [
                             'fullname' => !empty($value['ho_va_ten_bo']) ? $value['ho_va_ten_bo'] : '',
                             'phone' => !empty($value['sdt_bo']) ? $value['sdt_bo'] : '',
                             'gender' => 1
                         ];
-                        $dadId = Common::getObject(Family::where('phone', $fieldDad['phone'])->first(), 'id');
+                        $checkDad = Family::where('phone', $fieldDad['phone'])->first();
+                        if (!$checkDad) {
+                            if ($momId) {
+                                // dd($value);
+                                $fieldDad['group_id'] = $momId;
+                                $dadId = Family::create($fieldDad)->id;
+                            }
+                            else {
+                                // dd(555);
+                                $dadId = Family::create($fieldDad)->id;
+                                $familyDad = Family::find($dadId);
+                                $familyDad->update(['group_id' => $dadId]);
+                                $groupId = $dadId;
+                            }
+                            // $family = Family::find($momId);
+                            // $family->update(['group_id' => $momId]);
+                        } 
+                        // $dadId = Common::getObject(Family::where('phone', $fieldDad['phone'])->first(), 'id');
 
-                        if($dadId){
-                            CommonNormal::update($dadId, $fieldDad, 'Family');
-                        }
-                        else{
-                            $dadId = CommonNormal::create($fieldDad, 'Family');
-                        }
+                        // if($dadId){
+                        //     CommonNormal::update($dadId, $fieldDad, 'Family');
+                        // }
+                        // else{
+                        //     $dadId = CommonNormal::create($fieldDad, 'Family');
+                        // }
 
-                        ////// Neu nhu khong co me thi lay id cua bo lam groupId
-                        if( !isset($groupId) ){
-                            $groupId = $dadId;
-                        }
-                        $fieldDad['group_id'] = $groupId;
-                        CommonNormal::update($dadId, $fieldDad, 'Family');
+                        // ////// Neu nhu khong co me thi lay id cua bo lam groupId
+                        // if( !isset($groupId) ){
+                        //     $groupId = $dadId;
+                        // }
+                        // $fieldDad['group_id'] = $groupId;
+                        // CommonNormal::update($dadId, $fieldDad, 'Family');
                     }
-
+                    // dd('----');
+                    // dd(5555);
                     //////////// Luu thong tin hoc sinh
                     $field = [
                         'fullname' => !empty($value['ho_va_ten_hoc_sinh']) ? $value['ho_va_ten_hoc_sinh'] : '',
@@ -96,9 +125,13 @@ class TestController extends AdminController implements AdminInterface {
                         
                     }
                 }
+                else {
+                    var_dump('ma hoc sinh:'. $value['ma_hs']);
+                    var_dump('------------');
+                }
             } //End foreach
 
-            echo 'Đã tạo mới: '.$countInsert.'<br>Đã cập nhật: '.$countUpdate.'<br/>';
+            echo 'Đã tạo mới: '.$countInsert.'<br>Đã cập nhật: '.$countUpdate.'<br/>'.'sai:'.$countFalse;
         });
     }
 

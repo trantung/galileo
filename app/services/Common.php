@@ -630,4 +630,14 @@ class Common {
         }
         return $name;
     }
+
+    public static function getGender($gender)
+    {
+        if($gender == NAM){
+            return "Nam";
+        }
+        if($gender == NU){
+            return "Nữ";
+        }
+    }
 }

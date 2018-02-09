@@ -31,8 +31,8 @@ class Student extends Eloquent
         return $this->belongsTo('ClassModel', 'class_id', 'id');
     }
 
-    public function family() 
+    public function families() 
     {
-        return $this->belongsTo('Family', 'family_id', 'id');
+        return $this->hasMany('Family', 'group_id', 'family_id');
     }
 }

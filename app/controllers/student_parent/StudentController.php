@@ -10,7 +10,7 @@ class StudentController extends BaseController {
      */
     public function index()
     {
-        $data = Student::all();
+        $data = Student::paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));
     }
     /**
@@ -64,7 +64,20 @@ class StudentController extends BaseController {
      */
     public function show($id)
     {
-        //
+        $student = Student::findOrFail($id);
+        $parents = ['mom'=>null, 'dad' => null];
+
+        foreach ($student->families as $key => $parent) {
+            if( $parent->gender == 0 ){
+                // Thong tin me
+                $parents['mom'] = $parent;
+            } else{
+                // Thong tin bo
+                $parents['dad'] = $parent;
+            }
+        }
+        $center = Center::lists('name', 'id');
+        return View::make('student.show')->with(compact('student', 'center', 'parents'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -74,8 +87,7 @@ class StudentController extends BaseController {
      */
     public function edit($id)
     {
-        $student = Student::findOrFail($id);
-        return View::make('student.edit')->with(compact('student'));
+        //
     }
     /**
      * Update the specified resource in storage.
@@ -85,10 +97,10 @@ class StudentController extends BaseController {
      */
     public function update($id)
     {
-        $input = Input::all();
-        $input['password'] = Hash::make($input['password']);
-        Student::findOrFail($id)->update($input);
-        return Redirect::action('StudentController@index');
+        // $input = Input::all();
+        // $input['password'] = Hash::make($input['password']);
+        // Student::findOrFail($id)->update($input);
+        // return Redirect::action('StudentController@index');
     }
     /**
      * Remove the specified resource from storage.
