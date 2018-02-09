@@ -69,7 +69,6 @@
 	@yield('js_header')
 
 	<script>
-
 	  $(function () {
 	    
 	    $('#datepickerStartdate').datepicker({
