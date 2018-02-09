@@ -10,7 +10,7 @@ class StudentController extends BaseController {
      */
     public function index()
     {
-        $data = Student::all();
+        $data = Student::paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));
     }
     /**
@@ -20,7 +20,11 @@ class StudentController extends BaseController {
      */
     public function create()
     {
-        return View::make('student.create');
+       $class = ClassModel::lists('name', 'id');
+       $subject = Subject::lists('name', 'id');
+       $level = Level::lists('name', 'id');
+       $center = Center::lists('name', 'id');
+        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center'));
     }
     /**
      * Store a newly created resource in storage.
@@ -30,10 +34,26 @@ class StudentController extends BaseController {
     public function store()
     {
         $input = Input::except('_token');
+        if( !empty($input['mom_phone']) ){
+            $familyId1 = Family::create(['fullname' => $input['mom_fullname'], 'phone' => $input['mom_phone'], 'gender' => NU])->id;
+        } 
+        if( !empty($input['dad_phone']) ){
+            $familyId2 = Family::create(['fullname' => $input['dad_fullname'], 'phone' => $input['dad_phone'], 'gender' => NAM])->id;
+        }
+        if(!empty($familyId1)){
+            $familyId = $familyId1;
+        }
+        else{
+            $familyId = $familyId2;
+        }
         $input['password'] = Hash::make($input['password']);
-        $adminId = Student::create($input)->id;
-        return Redirect::action('StudentController@index')->with('message','<i class="fa fa-check-square-o fa-lg"></i> 
-            Người dùng đã được tạo!');
+        $input['family_id'] = $familyId;
+        CommonNormal::create($input, 'Student');
+        // Update group_id for family table
+        CommonNormal::update($familyId1, ['group_id'=> $familyId] , 'Family');
+        CommonNormal::update($familyId2, ['group_id'=> $familyId] , 'Family');
+        return Redirect::action('StudentController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
+            Học sinh đã được tạo!');
     }
     /**
      * Display the specified resource.
@@ -81,49 +101,49 @@ class StudentController extends BaseController {
         return Redirect::action('StudentController@index');
     }
 
-    // public function login()
-    // {
-    //     $checkLogin = Auth::admin()->check();
-    //     if($checkLogin) {
-    //         return Redirect::action('StudentController@index');
-    //     } else {
-    //         return View::make('admin.layout.login');
-    //     }
-    // }
-    // public function doLogin()
-    // {
-    //     $rules = array(
-    //         'username' => 'required',
-    //         'password' => 'required',
-    //     );
-    //     $input = Input::except('_token');
-    //     $validator = Validator::make($input, $rules);
-    //     if ($validator->fails()) {
-    //         return Redirect::action('StudentController@login')
-    //             ->withErrors($validator)
-    //             ->withInput(Input::except('password'));
-    //     } else {
-    //         $checkLogin = Auth::admin()->attempt($input, true);
-    //         if($checkLogin) {
-    //             return Redirect::action('StudentController@index');
-    //         } else {
-    //             return Redirect::action('StudentController@login');
-    //         }
-    //     }
-    // }
-    // public function logout()
-    // {
-    //     Auth::admin()->logout();
-    //     Session::flush();
-    //     return Redirect::action('StudentController@login');
-    // }
-    // public function getUpload()
-    // {
-    //     return View::make('test_upload');
-    // }
-    // public function postUpload()
-    // {
+    public function login()
+    {
+        $checkLogin = Auth::admin()->check();
+        if($checkLogin) {
+            return Redirect::action('StudentController@index');
+        } else {
+            return View::make('admin.layout.login');
+        }
+    }
+    public function doLogin()
+    {
+        $rules = array(
+            'username' => 'required',
+            'password' => 'required',
+        );
+        $input = Input::except('_token');
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails()) {
+            return Redirect::action('StudentController@login')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            $checkLogin = Auth::admin()->attempt($input, true);
+            if($checkLogin) {
+                return Redirect::action('StudentController@index');
+            } else {
+                return Redirect::action('StudentController@login');
+            }
+        }
+    }
+    public function logout()
+    {
+        Auth::admin()->logout();
+        Session::flush();
+        return Redirect::action('StudentController@login');
+    }
+    public function getUpload()
+    {
+        return View::make('test_upload');
+    }
+    public function postUpload()
+    {
         
-    // }
+    }
 }
 

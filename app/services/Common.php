@@ -302,6 +302,8 @@ class Common {
                     $uploadSuccess = move_uploaded_file($v, public_path().$fileUrl);
                     if( $uploadSuccess ){
                         $doc['file_url'] = $fileUrl;
+                        $count = Document::where('lesson_id', $doc['lesson_id'])->count();
+                        $doc['order'] = $count + 1;
                         if ($arrayP == null) {
                             $array[$k] = $docId = Document::create($doc)->id;
                             $parentId = $docId;
@@ -309,7 +311,6 @@ class Common {
                             $parentId = $arrayP[$k];
                             $docId = Document::create($doc)->id;
                         }
-
                         /// Update code after insert document
                         $code = getCodeDocument($docId);
                         Document::find($docId)->update(['code' => $code, 'parent_id' => $parentId]);
@@ -355,6 +356,17 @@ class Common {
             $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
         }
         $html .= '<select>';
+        return $html;
+    }
+
+    public static function getLevelMultiDropdownList($name, $levels = [], $default = null)
+    {
+        $html = '<select name="'. $name .'" class="form-control" multiple>
+            <option value="">--Tất cả--</option>';
+        foreach ($levels as $key => $value) {
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->subjects->name.' '.$value->name .'</option>';
+        }
+        $html .= '<select>';                                                                            
         return $html;
     }
 
@@ -467,36 +479,32 @@ class Common {
     {   
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
-            if (strstr($test, 'an') && strstr($test, 'ap')) {
-                $test1 = explode("-", $test);
-                $a = array_search('an', $test1);
+            if (strstr($test, 'an')&&strstr($test, 'ap')) {
                 return D;
             }
-            if (strstr($test, 'phieu')) {
-                $test1 = explode("-", $test);
-                $a = array_search('phieu', $test1);
+            if (strstr($test, 'phi')) {
                 return P;
             }
+            if (strstr($test, 'an')) {
+                return D;
+            }
         }
-        return $fileName.'_';
+        dd($fileName);
+        // return P;
     }
     public static function getSubjectDocByName($fileName, $input)
     {
         return $input['subject'];
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
             if (strstr($test, 'van')) {
-                $test1 = explode("-", $test);
-                $a = array_search('an', $test1);
                 return 'V';
             }
             if (strstr($test, 'toan')) {
-                $test1 = explode("-", $test);
-                $a = array_search('phieu', $test1);
                 return 'T';
             }
         }
@@ -522,7 +530,7 @@ class Common {
     {
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
             if (strstr($test, 'buoi')) {
                 $test1 = explode("-", $test);
@@ -583,7 +591,47 @@ class Common {
             $array[$value] = $value;
         }
         return $array;
-        // dd(array_filter($lesson));
-        // return $lesson;
+    }
+    public static function permissionDoc($modelName, $modelId, $input)
+    {
+        AccessPermisison::where('model_name', $modelName)
+            ->where('model_id', $modelId)
+            ->delete();
+        if (isset($input['permission'])) {
+            $permission = $input['permission'];
+            foreach ($permission as $subjectId => $value) {
+                foreach ($value as $groupId => $v) {
+                    $access = [];
+                    $access['subject_id'] = $subjectId;
+                    $access['model_name'] = $modelName;
+                    $access['model_id'] = $modelId;
+                    $access['group_id'] = $groupId;
+                    AccessPermisison::create($access);
+                }
+            }
+        }
+        return true;
+    }
+    public static function getCenterByUser($userId)
+    {
+       $centerLevel = UserCenterLevel::where('user_id', $userId)
+            ->groupBy('center_level_id')
+            ->lists('center_level_id');
+        $listCenter = CenterLevel::whereIn('id', $centerLevel)->groupBy('center_id')->lists('center_id');
+        $name = '';
+        foreach ($listCenter as $key => $value) {
+            $center = Center::find($value);
+            $name .= $name.$center->name.',';
+        }
+        return $name;
+    }
+    public static function getNameGender($gender)
+    {
+        if ($gender == NAM) {
+            return 'Nam';
+        }
+        if ($gender == NU) {
+            return 'Nữ';
+        }
     }
 }

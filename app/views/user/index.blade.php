@@ -1,6 +1,6 @@
-@extends('admin.layout.default')
+@extends('user.layout.default')
 @section('title')
-{{ $title='Quản lý thành viên trung tâm' }}
+{{ $title='Dashboard' }}
 @stop
 
 @section('content')

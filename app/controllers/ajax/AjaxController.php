@@ -2,6 +2,24 @@
 class AjaxController extends \BaseController {
 
     /**
+     * Giet dropdown list of level by class & subject
+     **/
+    public function postGetLevelListByClassSubject(){
+        $input = Input::all();
+        $html = '<option value="">--Tất cả--</option>';
+        if( !empty($input['class_id']) && count($input['subject_id']) ){
+            $levelList = [];
+            foreach ($input['subject_id'] as $key => $value) {
+                $levels = Level::where('class_id', $input['class_id']);
+                foreach( $levels->where('subject_id', $value)->get() as $key2 => $item){
+                    $html .= $key.'+'.$key2.'<option value="'. $item->id .'">'. Common::getObject($item->subjects, 'name').' ' . $item->name .'</option>'; 
+                }
+            }
+        }
+        return $html;
+    }
+
+    /** 
      * Save document into a lesson
      */
     public function postSaveDocument(){
@@ -42,5 +60,9 @@ class AjaxController extends \BaseController {
             // ->list();
 
         return Response::json($input);
+    }
+    public function getPrint()
+    {
+
     }
 }

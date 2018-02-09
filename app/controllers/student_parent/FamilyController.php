@@ -1,6 +1,8 @@
 <?php
-class ParentController extends BaseController {
-    // public function __construct() {
+
+class FamilyController extends \BaseController {
+
+	// public function __construct() {
     //     $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     // }
     /**
