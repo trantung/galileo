@@ -67,7 +67,7 @@
 
                 <div class="form-group">
                     <label for="center_id">Trung tâm</label>
-                    {{  Form::select('center_id', $center,  $student->center_id, array('class' => 'form-control', 'disabled' => 'disabled' )) }}
+                    {{  Form::text('center_id', $student->center_id, array('class' => 'form-control', 'disabled' => 'disabled' )) }}
                 </div>
 
                 <div class="form-group">
@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="model_name">Nguồn</label>
+                    <label for="model_name">Người nhập thông tin</label>
                     {{  Form::text('model_name', $student->model_name, array('class' => 'form-control', 'disabled' => 'disabled' )) }}
                 </div>
 

@@ -14,21 +14,16 @@
 			<th>Họ và tên HS</th>
 			<th>Mã HS</th>
 			<th>Email</th>
-			<th>Họ tên bố/mẹ</th>
-			<th>Số điện thoại</th>
 			<th>Giới tính</td>
 			<th>Địa chỉ</td>
 			<th width="150px">Action</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
-
 			<td>{{ $key + 1 }}</td>
 			<td>{{ $value->fullname }}</td>
 			<td>{{ $value->code }}</td>
 			<td>{{ $value->email }}</td>
-			<td>{{ Common::getObject($value->family, 'fullname') }}</td>
-			<td>{{ Common::getObject($value->family, 'phone') }}</td>
 			<td>{{ Common::getGender($value->gender) }}</td>
 			<td>{{ $value->address }}</td>
 			<td>
