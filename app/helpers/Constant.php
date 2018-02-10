@@ -1,6 +1,7 @@
 <?php
 define('ADMIN', 1);
 define('BTV', 2);
+define('PAGINATE',20);
 
 define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 /*
@@ -8,7 +9,6 @@ define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 */
 
 
-define('PAGINATE', 15);
 //quản lý trung tâm
 define('QLTT', 1);
 //giáo vụ

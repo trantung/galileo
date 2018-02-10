@@ -20,11 +20,13 @@ class StudentController extends BaseController {
      */
     public function create()
     {
-       $class = ClassModel::lists('name', 'id');
-       $subject = Subject::lists('name', 'id');
-       $level = Level::lists('name', 'id');
-       $center = Center::lists('name', 'id');
-        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center'));
+        $class = ClassModel::lists('name', 'id');
+        $package = Package::lists('name', 'id');
+        $subject = Subject::lists('name', 'id');
+        $level = Level::lists('name', 'id');
+        $center = Center::lists('name', 'id');
+        $manualUser = Admin::lists('username', 'id');
+        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center', 'package', 'manualUser'));
     }
     /**
      * Store a newly created resource in storage.

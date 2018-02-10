@@ -302,6 +302,8 @@ class Common {
                     $uploadSuccess = move_uploaded_file($v, public_path().$fileUrl);
                     if( $uploadSuccess ){
                         $doc['file_url'] = $fileUrl;
+                        $count = Document::where('lesson_id', $doc['lesson_id'])->count();
+                        $doc['order'] = $count + 1;
                         if ($arrayP == null) {
                             $array[$k] = $docId = Document::create($doc)->id;
                             $parentId = $docId;
@@ -309,7 +311,6 @@ class Common {
                             $parentId = $arrayP[$k];
                             $docId = Document::create($doc)->id;
                         }
-
                         /// Update code after insert document
                         $code = getCodeDocument($docId);
                         Document::find($docId)->update(['code' => $code, 'parent_id' => $parentId]);
@@ -590,8 +591,6 @@ class Common {
             $array[$value] = $value;
         }
         return $array;
-        // dd(array_filter($lesson));
-        // return $lesson;
     }
     public static function permissionDoc($modelName, $modelId, $input)
     {
@@ -602,16 +601,12 @@ class Common {
             $permission = $input['permission'];
             foreach ($permission as $subjectId => $value) {
                 foreach ($value as $groupId => $v) {
-                    $listPerIds = Permission::where('group_id', $groupId)
-                        ->lists('id');
                     $access = [];
                     $access['subject_id'] = $subjectId;
                     $access['model_name'] = $modelName;
                     $access['model_id'] = $modelId;
-                    foreach ($listPerIds as $k => $permissionId) {
-                        $access['permission_id'] = $permissionId;
-                        AccessPermisison::create($access);
-                    }
+                    $access['group_id'] = $groupId;
+                    AccessPermisison::create($access);
                 }
             }
         }
@@ -631,13 +626,13 @@ class Common {
         return $name;
     }
 
-    public static function getGender($gender)
+    public static function getNameGender($gender)
     {
-        if($gender == NAM){
-            return "Nam";
+        if ($gender == NAM) {
+            return 'Nam';
         }
-        if($gender == NU){
-            return "Nữ";
+        if ($gender == NU) {
+            return 'Nữ';
         }
     }
 }

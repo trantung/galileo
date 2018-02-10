@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="gender">Giới tính</label>
-                    {{ Form::text('gender', Common::getGender($student->gender), ['class' => 'form-control', 'disabled' => 'disabled' ]) }}
+                    {{ Form::text('gender', Common::getNameGender($student->gender), ['class' => 'form-control', 'disabled' => 'disabled' ]) }}
                 </div>
 
                 <div class="form-group">

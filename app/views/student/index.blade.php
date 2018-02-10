@@ -24,7 +24,7 @@
 			<td>{{ $value->fullname }}</td>
 			<td>{{ $value->code }}</td>
 			<td>{{ $value->email }}</td>
-			<td>{{ Common::getGender($value->gender) }}</td>
+			<td>{{ Common::getNameGender($value->gender) }}</td>
 			<td>{{ $value->address }}</td>
 			<td>
 	           <a href="{{ action('StudentController@show', $value->id) }}" class="btn btn-primary">Show</a>
