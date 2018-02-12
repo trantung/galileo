@@ -31,34 +31,15 @@ class AddFieldOfStudentTable extends Migration {
 		 	$table->string('time_target', 255)->nullable(); 
 		 	$table->string('info_user', 255)->nullable(); 
 		 	$table->longText('comment')->nullable(); 
-		 	$table->string('subject_current', 255)->nullable(); 
-		 	$table->longText('program_current')->nullable(); }); 
-		}
+		});
+	}
+
  	 /** * Reverse the migrations.
  	 * * @return void */ 
  	public function down() 
  	{
 		Schema::table('students', function(Blueprint $table){ 
-	 	  	$table->dropColumn('center_id');
-	 	  	$table->dropColumn('family_id');
-		 	$table->dropColumn('fullname'); 
-		 	$table->dropColumn('code'); 
-		 	$table->dropColumn('phone'); 
-		 	$table->dropColumn('class_id'); 
-		 	$table->dropColumn('date_study'); 
-		 	$table->dropColumn('model_id');
-		 	$table->dropColumn('model_name');
-		 	$table->dropColumn('birthday'); 
-		 	$table->dropColumn('gender'); 
-		 	$table->dropColumn('address'); 
-		 	$table->dropColumn('school');  
-		 	$table->dropColumn('link_fb'); 
-		 	$table->dropColumn('description'); 
-		 	$table->dropColumn('time_target'); 
-		 	$table->dropColumn('info_user'); 
-		 	$table->dropColumn('comment');  
-		 	$table->dropColumn('subject_current'); 
-		 	$table->dropColumn('program_current'); 
+	 	  	$table->dropColumn('center_id', 'family_id', 'fullname', 'code', 'phone', 'class_id', 'date_study', 'model_id', 'model_name', 'birthday', 'gender', 'address', 'school', 'link_fb', 'description', 'time_target', 'info_user', 'comment');  
 	 	}); 
  	}
 }
