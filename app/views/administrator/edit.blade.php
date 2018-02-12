@@ -29,11 +29,11 @@
 
             <div class="form-group">
               <label for="email">Email</label>
-                <div class="row">
-                  <div class="col-sm-6">
-                    {{  Form::text('email', $admin->email, array('class' => 'form-control', 'required' => 'required' )) }}
-                  </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  {{  Form::text('email', $admin->email, array('class' => 'form-control', 'required' => 'required' )) }}
                 </div>
+              </div>
             </div>
 
             <div class="form-group">

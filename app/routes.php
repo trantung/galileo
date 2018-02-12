@@ -12,6 +12,46 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/update_permission_user_depend_subject', function(){
+    $listUser = User::all();
+    $group = PermissionGroup::where('code', 'VHL')->first();
+    if (!$group) {
+        dd(1);
+    }
+    $groupId = $group->id;
+    foreach ($listUser as $key => $user) {
+        $userCenterLevel = UserCenterLevel::where('user_id', $user->id)
+            ->first();
+        $level = Level::find($userCenterLevel->level_id);
+        $subjectId = $level->subject_id;
+        $input['group_id'] = $groupId;
+        $input['subject_id'] = $subjectId;
+        $input['model_name'] = 'User';
+        $input['model_id'] = $user->id;
+        AccessPermisison::create($input);
+    }
+    dd(4444);
+});
+Route::get('/per-update', function(){
+    $array = getMethodDefault('DocumentController');
+    foreach ($array as $key => $value) {
+        Permission::create([
+            'controller' => $value,
+            'action' => $key,
+            'model' => 'Document',
+        ]);
+    }
+    $array1 = ['index', 'show'];
+
+    foreach ($array1 as $k => $v) {
+        Permission::create([
+            'controller' => 'LevelController',
+            'action' => $v,
+        ]);
+    }
+});
+Route::get('/calendar_test', 'TestController@calendar');
+
 Route::get('/update_password_user', function(){
     User::orderBy('id','asc')->update(['password' => Hash::make('123456')]);
     dd(111);
@@ -54,16 +94,21 @@ Route::get('/parent/update', function(){
 Route::get('/test/upload', 'AdminController@getUpload');
 Route::post('/test/upload', 'AdminController@postUpload');
 
+Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
+    
+    Route::get('administrator/{id}/reset', 'AdminController@getResetPass');
+    Route::post('/administrator/{id}/reset', 'AdminController@postResetPass');
     //Quản lý phân quyền
     Route::resource('/permission/group', 'PermissionGroupController');
     Route::resource('/permission', 'PermissionController');
 
     //
     Route::resource('administrator', 'AdminController');
+    
     Route::resource('student', 'StudentController');
     /*
         Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
@@ -74,6 +119,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/partner/{id}/reset-password', 'ManagerPartnerController@getResetPass');
     Route::post('/partner/{id}/reset-password', 'ManagerPartnerController@postResetPass');
     Route::resource('/partner', 'ManagerPartnerController');
+
     Route::resource('/class', 'ClassController');
 	Route::resource('/subject', 'SubjectController');
 
@@ -93,9 +139,10 @@ Route::group(['prefix' => 'admin'], function () {
     */
     Route::get('/user/{id}/reset-password', 'ManagerUserController@getResetPass');
     Route::post('/user/{id}/reset-password', 'ManagerUserController@postResetPass');
-    
+
     Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
     Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
+    Route::post('/user/{userId}/{timeId}/{startTime}/{endTime}/set-time', 'ManagerUserController@detroyFreeTime');
 
     Route::resource('/user', 'ManagerUserController');
     Route::controller('/user', 'ManagerUserController');
@@ -125,6 +172,7 @@ Route::group(['prefix' => 'admin'], function () {
         3. view: admin.package
     */
     Route::resource('/package', 'PackageController');
+
 });
 
 Route::get('/test', function() {
@@ -164,8 +212,47 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/logout', 'UserController@logout');
     Route::resource('/', 'UserController');
 });
+
+
+//Route::get('partner/create','PartnerController@create');
+//Route::get('partner/display','PartnerController@index');
+Route::resource('partner','PartnerController');
+
+//---------------------------------------------------------//
+
+// Route::get('center/create','CenterController@create');
+// Route::get('center/display','CenterController@index');
+Route::resource('center','CenterController');
+
+// //---------------------------------------------------------//
+
+// Route::get('employees/create','EmployeesController@create');
+// Route::get('employees/display','EmployeesController@index');
+Route::resource('employees','EmployeesController');
+
+
+// //---------------------------------------------------------//
+
+// Route::get('class/create','ClassController@create');
+// Route::get('class/display','ClassController@index');
+// Route::resource('class','ClassController');
+
+// //--------------------------------------------------------//
+
+// Route::get('subject/create','SubjectController@create');
+// Route::get('subject/display','SubjectController@index');
+// Route::resource('subject','SubjectController');
+
+// //--------------------------------------------------------//
+
+// Route::get('class_subject/create','Class_SubjectController@create');
+// Route::get('class_subject/display','Class_SubjectController@index');
+// Route::resource('class_subject','Class_SubjectController');
+
+//--------------------------------------------------------//
 // Route::post('/ajax/{method}', 'AjaxController@process');
 Route::controller('/ajax', 'AjaxController');
+
 
 App::error( function(Exception $exception, $code){
     $pathInfo = Request::getPathInfo();
@@ -185,3 +272,4 @@ App::error( function(Exception $exception, $code){
             }
     }
 });
+

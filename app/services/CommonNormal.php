@@ -37,7 +37,7 @@ class CommonNormal
 		$name = self::commonName($name);
 		$name::find($id)->update($input);
 	}
-
+	
 	public static function create($input, $name = NULL)
 	{
 		$name = self::commonName($name);
@@ -98,4 +98,18 @@ class CommonNormal
         }
         return true;
 	}
+
+	public static function commonSaveTime($startName, $endName, $input, $id) { 
+		if(!empty($input[$startName])){	
+			foreach ($input[$startName] as $key => $value){  
+				foreach ($value as $k => $time){
+					if (!empty($time)){  
+						$field = [ 'user_id' => $id, 'time_id' => $key, 'start_time' => $time, 'end_time' => $input[$endName][$key][$k] ]; 
+						CommonNormal::create($field, 'FreeTimeUser'); 
+					}
+				} 
+			} return true;
+		} return false;
+	}
+	
 }

@@ -15,4 +15,9 @@ class ClassModel extends Eloquent
 		return $this->belongsToMany('Subject', 'subject_class', 'class_id', 'subject_id');
 
 	}
+
+	public function students() 
+    {
+        return $this->hasMany('Student', 'class_id', 'id');
+    }
 }
