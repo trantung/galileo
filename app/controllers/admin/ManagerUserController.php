@@ -34,28 +34,29 @@ class ManagerUserController extends AdminController implements AdminInterface{
         return View::make('admin.user.set-time')->with(compact('id', 'data'));
     }
 
+    
+
     public function postSetTime($id)
     {
-
         $input = Input::all();
         FreeTimeUser::where('user_id', $id)->delete();
-        foreach ($input['start_time'] as $key => $value) {
-            foreach ($value as $k => $time) {
-                if( !empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k]) ){
-                    if (!empty($time)) {
-                         $field = [
-                            'user_id' => $id, 
-                            'time_id' => $key,
-                            'start_time' => $time,
-                            'end_time' => $input['end_time'][$key][$k]
-                        ];
-                        CommonNormal::create($field, 'FreeTimeUser');
-                    }
+        foreach ($input['start_time'] as $key => $times) {
+            foreach ($times as $key2 => $time) {
+                if( !empty($input['start_time'][$key][$key2]) && !empty($input['end_time'][$key][$key2]))
+                {
+                    $field = [
+                        'user_id' => $id,
+                        'time_id' => $key,
+                        'start_time' => $input['start_time'][$key][$key2],
+                        'end_time' => $input['end_time'][$key][$key2]
+                    ];
+                    CommonNormal::create($field, 'FreeTimeUser');
                 }
             }
         }
         return Redirect::action('ManagerUserController@getSetTime', $id);
     }
+
     /**
      * Show the form for creating a new resource.
      *

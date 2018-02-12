@@ -8,7 +8,14 @@ class Student extends Eloquent
 
     protected $table = 'students';
     protected $hidden = array('password', 'remember_token');
-    protected $fillable = ['family_id', 'fullname', 'username', 'email', 'password', 'phone', 'code', 'center_id', 'class_id', 'date_study', 'model_name', 'model_id', 'birthday', 'gender', 'address', 'school', 'link_fb', 'description', 'time_target', 'info_user', 'comment'];
+    protected $fillable = [
+        'family_id','fullname', 'username', 'fullname', 'email', 'password', 'phone', 'code',
+        'center_id','class_id', 'date_study', 'model_id', 'model_name', 'birthday',
+        'gender', 'address', 'school', 'link_fb',
+        'description', 'time_target', 'info_user', 'comment'
+    ];
+
+
     protected $dates = ['deleted_at'];
 
     public function parents() 
@@ -31,8 +38,8 @@ class Student extends Eloquent
         return $this->belongsTo('ClassModel', 'class_id', 'id');
     }
 
-    public function family() 
+    public function families() 
     {
-        return $this->belongsTo('Family', 'family_id', 'id');
+        return $this->hasMany('Family', 'group_id', 'family_id');
     }
 }
