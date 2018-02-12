@@ -20,6 +20,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $users = User::all();
         return View::make('admin.user.index')->with(compact('users'));
     }
+
     public function getSetTime($id)
     {
         $data = [];
@@ -36,26 +37,24 @@ class ManagerUserController extends AdminController implements AdminInterface{
 
     public function postSetTime($id)
     {
-
-        $input = Input::all();
-        FreeTimeUser::where('user_id', $id)->delete();
-        foreach ($input['start_time'] as $key => $value) {
+       $input =Input::all();
+       FreeTimeUser::where('user_id',$id)->delete();
+        foreach($input['start_time'] as $key => $value) {
             foreach ($value as $k => $time) {
-                if( !empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k]) ){
-                    if (!empty($time)) {
-                         $field = [
-                            'user_id' => $id, 
-                            'time_id' => $key,
-                            'start_time' => $time,
-                            'end_time' => $input['end_time'][$key][$k]
-                        ];
-                        CommonNormal::create($field, 'FreeTimeUser');
-                    }
+                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k])){
+                    $field = [
+                        'user_id'=>$id,
+                        'time_id'=> $key,
+                        'start_time' => $input['start_time'][$key][$k],
+                        'end_time' => $input['end_time'][$key][$k]
+                    ];
+                    CommonNormal::create($field, 'FreeTimeUser');
                 }
             }
         }
         return Redirect::action('ManagerUserController@getSetTime', $id);
     }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -44,7 +44,7 @@
             </div>
 
             <div class="form-group">
-              {{ Form::label('price', 'Giá tiền') }}       
+              {{ Form::label('price', 'Giá tiền mỗi buổi') }}       
               <div class="row">
                 <div class="col-sm-6">
                   {{ Form::number('price', $package->price, [ 'class' => 'form-control', 'required' => true]) }}                  
