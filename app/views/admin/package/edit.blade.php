@@ -26,10 +26,10 @@
             </div>
 
             <div class="form-group">
-              {{ Form::label('number_lesson', 'Số buổi học trong tuần') }}
+              {{ Form::label('lesson_per_week', 'Số buổi học trong tuần') }}
               <div class="row">
                 <div class="col-sm-6">
-                  {{ Form::number('number_lesson', $package->lesson_per_week, [ 'class' => 'form-control', 'required' => true]) }}
+                  {{ Form::number('lesson_per_week', $package->lesson_per_week, [ 'class' => 'form-control', 'required' => true]) }}
                 </div>
               </div>
             </div>

@@ -2,11 +2,7 @@
 @section('title')
 {{ $title='Quản lý học sinh' }}
 @stop
-@section('js_header')
-@parent
-{{ HTML::script( asset('custom/js/form-control.js') ) }}
-{{ HTML::script( asset('custom/js/ajax.js') ) }}
-@stop
+
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">
@@ -15,26 +11,23 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <div class="box box-primary"> <!-- form start -->
-            {{ Form::open(array('action' => 'StudentController@store', 'class' => 'student-form')) }}
-            @include('student.student')
-            <div class="box-body col-sm-6">
-                @include('student.family')
-                @include('student.package')
+        {{ Form::open(array('action' => 'StudentController@store', 'class' => 'student-form')) }}
+            <div class="box box-primary"> <!-- form start -->
+                @include('student.student')
+                <div class="box-body col-sm-6">
+                    @include('student.family')
+                    @include('student.package')
+                </div>
             </div>
-        </div>
-        <!-- /.box-body -->
-        <div class="clearfix clear">
-        </div>
-        <div class="box-footer">
-            <input type="submit" class="btn btn-primary" value="Lưu lại"/>
-            <input type="reset" class="btn btn-default" value="Nhập lại"/>
-        </div>
-         {{ Form::close() }}
+            <!-- /.box-body -->
+            <div class="clearfix clear"></div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Lưu lại"/>
+                <input type="reset" class="btn btn-default" value="Nhập lại"/>
+            </div>
+        {{ Form::close() }}
     </div><!-- /.box -->
 </div>
-<<<<<<< HEAD
-=======
 <script type="text/javascript">
     $( function() {
     var availableTags = <?php echo json_encode($userNameActive); ?>;
@@ -43,6 +36,4 @@
     });
   } );
 </script>
-
->>>>>>> b21c465593f778dd27dca7b2b02e522842eb1aef
 @stop
