@@ -25,7 +25,9 @@ class StudentController extends BaseController {
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
         $center = Center::lists('name', 'id');
-        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center','package'));
+        $userActive = User::where('role_id', CVHT)->lists('username', 'id');
+        $userNameActive = User::where('role_id', CVHT)->lists('username');
+        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center','package', 'userActive', 'userNameActive'));
     }
     /**
      * Store a newly created resource in storage.
