@@ -17,9 +17,10 @@
     <div class="col-xs-12">
         <div class="box box-primary"> <!-- form start -->
             {{ Form::open(array('action' => 'StudentController@store', 'class' => 'student-form')) }}
-            @include('student/student')
-            @include('student/family')
-            @include('student/package')
+            @include('student.student')
+            <div class="box-body col-sm-6">
+                @include('student.family')
+                @include('student.package')
             </div>
         </div>
         <!-- /.box-body -->
@@ -32,4 +33,16 @@
          {{ Form::close() }}
     </div><!-- /.box -->
 </div>
+<<<<<<< HEAD
+=======
+<script type="text/javascript">
+    $( function() {
+    var availableTags = <?php echo json_encode($userNameActive); ?>;
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+</script>
+
+>>>>>>> b21c465593f778dd27dca7b2b02e522842eb1aef
 @stop

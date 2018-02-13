@@ -194,7 +194,6 @@ return array(
 
 		'Excel' 		  => 'Maatwebsite\Excel\Facades\Excel',
 		'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
-
 	),
 
 );
