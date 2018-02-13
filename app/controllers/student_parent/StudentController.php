@@ -20,7 +20,7 @@ class StudentController extends BaseController {
      */
     public function create()
     {
-        $package = Package::lists('name','id');   
+        $package = Package::all();
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');

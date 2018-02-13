@@ -32,7 +32,7 @@ class FreeTimeUserTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('free_time_user');
+		Schema::dropIfExists('free_time_user');
 	}
 
 }
