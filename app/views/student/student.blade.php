@@ -4,19 +4,27 @@
             <legend>thông tin học sinh</legend>
             <div class="form-group">
                 <label for="fullname">Họ và tên</label>
-                {{ Form::text('fullname', null, array('class' => 'form-control', 'placeholder' => 'Họ và tên' )) }}
+                {{ Form::text('fullname', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Họ và tên' )) }}
             </div>
             <div class="form-group">
                 <label for="code">Mã học sinh</label>
-                {{ Form::text('code', null, array('class' => 'form-control', 'placeholder' => 'Mã học sinh' )) }}
+                {{ Form::text('code', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Mã học sinh' )) }}
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                {{ Form::email('email', null, array('class' => 'form-control', 'placeholder' => 'Email' )) }}
+                {{ Form::email('email', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Email' )) }}
+            </div>
+            <div class="form-group">
+                <label for="username">Tên đăng nhập</label>
+                {{ Form::text('username', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Tên đăng nhập' )) }}
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" class="form-control" required id="password" pattern="[0-9a-fA-F]{4,12}" placeholder="Mật khẩu" name="password">
             </div>
             <div class="form-group">
                 <label for="center_id">Trung tâm</label>
-                {{ Form::select('center_id', ['null' => '--chọn--'] +$center, null, array('class' => 'form-control' )) }}
+                {{ Form::select('center_id', ['null' => '--chọn--'] +$center, null, array('class' => 'form-control', 'required' => 'required' )) }}
             </div>
             <div class="form-group">
                 <label for="date_study">Ngày nhập học</label>
@@ -63,16 +71,11 @@
                 <label for="info_user">Thông tin người đón</label>
                 {{ Form::text('info_user', null, array('class' => 'form-control', 'placeholder' => 'Thông tin người đón' )) }}
             </div>
-            
-        </fieldset>
-    </div>
-    <div class="form-group well well-sm">
-        <fieldset>
-            
             <div class="form-group">
                 <label for="comment">Lưu ý về học sinh</label>
-                {{ Form::textarea('comment', '', ['class' => 'form-control', 'placeholder' => 'Lưu ý về học sinh' , 'rows'=>10]) }}
+                {{ Form::textarea('comment', '', ['class' => 'form-control', 'placeholder' => 'Lưu ý về học sinh' , 'rows'=>3]) }}
             </div> 
+            
         </fieldset>
     </div>
 </div>

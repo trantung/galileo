@@ -25,6 +25,10 @@ Tạo mới thành viên
         {{ Form::password('password', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
     </div>
     <div class="form-group">
+        {{ Form::label('name', 'Fullname') }}
+        {{ Form::email('full_name', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+    </div>
+    <div class="form-group">
         {{ Form::label('role_id', 'Phân quyền') }}
         {{ Form::select('role_id', ['' => '-- Chọn --'] + Common::getRoleUser(), '', ['class' => 'form-control select-role-for-user', 'required' =>'']) }}
     </div>
