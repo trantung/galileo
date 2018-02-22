@@ -44,7 +44,6 @@ class CommonNormal
         $id = $name::create($input)->id;
         return $id;
     }
-
     public static function commonName($name = NULL)
     {
         if ($name == NULL) {

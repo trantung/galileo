@@ -14,6 +14,7 @@ class Student extends Eloquent
         'gender', 'address', 'school', 'link_fb',
         'description', 'time_target', 'info_user', 'comment'
     ];
+
     protected $dates = ['deleted_at'];
 
     public function parents() 
@@ -35,6 +36,7 @@ class Student extends Eloquent
     {
         return $this->belongsTo('ClassModel', 'class_id', 'id');
     }
+
     public function families() 
     {
         return $this->hasMany('Family', 'group_id', 'family_id');

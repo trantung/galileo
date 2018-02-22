@@ -1,4 +1,3 @@
-
 @extends('admin.layout.default')
 
 @section('title')
@@ -6,9 +5,7 @@
 @stop
 @section('content')
 
-
-    <a href="{{ action('PackageController@index') }}" class="btn btn-success">Danh sách  gói học</a>
- 
+<a href="{{ action('PackageController@index') }}" class="btn btn-success">Danh sách  gói học</a>
 
 <div class="row">
 	<div class="col-xs-12">
@@ -75,7 +72,6 @@
             <input type="submit" class="btn btn-primary" value="Lưu lại" />
             <input type="reset" class="btn btn-default" value="Nhập lại" />
           </div>
-
 
 	{{ Form::close() }}
 @stop

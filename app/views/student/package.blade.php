@@ -19,7 +19,6 @@
         <div class="form-group">
             {{ Form::label('package_id','Gói học') }} 
             {{ Common::getPackageDropdownList('package_id', $package, null) }}
-            {{-- {{ Form::select('package_id', $package, null, ['class' => 'form-control', 'required'=>true]) }} --}}
         </div>
         <legend> thời gian học</legend>
         <div class="form-group time-box-student">
@@ -66,7 +65,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('user_id','chọn cố vấn học tập') }}
-            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control'])}}
+            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker', 'data-live-search' => 'true'])}}
         </div>
     </fieldset> 
     <div class="input-group inline-block">

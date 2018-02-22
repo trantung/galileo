@@ -291,7 +291,15 @@ class TestController extends AdminController implements AdminInterface {
 		//
 	}
 
-
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		//
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -301,7 +309,6 @@ class TestController extends AdminController implements AdminInterface {
 	{
 		//
 	}
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -313,7 +320,6 @@ class TestController extends AdminController implements AdminInterface {
 		//
 	}
 
-
 	/**
 	 * Display the specified resource.
 	 *
@@ -324,7 +330,6 @@ class TestController extends AdminController implements AdminInterface {
 	{
 		//
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -348,8 +353,6 @@ class TestController extends AdminController implements AdminInterface {
 	{
 		//
 	}
-
-
 	/**
 	 * Remove the specified resource from storage.
 	 *
