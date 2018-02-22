@@ -66,7 +66,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('user_id','chọn cố vấn học tập') }}
-            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control'])}}
+            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker', 'data-live-search' => 'true'])}}
         </div>
     </fieldset> 
     <div class="input-group inline-block">
