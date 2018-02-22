@@ -640,7 +640,7 @@ class Common {
         $html = '<select name="'. $name .'" class="form-control" required>
             <option value="">-- Chọn --</option>';
         foreach ($packages as $key => $value) {
-            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' number-lesson="'. $value->lesson_per_week .'" value="'. $value->id .'">'. $value->name .'</option>';
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' number-lesson="'. $value->lesson_per_week .'" value="'. $value->id .'">'. $value->name .'<p>-</p>'.$value->lesson_per_week.' buổi/tuần<p>-</p>'.$value->total_lesson.' buổi<p>-thời lượng </p>'.$value->duration.' phút<p>-tối đa </p>'.$value->max_student.' học sinh</option>';
         }
         $html .= '<select>';                                                                            
         return $html;
