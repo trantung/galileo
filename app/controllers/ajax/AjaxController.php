@@ -6,6 +6,7 @@ class AjaxController extends \BaseController {
      **/
     public function postGetLevelListByClassSubject(){
         $input = Input::all();
+        // return $input['subject_id'];
         $html = '<option value="">--Tất cả--</option>';
         if( !empty($input['class_id']) && count($input['subject_id']) ){
             $levelList = [];

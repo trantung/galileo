@@ -21,7 +21,7 @@ class SpDetail extends Eloquent {
         'student_id', 'class_id', 'subject_id',
         'level_id', 'package_id', 'student_package_id',
         'time_id', 'user_id', 'lesson_code',
-        'status', 'lesson_date'
+        'status', 'lesson_date', 'lesson_hour'
     );
     protected $dates = ['deleted_at'];
 
