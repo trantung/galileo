@@ -17,9 +17,10 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // if ($roleId == 1) {
         //  //
         // }
-        $users = User::all();
+        $users = User::paginate(30);
         return View::make('admin.user.index')->with(compact('users'));
     }
+
     public function getSetTime($id)
     {
         $data = [];
@@ -38,17 +39,16 @@ class ManagerUserController extends AdminController implements AdminInterface{
 
     public function postSetTime($id)
     {
-        $input = Input::all();
-        FreeTimeUser::where('user_id', $id)->delete();
-        foreach ($input['start_time'] as $key => $times) {
-            foreach ($times as $key2 => $time) {
-                if( !empty($input['start_time'][$key][$key2]) && !empty($input['end_time'][$key][$key2]))
-                {
+       $input =Input::all();
+       FreeTimeUser::where('user_id',$id)->delete();
+        foreach($input['start_time'] as $key => $value) {
+            foreach ($value as $k => $time) {
+                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k])){
                     $field = [
-                        'user_id' => $id,
-                        'time_id' => $key,
-                        'start_time' => $input['start_time'][$key][$key2],
-                        'end_time' => $input['end_time'][$key][$key2]
+                        'user_id'=>$id,
+                        'time_id'=> $key,
+                        'start_time' => $input['start_time'][$key][$k],
+                        'end_time' => $input['end_time'][$key][$k]
                     ];
                     CommonNormal::create($field, 'FreeTimeUser');
                 }

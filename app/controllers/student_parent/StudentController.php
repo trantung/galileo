@@ -20,7 +20,8 @@ class StudentController extends BaseController {
      */
     public function create()
     {
-        $package = Package::lists('name','id');   
+
+        $package = Package::all();
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
@@ -37,7 +38,6 @@ class StudentController extends BaseController {
     public function store()
 
     {
-        $input = Input::except('_token');
         dd($input);
         // create family
         $familyInput['mom_fullname'] = $input['mom_fullname'];
