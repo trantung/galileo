@@ -16,9 +16,8 @@ $(document).ready(function(){
 			}
 		});
     })
-
+    
     // //=============== get list level by class id &  subject id==============
-
     // $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){
     //     var parent = $(this).parents('fieldset'),
     //     classId = parent.find('select.select-class').val(),
