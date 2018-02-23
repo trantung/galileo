@@ -21,11 +21,11 @@
                                 <div class="item new">
                                     <div class="form-group col-sm-6">
                                         <label>Bắt đầu:</label>
-                                        {{ Form::text('start_time['. $i .'][]', (!empty($data[$i][$j]['start_time']) ? $data[$i][$j]['start_time'] : ''), array('class' => 'form-control inline-block timepicker', 'style' => 'width: 60px')) }}
+                                        {{ Form::text('time[start]['. $i .'][]', (!empty($data[$i][$j]['start_time']) ? $data[$i][$j]['start_time'] : ''), array('class' => 'form-control inline-block timepicker', 'style' => 'width: 60px')) }}
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label>Kết thúc:</label>
-                                        {{ Form::text('end_time['. $i .'][]', (!empty($data[$i][$j]['end_time']) ? $data[$i][$j]['end_time'] : ''), array('class' => 'form-control inline-block timepicker', 'style' => 'width: 60px')) }}
+                                        {{ Form::text('time[end]['. $i .'][]', (!empty($data[$i][$j]['end_time']) ? $data[$i][$j]['end_time'] : ''), array('class' => 'form-control inline-block timepicker', 'style' => 'width: 60px')) }}
                                     </div>
                                 </div>
                                 <div class="clear clearfix"></div>

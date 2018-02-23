@@ -27,7 +27,6 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $input = Input::all();
         foreach ($input['time'] as $key => $value) {
             foreach ($value as $key2 => $time) {
-                dd($input);
                 if(!empty($time['start']) && !empty($time['end']) ){
                     FreeTimeUser::create([
                         'user_id' => $id, 
