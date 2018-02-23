@@ -1,5 +1,4 @@
 @extends('admin.layout.default')
-
 @section('title')
 {{ $title='Quản lý học sinh' }}
 @stop

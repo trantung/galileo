@@ -37,8 +37,7 @@ class StudentController extends BaseController {
     public function store()
 
     {
-        $input = Input::except('_token');
-        dd($input);
+        $input = Input::all();
         // create family
         $familyInput['mom_fullname'] = $input['mom_fullname'];
         $familyInput['mom_phone'] = $input['mom_phone'];
@@ -65,30 +64,46 @@ class StudentController extends BaseController {
         if (!$studentId) {
             dd($studentInput);
         }
-        dd($input);
         //create record in table: student_package
         $studentPackageInput = Input::only(
             'class_id', 'subject_id', 'level_id',
             'package_id', 'lesson_code', 'money_paid'
         );
         $studentPackageInput['student_id'] = $studentId;
-        $studentPackageInput['time_id'] = getTimeId($input['time_id']);
+        // $studentPackageInput['time_id'] = getTimeId($input['time_id']);
         $studentPackageInput['lesson_total'] = getTotalLessonByMoneyPaid($input['money_paid'], $input['package_id']);
         $studentPackageInput['code'] = getCodeStudentPackage();
         $studentPackageId = StudentPackage::create($studentPackageInput)->id;
+        //create record in table: student_level
         //create record in table: detail
+        $lessonDate = [];
+        for ($i=0; $i < $studentPackageInput['lesson_total']; $i++) { 
+            foreach ($input['time_id'] as $key => $value) {
+                if ($value != '' && count($lessonDate) < $studentPackageInput['lesson_total']) {
+                    $number = $i*7;
+                    $text = ' + '.$number.' days';
+                    $lessonDate[] = [date('Y-m-d', strtotime($value.$text)), $input['hours'][$key]];
+                }
+            }
+        }
         for ($i=0; $i < $studentPackageInput['lesson_total']; $i++) { 
             $spDetailInput = Input::only(
                 'class_id', 'subject_id', 'level_id',
                 'package_id'
             );
-            // thieu: lesson_code,lesson_date
             $spDetailInput['student_id'] = $studentId;
             $spDetailInput['student_package_id'] = $studentPackageId;
-            $spDetailInput['time_id'] = getTimeId($input['time_id']);
+            $spDetailInput['time_id'] = getTimeId($lessonDate[$i][0]);
             $spDetailInput['user_id'] = getUserIdOfStudent($input['user_id'], $input['manual_user']);
+            $spDetailInput['class_id'] = $input['class_id'];
+            $spDetailInput['subject_id'] = $input['subject_id'];
+            $spDetailInput['level_id'] = $input['level_id'];
+            $spDetailInput['package_id'] = $input['package_id'];
             $spDetailInput['status'] = REGISTER_LESSON;
             $spDetailInput['lesson_code'] = $studentPackageInput['lesson_code'] + $i;
+            $spDetailInput['lesson_date'] = $lessonDate[$i][0];
+            $spDetailInput['lesson_hour'] = $lessonDate[$i][1];
+            $idSpDetail = SpDetail::create($spDetailInput)->id;
         }
         return Redirect::action('StudentController@index');
     }
