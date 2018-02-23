@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-
 class Center extends Eloquent {
 
     use SoftDeletingTrait;
@@ -18,9 +17,7 @@ class Center extends Eloquent {
      *
      * @var array
      */
-    protected $fillable = array('name', 'phone',
-        'address', 'code', 'partner_id'
-    );
+    protected $fillable = array('name', 'phone','address', 'code', 'partner_id');
     protected $dates = ['deleted_at'];
 
     public function levels() 
@@ -32,6 +29,11 @@ class Center extends Eloquent {
     {
         return $this->belongsTo('Partner', 'partner_id');
 
+    }
+
+    public function students() 
+    {
+        return $this->hasMany('Student', 'center_id', 'id');
     }
 
 }

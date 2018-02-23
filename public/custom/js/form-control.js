@@ -1,12 +1,27 @@
 $(document).ready(function(){
 
+    ////// Chon thoi gian hoc form tao hoc sinh
+    $(document).on('change', '.student-form select[name="package_id"]', function(){
+        var val = $(this).val(),
+        order = $(this).find('>option[value="'+ val +'"]').attr('number-lesson');
+        $('.time-box-student >.item').each(function(key, val){
+            $(this).find('input').val('').change();
+            if( (key+1) <= order ){
+                $(this).removeClass('hidden');
+            } else{
+                $(this).addClass('hidden');
+            }
+        })
+    })
+
     ////// chon trinh do trong bo loc trang danh sach hoc lieu
-    $(document).on('change', 'form.filter-document-form select.select-class, form.filter-document-form select.select-subject', function(){
-        var classId = $('form.filter-document-form select.select-class').val(),
-        subjectId = $('form.filter-document-form select.select-subject').val();
-        $('form.filter-document-form .select-level-from-class-subject > select').val('').change();
-        $('form.filter-document-form .select-level-from-class-subject > select>option').addClass('hidden');
-        $('form.filter-document-form .select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
+    $(document).on('change', '.filter-document-form select.select-class, .filter-document-form select.select-subject', 
+        function(){
+        var classId = $('.filter-document-form select.select-class').val(),
+        subjectId = $('.filter-document-form select.select-subject').val();
+        $('.filter-document-form .select-level-from-class-subject > select').val('').change();
+        $('.filter-document-form .select-level-from-class-subject > select>option').addClass('hidden');
+        $('.filter-document-form .select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
     })
 
     //// Them moi hoc lieu trong trang quan ly cac buoi hoc cua 1 level

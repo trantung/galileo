@@ -165,5 +165,19 @@ class AdminController extends BaseController {
         }
         dd(555);
     }
+
+    public function getResetPass($id)
+    {
+        return View::make('administrator.reset')->with(compact('id'));
+    }
+    public function postResetPass($id)
+    {
+        $input = Input::all();
+        $admin = Admin::find($id);
+        $password = Hash::make($input['password']);
+        $admin->update(['password' => $password]);
+        return Redirect::action('AdminController@index');
+
+    }
 }
 

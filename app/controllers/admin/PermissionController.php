@@ -69,7 +69,29 @@ class PermissionController extends \BaseController {
     public function update($adminId)
     {
         $input = Input::all();
-        Common::permissionDoc('Admin', $adminId, $input);
+        // dd($input);
+        AccessPermisison::where('model_name', 'Admin')
+            ->where('model_id', $adminId)
+            ->delete();
+        
+        if (isset($input['permission'])) {
+            $permission = $input['permission'];
+            foreach ($permission as $subjectId => $value) {
+                foreach ($value as $groupId => $v) {
+                    
+                    $listPerIds = Permission::where('group_id', $groupId)
+                        ->lists('id');
+                    $access = [];
+                    $access['subject_id'] = $subjectId;
+                    $access['model_name'] = 'Admin';
+                    $access['model_id'] = $adminId;
+                    foreach ($listPerIds as $k => $permissionId) {
+                        $access['permission_id'] = $permissionId;
+                        AccessPermisison::create($access);
+                    }
+                }
+            }
+        }
         return Redirect::action('PermissionController@edit', $adminId);
     }
 
