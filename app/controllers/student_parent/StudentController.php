@@ -20,7 +20,6 @@ class StudentController extends BaseController {
      */
     public function create()
     {
-
         $package = Package::all();
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
@@ -36,9 +35,9 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function store()
+
     {
         $input = Input::all();
-        // dd($input);
         // create family
         $familyInput['mom_fullname'] = $input['mom_fullname'];
         $familyInput['mom_phone'] = $input['mom_phone'];
