@@ -2,6 +2,7 @@
 @section('title')
 {{ $title='Quản lý học sinh' }}
 @stop
+
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">

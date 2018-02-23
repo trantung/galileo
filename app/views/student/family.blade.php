@@ -1,8 +1,3 @@
-@section('js_header')
-@parent
-{{ HTML::script( asset('custom/js/form-control.js') ) }}
-{{ HTML::script( asset('custom/js/ajax.js') ) }}
-@stop
 <div class="form-group well well-sm">
     <fieldset>
         <legend>Thông tin về mẹ</legend>

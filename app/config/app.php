@@ -11,7 +11,7 @@ return array(
 	| stack traces will be shown on every error that occurs within your
 	| application. If disabled, a simple generic error page is shown.
 	|
-	*/
+	*/	
 
 	'debug' => true,
 
@@ -122,9 +122,9 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		"Ollieread\Multiauth\MultiauthServiceProvider",
+
 		"Maatwebsite\Excel\ExcelServiceProvider",
 	    'Barryvdh\Debugbar\ServiceProvider',
-
 	),
 
 	/*
@@ -191,6 +191,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+
 		'Excel' 		  => 'Maatwebsite\Excel\Facades\Excel',
 		'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
 	),

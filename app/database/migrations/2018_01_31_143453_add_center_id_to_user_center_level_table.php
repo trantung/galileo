@@ -15,7 +15,6 @@ class AddCenterIdToUserCenterLevelTable extends Migration {
 		Schema::table('user_center_level', function(Blueprint $table) {
             $table->integer('center_id')->after('user_id')->nullable();
             $table->integer('subject_id')->after('user_id')->nullable();
-            $table->integer('class_id')->after('user_id')->nullable();
         });
 	}
 
@@ -27,7 +26,7 @@ class AddCenterIdToUserCenterLevelTable extends Migration {
 	public function down()
 	{
 		Schema::table('user_center_level', function(Blueprint $table) {
-            $table->dropColumn(['center_id', 'subject_id', 'class_id']);
+            $table->dropColumn(['center_id', 'subject_id']);
         });
 	}
 

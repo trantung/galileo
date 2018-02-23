@@ -21,6 +21,10 @@ Chỉnh sửa thành viên
         {{ Form::email('email', Common::getObject($data, 'email'), ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
     </div>
     <div class="form-group">
+        {{ Form::label('name', 'Fullname') }}
+        {{ Form::email('full_name', $data->full_name, ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+    </div>
+    <div class="form-group">
         {{ Form::label('role_id', 'Phân quyền') }}
         {{ Form::select('role_id', ['' => '-- Chọn --'] + Common::getRoleUser(), Common::getObject($data, 'role_id'), ['class' => 'form-control', 'required' =>'']) }}
     </div>
