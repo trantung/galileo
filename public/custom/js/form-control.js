@@ -1,5 +1,19 @@
 $(document).ready(function(){
 
+    ////// Chon thoi gian hoc form tao hoc sinh
+    $(document).on('change', '.student-form select[name="package_id"]', function(){
+        var val = $(this).val(),
+        order = $(this).find('>option[value="'+ val +'"]').attr('number-lesson');
+        $('.time-box-student >.item').each(function(key, val){
+            $(this).find('input').val('').change();
+            if( (key+1) <= order ){
+                $(this).removeClass('hidden');
+            } else{
+                $(this).addClass('hidden');
+            }
+        })
+    })
+
     ////// chon trinh do trong bo loc trang danh sach hoc lieu
     $(document).on('change', '.filter-document-form select.select-class, .filter-document-form select.select-subject', 
         function(){

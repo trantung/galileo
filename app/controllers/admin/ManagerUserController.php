@@ -76,8 +76,8 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // dd($input);
         $check = Common::checkExist('User', $input['username'], 'username');
         if ($check) {
-            $message = 'Tồn tại username của partner';
-            return View::make('admin.user.create')->with(compact('message'));
+            $message = 'Username đã tồn tại';
+            return Redirect::back()->with(compact('message'));
         }
         //tao moi
         $input['password'] = Hash::make($input['password']);
@@ -99,7 +99,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
                 'level_id' => $value
             ]);
         }
-        return Redirect::action('ManagerUserController@index');
+        return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
 
     /**

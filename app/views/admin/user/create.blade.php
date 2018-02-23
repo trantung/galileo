@@ -26,7 +26,7 @@ Tạo mới thành viên
     </div>
     <div class="form-group">
         {{ Form::label('name', 'Fullname') }}
-        {{ Form::email('full_name', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+        {{ Form::text('full_name', '', ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
     </div>
     <div class="form-group">
         {{ Form::label('role_id', 'Phân quyền') }}
@@ -41,7 +41,7 @@ Tạo mới thành viên
                 <?php $listData = Common::getClassSubjectLevelOfCenter($centerId); ?>
                 <div class="form-group checkbox">
                     <label for="center-{{ $centerId }}">
-                        {{ Form::checkbox( '', $centerId, false, ['id' => 'center-'.$centerId] ) . $center }}
+                        {{ Form::checkbox('center_id', $centerId, false, ['id' => 'center-'.$centerId] ) . $center }}
                     </label>
 
                     <div class="get-list-level-by-center-wrap">
