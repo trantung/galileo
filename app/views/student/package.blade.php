@@ -19,7 +19,6 @@
         <div class="form-group">
             {{ Form::label('package_id','Gói học') }} 
             {{ Common::getPackageDropdownList('package_id', $package, null) }}
-            {{-- {{ Form::select('package_id', $package, null, ['class' => 'form-control', 'required'=>true]) }} --}}
         </div>
         <legend> thời gian học</legend>
         <div class="form-group time-box-student">
