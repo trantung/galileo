@@ -2,68 +2,193 @@
 
 class TestController extends AdminController implements AdminInterface {
 
-	public function getImportStudent(){
-		Excel::load('public/students.xlsx', function($reader) {
-			$reader->formatDates(false);
-			$results = $reader->formatDates(false)->toArray();
-			dd($results);
-		});
-	}
+    public function getImportStudent(){
+        Excel::load('public/students.xlsx', function($reader) {
+            $results = $reader->toArray();
+            $countInsert = $countUpdate = $countFalse = 0;
+           
+            foreach ($results as $key => $value) {
+                 $groupId = null;
+                $momId = null;
+                if(!empty($value['ho_va_ten_hoc_sinh'])){
+                    // if( empty($value['sdt_me']) && empty($value['sdt_bo']) ){
+                    //     /////////// neu khong co bo me thi bo qua
+                    //     // var_dump($value['ho_va_ten_hoc_sinh']);
+                    //     // var_dump('-----');
+                    //     // $countFalse++;
+                    //     continue;
+                    // }
 
-	public function getImportTUser(){
-		Excel::load('public/CTV_T.xlsx', function($reader) {
-			$results = $reader->toArray();
-			$centerId = Center::first()->id;
-			$centerLevels = CenterLevel::where('center_id', $centerId)->get();
-			$subjectId = Subject::where('code', 'T')->first()->id;
-			// dd($subjectId);
-			$countInsert = $countUpdate = 0;
-			foreach ($results as $key => $value) {
-				if( !empty( $value['email_galileo'] ) ){
-					$field = [
-						'full_name' => !empty($value['ho_ten_day_du']) ? $value['ho_ten_day_du'] : '',
-						'email' => !empty($value['email_galileo']) ? $value['email_galileo'] : '',
-						'start_date' => !empty($value['ngay_bat_dau_lam']) ? $value['ngay_bat_dau_lam']->toDateTimeString() : '',
-						'birth_day' => is_object($value['ngay_sinh']) ? $value['ngay_sinh']->toDateTimeString() : '',
-						'phone' => !empty($value['so_dien_thoai']) ? '0'.$value['so_dien_thoai'] : '',
-						'current_address' => !empty($value['noi_o_hien_tai']) ? $value['noi_o_hien_tai'] : '',
-						'address' => !empty($value['dia_chi_theo_cmtnd']) ? $value['dia_chi_theo_cmtnd'] : '',
-						'id_number' => !empty($value['so_cmtnd']) ? $value['so_cmtnd'] : '',
-						'id_date' => !empty($value['cap_ngay']) ? $value['cap_ngay']->toDateTimeString() : '',
-						'id_provide' => !empty($value['noi_cap']) ? $value['noi_cap'] : '',
-						'job' => !empty($value['nghe_nghiep']) ? $value['nghe_nghiep'] : '',
-						'personal_email' => !empty($value['email_ca_nhan']) ? $value['email_ca_nhan'] : '',
-						'role_id' => CVHT,
-						'center_id' => $centerId,
-						// 'full_name' => !empty($value['full_name']) ? $value['full_name'] : '',
-						// 'full_name' => !empty($value['full_name']) ? $value['full_name'] : '',
-					];
-					$userId = Common::getObject(User::where('email', $field['email'])->first(), 'id');
-					// dd($userId);
-					if( $userId ){
-						CommonNormal::update($userId, $field, 'User');
-						$countUpdate++;
-					}else{
-						$userId = CommonNormal::create($field, 'User');
-						foreach ($centerLevels as $key2 => $centerLevel) {
-							$levelIds = Level::find($centerLevel->level_id)->where('subject_id', $subjectId)->lists('id');
-							if( $centerLevel->level_id && in_array($centerLevel->level_id, $levelIds) ){
-								CommonNormal::create([
-									'user_id' => $userId,
-									'center_level_id' => $centerLevel->id,
-									'level_id' => $centerLevel->level_id,
-								], 'UserCenterLevel');
-							}
-						}
-						$countInsert++;
-					}
-					// dd($field);
-				}
-			}
-			echo 'Đã tạo mới: '.$countInsert.'<br>Đã cập nhật: '.$countUpdate;
-			// dd($results);
-		});
-	}
+                    /////////////// Luu thong tin me trong bang family
+                    if($value['sdt_me']){
+                        $fieldMom = [
+                            'fullname' => !empty($value['ho_va_ten_me']) ? $value['ho_va_ten_me'] : '',
+                            'phone' => !empty($value['sdt_me']) ? $value['sdt_me'] : '',
+                            'gender' => 0
+                        ];
+                        $check = Family::where('phone', $fieldMom['phone'])->first();
+                        if (!$check) {
+                            $momId = Family::create($fieldMom)->id;
+                            $family = Family::find($momId);
+                            $family->update(['group_id' => $momId]);
+                            $groupId = $momId;
+                        } 
+                        // $momId = Common::getObject(Family::where('phone', $fieldMom['phone'])->first(), 'id');
+
+                        // if($momId){
+                        //     $fieldMom['group_id'] = $momId;
+                        //     CommonNormal::update($momId, $fieldMom, 'Family');
+                        // }
+                        // else{
+                        //     $momId = CommonNormal::create($fieldMom, 'Family');
+                        // }
+
+                        // $groupId = $momId;
+                        // $fieldMom['group_id'] = $groupId;
+                        // ///// lay Id cua me lam groupId
+                        // CommonNormal::update($momId, $fieldMom, 'Family');
+                    }
+
+                    //////////// Luu thong tin cua bo vao Family
+                    if($value['sdt_bo']){
+                        $fieldDad = [
+                            'fullname' => !empty($value['ho_va_ten_bo']) ? $value['ho_va_ten_bo'] : '',
+                            'phone' => !empty($value['sdt_bo']) ? $value['sdt_bo'] : '',
+                            'gender' => 1
+                        ];
+                        $checkDad = Family::where('phone', $fieldDad['phone'])->first();
+                        if (!$checkDad) {
+                            if ($momId) {
+                                // dd($value);
+                                $fieldDad['group_id'] = $momId;
+                                $dadId = Family::create($fieldDad)->id;
+                            }
+                            else {
+                                // dd(555);
+                                $dadId = Family::create($fieldDad)->id;
+                                $familyDad = Family::find($dadId);
+                                $familyDad->update(['group_id' => $dadId]);
+                                $groupId = $dadId;
+                            }
+                            // $family = Family::find($momId);
+                            // $family->update(['group_id' => $momId]);
+                        } 
+                        // $dadId = Common::getObject(Family::where('phone', $fieldDad['phone'])->first(), 'id');
+
+                        // if($dadId){
+                        //     CommonNormal::update($dadId, $fieldDad, 'Family');
+                        // }
+                        // else{
+                        //     $dadId = CommonNormal::create($fieldDad, 'Family');
+                        // }
+
+                        // ////// Neu nhu khong co me thi lay id cua bo lam groupId
+                        // if( !isset($groupId) ){
+                        //     $groupId = $dadId;
+                        // }
+                        // $fieldDad['group_id'] = $groupId;
+                        // CommonNormal::update($dadId, $fieldDad, 'Family');
+                    }
+                    // dd('----');
+                    // dd(5555);
+                    //////////// Luu thong tin hoc sinh
+                    $field = [
+                        'fullname' => !empty($value['ho_va_ten_hoc_sinh']) ? $value['ho_va_ten_hoc_sinh'] : '',
+                        'code' => !empty($value['ma_hs']) ? $value['ma_hs'] : '',
+                        'date_study' => !empty($value['ngay_nhap_hoc']) ? $value['ngay_nhap_hoc']->toDateTimeString() : '',
+                        'birthday' => is_object($value['ngay_sinh']) ? $value['ngay_sinh']->toDateTimeString() : '',
+                        'gender' => !empty($value['gioi_tinh']) ? (strtolower($value['gioi_tinh']) == 'nam' ? 1 : 0) : '', 
+                        'address' => !empty($value['dia_chi_hien_tai']) ? $value['dia_chi_hien_tai'] : '',
+                        'model_name' => !empty($value['nguon']) ? $value['nguon'] : '',
+                        'school' => !empty($value['truong_hoc']) ? $value['truong_hoc'] : '',
+                        'email' => !empty($value['email_nhan_thong_tin']) ? $value['email_nhan_thong_tin'] : '',
+                        'link_fb' => !empty($value['link_fb_ph']) ? $value['link_fb_ph'] : '',
+                        'description' => !empty($value['muc_tieu_sau_khi_hoc_tai_trung_tam']) ? $value['muc_tieu_sau_khi_hoc_tai_trung_tam'] : '',
+                        'time_target' => !empty($value['thoi_gian_can_dat_muc_tieu']) ? $value['thoi_gian_can_dat_muc_tieu'] : '',
+                        'info_user' => !empty($value['thong_tin_nguoi_don']) ? $value['thong_tin_nguoi_don'] : '',
+                        'comment' => !empty($value['luu_y_ve_hoc_sinh']) ? $value['luu_y_ve_hoc_sinh'] : '',
+                    ];
+                    $studentId = Common::getObject(Student::where('email', $field['email'])->first(), 'id');
+                    if($studentId){
+                        CommonNormal::update($studentId, $field, 'Student');
+                        $countUpdate++;
+                    }
+                    else{
+                        $studentId = CommonNormal::create($field, 'Student');
+                        $field['family_id'] = $groupId;
+                        if ($studentId) {
+                            CommonNormal::update($studentId, $field, 'Student');
+                            $countInsert++;
+                        } else {
+                            echo $field['email'].'------';
+                        } 
+                        //////////// Lay groupId cua bo hoac me lam familyId
+                        
+                    }
+                }
+                else {
+                    var_dump('ma hoc sinh:'. $value['ma_hs']);
+                    var_dump('------------');
+                }
+            } //End foreach
+
+            echo 'Đã tạo mới: '.$countInsert.'<br>Đã cập nhật: '.$countUpdate.'<br/>'.'sai:'.$countFalse;
+        });
+    }
+
+    public function getImportTUser(){
+        Excel::load('public/CTV_T.xlsx', function($reader) {
+            $results = $reader->toArray();
+            $centerId = Center::first()->id;
+            $centerLevels = CenterLevel::where('center_id', $centerId)->get();
+            $subjectId = Subject::where('code', 'T')->first()->id;
+            // dd($subjectId);
+            $countInsert = $countUpdate = 0;
+            foreach ($results as $key => $value) {
+                if( !empty( $value['email_galileo'] ) ){
+                    $field = [
+                        'full_name' => !empty($value['ho_ten_day_du']) ? $value['ho_ten_day_du'] : '',
+                        'email' => !empty($value['email_galileo']) ? $value['email_galileo'] : '',
+                        'start_date' => !empty($value['ngay_bat_dau_lam']) ? $value['ngay_bat_dau_lam']->toDateTimeString() : '',
+                        'birth_day' => is_object($value['ngay_sinh']) ? $value['ngay_sinh']->toDateTimeString() : '',
+                        'phone' => !empty($value['so_dien_thoai']) ? '0'.$value['so_dien_thoai'] : '',
+                        'current_address' => !empty($value['noi_o_hien_tai']) ? $value['noi_o_hien_tai'] : '',
+                        'address' => !empty($value['dia_chi_theo_cmtnd']) ? $value['dia_chi_theo_cmtnd'] : '',
+                        'id_number' => !empty($value['so_cmtnd']) ? $value['so_cmtnd'] : '',
+                        'id_date' => !empty($value['cap_ngay']) ? $value['cap_ngay']->toDateTimeString() : '',
+                        'id_provide' => !empty($value['noi_cap']) ? $value['noi_cap'] : '',
+                        'job' => !empty($value['nghe_nghiep']) ? $value['nghe_nghiep'] : '',
+                        'personal_email' => !empty($value['email_ca_nhan']) ? $value['email_ca_nhan'] : '',
+                        'role_id' => CVHT,
+                        // 'full_name' => !empty($value['full_name']) ? $value['full_name'] : '',
+                        // 'full_name' => !empty($value['full_name']) ? $value['full_name'] : '',
+                    ];
+                    $userId = Common::getObject(User::where('email', $field['email'])->first(), 'id');
+                    // dd($userId);
+                    if( $userId ){
+                        CommonNormal::update($userId, $field, 'User');
+                        $countUpdate++;
+                    }else{
+                        $userId = CommonNormal::create($field, 'User');
+                        foreach ($centerLevels as $key2 => $centerLevel) {
+                            $levelIds = Level::find($centerLevel->level_id)->where('subject_id', $subjectId)->lists('id');
+                            if( $centerLevel->level_id && in_array($centerLevel->level_id, $levelIds) ){
+                                CommonNormal::create([
+                                    'user_id' => $userId,
+                                    'center_level_id' => $centerLevel->id,
+                                    'level_id' => $centerLevel->level_id,
+                                ], 'UserCenterLevel');
+                            }
+                        }
+                        $countInsert++;
+                    }
+                    // dd($field);
+                }
+            }
+            echo 'Đã tạo mới: '.$countInsert.'<br>Đã cập nhật: '.$countUpdate;
+            // dd($results);
+        });
+    }
 
 	public function getImportVUser(){
 		Excel::load('public/CTV_V.xlsx', function($reader) {
