@@ -2,6 +2,46 @@
 class AjaxController extends \BaseController {
 
     /**
+     * Get suggest list CVHT 
+     */
+    public function postGetListUserForSchedule(){
+        $input = Input::all();
+        $suggestList = [];
+        if( !empty($input['package_id']) && !empty($input['dates']) ){
+            $package = Package::find($input['package_id']);
+            $maxStudent = $package->max_student;
+            $userActive = User::where('role_id', CVHT)->lists('id');
+            $freeTimeUsers = [];
+
+            ///// lay danh sach thoi gian ranh cua user
+            foreach ($userActive as $uid) {
+                $userSchedule = SpDetail::where('user_id', $uid)->where('package_id', $package->id);
+                $freeTimeOfAnUser = Common::getFreeTimeOfUser($uid);
+                $checkFreeDate = true;
+                if( count($freeTimeOfAnUser) ){
+                    // $freeTimeUsers[$uid] = $freeTimeOfAnUser;
+                    ///// Lay lich hoc dang ky cua hoc sinh
+                    foreach ($input['dates'] as $key => $times) {
+                        /// Kiem tra CVHT co lich day vao gio nay chua?
+                        $count = $userSchedule->where( 'time_id', getTimeId($times[0]) )
+                         ->where( 'lesson_hour', $times[1] )->count();
+                         // neu co roi thi duoc phep day nhieu hon 1 hoc sinh neu goi hoc cho phep
+                         if( $count <= $maxStudent ){
+                            
+                         }
+                    }
+                }
+                if( $checkFreeDate ){
+
+                }
+            }
+
+            return $input['dates'];
+        }
+        return $suggestList;
+    }
+
+    /**
      * Giet dropdown list of level by class & subject
      **/
     public function postGetLevelListByClassSubject(){

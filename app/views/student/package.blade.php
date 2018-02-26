@@ -20,40 +20,38 @@
             {{ Form::label('package_id','Gói học') }} 
             {{ Common::getPackageDropdownList('package_id', $package, null) }}
         </div>
-        <legend> thời gian học</legend>
+        <legend>thời gian học</legend>
         <div class="form-group time-box-student">
             <div class="item form-group" order="1">
                 <div class="input-group inline-block col-sm-4" >
                     <label>Chọn ngày học</label>
-                    <input type="date" class="form-control" placeholder="Ngày vào học" name="time_id[]">
+                    <input type="date" class="lesson_date form-control" required placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
                     <label>giờ băt đầu học</label>
-                    {{ Form::text('hours[]', '', ['class' => 'form-control timepicker', 'required'=>true ]) }}
+                    {{ Form::text('hours[]', '', ['class' => 'form-control timepicker lesson_hour', 'required'=>true ]) }}
                 </div>
             </div>
-
             <div class="item form-group hidden" order="2">
                 <div class="input-group inline-block col-sm-4" >
                     <label>Chọn ngày học</label>
-                    <input type="date" class="form-control" placeholder="Ngày vào học" name="time_id[]">
+                    <input type="date" class="lesson_date form-control" placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
                     <label>giờ băt đầu học</label>
-                    {{ Form::text('hours[]', '', ['class' => 'form-control timepicker']) }}
+                    {{ Form::text('hours[]', '', ['class' => 'form-control timepicker lesson_hour']) }}
                 </div>
             </div>
             <div class="item form-group hidden" order="3">
                 <div class="input-group inline-block col-sm-4" >
                     <label>Chọn ngày học</label>
-                    <input type="date" class="form-control" placeholder="Ngày vào học" name="time_id[]">
+                    <input type="date" class="lesson_date form-control" placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
                     <label>giờ băt đầu học</label>
-                    {{ Form::text('hours[]', '', ['class' => 'form-control timepicker']) }}
+                    {{ Form::text('hours[]', '', ['class' => 'form-control timepicker lesson_hour']) }}
                 </div>
             </div>
-
         </div>
         <div class="form-group">
             {{ Form::label('lesson_code', 'Bắt đầu học từ buổi', ['style' => 'display: block']) }}
@@ -65,12 +63,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('user_id','chọn cố vấn học tập') }}
-            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker', 'data-live-search' => 'true'])}}
+            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker select-teacher', 'data-live-search' => 'true'])}}
         </div>
-    </fieldset> 
-    <div class="input-group inline-block">
-        <label for="dad_phone">Manual CVHT</label>
-        {{ Form::text('manual_user', null, array('class' => 'form-control', 'id' => 'tags')) }}
-    </div>
-         
+    </fieldset>
 </div>

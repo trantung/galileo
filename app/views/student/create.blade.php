@@ -3,6 +3,12 @@
 {{ $title='Quản lý học sinh' }}
 @stop
 
+@section('js_header')
+@parent
+{{ HTML::script( asset('custom/js/form-control.js') ) }}
+{{ HTML::script( asset('custom/js/ajax.js') ) }}
+@stop
+
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">

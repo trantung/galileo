@@ -1,6 +1,18 @@
 <?php
 class Common {
 
+    public static function getFreeTimeOfUser($uid){
+        $data = [];
+        $times = FreeTimeUser::where('user_id', $uid)->get();
+        foreach ($times as $key => $value) {
+            $data[$value->time_id][] = [
+                'start_time' => $value->start_time,
+                'end_time' => $value->end_time,
+            ];
+        }
+        return $data;
+    }
+
     public static function listFolderFiles($dir){
         if( !is_dir($dir) ){
             return [];
