@@ -23,6 +23,11 @@ $(document).ready(function(){
 			})
 			.done(function(data) {
 				console.log(data);
+				if( data.length ){
+					$('select.selectpicker.select-teacher').empty().append(data);
+					$('select.selectpicker.select-teacher').selectpicker('refresh');
+				}
+				
 			})
 			.error(function(error) {
 				console.log(error.responseText);
