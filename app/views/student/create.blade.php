@@ -1,3 +1,6 @@
+
+
+
 @extends('admin.layout.default')
 @section('title')
 {{ $title='Quản lý học sinh' }}
@@ -91,6 +94,17 @@
                             {{ Form::text('info_user', null, array('class' => 'form-control', 'placeholder' => 'Thông tin người đón' )) }}
                         </div>
                         
+
+
+
+                        <div class="form-group">
+                            <label for="chonb_uoi">Chon buoi</label>
+                            {{ Form::select('chon_buoi', getBuoi(), null, array('class' => 'form-control')) }}
+                        </div>
+
+
+
+
                     </fieldset>
                 </div>
             </div>
