@@ -64,25 +64,30 @@ function checkActiveCheckbox($controllerName, $action, $groupId)
 {
     $ob = Permission::where('controller', $controllerName)
         ->where('action', $action)
-        ->where('group_id', $groupId)
         ->first();
     if ($ob) {
-        return true;
+        $permissionId = $ob->id;
+        $relation = RelationPerGroup::where('group_id', $groupId)
+            ->where('permission_id', $permissionId)
+            ->first();
+        if ($relation) {
+            return true;
+        }
+        return false;
     }
     return false;
 }
 function checkActiveUserPerCheckbox($modelName, $modelId, $groupId, $subjectId)
 {
-    $listPer = Permission::where('group_id', $groupId)->lists('id');
     $ob = AccessPermisison::where('model_name', $modelName)
         ->where('model_id', $modelId)
         ->where('subject_id', $subjectId)
-        ->whereIn('permission_id', $listPer)
-        ->get();
-    if (count($ob) > 0) {
-        return true;
+        ->where('group_id', $groupId)
+        ->first();
+    if (!$ob) {
+        return false;
     }
-    return false;
+    return true;
 }
 
 function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
@@ -103,8 +108,12 @@ function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
         $permission = Permission::where('controller', $controllerName)
             ->where('action', $method)
             ->first();
+        $permissionId = null;
         if ($permission) {
             $permissionId = $permission->id;
+        }
+        if (!$permissionId) {
+            return false;
         }
         $subjectId = null;
         if ($action = 'DocumentController') {
@@ -114,14 +123,10 @@ function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
                 $subjectId = $doc->subject_id;
             }
         }
-        $listPermission = getListPermission($subjectId);
-        if (!$permissionId) {
+        $listPermissionUser = getListPermission($subjectId);
+        if (!in_array($permissionId, $listPermissionUser)) {
             return false;
         }
-        if (!in_array($permissionId, $listPermission)) {
-            return false;
-        }
-        
         return $url;
     }
     return false;
@@ -153,14 +158,17 @@ function getListPermission($subjectId = null)
     $list = AccessPermisison::where('model_name', $array['model_name'])
         ->where('model_id', $array['model_id']);
     if (!$subjectId) {
-        $list = $list->groupBy('permission_id')
-            ->lists('permission_id');
+        $list = $list->groupBy('group_id')
+            ->lists('group_id');
     } else {
         $list = $list->where('subject_id', $subjectId)
-            ->groupBy('permission_id')
-            ->lists('permission_id');
+            ->groupBy('group_id')
+            ->lists('group_id');
     }
-    return $list;
+    $listPermision = RelationPerGroup::whereIn('group_id', $list)
+        ->groupBy('permission_id')
+        ->lists('permission_id');
+    return $listPermision;
 }
 function checkPermissionForm($actionOld, $title, $parameter)
 {
@@ -182,17 +190,21 @@ function checkUrlPermission($route)
     $action = explode("@", $route);
     $controllerName = $action[0];
     $method = $action[1];
-    $listPer = Permission::where('controller', $controllerName)
+    $per = Permission::where('controller', $controllerName)
         ->where('action', $method)
-        ->lists('id');
-    if (count($listPer) == 0) {
+        ->first();
+    if (!$per) {
         return false;
     }
-    $access = AccessPermisison::where('model_name', $array['model_name'])
-        ->where('model_id', $array['model_id'])
-        ->whereIn('permission_id', $listPer)
-        ->get();
-    if (count($access) == 0) {
+    $perId = $per->id;
+    $userPer = checkPermission();
+    $listGroupId = AccessPermisison::where('model_name', $userPer['model_name'])
+        ->where('model_id', $userPer['model_id'])
+        ->lists('group_id');
+    $count = RelationPerGroup::where('permission_id', $perId)
+        ->whereIn('group_id', $listGroupId)
+        ->count();
+    if ($count == 0) {
         return false;
     }
     return true;
@@ -296,3 +308,4 @@ function getStatusDoc($doc)
         return 'Chưa kiểm duyệt';
     }
 }
+
