@@ -3,6 +3,12 @@
 {{ $title='Quản lý học sinh' }}
 @stop
 
+@section('js_header')
+@parent 
+{{ HTML::script( asset('custom/js/form-control.js') ) }} 
+{{ HTML::script( asset('custom/js/ajax.js') ) }}
+@stop
+
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">
@@ -16,7 +22,7 @@
                 @include('student.student')
                 <div class="box-body col-sm-6">
                     @include('student.family')
-                    @include('student.package')
+                    {{-- @include('student.package') --}}
                 </div>
             </div>
             <!-- /.box-body -->

@@ -12,6 +12,7 @@ class Common {
 
         // prevent empty ordered elements
         if (count($ffs) < 1){
+            
             return [];
         }
 
@@ -644,5 +645,19 @@ class Common {
         }
         $html .= '<select>';                                                                            
         return $html;
+    }
+
+    public static function getParentPhone($id){
+        $family = Common::getObject(Student::find($id), 'families');
+        if( count($family) == 0 ){
+            return false;
+        }
+        if( Common::getObject($family[0], 'phone') ){
+            return Common::getObject($family[0], 'phone');
+        }
+        if( Common::getObject($family[1], 'phone') ){
+            return Common::getObject($family[1], 'phone');
+        }
+        return false;
     }
 }
