@@ -1,11 +1,14 @@
 <?php
 define('ADMIN', 1);
 define('BTV', 2);
+define('PAGINATE',20);
 
 define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 /*
     Các role của nhân viên trung tâm
 */
+
+
 //quản lý trung tâm
 define('QLTT', 1);
 //giáo vụ
@@ -45,3 +48,4 @@ define('KEY_API', 'AVwtTTSaWpn7LfDW');
 define('ACTIVE', 1);
 define('INACTIVE', 2);
 
+define('REGISTER_LESSON', 0);

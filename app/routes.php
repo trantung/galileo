@@ -12,6 +12,46 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/update_permission_user_depend_subject', function(){
+    $listUser = User::all();
+    $group = PermissionGroup::where('code', 'VHL')->first();
+    if (!$group) {
+        dd(1);
+    }
+    $groupId = $group->id;
+    foreach ($listUser as $key => $user) {
+        $userCenterLevel = UserCenterLevel::where('user_id', $user->id)
+            ->first();
+        $level = Level::find($userCenterLevel->level_id);
+        $subjectId = $level->subject_id;
+        $input['group_id'] = $groupId;
+        $input['subject_id'] = $subjectId;
+        $input['model_name'] = 'User';
+        $input['model_id'] = $user->id;
+        AccessPermisison::create($input);
+    }
+    dd(4444);
+});
+Route::get('/per-update', function(){
+    $array = getMethodDefault('DocumentController');
+    foreach ($array as $key => $value) {
+        Permission::create([
+            'controller' => $value,
+            'action' => $key,
+            'model' => 'Document',
+        ]);
+    }
+    $array1 = ['index', 'show'];
+
+    foreach ($array1 as $k => $v) {
+        Permission::create([
+            'controller' => 'LevelController',
+            'action' => $v,
+        ]);
+    }
+});
+Route::get('/calendar_test', 'TestController@calendar');
+
 Route::get('/update_password_user', function(){
     User::orderBy('id','asc')->update(['password' => Hash::make('123456')]);
     dd(111);
@@ -70,8 +110,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('administrator', 'AdminController');
     
     Route::resource('student', 'StudentController');
-    /*
-        Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
+    Route::resource('schedule', 'ScheduleController');
+    
+       /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
         1. Controller: ManagerPartnerController 
         2. table: partners
         3. view: admin.partner

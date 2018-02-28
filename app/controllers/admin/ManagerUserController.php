@@ -17,10 +17,10 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // if ($roleId == 1) {
         //  //
         // }
-        $users = User::all();
+        $users = User::paginate(30);
         return View::make('admin.user.index')->with(compact('users'));
     }
-    
+
     public function getSetTime($id)
     {
         $data = [];
@@ -34,6 +34,8 @@ class ManagerUserController extends AdminController implements AdminInterface{
 
         return View::make('admin.user.set-time')->with(compact('id', 'data'));
     }
+
+    
 
     public function postSetTime($id)
     {
@@ -76,8 +78,8 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // dd($input);
         $check = Common::checkExist('User', $input['username'], 'username');
         if ($check) {
-            $message = 'Tồn tại username của partner';
-            return View::make('admin.user.create')->with(compact('message'));
+            $message = 'Username đã tồn tại';
+            return Redirect::back()->with(compact('message'));
         }
         //tao moi
         $input['password'] = Hash::make($input['password']);
@@ -99,7 +101,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
                 'level_id' => $value
             ]);
         }
-        return Redirect::action('ManagerUserController@index');
+        return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
 
     /**
@@ -124,7 +126,15 @@ class ManagerUserController extends AdminController implements AdminInterface{
     {
         $data = User::findOrFail($id);
         $levelData = Common::getLevelOfUser($id);
-        $listData = Common::getClassSubjectLevelOfCenter($data->center_id);
+        $centerLevelId = UserCenterLevel::where('user_id', $id)
+            ->groupBy('center_level_id')
+            ->lists('center_level_id');
+        //TODO
+        $center = CenterLevel::whereIn('id', $centerLevelId)
+            ->groupBy('center_id')
+            ->first();
+        $centerId = $center->id;
+        $listData = Common::getClassSubjectLevelOfCenter($centerId);
         return View::make('admin.user.edit')->with( compact('listData', 'data', 'levelData') );
     }
 

@@ -1,4 +1,3 @@
-
 @extends('admin.layout.default')
 
 @section('title')
@@ -6,9 +5,7 @@
 @stop
 @section('content')
 
-
-    <a href="{{ action('PackageController@index') }}" class="btn btn-success">Danh sách  gói học</a>
- 
+<a href="{{ action('PackageController@index') }}" class="btn btn-success">Danh sách  gói học</a>
 
 <div class="row">
 	<div class="col-xs-12">
@@ -26,10 +23,10 @@
             </div>
 
             <div class="form-group">
-              {{ Form::label('number_lesson', 'Số buổi học trong tuần') }}
+              {{ Form::label('lesson_per_week', 'Số buổi học trong tuần') }}
               <div class="row">
                 <div class="col-sm-6">
-                  {{ Form::number('number_lesson', $package->lesson_per_week, [ 'class' => 'form-control', 'required' => true]) }}
+                  {{ Form::number('lesson_per_week', $package->lesson_per_week, [ 'class' => 'form-control', 'required' => true]) }}
                 </div>
               </div>
             </div>
@@ -75,7 +72,6 @@
             <input type="submit" class="btn btn-primary" value="Lưu lại" />
             <input type="reset" class="btn btn-default" value="Nhập lại" />
           </div>
-
 
 	{{ Form::close() }}
 @stop

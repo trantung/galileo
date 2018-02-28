@@ -10,7 +10,7 @@ class StudentController extends BaseController {
      */
     public function index()
     {
-        $data = Student::all();
+        $data = Student::paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));
     }
     /**
@@ -20,12 +20,14 @@ class StudentController extends BaseController {
      */
     public function create()
     {
-        $package = Package::lists('name','id');   
+        $package = Package::all();
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
         $center = Center::lists('name', 'id');
-        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center','package'));
+        $userActive = User::where('role_id', CVHT)->lists('username', 'id');
+        $userNameActive = User::where('role_id', CVHT)->lists('username');
+        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center','package', 'userActive', 'userNameActive'));
     }
     /**
      * Store a newly created resource in storage.
@@ -33,28 +35,38 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function store()
+
     {
-        $input = Input::except('_token');
-        if( !empty($input['mom_phone']) ){
-            $familyId1 = Family::create(['fullname' => $input['mom_fullname'], 'phone' => $input['mom_phone'], 'gender' => NU])->id;
-        } 
-        if( !empty($input['dad_phone']) ){
-            $familyId2 = Family::create(['fullname' => $input['dad_fullname'], 'phone' => $input['dad_phone'], 'gender' => NAM])->id;
+        $input = Input::all();
+        // create family
+        $familyInput['mom_fullname'] = $input['mom_fullname'];
+        $familyInput['mom_phone'] = $input['mom_phone'];
+        $familyInput['dad_fullname'] = $input['dad_fullname'];
+        $familyInput['dad_phone'] = $input['dad_phone'];
+        //get groupId
+        $groupId = CommonNormal::createFamily($familyInput);
+        if (!$groupId) {
+            dd('khong dc bo me');
+            return Redirect::action('StudentController@index');
         }
-        if(!empty($familyId1)){
-            $familyId = $familyId1;
+        //create student
+        $studentInput = Input::except('_token', 
+            'mom_phone', 'mom_fullname',
+            'dad_fullname', 'dad_phone',
+            'class_id', 'subject_id',
+            'level_id', 'package_id',
+            'lesson_code', 'money_paid',
+            'user_id', 'hours', 'manual_user'
+        );
+        $studentInput['family_id'] = $groupId;
+        $studentInput['class_id'] = $input['class_id'];
+        //get studentId
+        $studentId = Student::create($studentInput)->id;
+        if (!$studentId) {
+            dd($studentInput);
         }
-        else{
-            $familyId = $familyId2;
-        }
-        $input['password'] = Hash::make($input['password']);
-        $input['family_id'] = $familyId;
-        CommonNormal::create($input, 'Student');
-        // Update group_id for family table
-        CommonNormal::update($familyId1, ['group_id'=> $familyId] , 'Family');
-        CommonNormal::update($familyId2, ['group_id'=> $familyId] , 'Family');
-        return Redirect::action('StudentController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
-            Học sinh đã được tạo!');
+        
+        return Redirect::action('StudentController@index');
     }
     /**
      * Display the specified resource.
@@ -64,7 +76,20 @@ class StudentController extends BaseController {
      */
     public function show($id)
     {
-        //
+        $student = Student::findOrFail($id);
+        $parents = ['mom'=>null, 'dad' => null];
+
+        foreach ($student->families as $key => $parent) {
+            if( $parent->gender == 0 ){
+                // Thong tin me
+                $parents['mom'] = $parent;
+            } else{
+                // Thong tin bo
+                $parents['dad'] = $parent;
+            }
+        }
+        $center = Center::lists('name', 'id');
+        return View::make('student.show')->with(compact('student', 'center', 'parents'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -74,8 +99,7 @@ class StudentController extends BaseController {
      */
     public function edit($id)
     {
-        $student = Student::findOrFail($id);
-        return View::make('student.edit')->with(compact('student'));
+        //
     }
     /**
      * Update the specified resource in storage.
@@ -85,10 +109,10 @@ class StudentController extends BaseController {
      */
     public function update($id)
     {
-        $input = Input::all();
-        $input['password'] = Hash::make($input['password']);
-        Student::findOrFail($id)->update($input);
-        return Redirect::action('StudentController@index');
+        // $input = Input::all();
+        // $input['password'] = Hash::make($input['password']);
+        // Student::findOrFail($id)->update($input);
+        // return Redirect::action('StudentController@index');
     }
     /**
      * Remove the specified resource from storage.

@@ -12,6 +12,7 @@ class Common {
 
         // prevent empty ordered elements
         if (count($ffs) < 1){
+            
             return [];
         }
 
@@ -302,6 +303,8 @@ class Common {
                     $uploadSuccess = move_uploaded_file($v, public_path().$fileUrl);
                     if( $uploadSuccess ){
                         $doc['file_url'] = $fileUrl;
+                        $count = Document::where('lesson_id', $doc['lesson_id'])->count();
+                        $doc['order'] = $count + 1;
                         if ($arrayP == null) {
                             $array[$k] = $docId = Document::create($doc)->id;
                             $parentId = $docId;
@@ -309,7 +312,6 @@ class Common {
                             $parentId = $arrayP[$k];
                             $docId = Document::create($doc)->id;
                         }
-
                         /// Update code after insert document
                         $code = getCodeDocument($docId);
                         Document::find($docId)->update(['code' => $code, 'parent_id' => $parentId]);
@@ -590,8 +592,6 @@ class Common {
             $array[$value] = $value;
         }
         return $array;
-        // dd(array_filter($lesson));
-        // return $lesson;
     }
     public static function permissionDoc($modelName, $modelId, $input)
     {
@@ -602,16 +602,12 @@ class Common {
             $permission = $input['permission'];
             foreach ($permission as $subjectId => $value) {
                 foreach ($value as $groupId => $v) {
-                    $listPerIds = Permission::where('group_id', $groupId)
-                        ->lists('id');
                     $access = [];
                     $access['subject_id'] = $subjectId;
                     $access['model_name'] = $modelName;
                     $access['model_id'] = $modelId;
-                    foreach ($listPerIds as $k => $permissionId) {
-                        $access['permission_id'] = $permissionId;
-                        AccessPermisison::create($access);
-                    }
+                    $access['group_id'] = $groupId;
+                    AccessPermisison::create($access);
                 }
             }
         }
@@ -629,5 +625,39 @@ class Common {
             $name .= $name.$center->name.',';
         }
         return $name;
+    }
+    public static function getNameGender($gender)
+    {
+        if ($gender == NAM) {
+            return 'Nam';
+        }
+        if ($gender == NU) {
+            return 'Nữ';
+        }
+    }
+
+    public static function getPackageDropdownList($name, $packages = [], $default = null)
+    {
+        $html = '<select name="'. $name .'" class="form-control" required>
+            <option value="">-- Chọn --</option>';
+        foreach ($packages as $key => $value) {
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' number-lesson="'. $value->lesson_per_week .'" value="'. $value->id .'">'. $value->name .'<p>-</p>'.$value->lesson_per_week.' buổi/tuần<p>-</p>'.$value->total_lesson.' buổi<p>-thời lượng </p>'.$value->duration.' phút<p>-tối đa </p>'.$value->max_student.' học sinh</option>';
+        }
+        $html .= '<select>';                                                                            
+        return $html;
+    }
+
+    public static function getParentPhone($id){
+        $family = Common::getObject(Student::find($id), 'families');
+        if( count($family) == 0 ){
+            return false;
+        }
+        if( Common::getObject($family[0], 'phone') ){
+            return Common::getObject($family[0], 'phone');
+        }
+        if( Common::getObject($family[1], 'phone') ){
+            return Common::getObject($family[1], 'phone');
+        }
+        return false;
     }
 }

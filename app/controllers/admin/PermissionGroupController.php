@@ -73,30 +73,19 @@ class PermissionGroupController extends \BaseController {
 	public function update($id)
 	{
 		$input = Input::all();
+		$levelPerId = [];
+		$group = PermissionGroup::find($id);
 		$permission = $input['permission'];
 		$controllerName = array_keys($permission)[0];
-		$modelName = Common::getModelNameByController($controllerName);
-		$inputPer['controller'] = array_keys($permission)[0];
-		$inputPer['model'] = $modelName;
-		$inputPer['group_id'] = $id;
-		$group = PermissionGroup::find($id);
-		Permission::where('group_id', $id)->delete();
+		$listPerId = Permission::where('controller', $controllerName)
+			->whereIn('action', array_keys($permission[$controllerName]))
+			->lists('id');
 		if ($group->code == THL) {
-			foreach (Common::getMethodLevel() as $key => $value) {
-				Permission::create([
-					'controller' => 'LevelController',
-					'group_id' => $id,
-					'model_name' => 'Level',
-					'action' => $value,
-				]);
-			}
+			$levelPerId = Permission::where('controller', 'LevelController')
+				->lists('id');
 		}
-		foreach ($permission as $key => $value) {
-			foreach (array_keys($value) as $k => $v) {
-				$inputPer['action'] = $v;
-				Permission::create($inputPer);
-			}
-		}
+		$listPerId = array_merge($listPerId, $levelPerId);
+		$group->permissions()->sync($listPerId);
 		return Redirect::action('PermissionGroupController@index');
 	}
 
