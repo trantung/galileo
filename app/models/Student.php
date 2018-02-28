@@ -15,7 +15,6 @@ class Student extends Eloquent
         'description', 'time_target', 'info_user', 'comment'
     ];
 
-
     protected $dates = ['deleted_at'];
 
     public function parents() 

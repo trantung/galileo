@@ -1,6 +1,33 @@
 <?php
 class Common {
 
+    public static function getFreeTimeOfUser($uid, $timeId = null, $startTime = null, $endTime = null){
+        $data = [];
+        $times = FreeTimeUser::where('user_id', $uid);
+        if( $timeId ){
+            $times->where('time_id', $timeId);
+        }
+        if( $startTime ){
+            $times->where('start_time', $startTime);
+        }
+        if( $endTime ){
+            $times->where('end_time', $endTime);
+        }
+        if( $times->count() == 0 ){
+            return false;
+        }
+        foreach ($times->get() as $key => $value) {
+            $data[$value->time_id][] = [
+                'start_time' => $value->start_time,
+                'end_time' => $value->end_time,
+            ];
+        }
+        if( count($data) ){
+            return $data;
+        }
+        return false;
+    }
+
     public static function listFolderFiles($dir){
         if( !is_dir($dir) ){
             return [];
@@ -640,7 +667,7 @@ class Common {
         $html = '<select name="'. $name .'" class="form-control" required>
             <option value="">-- Chọn --</option>';
         foreach ($packages as $key => $value) {
-            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' number-lesson="'. $value->lesson_per_week .'" value="'. $value->id .'">'. $value->name .'</option>';
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' number-lesson="'. $value->lesson_per_week .'" value="'. $value->id .'">'. $value->name .'<p>-</p>'.$value->lesson_per_week.' buổi/tuần<p>-</p>'.$value->total_lesson.' buổi<p>-thời lượng </p>'.$value->duration.' phút<p>-tối đa </p>'.$value->max_student.' học sinh</option>';
         }
         $html .= '<select>';                                                                            
         return $html;

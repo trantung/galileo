@@ -23,15 +23,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
 
     public function getSetTime($id)
     {
-        $data = [];
-        $times = FreeTimeUser::where('user_id', $id)->get();
-        foreach ($times as $key => $value) {
-            $data[$value->time_id][] = [
-                'start_time' => $value->start_time,
-                'end_time' => $value->end_time,
-            ];
-        }
-
+        $data = Common::getFreeTimeOfUser($id);
         return View::make('admin.user.set-time')->with(compact('id', 'data'));
     }
 

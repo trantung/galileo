@@ -1,5 +1,40 @@
 $(document).ready(function(){
 
+	//// Lay danh sach CHT phu hop voi lich hoc cua hoc sinh
+	$(document).on('change', '.time-box-student >.item input', function(){
+		var dates = [],
+			package = $('select[name="package_id"]').val(),
+			lesson_start = $('select#lesson_code').val(),
+			money_paid = $('input#money_paid').val();
+		$('.time-box-student').find('input.lesson_date').each(function(index, el) {
+			var date_val = $(this).val();
+			if( date_val != '' ){
+				var hour_val = $(this).parents('.item.form-group').find('input.lesson_hour').val();
+				if( typeof hour_val != 'undefined' && hour_val != '' ){
+					dates.push([date_val, hour_val]);
+				}
+			}
+		});
+		if( dates.length && package != '' && lesson_start != '' ){
+			$.ajax({
+				url: '/ajax/get-list-user-for-schedule',
+				type: 'POST',
+				data: {dates: dates, lesson_start: lesson_start, money_paid: money_paid, package_id: package},
+			})
+			.done(function(data) {
+				console.log(data);
+				if( data.length ){
+					$('select.selectpicker.select-teacher').empty().append(data);
+					$('select.selectpicker.select-teacher').selectpicker('refresh');
+				}
+				
+			})
+			.error(function(error) {
+				console.log(error.responseText);
+			});
+		}
+	})
+
 	$(document).on('click', '.item.select-subject-wrapper >.remove.remove-ajax', function(){
 		var classId = $(this).attr('class-id');
 		var subjectId = $(this).attr('subject-id'),
@@ -38,7 +73,6 @@ $(document).ready(function(){
     //     	}
     //     })
     // })
-
     //////// Save document in each lesson
     $(document).on('submit', 'form.document-of-lesson-form', function(e){
     	var data = $(this).serializeArray(),
@@ -66,7 +100,7 @@ $(document).ready(function(){
 			error: function(error){
 				_this.removeClass('loading');
 				alert('Error! can not send data');
-				console.log(error);
+				console.log(error.responseText);
 			}
 		});
     	e.preventDefault();
@@ -91,7 +125,7 @@ $(document).ready(function(){
 					wrapper.append(data);
 				},
 				error: function(error){
-					console.log(error);
+					console.log(error.responseText);
 				}
 			});
     	}

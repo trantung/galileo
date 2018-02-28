@@ -99,6 +99,7 @@ class TestController extends AdminController implements AdminInterface {
                         'birthday' => is_object($value['ngay_sinh']) ? $value['ngay_sinh']->toDateTimeString() : '',
                         'gender' => !empty($value['gioi_tinh']) ? (strtolower($value['gioi_tinh']) == 'nam' ? 1 : 0) : '', 
                         'address' => !empty($value['dia_chi_hien_tai']) ? $value['dia_chi_hien_tai'] : '',
+                        'model_name' => !empty($value['nguon']) ? $value['nguon'] : '',
                         'school' => !empty($value['truong_hoc']) ? $value['truong_hoc'] : '',
                         'email' => !empty($value['email_nhan_thong_tin']) ? $value['email_nhan_thong_tin'] : '',
                         'link_fb' => !empty($value['link_fb_ph']) ? $value['link_fb_ph'] : '',

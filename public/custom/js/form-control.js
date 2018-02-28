@@ -20,7 +20,7 @@ $(document).ready(function(){
         var classId = $('.filter-document-form select.select-class').val(),
         subjectId = $('.filter-document-form select.select-subject').val();
         $('.filter-document-form .select-level-from-class-subject > select').val('').change();
-        $('.filter-document-form .select-level-from-class-subject > select>option').addClass('hidden');
+        $('.filter-document-form .select-level-from-class-subject > select>option:not([value=""])').addClass('hidden');
         $('.filter-document-form .select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
     })
 
