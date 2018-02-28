@@ -2,14 +2,12 @@
 
 @section('js_header')
 @parent
-{{ HTML::script( asset('custom/js/form-control.js') ) }}
-{{ HTML::script( asset('custom/js/ajax.js') ) }}
+  {{ HTML::script( asset('custom/js/form-control.js') ) }}
+  {{ HTML::script( asset('custom/js/ajax.js') ) }}
 @stop
-
 @section('title')
-Tạo lịch cố vấn học tập
+  Tạo lịch cố vấn học tập
 @stop
-
 @section('content')
 {{ Form::open(['action' => ['ManagerUserController@postSetTime', $id], 'class' => 'user-set-time-form user-form padding0']) }}
     <div class="panel panel-default">
@@ -37,8 +35,8 @@ Tạo lịch cố vấn học tập
                 @endfor
             </div>
 
-            <div class="clear clearfix"></div>
-            {{ Form::submit('Lưu', ['class'=>'btn btn-primary']) }}
+          <div class="clear clearfix"></div>
+          {{ Form::submit('Lưu', ['class'=>'btn btn-primary']) }}
         </div>
     </div>
 {{ Form::close() }}

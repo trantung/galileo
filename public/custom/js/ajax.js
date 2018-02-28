@@ -16,30 +16,52 @@ $(document).ready(function(){
 			}
 		});
     })
+    
+    // //=============== get list level by class id &  subject id==============
 
-    //=============== get list level by class id &  subject id==============
+    // $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){
+    //     var parent = $(this).parents('fieldset'),
+    //     classId = parent.find('select.select-class').val(),
+    //     subjectId = parent.find('select.select-subject').val();
+    //     parent.find('.select-level-from-class-subject').addClass('loading...');
+    //     parent.find('.select-level-from-class-subject > select> option').remove();
+    //     $.ajax({
+    //     	method: 'POST',
+    //     	url: '/ajax/get-level-list-by-class-subject',
+    //     	data: {class_id: classId, subject_id: subjectId},
+    //     	success: function(data){
+    //     		parent.find('.select-level-from-class-subject > select').append(data);
+    //     		parent.find('.select-level-from-class-subject').removeClass('loading');
+    //     	},
+    //     	error: function(error){
+    //     		parent.find('.select-level-from-class-subject').removeClass('loading');
+    //     		console.log(error.responseText);
+    //     	}
+    //     })
+    // })
 
-    $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){
-        var parent = $(this).parents('fieldset'),
-        classId = parent.find('select.select-class').val(),
-        subjectId = parent.find('select.select-subject').val();
-        parent.find('.select-level-from-class-subject').addClass('loading...');
-        parent.find('.select-level-from-class-subject > select> option').remove();
-        $.ajax({
-        	method: 'POST',
-        	url: '/ajax/get-level-list-by-class-subject',
-        	data: {class_id: classId, subject_id: subjectId},
-        	success: function(data){
-        		parent.find('.select-level-from-class-subject > select').append(data);
-        		parent.find('.select-level-from-class-subject').removeClass('loading');
-        	},
-        	error: function(error){
-        		parent.find('.select-level-from-class-subject').removeClass('loading');
-        		console.log(error.responseText);
-        	}
-        })
-    })
+    // //=============== get list level by class id &  subject id==============
 
+    // $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){
+    //     var parent = $(this).parents('fieldset'),
+    //     classId = parent.find('select.select-class').val(),
+    //     subjectId = parent.find('select.select-subject').val();
+    //     parent.find('.select-level-from-class-subject').addClass('loading...');
+    //     parent.find('.select-level-from-class-subject > select> option').remove();
+    //     $.ajax({
+    //     	method: 'POST',
+    //     	url: '/ajax/get-level-list-by-class-subject',
+    //     	data: {class_id: classId, subject_id: subjectId},
+    //     	success: function(data){
+    //     		parent.find('.select-level-from-class-subject > select').append(data);
+    //     		parent.find('.select-level-from-class-subject').removeClass('loading');
+    //     	},
+    //     	error: function(error){
+    //     		parent.find('.select-level-from-class-subject').removeClass('loading');
+    //     		console.log(error.responseText);
+    //     	}
+    //     })
+    // })
     //////// Save document in each lesson
     $(document).on('submit', 'form.document-of-lesson-form', function(e){
     	var data = $(this).serializeArray(),
