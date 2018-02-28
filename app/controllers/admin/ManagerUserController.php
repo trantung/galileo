@@ -17,7 +17,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // if ($roleId == 1) {
         //  //
         // }
-        $users = User::all();
+        $users = User::paginate(30);
         return View::make('admin.user.index')->with(compact('users'));
     }
     public function getSetTime($id)
@@ -37,18 +37,17 @@ class ManagerUserController extends AdminController implements AdminInterface{
     
 
     public function postSetTime($id)
-    {
-        $input = Input::all();
-        FreeTimeUser::where('user_id', $id)->delete();
-        foreach ($input['start_time'] as $key => $times) {
-            foreach ($times as $key2 => $time) {
-                if( !empty($input['start_time'][$key][$key2]) && !empty($input['end_time'][$key][$key2]))
-                {
+    {   
+       $input =Input::all();
+       FreeTimeUser::where('user_id',$id)->delete();
+        foreach($input['start_time'] as $key => $value) {
+            foreach ($value as $k => $time) {
+                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k])){
                     $field = [
-                        'user_id' => $id,
-                        'time_id' => $key,
-                        'start_time' => $input['start_time'][$key][$key2],
-                        'end_time' => $input['end_time'][$key][$key2]
+                        'user_id'=>$id,
+                        'time_id'=> $key,
+                        'start_time' => $input['start_time'][$key][$k],
+                        'end_time' => $input['end_time'][$key][$k]
                     ];
                     CommonNormal::create($field, 'FreeTimeUser');
                 }
@@ -56,6 +55,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         }
         return Redirect::action('ManagerUserController@getSetTime', $id);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -77,8 +77,8 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // dd($input);
         $check = Common::checkExist('User', $input['username'], 'username');
         if ($check) {
-            $message = 'Tồn tại username của partner';
-            return View::make('admin.user.create')->with(compact('message'));
+            $message = 'Username đã tồn tại';
+            return Redirect::back()->with(compact('message'));
         }
         //tao moi
         $input['password'] = Hash::make($input['password']);
@@ -100,7 +100,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
                 'level_id' => $value
             ]);
         }
-        return Redirect::action('ManagerUserController@index');
+        return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
 
     /**

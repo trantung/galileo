@@ -20,13 +20,14 @@ class StudentController extends BaseController {
      */
     public function create()
     {
+        $package = Package::all();
         $class = ClassModel::lists('name', 'id');
-        $package = Package::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
         $center = Center::lists('name', 'id');
-        $manualUser = Admin::lists('username', 'id');
-        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center', 'package', 'manualUser'));
+        $userActive = User::where('role_id', CVHT)->lists('username', 'id');
+        $userNameActive = User::where('role_id', CVHT)->lists('username');
+        return View::make('student.create')->with(compact('class', 'subject', 'level', 'center','package', 'userActive', 'userNameActive'));
     }
     /**
      * Store a newly created resource in storage.
@@ -36,27 +37,76 @@ class StudentController extends BaseController {
     public function store()
 
     {
-        $input = Input::except('_token');
-        if( !empty($input['mom_phone']) ){
-            $familyId1 = Family::create(['fullname' => $input['mom_fullname'], 'phone' => $input['mom_phone'], 'gender' => NU])->id;
-        } 
-        if( !empty($input['dad_phone']) ){
-            $familyId2 = Family::create(['fullname' => $input['dad_fullname'], 'phone' => $input['dad_phone'], 'gender' => NAM])->id;
+        $input = Input::all();
+        // create family
+        $familyInput['mom_fullname'] = $input['mom_fullname'];
+        $familyInput['mom_phone'] = $input['mom_phone'];
+        $familyInput['dad_fullname'] = $input['dad_fullname'];
+        $familyInput['dad_phone'] = $input['dad_phone'];
+        //get groupId
+        $groupId = CommonNormal::createFamily($familyInput);
+        if (!$groupId) {
+            dd('khong dc bo me');
+            return Redirect::action('StudentController@index');
         }
-        if(!empty($familyId1)){
-            $familyId = $familyId1;
+        //create student
+        $studentInput = Input::except('_token', 
+            'mom_phone', 'mom_fullname',
+            'dad_fullname', 'dad_phone',
+            'class_id', 'subject_id',
+            'level_id', 'package_id',
+            'lesson_code', 'money_paid',
+            'user_id', 'hours', 'manual_user'
+        );
+        $studentInput['family_id'] = $groupId;
+        $studentInput['class_id'] = $input['class_id'];
+        //get studentId
+        $studentId = Student::create($studentInput)->id;
+        if (!$studentId) {
+            dd($studentInput);
         }
-        else{
-            $familyId = $familyId2;
+        //create record in table: student_package
+        $studentPackageInput = Input::only(
+            'class_id', 'subject_id', 'level_id',
+            'package_id', 'lesson_code', 'money_paid'
+        );
+        $studentPackageInput['student_id'] = $studentId;
+        // $studentPackageInput['time_id'] = getTimeId($input['time_id']);
+        $studentPackageInput['lesson_total'] = getTotalLessonByMoneyPaid($input['money_paid'], $input['package_id']);
+        $studentPackageInput['code'] = getCodeStudentPackage();
+        $studentPackageId = StudentPackage::create($studentPackageInput)->id;
+        //create record in table: student_level
+        //create record in table: detail
+        $lessonDate = [];
+        for ($i=0; $i < $studentPackageInput['lesson_total']; $i++) { 
+            foreach ($input['time_id'] as $key => $value) {
+                if ($value != '' && count($lessonDate) < $studentPackageInput['lesson_total']) {
+                    $number = $i*7;
+                    $text = ' + '.$number.' days';
+                    $lessonDate[] = [date('Y-m-d', strtotime($value.$text)), $input['hours'][$key]];
+                }
+            }
         }
-        $input['password'] = Hash::make($input['password']);
-        $input['family_id'] = $familyId;
-        CommonNormal::create($input, 'Student');
-        // Update group_id for family table
-        CommonNormal::update($familyId1, ['group_id'=> $familyId] , 'Family');
-        CommonNormal::update($familyId2, ['group_id'=> $familyId] , 'Family');
-        return Redirect::action('StudentController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
-            Học sinh đã được tạo!');
+        for ($i=0; $i < $studentPackageInput['lesson_total']; $i++) { 
+            $spDetailInput = Input::only(
+                'class_id', 'subject_id', 'level_id',
+                'package_id'
+            );
+            $spDetailInput['student_id'] = $studentId;
+            $spDetailInput['student_package_id'] = $studentPackageId;
+            $spDetailInput['time_id'] = getTimeId($lessonDate[$i][0]);
+            $spDetailInput['user_id'] = getUserIdOfStudent($input['user_id'], $input['manual_user']);
+            $spDetailInput['class_id'] = $input['class_id'];
+            $spDetailInput['subject_id'] = $input['subject_id'];
+            $spDetailInput['level_id'] = $input['level_id'];
+            $spDetailInput['package_id'] = $input['package_id'];
+            $spDetailInput['status'] = REGISTER_LESSON;
+            $spDetailInput['lesson_code'] = $studentPackageInput['lesson_code'] + $i;
+            $spDetailInput['lesson_date'] = $lessonDate[$i][0];
+            $spDetailInput['lesson_hour'] = $lessonDate[$i][1];
+            $idSpDetail = SpDetail::create($spDetailInput)->id;
+        }
+        return Redirect::action('StudentController@index');
     }
     /**
      * Display the specified resource.

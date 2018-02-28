@@ -4,11 +4,9 @@
 {{ $title='Quản lý học sinh' }}
 @stop
 @section('content')
-	
 	<!-- Bo loc -->
-
 	<a href="{{ action('StudentController@create') }}" class="btn btn-primary " style=" background-color: green">Thêm học sinh mới</a>
-	<table class ="table table-bordered table-striped table-hover table-responsive ">
+	<table class="table table-bordered table-striped table-hove" >
 		<tr>
 			<th>STT</th>
 			<th>Họ và tên HS</th>
@@ -29,7 +27,7 @@
 			<td>
 	           <a href="{{ action('StudentController@show', $value->id) }}" class="btn btn-primary">Show</a>
 			   {{ Form::open(array('method'=>'DELETE', 'action' => array('StudentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Delete</button>
+	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 	           {{ Form::close() }}
 			</td>
 		</tr>

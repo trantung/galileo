@@ -635,4 +635,15 @@ class Common {
             return 'Nữ';
         }
     }
+
+    public static function getPackageDropdownList($name, $packages = [], $default = null)
+    {
+        $html = '<select name="'. $name .'" class="form-control" required>
+            <option value="">-- Chọn --</option>';
+        foreach ($packages as $key => $value) {
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' number-lesson="'. $value->lesson_per_week .'" value="'. $value->id .'">'. $value->name .'</option>';
+        }
+        $html .= '<select>';                                                                            
+        return $html;
+    }
 }
