@@ -93,18 +93,6 @@
                             <label for="info_user">Thông tin người đón</label>
                             {{ Form::text('info_user', null, array('class' => 'form-control', 'placeholder' => 'Thông tin người đón' )) }}
                         </div>
-                        
-
-
-
-                        <div class="form-group">
-                            <label for="chonb_uoi">Chon buoi</label>
-                            {{ Form::select('chon_buoi', getBuoi(), null, array('class' => 'form-control')) }}
-                        </div>
-
-
-
-
                     </fieldset>
                 </div>
             </div>
@@ -209,15 +197,3 @@
          {{ Form::close() }}
     </div><!-- /.box -->
 </div>
-
-<script type="text/javascript">
-  $( function() {
-
-    var myJson = <?php echo json_encode($manualUser) ?>;
-
-    $( "#tags" ).autocomplete({
-      source: myJson
-    });
-  } );
-  </script>
-@stop
