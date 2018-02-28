@@ -11,7 +11,7 @@
 @stop
 
 @section('content')
-	{{ Form::open(['action' =>['ScheduleController@store'],'method' => 'POST', 'class' => 'col-sm-6 padding0']) }}
+	{{ Form::open(['action' =>['ScheduleController@store'],'method' => 'POST', 'class' => 'col-sm-6 padding0 schedule-create-form']) }}
 		@include('student.package')
 		<div class="box-footer">
 			{{ Form::submit('Lưu lại', ['class' => 'btn btn-primary']) }}
