@@ -1,15 +1,26 @@
 <div class="form-group well well-sm">
-    <fieldset>
+    <fieldset>  
         <legend>Thông tin gói học</legend>
+        <div class="form-group">
+            <label>trung tâm</label>
+            {{ Form::select('center_id',['' => '--chọn--']+$center, null ,['class' => 'form-control', 'required' => true]) }}
+        </div>
+        <div class="form-group">
+            <label>chọn học sinh</label>
+            {{ Form::select('student_id',['' => '--chọn--']+$student, null ,['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true]) }}
+        </div>
+
         <div class="box alert filter-document-form">
             <div class="input-group inline-block">
             <label style="display: block;">Lớp</label>
-            {{ Form::select('class_id', ['' => '--Tất cả--'] + Common::getClassList(), Input::get('class_id'), ['class' => 'form-control select-class']) }}
+            {{ Form::select('class_id', ['' => '--Tất cả--'] + Common::getClassList(), Input::get('class_id'), ['class' => 'form-control select-class', 'required' => true]) }}
             </div>
+
             <div class="input-group inline-block">
             <label style="display: block;">Môn học</label>
-            {{ Form::select('subject_id', ['' => '--Tất cả--'] + Common::getSubjectList(), Input::get('subject_id'), ['class' => 'form-control select-subject']) }}
+            {{ Form::select('subject_id', ['' => '--Tất cả--'] + Common::getSubjectList(), Input::get('subject_id'), ['class' => 'form-control select-subject', 'required' => true]) }}
             </div>
+
             <div class="input-group inline-block select-level-from-class-subject">
                 <label style="display: block;">Trình độ</label>
                  {{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
@@ -65,12 +76,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('user_id','chọn cố vấn học tập') }}
-            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker', 'data-live-search' => 'true'])}}
+            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true])}}
         </div>
     </fieldset> 
-    <div class="input-group inline-block">
-        <label for="dad_phone">Manual CVHT</label>
-        {{ Form::text('manual_user', null, array('class' => 'form-control', 'id' => 'tags')) }}
-    </div>
-         
 </div>

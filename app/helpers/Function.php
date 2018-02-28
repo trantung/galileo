@@ -309,3 +309,59 @@ function getStatusDoc($doc)
     }
 }
 
+function getCodeStudentPackage()
+{
+    $code = null;
+    return $code;
+}
+function getTimeId($time)
+{
+    $string = $time;
+    $timestamp = strtotime($string);
+    $day = date("l", $timestamp);
+    if ($day == 'Sunday') {
+        return CN;
+    }
+    if ($day == 'Monday') {
+        return T2;
+    }
+    if ($day == 'Tuesday') {
+        return T3;
+    }
+    if ($day == 'Wednesday') {
+        return T4;
+    }
+    if ($day == 'Thursday') {
+        return T5;
+    }
+    if ($day == 'Friday') {
+        return T6;
+    }
+    if ($day == 'Saturday') {
+        return T7;
+    }
+    return false;
+}
+function getTotalLessonByMoneyPaid($money, $packageId)
+{
+    $package = Package::find($packageId);
+    if (!$package) {
+        return false;
+    }
+    $price = $package->price;
+    $totalLesson = round($money/$price);
+    return $totalLesson;
+}
+function getUserIdOfStudent($inputUserId, $manualUser)
+{
+    if ($manualUser) {
+        $user = User::where('username', $manualUser)->first();
+        if (!$user) {
+            return false;
+        }
+        $userId = $user->id;
+        dd($userId);
+        return $userId;
+    }
+    return $inputUserId;
+}

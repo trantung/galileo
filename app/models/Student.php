@@ -36,7 +36,7 @@ class Student extends Eloquent
     {
         return $this->belongsTo('ClassModel', 'class_id', 'id');
     }
-
+    
     public function families() 
     {
         return $this->hasMany('Family', 'group_id', 'family_id');

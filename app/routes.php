@@ -110,8 +110,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('administrator', 'AdminController');
     
     Route::resource('student', 'StudentController');
-    /*
-        Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
+    Route::resource('schedule', 'ScheduleController');
+    
+       /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
         1. Controller: ManagerPartnerController 
         2. table: partners
         3. view: admin.partner
