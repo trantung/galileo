@@ -2,10 +2,13 @@
 @section('title')
 {{ $title='thay đổi thông tin' }}
 @stop
+
 @section('js_header')
-@parent {{ HTML::script( asset('custom/js/form-control.js') ) }} 
+@parent
+{{ HTML::script( asset('custom/js/form-control.js') ) }} 
 {{ HTML::script( asset('custom/js/ajax.js') ) }}
 @stop
+
 @section('content')
     <div class="row margin-bottom bg-faded">
         <div class="col-xs-12">

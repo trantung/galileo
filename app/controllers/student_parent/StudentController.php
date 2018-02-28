@@ -35,7 +35,6 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function store()
-
     {
         $input = Input::all();
         // create family
@@ -65,7 +64,6 @@ class StudentController extends BaseController {
         if (!$studentId) {
             dd($studentInput);
         }
-        
         return Redirect::action('StudentController@index');
     }
     /**
