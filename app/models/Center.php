@@ -1,7 +1,6 @@
 <?php
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class Center extends Eloquent {
-
     use SoftDeletingTrait;
 
     /**

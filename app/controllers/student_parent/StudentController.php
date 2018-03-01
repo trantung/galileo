@@ -63,10 +63,6 @@ class StudentController extends BaseController {
         $studentInput['class_id'] = $input['class_id'];
         //get studentId
         $studentId = Student::create($studentInput)->id;
-        if (!$studentId) {
-            dd($studentInput);
-        }
-        
         return Redirect::action('StudentController@index');
     }
     /**

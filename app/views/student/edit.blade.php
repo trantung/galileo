@@ -5,7 +5,8 @@
 @stop
 
 @section('js_header')
-@parent {{ HTML::script( asset('custom/js/form-control.js') ) }} 
+@parent
+{{ HTML::script( asset('custom/js/form-control.js') ) }} 
 {{ HTML::script( asset('custom/js/ajax.js') ) }}
 @stop
 

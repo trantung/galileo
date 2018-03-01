@@ -122,7 +122,6 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		"Ollieread\Multiauth\MultiauthServiceProvider",
-
 		"Maatwebsite\Excel\ExcelServiceProvider",
 	    'Barryvdh\Debugbar\ServiceProvider',
 	),

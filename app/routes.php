@@ -96,6 +96,8 @@ Route::post('/test/upload', 'AdminController@postUpload');
 
 Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
+
+	Route::resource('/', 'AdminController');
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
@@ -273,4 +275,3 @@ App::error( function(Exception $exception, $code){
             }
     }
 });
-
