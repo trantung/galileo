@@ -39,7 +39,7 @@
                     <input type="date" class="form-control" placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
-                    <label>giờ băt đầu học</label>
+                    <label>Giờ bắt đầu học</label>
                     {{ Form::text('hours[]', '', ['class' => 'form-control timepicker', 'required'=>true ]) }}
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <input type="date" class="form-control" placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
-                    <label>giờ băt đầu học</label>
+                    <label>Giờ băt đầu học</label>
                     {{ Form::text('hours[]', '', ['class' => 'form-control timepicker']) }}
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     <input type="date" class="form-control" placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
-                    <label>giờ băt đầu học</label>
+                    <label>Giờ băt đầu học</label>
                     {{ Form::text('hours[]', '', ['class' => 'form-control timepicker']) }}
                 </div>
             </div>
