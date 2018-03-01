@@ -9,7 +9,7 @@ class ScheduleController extends \BaseController {
 	 */
 	public function index()
 	{
-			dd('trang này chưa dc tạo hãy vào trang create');
+			return Redirect::action('ScheduleController@create');
 	}
 	/**
 	 * Show the form for creating a new resource.
