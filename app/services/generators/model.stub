@@ -10,7 +10,7 @@ class {{class}} extends Eloquent
 {
     // use SoftDeletingTrait;
     // use UserTrait, RemindableTrait;
-    
+    // public $timestamps = true;
     protected $table = '{{table}}';
     protected $fillable = [];
 

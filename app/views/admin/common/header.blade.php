@@ -14,9 +14,12 @@
 	<!-- Theme style -->
 	{{HTML::style('adminlte/dist/css/AdminLTE.min.css') }}
 	{{HTML::style('adminlte/dist/css/admin.css') }}
+	{{HTML::style('custom/css/jquery.timepicker.min.css') }}
+	{{HTML::style('custom/css/print.min.css') }}
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 			 folder instead of downloading all of them to reduce the load. -->
 	{{HTML::style('adminlte/dist/css/skins/_all-skins.min.css') }}
+	@yield('style_header')
 	<!-- Date Picker -->
 	{{-- {{HTML::style('adminlte/plugins/datepicker/datepicker3.css') }} --}}
 	<!-- Daterange picker -->
@@ -27,6 +30,8 @@
 	{{HTML::style('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}
 	
 	{{ HTML::style('adminlte/plugins/jQueryUI/jquery-ui.css') }}
+	{{ HTML::style('adminlte/plugins/bootstrap-select/bootstrap-select.min.css') }}
+	{{ HTML::style('custom/css/style.css') }}
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -40,13 +45,15 @@
 	{{ HTML::script('adminlte/plugins/jQueryUI/jquery-ui.min.js') }}
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
-	<script>
+	{{-- <script>
 		$.widget.bridge('uibutton', $.ui.button);
-	</script>
+
+
+	</script> --}}
 	<!-- Bootstrap 3.3.5 -->
 	{{ HTML::script('adminlte/bootstrap/js/bootstrap.min.js') }}
 	<!-- daterangepicker -->
-	{{-- {{ HTML::script('adminlte/plugins/daterangepicker/moment.min.js') }} --}}
+	{{ HTML::script('adminlte/plugins/daterangepicker/moment.min.js') }}
 	{{-- {{ HTML::script('adminlte/plugins/daterangepicker/daterangepicker.js') }} --}}
 	<!-- datepicker -->
 	{{-- {{ HTML::script('adminlte/plugins/datepicker/bootstrap-datepicker.js') }} --}}
@@ -55,52 +62,28 @@
 	<!-- datetimepicker -->
 	{{ HTML::script('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}
 	<!-- FastClick -->
-	{{ HTML::script('adminlte/plugins/fastclick/fastclick.js') }}
+	{{-- {{ HTML::script('adminlte/plugins/fastclick/fastclick.js') }} --}}
 	<!-- AdminLTE App -->
 	{{ HTML::script('adminlte/dist/js/app.min.js') }}
+	{{ HTML::script('custom/js/jquery.timepicker.min.js') }}
+	{{ HTML::script('custom/js/print.min.js') }}
+	{{ HTML::script('adminlte/plugins/bootstrap-select/bootstrap-select.min.js') }}
+	@yield('js_header')
 
 	<script>
 	  $(function () {
-	    $('#start_date').datetimepicker({
-	    	format: "yyyy-mm-dd hh:ii:00",
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			forceParse: 0,
-	    });
-	    $('#end_date').datetimepicker({
-	    	format: "yyyy-mm-dd hh:ii:00",
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			forceParse: 0,
-	    });
-	    $('#start_update_date').datetimepicker({
-	    	format: "yyyy-mm-dd hh:ii:00",
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			forceParse: 0,
-	    });
-	    $('#end_update_date').datetimepicker({
-	    	format: "yyyy-mm-dd hh:ii:00",
-			todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			forceParse: 0,
-	    });
-	
+	    
 	    $('#datepickerStartdate').datepicker({
 	    	dateFormat: 'yy-mm-dd',
 			});
-	    $('#datepickerEnddate').datepicker({
-	    	dateFormat: 'yy-mm-dd',
-			});
+
+	    $('.timepicker').timepicker({
+		    'minTime': '6:00am',
+		    'maxTime': '10:00pm',
+		    'show2400': true,
+		    'timeFormat': 'H:i'
+		})
+
 	  });
 	</script>
-
 </head>

@@ -1,30 +1,38 @@
 <?php
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class Center extends Eloquent {
+    use SoftDeletingTrait;
 
-	//use SoftDeletingTrait;
-    //protected $dates = ['deleted_at'];
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'centers';
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'centers';
+    public $timestamps = true;
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	// protected $hidden = array('password', 'remember_token');
-	 protected $fillable = array('partner_id', 'center_name');
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $fillable = array('name', 'phone','address', 'code', 'partner_id');
+    protected $dates = ['deleted_at'];
 
-	public function partner()
+    public function levels() 
     {
-        return $this->hasOne('Partner', 'id', 'partner_id');
+        return $this->belongsToMany('Level', 'center_level', 'center_id', 'level_id');
+
     }
-    public function employees()
+    public function partner() 
     {
-    	return $this->hasMany('employees');
+        return $this->belongsTo('Partner', 'partner_id');
+
     }
+
+    public function students() 
+    {
+        return $this->hasMany('Student', 'center_id', 'id');
+    }
+
 }

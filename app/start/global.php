@@ -22,6 +22,10 @@ ClassLoader::addDirectories(array(
 	app_path().'/models',
 	app_path().'/database/seeds',
 	app_path().'/services',
+	app_path().'/interface/admin',
+	app_path().'/interface/partner',
+	app_path().'/interface/user',
+	app_path().'/interface/customer',
     app_path().'/helpers',
 
 ));

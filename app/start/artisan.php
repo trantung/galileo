@@ -11,4 +11,4 @@
 |
 */
 
-Artisan::add(new ModelMake);
+// Artisan::add(new ModelMake);

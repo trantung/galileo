@@ -13,13 +13,13 @@
 
 App::before(function($request)
 {
-	//
+    //
 });
 
 
 App::after(function($request, $response)
 {
-	//
+    //
 });
 
 /*
@@ -35,29 +35,70 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::guest('login');
-		}
-	}
+    if (Auth::guest())
+    {
+        if (Request::ajax())
+        {
+            return Response::make('Unauthorized', 401);
+        }
+        else
+        {
+            return Redirect::guest('login');
+        }
+    }
 });
 
 Route::filter('admin', function()
 {
-	if (Auth::admin()->guest()){
-		return Redirect::route('admin.login');
-	}
+    if (Auth::admin()->guest()){
+        if (Auth::user()->guest()){
+            return Redirect::action('AdminController@login');
+        }
+        if (Auth::user()->check()) {
+            $route = Route::getCurrentRoute()->getActionName();
+            $check = checkUrlPermission($route);
+            if (!$check) {
+                return View::make('403');
+            }
+        }
+    }
+    $admin = Auth::admin()->get();
+    if (isset($admin)) {
+        if ($admin->role_id != ADMIN) {
+            $route = Route::getCurrentRoute()->getActionName();
+            $check = checkUrlPermission($route);
+            if (!$check) {
+                return View::make('403');
+            }
+        }
+    }
+    
+});
+Route::filter('user', function()
+{
+    if (Auth::user()->guest()){
+        return Redirect::action('UserController@login');
+    }
+    // $admin = Auth::admin()->get();
+ //    if ($admin->role_id != ADMIN) {
+ //     $route = Route::getCurrentRoute()->getActionName();
+ //     $check = checkUrlPermission($route);
+ //     if (!$check) {
+ //         return View::make('403');
+ //     }
+ //    }
 });
 
+
+// Route::filter('partner', function()
+// {
+//  if (Auth::partner()->guest()){
+//      return Redirect::route('partner.login');
+//  }
+// });
 Route::filter('auth.basic', function()
 {
-	return Auth::basic();
+    return Auth::basic();
 });
 
 /*
@@ -73,7 +114,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+    if (Auth::check()) return Redirect::to('/');
 });
 
 /*
@@ -89,8 +130,8 @@ Route::filter('guest', function()
 
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+    if (Session::token() != Input::get('_token'))
+    {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
 });

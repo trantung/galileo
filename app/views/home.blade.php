@@ -1,1 +1,0 @@
-{{ trans('messages.welcome') }}
