@@ -9,7 +9,7 @@ class ScheduleController extends \BaseController {
 	 */
 	public function index()
 	{
-			dd('dsgdhgfjkhj');
+			dd('trang này chưa dc tạo hãy vào trang create');
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -23,13 +23,11 @@ class ScheduleController extends \BaseController {
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
         $center = Center::lists('name', 'id');
-
         $students = Student::lists('fullname', 'id');
         $student = [];
         foreach ($students as $id => $name) {
         	$student[$id] = $name.' - '.Common::getParentPhone($id);
         }
-
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('admin.schedule.create')->with(compact('class', 'subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));

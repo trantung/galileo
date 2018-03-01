@@ -3,11 +3,11 @@
         <legend>Thông tin gói học</legend>
         <div class="form-group">
             <label>trung tâm</label>
-            {{ Form::select('center_id',['' => '--chọn--']+$center, null ,['class' => 'form-control', 'required' => true]) }}
+            {{ Form::select('center_id',['' => '--chọn--']+$center, null , ['class' => 'form-control ', 'required' => true]) }}
         </div>
         <div class="form-group">
             <label>chọn học sinh</label>
-            {{ Form::select('student_id',['' => '--chọn--']+$student, null ,['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true]) }}
+            {{ Form::select('student_id',['' => '--chọn--']+$student, null , ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true]) }}
         </div>
 
         <div class="box alert filter-document-form">
