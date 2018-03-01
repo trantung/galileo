@@ -43,7 +43,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
        FreeTimeUser::where('user_id',$id)->delete();
         foreach($input['start_time'] as $key => $value) {
             foreach ($value as $k => $time) {
-                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k])){
+                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k]) && strtotime($input['end_time'][$key][$k]) > strtotime($input['start_time'][$key][$k])){
                     $field = [
                         'user_id'=>$id,
                         'time_id'=> $key,
@@ -52,6 +52,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
                     ];
                     CommonNormal::create($field, 'FreeTimeUser');
                 }
+
             }
         }
         return Redirect::action('ManagerUserController@getSetTime', $id);
