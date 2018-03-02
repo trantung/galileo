@@ -39,7 +39,7 @@ class AjaxController extends \BaseController {
                     }
 
                     // neu CVHT da co du so hoc sinh toi da theo goi quy dinh tai thoi diem nay thi thoat khoi vong lap va chuyen sang nguoi tiep theo
-                    if( $userSchedule->where('package_id', $package->id)->count() >= $package->max_student ){
+                    if( $userSchedule->where('package_id', $package->id)->groupBy('student_id')->count() >= $package->max_student ){
                         $checkFreeDate = false;
                         break; // thoat khoi vong lap va chuyen sang nguoi tiep theo
                     }

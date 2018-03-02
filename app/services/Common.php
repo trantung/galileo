@@ -8,10 +8,10 @@ class Common {
             $times->where('time_id', $timeId);
         }
         if( $startTime ){
-            $times->where('start_time', $startTime);
+            $times->where('start_time', '<=', $startTime);
         }
         if( $endTime ){
-            $times->where('end_time', $endTime);
+            $times->where('end_time', '>=',$endTime);
         }
         if( $times->count() == 0 ){
             return false;
