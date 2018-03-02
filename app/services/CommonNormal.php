@@ -25,7 +25,6 @@ class CommonNormal
         // }
         // return null;
     }
-
     public static function delete($id, $name = NULL)
     {
         $name = self::commonName($name);
