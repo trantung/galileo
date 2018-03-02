@@ -39,6 +39,7 @@ class Common {
 
         // prevent empty ordered elements
         if (count($ffs) < 1){
+            
             return [];
         }
 
@@ -380,7 +381,7 @@ class Common {
         $html = '<select name="'. $name .'" class="form-control">
             <option value="">--Tất cả--</option>';
         foreach ($levels as $key => $value) {
-            $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
+            $html .= '<option '. (($value->id == $default) ? 'selected' : (( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id')) ? 'class="hidden"' : '')) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
         }
         $html .= '<select>';
         return $html;
@@ -671,5 +672,19 @@ class Common {
         }
         $html .= '<select>';                                                                            
         return $html;
+    }
+
+    public static function getParentPhone($id){
+        $family = Common::getObject(Student::find($id), 'families');
+        if( count($family) == 0 ){
+            return false;
+        }
+        if( Common::getObject($family[0], 'phone') ){
+            return Common::getObject($family[0], 'phone');
+        }
+        if( Common::getObject($family[1], 'phone') ){
+            return Common::getObject($family[1], 'phone');
+        }
+        return false;
     }
 }

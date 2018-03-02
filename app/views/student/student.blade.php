@@ -1,7 +1,7 @@
 <div class="box-body col-sm-6">
     <div class="form-group well well-sm">
         <fieldset>
-            <legend>thông tin học sinh</legend>
+            <legend>Thông tin học sinh</legend>
             <div class="form-group">
                 <label for="fullname">Họ và tên</label>
                 {{ Form::text('fullname', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Họ và tên' )) }}
