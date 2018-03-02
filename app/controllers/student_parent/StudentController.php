@@ -48,6 +48,7 @@ class StudentController extends BaseController {
         if (!$groupId) {
             dd('khong dc bo me');
             return Redirect::action('StudentController@index');
+
         }
         //create student
         $studentInput = Input::except('_token', 
@@ -62,9 +63,6 @@ class StudentController extends BaseController {
         $studentInput['class_id'] = $input['class_id'];
         //get studentId
         $studentId = Student::create($studentInput)->id;
-        if (!$studentId) {
-            dd($studentInput);
-        }
         return Redirect::action('StudentController@index');
     }
     /**

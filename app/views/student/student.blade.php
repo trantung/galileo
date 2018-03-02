@@ -1,7 +1,7 @@
 <div class="box-body col-sm-6">
     <div class="form-group well well-sm">
         <fieldset>
-            <legend>thông tin học sinh</legend>
+            <legend>Thông tin học sinh</legend>
             <div class="form-group">
                 <label for="fullname">Họ và tên</label>
                 {{ Form::text('fullname', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Họ và tên' )) }}
@@ -42,7 +42,6 @@
                 <label for="gender">Giới tính</label>
                 {{ Form::select('gender', ['null' => '--chọn--', '0' => 'nữ', '1' => 'nam'], null, ['class' => 'form-control']) }}
             </div>
-          
             <div class="form-group inline-block">
                 <label for="phone">Số điện thoại</label>
                 {{ Form::text('phone', null, array('class' => 'form-control', 'placeholder' => '0...' )) }}
