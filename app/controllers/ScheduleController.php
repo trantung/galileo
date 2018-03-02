@@ -2,22 +2,27 @@
 
 class ScheduleController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return Redirect::action('ScheduleController@create');
-	}
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{	
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $data2 = SpDetail::orderBy('lesson_date', 'ASC')->orderBy('lesson_hour', 'ASC')->get();
+        $data = [];
+        foreach ($data2 as $key => $value) {
+            $data[$value->lesson_date][] = $value;
+        }
+        return View::make('admin.schedule.index')->with(compact('data'));
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {   
         $package = Package::all();
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
@@ -26,23 +31,23 @@ class ScheduleController extends \BaseController {
         $students = Student::lists('fullname', 'id');
         $student = [];
         foreach ($students as $id => $name) {
-        	$student[$id] = $name.' - '.Common::getParentPhone($id);
+            $student[$id] = $name.' - '.Common::getParentPhone($id);
         }
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('admin.schedule.create')->with(compact('class', 'subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
-	}
+    }
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
         $input = Input::all();
-		// dd($input);
+        // dd($input);
         //create record in table: student_package
         $studentPackageInput = Input::only(
             'class_id', 'subject_id', 'level_id',
@@ -85,55 +90,55 @@ class ScheduleController extends \BaseController {
             $idSpDetail = SpDetail::create($spDetailInput)->id;
         }
         return Redirect::back()->withMessage('Lưu thành công');
-	}
+    }
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
 
 }

@@ -42,7 +42,6 @@
                 <label for="gender">Giới tính</label>
                 {{ Form::select('gender', ['null' => '--chọn--', '0' => 'nữ', '1' => 'nam'], null, ['class' => 'form-control']) }}
             </div>
-          
             <div class="form-group inline-block">
                 <label for="phone">Số điện thoại</label>
                 {{ Form::text('phone', null, array('class' => 'form-control', 'placeholder' => '0...' )) }}
