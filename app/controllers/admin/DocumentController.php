@@ -38,29 +38,29 @@ class DocumentController extends AdminController implements AdminInterface {
             }
         }
         if( !empty($input['name']) ){
-            $documents = $documents->where('name', 'LIKE', '%'.$input['name'].'%');
+            $documents->where('name', 'LIKE', '%'.$input['name'].'%');
         }
         if( !empty($input['class_id']) ){
-            $documents = $documents->where('class_id', $input['class_id']);
+            $documents->where('class_id', $input['class_id']);
         }
         if( !empty($input['subject_id']) ){
-            $documents = $documents->where('subject_id', $input['subject_id']);
+            $documents->where('subject_id', $input['subject_id']);
         }
         if( !empty($input['status']) ){
-            $documents = $documents->where('status', $input['status']);
+            $documents->where('status', $input['status']);
         }
         if( !empty($input['level_id']) ){
-            $documents = $documents->where('level_id', $input['level_id']);
+            $documents->where('level_id', $input['level_id']);
             if( isset($input['lesson_code']) ){
                 $lesson = Lesson::where('level_id', $input['level_id'])
                     ->where('code', $input['lesson_code'])
                     ->first();
                 if ($lesson) {
-                    $documents = $documents->where('lesson_id', $lesson->id);
+                    $documents->where('lesson_id', $lesson->id);
                 }
             }
         }
-        $documents = $documents->groupBy('parent_id')->paginate(30);
+        $documents->groupBy('parent_id')->paginate(30);
         return View::make('admin.document.index')->with(compact('documents'));
     }
 
