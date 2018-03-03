@@ -21,6 +21,7 @@ class TestController extends AdminController implements AdminInterface {
 
                     /////////////// Luu thong tin me trong bang family
                     if($value['sdt_me']){
+                        
                         $fieldMom = [
                             'fullname' => !empty($value['ho_va_ten_me']) ? $value['ho_va_ten_me'] : '',
                             'phone' => !empty($value['sdt_me']) ? $value['sdt_me'] : '',
@@ -279,6 +280,84 @@ class TestController extends AdminController implements AdminInterface {
 		$str = preg_replace("/(Đ)/", 'D', $str);
 		//$str = str_replace(" ", "-", str_replace("&*#39;","",$str));
 		return $str;
+	}
+
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		//
+	}
+
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		//
+	}
+
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		//
+	}
+
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		//
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
 	}
 
     public function getVersionDoc()
