@@ -60,7 +60,7 @@ class DocumentController extends AdminController implements AdminInterface {
                 }
             }
         }
-        $documents->groupBy('parent_id')->paginate(30);
+        $documents = $documents->groupBy('parent_id')->paginate(30);
         return View::make('admin.document.index')->with(compact('documents'));
     }
 
