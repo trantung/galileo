@@ -21,11 +21,15 @@ class ScheduleController extends \BaseController {
         if( !empty($input['level_id']) ){
             $data2->where('level_id', $input['level_id']);
         }
+        if( !empty($input['user_id']) ){
+            $data2->where('user_id', $input['user_id']);
+        }
+
         if( !empty($input['start_date']) && !empty($input['end_date']) ){
             $data2->whereBetween('lesson_date', [ $input['start_date'], $input['end_date'] ]);
         }
         if( !empty($input['phone']) ){
-            $families = Family::where('phone', $input['phone'])->get();
+            $families = Family::where('phone', trim($input['phone']))->get();
             if( count($families) == 0 ){
                 $data2->where('student_id', '00');
             }
