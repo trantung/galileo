@@ -9,12 +9,43 @@ class ScheduleController extends \BaseController {
      */
     public function index()
     {
-        $data2 = SpDetail::orderBy('lesson_date', 'ASC')->orderBy('lesson_hour', 'ASC')->get();
+        $input = Input::all();
+        $data2 = SpDetail::orderBy('lesson_date', 'ASC')->orderBy('lesson_hour', 'ASC');
+        
+        if( !empty($input['class_id']) ){
+            $data2->where('class_id', $input['class_id']);
+        }
+        if( !empty($input['subject_id']) ){
+            $data2->where('subject_id', $input['subject_id']);
+        }
+        if( !empty($input['level_id']) ){
+            $data2->where('level_id', $input['level_id']);
+        }
+        if( !empty($input['start_date']) && !empty($input['end_date']) ){
+            $data2->whereBetween('lesson_date', [ $input['start_date'], $input['end_date'] ]);
+        }
+        if( !empty($input['phone']) ){
+            $families = Family::where('phone', $input['phone'])->get();
+            if( count($families) == 0 ){
+                $data2->where('student_id', '00');
+            }
+            foreach ($families as $key => $family) {
+                if( count($family->students) ){
+                    foreach ($family->students as $key2 => $student) {
+                        $data2->where('student_id', $student->id);
+                    }
+                }else{
+                    $data2->where('student_id', '00');
+                }
+            }
+        }
+
+        $data2->paginate(PAGINATE);
         $data = [];
-        foreach ($data2 as $key => $value) {
+        foreach ($data2->get() as $key => $value) {
             $data[$value->lesson_date][] = $value;
         }
-        return View::make('admin.schedule.index')->with(compact('data'));
+        return View::make('admin.schedule.index')->with(compact('data', 'data2'));
     }
     /**
      * Show the form for creating a new resource.
