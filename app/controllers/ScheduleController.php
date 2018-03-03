@@ -88,8 +88,7 @@ class ScheduleController extends \BaseController {
             $spDetailInput['lesson_hour'] = $lessonDate[$i][1];
             $idSpDetail = SpDetail::create($spDetailInput)->id;
         }
-        return Redirect::action('ScheduleController@index
-            ');
+        return Redirect::action('ScheduleController@index');
     }
 
 
