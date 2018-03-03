@@ -19,13 +19,13 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function create()
-    {
-        $package = Package::all();
-        $class = ClassModel::lists('name', 'id');
-        $subject = Subject::lists('name', 'id');
-        $level = Level::lists('name', 'id');
+    {   // create backage
+        $package = Package::all();                            
+        $class = ClassModel::lists('name', 'id');              
+        $subject = Subject::lists('name', 'id');             
+        $level = Level::lists('name', 'id');                  
         $center = Center::lists('name', 'id');
-        $userActive = User::where('role_id', CVHT)->lists('username', 'id');
+        $userActive = User::where('role_id', CVHT)->lists('username', 'id'); 
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('student.create')->with(compact('class', 'subject', 'level', 'center','package', 'userActive', 'userNameActive'));
     }
@@ -42,6 +42,7 @@ class StudentController extends BaseController {
         $familyInput['mom_phone'] = $input['mom_phone'];
         $familyInput['dad_fullname'] = $input['dad_fullname'];
         $familyInput['dad_phone'] = $input['dad_phone'];
+        dd($input['dad_phone']);
         //get groupId
         $groupId = CommonNormal::createFamily($familyInput);
         if (!$groupId) {
@@ -62,6 +63,11 @@ class StudentController extends BaseController {
         $studentInput['class_id'] = $input['class_id'];
         //get studentId
         $studentId = Student::create($studentInput)->id;
+
+        if (!$studentId) {
+            dd($studentInput);
+        }
+       
         return Redirect::action('StudentController@index');
     }
     /**

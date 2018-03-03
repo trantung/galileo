@@ -11,6 +11,13 @@ class ScheduleController extends \BaseController {
     {
         $input = Input::all();
         $data2 = SpDetail::orderBy('lesson_date', 'ASC')->orderBy('lesson_hour', 'ASC');
+
+        //// Neu chua co tim kiem nao thi hien thi mac dinh cac ket qua tu ngay hien tai den cuoi tuan
+        if( empty($input) ){
+            $now = date( 'Y-m-d', time() );
+            $timeId = getTimeId( $now );
+            $data2->whereBetween('lesson_date', [ $now, date('Y-m-d', strtotime($now.' + '.(8 - $timeId).' days')) ]);
+        }
         
         if( !empty($input['class_id']) ){
             $data2->where('class_id', $input['class_id']);
@@ -44,20 +51,19 @@ class ScheduleController extends \BaseController {
             }
         }
 
-        $data2->paginate(PAGINATE);
         $data = [];
         foreach ($data2->get() as $key => $value) {
             $data[$value->lesson_date][] = $value;
         }
-        return View::make('admin.schedule.index')->with(compact('data', 'data2'));
+        $data2 = $data2->paginate(PAGINATE);
+        return View::make('admin.schedule.list')->with(compact('data', 'data2'));
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
-    public function create()
-    {   
+    public function create(){
         $package = Package::all();
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
@@ -124,7 +130,7 @@ class ScheduleController extends \BaseController {
             $spDetailInput['lesson_hour'] = $lessonDate[$i][1];
             $idSpDetail = SpDetail::create($spDetailInput)->id;
         }
-        return Redirect::back()->withMessage('Lưu thành công');
+        return Redirect::action('ScheduleController@index');
     }
 
 

@@ -25,7 +25,6 @@ class CommonNormal
         // }
         // return null;
     }
-
     public static function delete($id, $name = NULL)
     {
         $name = self::commonName($name);
@@ -44,7 +43,6 @@ class CommonNormal
         $id = $name::create($input)->id;
         return $id;
     }
-
     public static function commonName($name = NULL)
     {
         if ($name == NULL) {

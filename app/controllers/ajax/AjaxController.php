@@ -28,9 +28,10 @@ class AjaxController extends \BaseController {
 
                     /// Kiem tra CVHT da co lich day vao gio nay chua?
                     $checkUserSchedule = SpDetail::where('user_id', $uid)
-                     ->where( 'time_id', getTimeId($times[0]) )
-                     ->where( 'lesson_hour', $times[1] );
-
+                        ->where( 'time_id', getTimeId($times[0]) )
+                        ->where( 'lesson_hour', $times[1] );
+                    // TODO: thieu nếu cùng dạy vào timeid và cùng lesson_hour vào 2 tháng khác nhau
+                        
                     /// Neu CVHT nay da day 1 goi khac cung thoi diem thi thoat khoi vong lap va chuyen sang nguoi tiep theo
                     if( $checkUserSchedule->where('package_id', '!=', $package->id)->count() ){
                         $checkFreeDate = false;

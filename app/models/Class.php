@@ -18,5 +18,5 @@ class Class extends Eloquent {
 	 */
 	// protected $hidden = array('password', 'remember_token');
 	 protected $fillable = array('center_id','class_name');
-
+	
 }

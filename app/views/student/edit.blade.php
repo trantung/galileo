@@ -1,5 +1,4 @@
 @extends('admin.layout.default')
-
 @section('title')
 {{ $title='thay đổi thông tin' }}
 @stop
