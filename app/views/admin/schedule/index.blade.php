@@ -16,7 +16,6 @@
 			<th>Lớp</td>
 			<th>Trình độ</td>
 			<th>STT buổi</td>
-			<th width="140px">Action</th>
 		</tr>
 		@foreach($data as $key => $item)
 			@foreach($item as $i => $value)
@@ -25,21 +24,19 @@
 						<td rowspan="{{ count($item) }}" style="vertical-align: middle;">{{ date('d/m/Y', strtotime($key)) }}</td>
 					@endif
 					<td>{{ $value->lesson_hour }}</td>
-					<td>{{ $value->student_id }}</td>
-					<td>{{ $value->student_id }}</td>
-					<td>{{ $value->user_id }}</td>
-					<td>{{ $value->class_id }}</td>
-					<td>{{ $value->level_id }}</td>
+					<td>{{ $value->students->fullname  }}</td>
+					<td>{{ Common::getParentPhone($value->student_id) }}</td>
+					<td>{{ $value->users->username}}</td>
+					<td>{{ $value->classes->name}}</td>
+					<td>{{ $value->levels->code }}</td>
 					<td>{{ $value->lesson_code }}</td>
-					<td>
-			           <a href=" {{ action('ScheduleController@edit', $value->id) }} " class="btn btn-primary">Sửa</a>
-					   {{ Form::open(array('method'=>'DELETE', 'action' => array('ScheduleController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-			           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-			           {{ Form::close() }}
-					</td>
 				</tr>
 			@endforeach
 		@endforeach
 	</table>
-	
+	<div class="row">
+	    <div class="col-xs-12">
+	        {{ $data2->appends(Request::except('page'))->links() }}
+	    </div>
+	</div>
 @stop

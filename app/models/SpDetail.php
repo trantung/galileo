@@ -29,4 +29,16 @@ class SpDetail extends Eloquent {
     {
         return $this->belongsTo('Student','student_id', 'id' );
     }
+     public function users()
+    {
+        return $this->belongsTo('User','user_id', 'id' );
+    }
+    public function classes()
+    {
+        return $this->belongsTo('ClassModel','class_id', 'id' );
+    }
+    public function levels()
+    {
+        return $this->belongsTo('Level','level_id', 'id' );
+    }
 }

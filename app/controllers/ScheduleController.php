@@ -9,20 +9,19 @@ class ScheduleController extends \BaseController {
      */
     public function index()
     {
-        $data2 = SpDetail::orderBy('lesson_date', 'ASC')->orderBy('lesson_hour', 'ASC')->get();
+        $data2 = SpDetail::orderBy('lesson_date', 'ASC')->orderBy('lesson_hour', 'ASC')->paginate(5);
         $data = [];
         foreach ($data2 as $key => $value) {
             $data[$value->lesson_date][] = $value;
         }
-        return View::make('admin.schedule.index')->with(compact('data'));
+        return View::make('admin.schedule.index')->with(compact('data', 'data2'));
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
-    public function create()
-    {   
+    public function create(){
         $package = Package::all();
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
@@ -89,7 +88,8 @@ class ScheduleController extends \BaseController {
             $spDetailInput['lesson_hour'] = $lessonDate[$i][1];
             $idSpDetail = SpDetail::create($spDetailInput)->id;
         }
-        return Redirect::back()->withMessage('Lưu thành công');
+        return Redirect::action('ScheduleController@index
+            ');
     }
 
 
