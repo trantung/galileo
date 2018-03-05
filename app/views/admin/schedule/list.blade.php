@@ -32,12 +32,12 @@
                             <td rowspan="{{ count($item) }}" style="vertical-align: middle;">{{ date('d/m/Y', strtotime($key)) }}</td>
                         @endif
                         <td>{{ $value->lesson_hour }}</td>
-                        <td>{{ $value->students->fullname }}</td>
+                        <td>{{ Common::getObject($value->students, 'fullname') }}</td>
                         <td>{{ Common::getParentPhone($value->student_id) }}</td>
-                        <td>{{ $value->users->username }}</td>
-                        <td>{{ $value->classes->name }}</td>
-                        <td>{{ $value->subjects->name }}</td>
-                        <td>{{ $value->levels->name }}</td>
+                        <td>{{ Common::getObject($value->users, 'username') }}</td>
+                        <td>{{ Common::getObject($value->classes, 'name') }}</td>
+                        <td>{{ Common::getObject($value->subjects, 'name') }}</td>
+                        <td>{{ Common::getObject($value->levels, 'name') }}</td>
                         <td>{{ $value->lesson_code }}</td>
                     </tr>
                 @endforeach

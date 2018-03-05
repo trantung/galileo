@@ -20,7 +20,7 @@ class AjaxController extends \BaseController {
                 ///// Lay lich hoc dang ky cua hoc sinh
                 foreach ($input['dates'] as $key => $times) {
                     /// Kiem tra CVHT da dang ky lich day vao khung gio nay chua
-                    $freeTimeOfAnUser = Common::getFreeTimeOfUser($uid, getTimeId($times[0]), $times[1], date("H:i",strtotime($times[1]. " + $package->duration minutes")) );
+                    $freeTimeOfAnUser = Common::getFreeTimeOfUser($uid, getTimeId($times[0]), $times[1], date("H:i:s",strtotime($times[1]. " + $package->duration minutes")) );
                     if( !$freeTimeOfAnUser ){
                         $checkFreeDate = false;
                         break; // thoat khoi vong lap va chuyen sang nguoi tiep theo
@@ -29,7 +29,7 @@ class AjaxController extends \BaseController {
                     /// Kiem tra CVHT da co lich day vao gio nay chua?
                     $checkUserSchedule = SpDetail::where('user_id', $uid)
                         ->where( 'time_id', getTimeId($times[0]) )
-                        ->where( 'lesson_hour', $times[1] );
+                        ->where( 'lesson_hour', '=', $times[1] );
                     // TODO: thieu nếu cùng dạy vào timeid và cùng lesson_hour vào 2 tháng khác nhau
                         
                     /// Neu CVHT nay da day 1 goi khac cung thoi diem thi thoat khoi vong lap va chuyen sang nguoi tiep theo

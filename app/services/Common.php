@@ -8,10 +8,12 @@ class Common {
             $times->where('time_id', $timeId);
         }
         if( $startTime ){
-            $times->where('start_time', $startTime);
+            /// Thoi gian bat dau 1 ca day cua CVHT phai truoc thoi gian dang ky
+            $times->where('start_time', '<=', $startTime);
         }
         if( $endTime ){
-            $times->where('end_time', $endTime);
+            /// Thoi gian ket thuc 1 ca day cua CVHT phai sau thoi gian dang kys
+            $times->where('end_time', '>=', $endTime);
         }
         if( $times->count() == 0 ){
             return false;
