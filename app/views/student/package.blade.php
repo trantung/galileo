@@ -64,13 +64,14 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            {{ Form::label('lesson_code', 'Bắt đầu học từ buổi', ['style' => 'display: block']) }}
-            {{ Form::select('lesson_code', Common::getListLessonCode(), null,['class' => 'form-control', 'required'=>true])}}
-        </div>
+
         <div class="form-group">
             {{ Form::label('money_paid', 'Số tiền đóng học') }} 
             {{ Form::text('money_paid','', ['class' => 'form-control','required'=>true])}}
+        </div>
+        <div class="form-group">
+            {{ Form::label('lesson_code', 'Bắt đầu học từ buổi', ['style' => 'display: block']) }}
+            {{ Form::select('lesson_code', Common::getListLessonCode(), null,['class' => 'form-control', 'required'=>true])}}
         </div>
         <div class="form-group">
             {{ Form::label('user_id','chọn cố vấn học tập') }}

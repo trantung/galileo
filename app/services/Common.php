@@ -9,6 +9,8 @@ class Common {
         }
         if( $startTime ){
             /// Thoi gian bat dau 1 ca day cua CVHT phai truoc thoi gian dang ky
+            /// start_time la thoi gian bat dau cua CVHT
+            /// $startTime la thoi gian bat dau cua hoc sinh
             $times->where('start_time', '<=', $startTime);
         }
         if( $endTime ){
