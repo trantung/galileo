@@ -42,7 +42,7 @@
                         <td>{{ $value->lesson_code }}</td>
                         <td>
                             @include('admin.schedule.modal')
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sửa</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ $value->id }}">Sửa</button>
                         </td>
                     </tr>
                 @endforeach
