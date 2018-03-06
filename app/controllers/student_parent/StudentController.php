@@ -46,8 +46,9 @@ class StudentController extends BaseController {
         //get groupId
         $groupId = CommonNormal::createFamily($familyInput);
         if (!$groupId) {
-            dd('khong dc bo me');
-            return Redirect::action('StudentController@index');
+            // dd('khong dc bo me');
+            return Redirect::back()->withMessage('số điện thoại của bố hoặc mẹ bị trùng');
+            // return Redirect::action('StudentController@index');
 
         }
         //create student
