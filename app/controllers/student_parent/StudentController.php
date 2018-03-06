@@ -60,7 +60,7 @@ class StudentController extends BaseController {
             'user_id', 'hours', 'manual_user'
         );
         $studentInput['family_id'] = $groupId;
-        $studentInput['class_id'] = $input['class_id'];
+        // $studentInput['class_id'] = $input['class_id'];
         //get studentId
         $studentId = Student::create($studentInput)->id;
 
