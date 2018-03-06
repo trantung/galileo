@@ -88,6 +88,7 @@ class ScheduleController extends \BaseController {
     public function store()
     {
         $input = Input::all();
+       
         // dd($input);
         //create record in table: student_package
         $studentPackageInput = Input::only(
