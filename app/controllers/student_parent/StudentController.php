@@ -42,7 +42,7 @@ class StudentController extends BaseController {
         $familyInput['mom_phone'] = $input['mom_phone'];
         $familyInput['dad_fullname'] = $input['dad_fullname'];
         $familyInput['dad_phone'] = $input['dad_phone'];
-        dd($input['dad_phone']);
+        // dd($input['dad_phone']);
         //get groupId
         $groupId = CommonNormal::createFamily($familyInput);
         if (!$groupId) {
