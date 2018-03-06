@@ -85,6 +85,12 @@ class ScheduleController extends \BaseController {
      *
      * @return Response
      */
+    public function course()
+    {
+        $data = StudentPackage::all();
+        return View::make('admin.schedule.course')->with(compact('data'));
+    }
+
     public function store()
     {
         $input = Input::all();
@@ -92,14 +98,17 @@ class ScheduleController extends \BaseController {
         // dd($input);
         //create record in table: student_package
         $studentPackageInput = Input::only(
-            'class_id', 'subject_id', 'level_id',
+            'center_id', 'class_id', 'subject_id', 'level_id',
             'package_id', 'lesson_code', 'money_paid'
         );
         $studentPackageInput['student_id'] = $input['student_id'];
+        $studentPackageInput['center_id'] = $input['center_id'];
         // $studentPackageInput['time_id'] = getTimeId($input['time_id']);
         $studentPackageInput['lesson_total'] = getTotalLessonByMoneyPaid($input['money_paid'], $input['package_id']);
-        $studentPackageInput['code'] = getCodeStudentPackage();
+        //$studentPackageInput['code'] = getCodeStudentPackage();
         $studentPackageId = StudentPackage::create($studentPackageInput)->id;
+        // StudentPackage::update('id', $studentPackageId, 'StudentPackage');
+        StudentPackage::find($studentPackageId)->update(['code' => $studentPackageId]);
         //create record in table: student_level
         //create record in table: detail
         $lessonDate = [];
@@ -121,6 +130,7 @@ class ScheduleController extends \BaseController {
             $spDetailInput['student_package_id'] = $studentPackageId;
             $spDetailInput['time_id'] = getTimeId($lessonDate[$i][0]);
             $spDetailInput['user_id'] = $input['user_id'];
+            $spDetailInput['center_id'] = $input['center_id'];
             $spDetailInput['class_id'] = $input['class_id'];
             $spDetailInput['subject_id'] = $input['subject_id'];
             $spDetailInput['level_id'] = $input['level_id'];
@@ -165,9 +175,14 @@ class ScheduleController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
+    public function updatecourse($id)
+    {
+        
+    }
+
     public function update($id)
     {
-        //
+        
     }
 
 

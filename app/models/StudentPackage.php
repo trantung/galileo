@@ -25,4 +25,36 @@ class StudentPackage extends Eloquent {
     );
     protected $dates = ['deleted_at'];
 
+    public function students()
+    {
+        return $this->belongsTo('Student','student_id', 'id' );
+    }
+
+    public function centers()
+    {
+        return $this->belongsTo('Center','center_id', 'id' );
+    }
+
+    public function classes()
+    {
+        return $this->belongsTo('ClassModel','class_id', 'id' );
+    }
+
+    public function subjects()
+    {
+        return $this->belongsTo('Subject','subject_id', 'id' );
+    }
+
+    public function levels()
+    {
+        return $this->belongsTo('Level','level_id', 'id' );
+    }
+
+    public function packages()
+    {
+        return $this->belongsTo('Package','package_id', 'id' );
+    }
+
+    
+
 }

@@ -37,18 +37,44 @@ class StudentController extends BaseController {
     public function store()
     {
         $input = Input::all();
+        $validator = Validator::make( $input,
+            [
+                'fullname'   => 'required',
+                'password'   => 'required|min:8|confirmed',
+                'code'       => 'required',
+                'email'      => 'required|email|unique:student',
+                'username'   => 'required|min:6|unique:student',
+                'center_id'  => 'required',
+                'birthday'   => 'required',
+                'gender'     => 'required'
+            ],
+            [
+                'fullname.required' => 'Bạn phải điền tên',
+                'password.min' => 'Mật khẩu phải có ít nhất 8 ký tự',
+                'password.confirmed' => 'Xác nhận mật khẩu không khớp',
+                'code.required' =>'Chưa nhập mã học sinh',
+                'email.required' => 'Email không hợp lệ',
+                'username.required' => 'Tên đăng nhập không tồn tại',
+                'center_id.required' => 'Bạn chưa chọn trung tâm',
+                'birthday.required' => 'Chưa chọn ngày sinh',
+                'gender.required' => 'Chưa chọn giới tính'    
+            ]
+        );
+
+        if ($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator);
+        }
+
         // create family
         $familyInput['mom_fullname'] = $input['mom_fullname'];
         $familyInput['mom_phone'] = $input['mom_phone'];
         $familyInput['dad_fullname'] = $input['dad_fullname'];
         $familyInput['dad_phone'] = $input['dad_phone'];
-        dd($input['dad_phone']);
         //get groupId
         $groupId = CommonNormal::createFamily($familyInput);
         if (!$groupId) {
-            dd('khong dc bo me');
-            return Redirect::action('StudentController@index');
-
+            return Redirect::back()->withErrors('Thông tin phụ huynh lưu không thành công!');
         }
         //create student
         $studentInput = Input::except('_token', 
@@ -65,7 +91,7 @@ class StudentController extends BaseController {
         $studentId = Student::create($studentInput)->id;
 
         if (!$studentId) {
-            dd($studentInput);
+            return Redirect::back()->withErrors('Lưu không thành công!');
         }
        
         return Redirect::action('StudentController@index');
