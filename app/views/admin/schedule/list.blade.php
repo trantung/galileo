@@ -24,6 +24,7 @@
                 <th>Môn học</td>
                 <th>Trình độ</td>
                 <th>STT buổi</td>
+                <th>Edit</td>
             </tr>
             @foreach($data as $key => $item)
                 @foreach($item as $i => $value)
@@ -39,6 +40,10 @@
                         <td>{{ Common::getObject($value->subjects, 'name') }}</td>
                         <td>{{ Common::getObject($value->levels, 'name') }}</td>
                         <td>{{ $value->lesson_code }}</td>
+                        <td>
+                            @include('admin.schedule.modal')
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sửa</button>
+                        </td>
                     </tr>
                 @endforeach
             @endforeach

@@ -16,7 +16,7 @@ class ScheduleController extends \BaseController {
         if( empty($input) ){
             $now = date( 'Y-m-d', time() );
             $timeId = getTimeId( $now );
-            $data2->whereBetween('lesson_date', [ $now, date('Y-m-d', strtotime($now.' + '.(8 - $timeId).' days')) ]);
+            $data2->whereBetween('lesson_date', [ $now, date('Y-m-d', strtotime($now.' + '.(CN - $timeId).' days')) ]);
         }
         
         if( !empty($input['class_id']) ){
@@ -166,7 +166,10 @@ class ScheduleController extends \BaseController {
      */
     public function update($id)
     {
-        //
+    	$input = Input::except('_token');
+    	$spDetail = SpDetail::find($id);
+    	$spDetail->update($input);
+    	return Redirect::action('ScheduleController@index');
     }
 
 
