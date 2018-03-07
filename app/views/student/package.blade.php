@@ -2,27 +2,27 @@
     <fieldset>  
         <legend>Thông tin gói học</legend>
         <div class="form-group">
-            <label>trung tâm</label>
+            <label>Chọn trung tâm</label>
             {{ Form::select('center_id',['' => '--chọn--']+$center, null , ['class' => 'form-control ', 'required' => true]) }}
         </div>
         <div class="form-group">
-            <label>chọn học sinh</label>
-            {{ Form::select('student_id',['' => '--chọn--']+$student, null , ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true]) }}
+            <label>Chọn học sinh</label>
+            {{ Form::select('student_id',['' => '--chọn--'] + Common::getStudentList(), null , ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true]) }}
         </div>
 
         <div class="box alert filter-document-form">
             <div class="input-group inline-block">
-            <label style="display: block;">Lớp</label>
+            <label style="display: block;">Chọn lớp học</label>
             {{ Form::select('class_id', ['' => '--Tất cả--'] + Common::getClassList(), Input::get('class_id'), ['class' => 'form-control select-class', 'required' => true]) }}
             </div>
 
             <div class="input-group inline-block">
-            <label style="display: block;">Môn học</label>
+            <label style="display: block;">Chọn môn học</label>
             {{ Form::select('subject_id', ['' => '--Tất cả--'] + Common::getSubjectList(), Input::get('subject_id'), ['class' => 'form-control select-subject', 'required' => true]) }}
             </div>
 
             <div class="input-group inline-block select-level-from-class-subject">
-                <label style="display: block;">Trình độ</label>
+                <label style="display: block;">Chọn trình độ</label>
                  {{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
             </div>
         
@@ -39,7 +39,7 @@
                     <input type="date" class="lesson_date form-control" required placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
-                    <label>giờ băt đầu học</label>
+                    <label>Giờ băt đầu học</label>
                     {{ Form::text('hours[]', '', ['class' => 'form-control timepicker lesson_hour', 'required'=>true ]) }}
                 </div>
             </div>
@@ -49,7 +49,7 @@
                     <input type="date" class="lesson_date form-control" placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
-                    <label>giờ băt đầu học</label>
+                    <label>Giờ băt đầu học</label>
                     {{ Form::text('hours[]', '', ['class' => 'form-control timepicker lesson_hour']) }}
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <input type="date" class="lesson_date form-control" placeholder="Ngày vào học" name="time_id[]">
                 </div>
                 <div class="input-group inline-block col-sm-4" >
-                    <label>giờ băt đầu học</label>
+                    <label>Giờ băt đầu học</label>
                     {{ Form::text('hours[]', '', ['class' => 'form-control timepicker lesson_hour']) }}
                 </div>
             </div>
@@ -74,7 +74,7 @@
             {{ Form::select('lesson_code', Common::getListLessonCode(), null,['class' => 'form-control', 'required'=>true])}}
         </div>
         <div class="form-group">
-            {{ Form::label('user_id','chọn cố vấn học tập') }}
+            {{ Form::label('user_id','Chọn cố vấn học tập') }}
             {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker select-teacher', 'data-live-search' => 'true'])}}
         </div>
     </fieldset>

@@ -691,4 +691,14 @@ class Common {
         }
         return false;
     }
+
+    public static function getStudentList()
+    {
+        $students = Student::lists('fullname', 'id');
+        $student = [];
+        foreach ($students as $id => $name) {
+            $student[$id] = $name.' - '.Common::getParentPhone($id);
+        }
+        return $student;
+    }
 }
