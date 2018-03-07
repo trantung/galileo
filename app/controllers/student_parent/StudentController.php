@@ -71,10 +71,14 @@ class StudentController extends BaseController {
         $familyInput['mom_phone'] = $input['mom_phone'];
         $familyInput['dad_fullname'] = $input['dad_fullname'];
         $familyInput['dad_phone'] = $input['dad_phone'];
+        // dd($input['dad_phone']);
         //get groupId
         $groupId = CommonNormal::createFamily($familyInput);
         if (!$groupId) {
-            return Redirect::back()->withErrors('Thông tin phụ huynh lưu không thành công!');
+            // dd('khong dc bo me');
+            return Redirect::back()->withMessage('số điện thoại của bố hoặc mẹ bị trùng');
+            // return Redirect::action('StudentController@index');
+
         }
         //create student
         $studentInput = Input::except('_token', 
@@ -86,7 +90,7 @@ class StudentController extends BaseController {
             'user_id', 'hours', 'manual_user'
         );
         $studentInput['family_id'] = $groupId;
-        $studentInput['class_id'] = $input['class_id'];
+        // $studentInput['class_id'] = $input['class_id'];
         //get studentId
         $studentId = Student::create($studentInput)->id;
 

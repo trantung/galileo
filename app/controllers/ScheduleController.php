@@ -170,7 +170,10 @@ class ScheduleController extends \BaseController {
 
     public function update($id)
     {
-        
+    	$input = Input::except('_token');
+    	$spDetail = SpDetail::find($id);
+    	$spDetail->update($input);
+    	return Redirect::action('ScheduleController@index');
     }
 
 
