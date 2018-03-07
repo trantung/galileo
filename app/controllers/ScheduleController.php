@@ -16,7 +16,7 @@ class ScheduleController extends \BaseController {
         if( empty($input) ){
             $now = date( 'Y-m-d', time() );
             $timeId = getTimeId( $now );
-            $data2->whereBetween('lesson_date', [ $now, date('Y-m-d', strtotime($now.' + '.(8 - $timeId).' days')) ]);
+            $data2->whereBetween('lesson_date', [ $now, date('Y-m-d', strtotime($now.' + '.(CN - $timeId).' days')) ]);
         }
         
         if( !empty($input['class_id']) ){
@@ -77,18 +77,6 @@ class ScheduleController extends \BaseController {
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('admin.schedule.create')->with(compact('class', 'subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function course()
-    {
-        $data = StudentPackage::all();
-        return View::make('admin.schedule.course')->with(compact('data'));
     }
 
     public function store()
@@ -195,6 +183,37 @@ class ScheduleController extends \BaseController {
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function course()
+    {   $package = Package::all();
+        $class = ClassModel::lists('name', 'id');
+        $subject = Subject::lists('name', 'id');
+        $level = Level::lists('name', 'id');
+        $center = Center::lists('name', 'id');
+        $students = Student::lists('fullname', 'id');
+        $center = Center::lists('name', 'id');
+        $userActive = User::where('role_id', CVHT)->lists('username', 'id');
+        $userNameActive = User::where('role_id', CVHT)->lists('username');
+        $data = StudentPackage::all();
+        return View::make('admin.schedule.course')->with(compact('data','subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
+    }
+
+    public function courseEdit($id){
+        $input = Input::all();
+        $old = StudentPackage::find($id);
+
+        $input['code'] = $old->code;
+        StudentPackage::create($input);
+
+        $old->delete();
+        return Redirect::action('ScheduleController@course')->withMessage('Lưu thành công!');
     }
 
 

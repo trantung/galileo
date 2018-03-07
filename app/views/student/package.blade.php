@@ -65,7 +65,8 @@
             </div>
         </div>
 
-        <div class="form-group">
+       
+    </fieldset> <div class="form-group">
             {{ Form::label('money_paid', 'Số tiền đóng học') }} 
             {{ Form::text('money_paid','', ['class' => 'form-control','required'=>true])}}
         </div>
@@ -75,7 +76,6 @@
         </div>
         <div class="form-group">
             {{ Form::label('user_id','chọn cố vấn học tập') }}
-            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker select-teacher', 'data-live-search' => 'true'])}}
+            {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker select-teacher', 'data-live-search' => 'true', 'required' => true])}}
         </div>
-    </fieldset>
 </div>
