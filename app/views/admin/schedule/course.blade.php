@@ -6,7 +6,7 @@
 @section('content')
     <!-- Bo loc -->
     <div class="margin-bottom">
-        @include('admin.schedule.filter')
+        @include('admin.schedule.filter_course')
     </div>
     <table class="table table-bordered table-striped table-hove" >
         <tr>
@@ -15,7 +15,7 @@
             <th>Trung tâm</th>
             <th>Code</th>
             <th>Lớp học</th>
-            <th>môn học</th>
+            <th>Môn học</th>
             <th>Trình độ</td>
             <th>Gói học</td>
             <th>Số tiền đã đóng</td>

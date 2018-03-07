@@ -13,7 +13,7 @@
                     <div class="form-group ">
                         <div class="input-group inline-block">
                             <label>Trung tâm </label>
-                            {{ Form::select('center_id',['' => '--chọn--'] + $center, $value->center_id , ['class' => 'form-control ', 'required' => true]) }}
+                            {{ Form::select('center_id', ['' => '--chọn--'] + Center::lists('name', 'id'), $value->center_id , ['class' => 'form-control ', 'required' => true]) }}
                         </div>
                         <div class="input-group inline-block filter-document-form">
                             <div class="input-group inline-block">
@@ -31,8 +31,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('package_id','Gói học') }} 
-                        {{ Common::getPackageDropdownList('package_id', $package, $value->package_id) }}
+                        {{ Form::label('package_id','Gói học') }}
+                        {{ Form::select('package_id', ['' => '--Tất cả--'] + Package::lists('name', 'id'), $value->package_id, ['class' => 'form-control select-subject', 'required' => true]) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('money_paid', 'Số tiền đóng học') }} 

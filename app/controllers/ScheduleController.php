@@ -70,13 +70,36 @@ class ScheduleController extends \BaseController {
         $level = Level::lists('name', 'id');
         $center = Center::lists('name', 'id');
         $students = Student::lists('fullname', 'id');
-        $student = [];
-        foreach ($students as $id => $name) {
-            $student[$id] = $name.' - '.Common::getParentPhone($id);
-        }
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('admin.schedule.create')->with(compact('class', 'subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function course()
+    {
+        $input = Input::all();
+        
+        $data = StudentPackage::orderBy('code', 'ASC');
+
+        if( !empty($input['class_id']) ){
+            $data->where('class_id', $input['class_id']);
+        }
+        if( !empty($input['subject_id']) ){
+            $data->where('subject_id', $input['subject_id']);
+        }
+        if( !empty($input['level_id']) ){
+            $data->where('level_id', $input['level_id']);
+        }
+        if( !empty($input['package_id']) ){
+            $data->where('package_id', $input['package_id']);
+        }
+        $data = $data->paginate(PAGINATE);
+        return View::make('admin.schedule.course')->with(compact('data'));
     }
 
     public function store()
@@ -186,26 +209,6 @@ class ScheduleController extends \BaseController {
     public function destroy($id)
     {
         //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function course()
-    {   $package = Package::all();
-        $class = ClassModel::lists('name', 'id');
-        $subject = Subject::lists('name', 'id');
-        $level = Level::lists('name', 'id');
-        $center = Center::lists('name', 'id');
-        $students = Student::lists('fullname', 'id');
-        $center = Center::lists('name', 'id');
-        $userActive = User::where('role_id', CVHT)->lists('username', 'id');
-        $userNameActive = User::where('role_id', CVHT)->lists('username');
-        $data = StudentPackage::all();
-        return View::make('admin.schedule.course')->with(compact('data','subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
     }
 
     public function courseEdit($id){
