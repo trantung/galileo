@@ -379,13 +379,19 @@ class Common {
         return Subject::orderBy('created_at', 'desc')->lists('name','id');
     }
 
-    public static function getLevelDropdownList($name, $default = null)
+    public static function getLevelDropdownList($name, $default = null, $classId = null, $subjectId = null)
     {
+        if( empty($classId) ){
+            $classId = Input::get('class_id');
+        }
+        if( empty($subjectId) ){
+            $subjectId = Input::get('subject_id');
+        }
         $levels = Level::orderBy('created_at', 'desc')->get();
         $html = '<select name="'. $name .'" class="form-control">
             <option value="">--Tất cả--</option>';
         foreach ($levels as $key => $value) {
-            $html .= '<option '. (($value->id == $default) ? 'selected' : (( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id')) ? 'class="hidden"' : '')) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
+            $html .= '<option '. (($value->id == $default) ? 'selected' : (( $value->class_id != $classId | $value->subject_id != $subjectId) ? 'class="hidden"' : '')) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
         }
         $html .= '<select>';
         return $html;
