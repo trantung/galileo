@@ -78,8 +78,8 @@
 			});
 
 	    $('.timepicker').timepicker({
-		    'minTime': '6:00am',
-		    'maxTime': '10:00pm',
+		    'minTime': '7:00am',
+		    'maxTime': '9:00pm',
 		    'show2400': true,
 		    'timeFormat': 'H:i:s'
 		})
