@@ -214,12 +214,9 @@ class ScheduleController extends \BaseController {
     public function courseEdit($id){
         $input = Input::all();
         $old = StudentPackage::find($id);
-
         $input['code'] = $old->code;
         $old->delete();
         StudentPackage::create($input);
         return Redirect::action('ScheduleController@course')->withMessage('Lưu thành công!');
     }
-
-
 }
