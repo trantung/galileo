@@ -18,7 +18,7 @@ class StudentPackage extends Eloquent {
      * @var array
      */
     protected $fillable = array(
-        'student_id', 'class_id', 'subject_id',
+        'student_id', 'center_id', 'class_id', 'subject_id',
         'level_id', 'package_id', 'money_paid',
         'time_id', 'lesson_total', 'lesson_code',
         'code'

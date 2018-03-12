@@ -1,12 +1,16 @@
 @extends('admin.layout.default')
-    @section('title')
-    {{ $title='thay đổi thông tin' }}
-    @stop
-    @section('js_header')
-    @parent {{ HTML::script( asset('custom/js/form-control.js') ) }} 
-    {{ HTML::script( asset('custom/js/ajax.js') ) }}
-    @stop
-    @section('content')
+
+@section('title')
+{{ $title='thay đổi thông tin' }}
+@stop
+
+@section('js_header')
+@parent
+{{ HTML::script( asset('custom/js/form-control.js') ) }} 
+{{ HTML::script( asset('custom/js/ajax.js') ) }}
+@stop
+
+@section('content')
     <div class="row margin-bottom bg-faded">
         <div class="col-xs-12">
             <a href="{{ action('StudentController@update') }}" class="btn btn-success">Danh sách học sinh</a>
@@ -51,8 +55,11 @@
                         <label for="school">Trường học</label>
                          {{ Form::text('school', null, array('class' => 'form-control', 'placeholder' => 'Trường học' )) }}
                     </div>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e1053c848c2b909fcd879001ce3c410f3c5d66f6
                     <div class="form-group well well-sm">
                         <fieldset>
                             <legend>Thông tin về mẹ</legend>
@@ -64,7 +71,10 @@
                                 <label for="mom_phone">Số điện thoại</label>
                                  {{ Form::text('mom_phone', null, array('class' => 'form-control', 'placeholder' => 'Số điện thoại' )) }}
                             </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> e1053c848c2b909fcd879001ce3c410f3c5d66f6
                         </fieldset>
                     </div>
                     <div class="form-group well well-sm">
@@ -118,6 +128,7 @@
                          {{ Form::textarea('comment', '', ['class' => 'form-control', 'placeholder' => 'Lưu ý về học sinh' , 'rows'=>3]) }}
                     </div>
                    
+<<<<<<< HEAD
                 </div>
                 <!-- /.box-body -->
                 <div class="clearfix clear">
@@ -125,6 +136,15 @@
                 <div class="box-footer">
                     <input type="submit" class="btn btn-primary" value="Lưu lại"/><input type="reset" class="btn btn-default" value="Nhập lại"/>
                 </div>
+=======
+                </div>
+                <!-- /.box-body -->
+                <div class="clearfix clear">
+                </div>
+                <div class="box-footer">
+                    <input type="submit" class="btn btn-primary" value="Lưu lại"/><input type="reset" class="btn btn-default" value="Nhập lại"/>
+                </div>
+>>>>>>> e1053c848c2b909fcd879001ce3c410f3c5d66f6
                  {{ Form::close() }}
             </div>
             <!-- /.box -->

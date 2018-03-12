@@ -2,6 +2,77 @@
 class AjaxController extends \BaseController {
 
     /**
+     * Get suggest list CVHT 
+     */
+    public function postGetListUserForSchedule(){
+        $input = Input::all();
+        $suggestList = [];
+        $userActive = User::where('role_id', CVHT)->lists('username', 'id');
+        if( !empty($input['package_id']) && !empty($input['dates']) ){
+            $package = Package::find($input['package_id']);
+            $freeTimeUsers = [];
+
+            ///// lay danh sach thoi gian ranh cua user
+            foreach ($userActive as $uid => $userName) {
+                $userSchedule = SpDetail::where('user_id', $uid);
+                $checkFreeDate = true;
+
+                ///// Lay lich hoc dang ky cua hoc sinh
+                foreach ($input['dates'] as $key => $times) {
+                    /// Kiem tra CVHT da dang ky lich day vao khung gio nay chua
+                    $freeTimeOfAnUser = Common::getFreeTimeOfUser($uid, getTimeId($times[0]), $times[1], date("H:i:s",strtotime($times[1]. " + $package->duration minutes")) );
+                    if( !$freeTimeOfAnUser ){
+                        $checkFreeDate = false;
+                        break; // thoat khoi vong lap va chuyen sang nguoi tiep theo
+                    }
+
+                    /// Kiem tra CVHT da co lich day vao gio nay chua?
+                    $checkUserSchedule = SpDetail::where('user_id', $uid)
+                        ->where( 'time_id', getTimeId($times[0]) )
+                        ->where( 'lesson_hour', '=', $times[1] );
+                    // TODO: thieu nếu cùng dạy vào timeid và cùng lesson_hour vào 2 tháng khác nhau
+                        
+                    /// Neu CVHT nay da day 1 goi khac cung thoi diem thi thoat khoi vong lap va chuyen sang nguoi tiep theo
+                    if( $checkUserSchedule->where('package_id', '!=', $package->id)->count() ){
+                        $checkFreeDate = false;
+                        break; // thoat khoi vong lap va chuyen sang nguoi tiep theo
+                    }
+
+                    // neu CVHT da co du so hoc sinh toi da theo goi quy dinh tai thoi diem nay thi thoat khoi vong lap va chuyen sang nguoi tiep theo
+                    if( $userSchedule->where('package_id', $package->id)->count() >= $package->max_student ){
+                        $checkFreeDate = false;
+                        break; // thoat khoi vong lap va chuyen sang nguoi tiep theo
+                    }
+                    // return Response::json($freeTimeOfAnUser);
+                }
+
+                if( $checkFreeDate ){
+                    $suggestList[$uid] = $userName;
+                }
+
+            } // End foreach
+        } // End if
+        
+        $output = '<option value="">-- chọn --</option>';
+        if( count($suggestList) ){
+            $output .= '<optgroup label="Danh sách khả dụng">';
+            foreach ($suggestList as $uid => $userName) {
+                $output .= '<option value="'. $uid .'">'. $userName .'</option>';
+            }
+            $output .= '</optgroup>';
+        }
+            
+        $output .= '<optgroup label="Không có lịch trống">';
+        foreach ($userActive as $uid => $userName) {
+            if( !in_array($userName, $suggestList) ){
+                $output .= '<option value="'. $uid .'">'. $userName .'</option>';
+            }
+        }
+        $output .= '</optgroup>';
+        return Response::json($output);
+    }
+
+    /**
      * Giet dropdown list of level by class & subject
      **/
     public function postGetLevelListByClassSubject(){

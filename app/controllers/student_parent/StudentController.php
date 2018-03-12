@@ -19,13 +19,14 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function create()
-    {
-        $package = Package::all();
-        $class = ClassModel::lists('name', 'id');
-        $subject = Subject::lists('name', 'id');
-        $level = Level::lists('name', 'id');
+
+    {   // create backage
+        $package = Package::all();                            
+        $class = ClassModel::lists('name', 'id');              
+        $subject = Subject::lists('name', 'id');             
+        $level = Level::lists('name', 'id');                  
         $center = Center::lists('name', 'id');
-        $userActive = User::where('role_id', CVHT)->lists('username', 'id');
+        $userActive = User::where('role_id', CVHT)->lists('username', 'id'); 
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('student.create')->with(compact('class', 'subject', 'level', 'center','package', 'userActive', 'userNameActive'));
     }
@@ -35,7 +36,6 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function store()
-
     {
         $input = Input::all();
         // create family
@@ -43,11 +43,14 @@ class StudentController extends BaseController {
         $familyInput['mom_phone'] = $input['mom_phone'];
         $familyInput['dad_fullname'] = $input['dad_fullname'];
         $familyInput['dad_phone'] = $input['dad_phone'];
+        // dd($input['dad_phone']);
         //get groupId
         $groupId = CommonNormal::createFamily($familyInput);
         if (!$groupId) {
-            dd('khong dc bo me');
-            return Redirect::action('StudentController@index');
+            // dd('khong dc bo me');
+            return Redirect::back()->withMessage('số điện thoại của bố hoặc mẹ bị trùng');
+            // return Redirect::action('StudentController@index');
+
         }
         //create student
         $studentInput = Input::except('_token', 
@@ -59,53 +62,14 @@ class StudentController extends BaseController {
             'user_id', 'hours', 'manual_user'
         );
         $studentInput['family_id'] = $groupId;
-        $studentInput['class_id'] = $input['class_id'];
+        // $studentInput['class_id'] = $input['class_id'];
         //get studentId
         $studentId = Student::create($studentInput)->id;
+
         if (!$studentId) {
             dd($studentInput);
         }
-        //create record in table: student_package
-        $studentPackageInput = Input::only(
-            'class_id', 'subject_id', 'level_id',
-            'package_id', 'lesson_code', 'money_paid'
-        );
-        $studentPackageInput['student_id'] = $studentId;
-        // $studentPackageInput['time_id'] = getTimeId($input['time_id']);
-        $studentPackageInput['lesson_total'] = getTotalLessonByMoneyPaid($input['money_paid'], $input['package_id']);
-        $studentPackageInput['code'] = getCodeStudentPackage();
-        $studentPackageId = StudentPackage::create($studentPackageInput)->id;
-        //create record in table: student_level
-        //create record in table: detail
-        $lessonDate = [];
-        for ($i=0; $i < $studentPackageInput['lesson_total']; $i++) { 
-            foreach ($input['time_id'] as $key => $value) {
-                if ($value != '' && count($lessonDate) < $studentPackageInput['lesson_total']) {
-                    $number = $i*7;
-                    $text = ' + '.$number.' days';
-                    $lessonDate[] = [date('Y-m-d', strtotime($value.$text)), $input['hours'][$key]];
-                }
-            }
-        }
-        for ($i=0; $i < $studentPackageInput['lesson_total']; $i++) { 
-            $spDetailInput = Input::only(
-                'class_id', 'subject_id', 'level_id',
-                'package_id'
-            );
-            $spDetailInput['student_id'] = $studentId;
-            $spDetailInput['student_package_id'] = $studentPackageId;
-            $spDetailInput['time_id'] = getTimeId($lessonDate[$i][0]);
-            $spDetailInput['user_id'] = getUserIdOfStudent($input['user_id'], $input['manual_user']);
-            $spDetailInput['class_id'] = $input['class_id'];
-            $spDetailInput['subject_id'] = $input['subject_id'];
-            $spDetailInput['level_id'] = $input['level_id'];
-            $spDetailInput['package_id'] = $input['package_id'];
-            $spDetailInput['status'] = REGISTER_LESSON;
-            $spDetailInput['lesson_code'] = $studentPackageInput['lesson_code'] + $i;
-            $spDetailInput['lesson_date'] = $lessonDate[$i][0];
-            $spDetailInput['lesson_hour'] = $lessonDate[$i][1];
-            $idSpDetail = SpDetail::create($spDetailInput)->id;
-        }
+       
         return Redirect::action('StudentController@index');
     }
     /**

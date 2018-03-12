@@ -96,6 +96,8 @@ Route::post('/test/upload', 'AdminController@postUpload');
 
 Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
+
+	Route::resource('/', 'AdminController');
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
@@ -110,8 +112,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('administrator', 'AdminController');
     
     Route::resource('student', 'StudentController');
-    /*
-        Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
+    Route::resource('schedule', 'ScheduleController');
+    
+       /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
         1. Controller: ManagerPartnerController 
         2. table: partners
         3. view: admin.partner
@@ -272,4 +275,3 @@ App::error( function(Exception $exception, $code){
             }
     }
 });
-

@@ -47,5 +47,5 @@ define('THL', 'THL');
 define('KEY_API', 'AVwtTTSaWpn7LfDW');
 define('ACTIVE', 1);
 define('INACTIVE', 2);
-
 define('REGISTER_LESSON', 0);
+

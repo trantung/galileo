@@ -21,6 +21,7 @@ class TestController extends AdminController implements AdminInterface {
 
                     /////////////// Luu thong tin me trong bang family
                     if($value['sdt_me']){
+                        
                         $fieldMom = [
                             'fullname' => !empty($value['ho_va_ten_me']) ? $value['ho_va_ten_me'] : '',
                             'phone' => !empty($value['sdt_me']) ? $value['sdt_me'] : '',
@@ -281,6 +282,7 @@ class TestController extends AdminController implements AdminInterface {
 		return $str;
 	}
 
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -290,10 +292,18 @@ class TestController extends AdminController implements AdminInterface {
 	{
 		//
 	}
+
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
 	public function create()
 	{
 		//
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -304,6 +314,7 @@ class TestController extends AdminController implements AdminInterface {
 	{
 		//
 	}
+
 
 	/**
 	 * Display the specified resource.

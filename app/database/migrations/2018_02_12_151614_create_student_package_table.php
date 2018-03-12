@@ -15,15 +15,16 @@ class CreateStudentPackageTable extends Migration {
 		Schema::create('student_package', function($table)
 		{
 			$table->increments('id');
-		    $table->integer('student_id');
-		    $table->integer('class_id');
-		    $table->integer('subject_id');
-		    $table->integer('level_id');
-		    $table->integer('package_id');
-		    $table->integer('money_paid');
-		    $table->integer('time_id');
-		    $table->integer('lesson_total');
-		    $table->integer('lesson_code');
+		    $table->string('code', 25)->nullable();
+		    $table->integer('student_id')->nullable();
+		    $table->integer('class_id')->nullable();
+		    $table->integer('subject_id')->nullable();
+		    $table->integer('level_id')->nullable();
+		    $table->integer('package_id')->nullable();
+		    $table->integer('money_paid')->nullable();
+		    $table->integer('time_id')->nullable();
+		    $table->integer('lesson_total')->nullable();
+		    $table->integer('lesson_code')->nullable();
             $table->softDeletes();
 		    $table->timestamps();
 		});

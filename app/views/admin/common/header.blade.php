@@ -81,7 +81,7 @@
 		    'minTime': '6:00am',
 		    'maxTime': '10:00pm',
 		    'show2400': true,
-		    'timeFormat': 'H:i'
+		    'timeFormat': 'H:i:s'
 		})
 
 	  });

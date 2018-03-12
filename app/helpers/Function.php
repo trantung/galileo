@@ -308,6 +308,7 @@ function getStatusDoc($doc)
         return 'Chưa kiểm duyệt';
     }
 }
+
 function getCodeStudentPackage()
 {
     $code = null;
@@ -364,4 +365,3 @@ function getUserIdOfStudent($inputUserId, $manualUser)
     }
     return $inputUserId;
 }
-

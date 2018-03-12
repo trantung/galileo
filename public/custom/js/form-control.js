@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-    ////// Chon thoi gian hoc form tao hoc sinh
-    $(document).on('change', '.student-form select[name="package_id"]', function(){
+    ////// Chon thoi gian hoc form tao lich hoc
+    $(document).on('change', '.schedule-create-form select[name="package_id"]', function(){
         var val = $(this).val(),
         order = $(this).find('>option[value="'+ val +'"]').attr('number-lesson');
         $('.time-box-student >.item').each(function(key, val){
@@ -17,11 +17,14 @@ $(document).ready(function(){
     ////// chon trinh do trong bo loc trang danh sach hoc lieu
     $(document).on('change', '.filter-document-form select.select-class, .filter-document-form select.select-subject', 
         function(){
-        var classId = $('.filter-document-form select.select-class').val(),
-        subjectId = $('.filter-document-form select.select-subject').val();
-        $('.filter-document-form .select-level-from-class-subject > select').val('').change();
-        $('.filter-document-form .select-level-from-class-subject > select>option').addClass('hidden');
-        $('.filter-document-form .select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
+        var classId = $(this).parents('.filter-document-form').find('select.select-class').val(),
+        subjectId = $(this).parents('.filter-document-form').find('select.select-class').val();
+        $(this).parents('.filter-document-form').find('.select-level-from-class-subject > select').val('').change();
+        // $('.filter-document-form .select-level-from-class-subject > select').val('').change();
+        $(this).parents('.filter-document-form').find('.select-level-from-class-subject > select>option:not([value=""])').addClass('hidden');
+        // $('.filter-document-form .select-level-from-class-subject > select>option:not([value=""])').addClass('hidden');
+        $(this).parents('.filter-document-form').find('.select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
+        // $('.filter-document-form .select-level-from-class-subject > select>option[class-id="'+classId+'"][subject-id="'+subjectId+'"]').removeClass('hidden');
     })
 
     //// Them moi hoc lieu trong trang quan ly cac buoi hoc cua 1 level
