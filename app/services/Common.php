@@ -8,9 +8,6 @@ class Common {
             $times->where('time_id', $timeId);
         }
         if( $startTime ){
-            /// Thoi gian bat dau 1 ca day cua CVHT phai truoc thoi gian dang ky
-            /// start_time la thoi gian bat dau cua CVHT
-            /// $startTime la thoi gian bat dau cua hoc sinh
             $times->where('start_time', '<=', $startTime);
         }
         if( $endTime ){
@@ -296,14 +293,21 @@ class Common {
             ->lists('parent_id');
         foreach ($parentIds as $value) {
             $array[$value] = [
-                'P' => self::getDocumentObject($value, 1),
-                'D' => self::getDocumentObject($value, 2),
+                'P' => self::getDocumentObject($value, P),
+                'D' => self::getDocumentObject($value, D),
             ];
         }
         // dd($array);
         return $array;
     }
-
+    public static function getDocumentByParentId($parentId, $type)
+    {
+       $doc = Document::where('parent_id', $parentId)->where('type_id', $type)->first();
+        if ($doc) {
+            return $doc;
+        }
+        return null;
+    }
     public static function getDocumentObject($parentId, $typeId)
     {
        $ob = Document::where('parent_id', $parentId)
@@ -706,5 +710,13 @@ class Common {
             $student[$id] = $name.' - '.Common::getParentPhone($id);
         }
         return $student;
+    }
+    public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
+        $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
+        if( $lesson ){
+            $lessonId = $lesson->id;
+            return $lessonId;
+        }
+        return null;
     }
 }
