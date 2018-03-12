@@ -15,12 +15,13 @@ class TestController extends AdminController implements AdminInterface {
                 6 => ['start_time' => '19:00:00','end_time' => '21:00:00',]
             ];
             foreach( $results as $key1 => $item){
-                $userName = $item['username'];
+                $userName1 = $item['username'];
+                $userName = 'toan'.'.'.$userName1;
                 $user = User::where('username', $userName)->first();
                 if( empty($user) ){
                     $user = User::create([
                         'username' => $userName,
-                        'email' => $userName.'@hocmai.vn',
+                        'email' => $userName1.'@galileo.edu.vn',
                         'password' => Hash::make('123456'),
                         'role_id' => CVHT
                     ]);
