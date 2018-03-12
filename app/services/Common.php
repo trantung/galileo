@@ -707,11 +707,16 @@ class Common {
 
     public static function getStudentList()
     {
-        $students = Student::lists('fullname', 'id');
-        $student = [];
-        foreach ($students as $id => $name) {
-            $student[$id] = $name.' - '.Common::getParentPhone($id);
+        if ( !Cache::has('student_list') ){
+            $students = Student::orderBy('created_at', 'DESC')->lists('fullname', 'id');
+            $student = [];
+            foreach ($students as $id => $name) {
+                $student[$id] = $name.' - '.Common::getParentPhone($id);
+            }
+            Cache::put('student_list', $student, 15);
         }
+        $student = Cache::get('student_list');
+        
         return $student;
     }
      public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
@@ -722,4 +727,10 @@ class Common {
         }
         return null;
      }
+
+     public static function getStartDate($id)
+    {
+        $startDate = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
+        return self::getObject($startDate, 'lesson_date');
+    }
 }
