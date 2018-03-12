@@ -162,6 +162,16 @@ class ScheduleController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
+
+    public function documentLink($lessonId)
+    {
+        $documents = Document::where('lesson_id', $lessonId)
+            ->groupBy('parent_id')
+            ->get();
+        return View::make('admin.schedule.document_link')->with(compact('documents'));
+    }
+
+
     public function show($id)
     {
         //
@@ -215,8 +225,8 @@ class ScheduleController extends \BaseController {
         $input = Input::all();
         $old = StudentPackage::find($id);
         $input['code'] = $old->code;
-        StudentPackage::create($input);
         $old->delete();
+        StudentPackage::create($input);
         return Redirect::action('ScheduleController@course')->withMessage('Lưu thành công!');
     }
 }

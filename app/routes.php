@@ -115,6 +115,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('schedule', 'ScheduleController');
     Route::get('student_package', 'ScheduleController@course');
     Route::put('student_package/{id}', 'ScheduleController@courseEdit');
+    Route::get('document_link/{id}', 'ScheduleController@documentLink');
     
     
        /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
@@ -258,23 +259,22 @@ Route::resource('employees','EmployeesController');
 //--------------------------------------------------------//
 // Route::post('/ajax/{method}', 'AjaxController@process');
 Route::controller('/ajax', 'AjaxController');
+// App::error( function(Exception $exception, $code){
+//     $pathInfo = Request::getPathInfo();
+//     $message = $exception->getMessage() ?: 'Exception';
+//     Log::error("$code - $message @ $pathInfo\r\n$exception");
+//     switch ($code)
+//     {
+//         case 403:
+//             return View::make('errors.404', array('code' => 403, 'message' => 'Quyền truy cập bị từ chối!'));
 
+//         case 404:
+//             return View::make('errors.404', array('code' => 404, 'message' => 'Trang không tìm thấy!'));
 
-App::error( function(Exception $exception, $code){
-    $pathInfo = Request::getPathInfo();
-    $message = $exception->getMessage() ?: 'Exception';
-    Log::error("$code - $message @ $pathInfo\r\n$exception");
-    switch ($code)
-    {
-        case 403:
-            return View::make('errors.404', array('code' => 403, 'message' => 'Quyền truy cập bị từ chối!'));
+//         default:
+//             if (Config::get('app.debug')) {
+//                 return;
+//             }
+//     }
+// });
 
-        case 404:
-            return View::make('errors.404', array('code' => 404, 'message' => 'Trang không tìm thấy!'));
-
-        default:
-            if (Config::get('app.debug')) {
-                return;
-            }
-    }
-});
