@@ -19,6 +19,7 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function create()
+
     {   // create backage
         $package = Package::all();                            
         $class = ClassModel::lists('name', 'id');              

@@ -663,6 +663,7 @@ class Common {
         }
         return $name;
     }
+
     public static function getNameGender($gender)
     {
         if ($gender == NAM) {

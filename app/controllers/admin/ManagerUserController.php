@@ -28,6 +28,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
     }
 
     public function postSetTime($id)
+
     {
        $input =Input::all();
        FreeTimeUser::where('user_id',$id)->delete();
