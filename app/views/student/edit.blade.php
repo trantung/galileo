@@ -54,8 +54,6 @@
                         <label for="school">Trường học</label>
                          {{ Form::text('school', null, array('class' => 'form-control', 'placeholder' => 'Trường học' )) }}
                     </div>
-
-
                     <div class="form-group well well-sm">
                         <fieldset>
                             <legend>Thông tin về mẹ</legend>
@@ -67,7 +65,6 @@
                                 <label for="mom_phone">Số điện thoại</label>
                                  {{ Form::text('mom_phone', null, array('class' => 'form-control', 'placeholder' => 'Số điện thoại' )) }}
                             </div>
-
                         </fieldset>
                     </div>
                     <div class="form-group well well-sm">

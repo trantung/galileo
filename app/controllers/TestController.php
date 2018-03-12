@@ -2,8 +2,53 @@
 
 class TestController extends AdminController implements AdminInterface {
 
+
+    public function getImportFreeTimeUser(){
+        Excel::load('public/CVHT.xlsx', function($reader){
+            $results = $reader->toArray();
+            $createUser = $updateUser = 0;
+            $frame = [
+                1 => ['start_time' => '08:00:00','end_time' => '10:00:00',],
+                2 => ['start_time' => '10:00:00','end_time' => '12:00:00',],
+                3 => ['start_time' => '13:30:00','end_time' => '15:30:00',],
+                4 => ['start_time' => '15:30:00','end_time' => '17:30:00',],
+                5 => ['start_time' => '17:00:00','end_time' => '19:00:00',],
+                6 => ['start_time' => '19:00:00','end_time' => '21:00:00',]
+            ];
+            foreach( $results as $key1 => $item){
+                $userName = $item['username'];
+                $user = User::where('username', $userName)->first();
+                if( empty($user) ){
+                    $user = User::create([
+                        'username' => $userName,
+                        'email' => $userName.'@hocmai.vn',
+                        'password' => Hash::make('123456'),
+                        'role_id' => CVHT
+                    ]);
+                }
+                foreach ($item as $key2 => $value) {
+                    if( strtolower($value) == 'x' ){
+                        $arr = explode('_', $key2);
+                        $check = FreeTimeUser::where('user_id', $user->id)
+                            ->where('time_id', $arr[0])
+                            ->where('start_time', $frame[$arr[1]]['start_time'])
+                            ->where('end_time', $frame[$arr[1]]['end_time'])
+                            ->where('status', 1)->count();
+                        if($check == 0){
+                            $field = $frame[$arr[1]];
+                            $field['time_id'] = $arr[0];
+                            $field['user_id'] = $user->id;
+                            $userId = FreeTimeUser::create($field)->id;
+                        }
+                    }
+                }
+            }
+        });
+        return 'test';
+    }
+
     public function getImportStudent(){
-        Excel::load('public/students.xlsx', function($reader) {
+        Excel::load('public/students.xlsx', function($reader){
             $results = $reader->toArray();
             $countInsert = $countUpdate = $countFalse = 0;
            
@@ -21,6 +66,7 @@ class TestController extends AdminController implements AdminInterface {
 
                     /////////////// Luu thong tin me trong bang family
                     if($value['sdt_me']){
+                        
                         $fieldMom = [
                             'fullname' => !empty($value['ho_va_ten_me']) ? $value['ho_va_ten_me'] : '',
                             'phone' => !empty($value['sdt_me']) ? $value['sdt_me'] : '',
@@ -280,6 +326,7 @@ class TestController extends AdminController implements AdminInterface {
 		//$str = str_replace(" ", "-", str_replace("&*#39;","",$str));
 		return $str;
 	}
+
 
 	/**
 	 * Display a listing of the resource.

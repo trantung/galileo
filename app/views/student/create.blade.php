@@ -1,4 +1,5 @@
 @extends('admin.layout.default')
+
 @section('title')
 {{ $title='Quản lý học sinh' }}
 @stop
@@ -34,12 +35,4 @@
         {{ Form::close() }}
     </div><!-- /.box -->
 </div>
-<script type="text/javascript">
-    $( function() {
-    var availableTags = <?php echo json_encode($userNameActive); ?>;
-    $( "#tags" ).autocomplete({
-      source: availableTags
-    });
-  } );
-</script>
 @stop

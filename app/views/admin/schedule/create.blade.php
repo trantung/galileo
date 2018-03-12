@@ -7,8 +7,10 @@
 @stop
 
 @section('title')
-	Tạo mới lịch học
+{{ $title='Tạo mới lịch học' }}
+<a class="btn btn-primary" href="{{ action('ScheduleController@index') }}">Danh sách lịch học</a>
 @stop
+
 
 @section('content')
 	{{ Form::open(['action' =>['ScheduleController@store'],'method' => 'POST', 'class' => 'col-sm-6 padding0 schedule-create-form']) }}

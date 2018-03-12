@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-
 class Subject extends Eloquent
 {
     use SoftDeletingTrait;
@@ -10,7 +9,7 @@ class Subject extends Eloquent
     protected $fillable = ['name','code'];
     protected $dates = ['deleted_at'];
 
-    public function subjects() 
+    public function classes() 
 	{
 		return $this->belongsToMany('ClassModel', 'subject_class', 'subject_id', 'class_id');
 	}

@@ -42,6 +42,7 @@
 
 			{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerUserController@destroy', $user->id), 'style' => 'display: inline-block;')) }}
 			<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+			
 			{{ Form::close() }}
 		</td>
 	</tr>
