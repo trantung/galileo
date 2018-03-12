@@ -14,7 +14,7 @@
 
 <div class="row margin-bottom">
   <div class="col-xs-12">
-    <a href="{{ action('StudentController@index') }}" class="btn btn-success">Danh sách học sinh</a>
+    <a href="{{ action('StudentController@index') }}" class="btn btn-primary">Danh sách học sinh</a>
 </div>
 </div>
 

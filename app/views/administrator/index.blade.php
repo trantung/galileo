@@ -5,7 +5,7 @@
 @stop
 @section('content')
 
-	<a href="{{ action('AdminController@create') }}" class="btn btn-primary " style=" background-color: green">Thêm người dùng mới</a>
+	<a href="{{ action('AdminController@create') }}" class="btn btn-primary">Thêm người dùng mới</a>
 	<table class ="table table-bordered table-striped table-hover">
 		<tr>
 			<th>Username</th>
@@ -13,8 +13,8 @@
 			<th>Role</th>
 			<th>Phân quyền</th>
 			<th>Edit</th>
-			<th>Delete</th>
 			<th>Reset password</th>
+			<th>Delete</th>
 		</tr>
 		@foreach($data as $key => $admin)
 		<tr>

@@ -6,7 +6,6 @@ class TestController extends AdminController implements AdminInterface {
     public function getImportFreeTimeUser(){
         Excel::load('public/CVHT.xlsx', function($reader){
             $results = $reader->toArray();
-            $createUser = $updateUser = 0;
             $frame = [
                 1 => ['start_time' => '08:00:00','end_time' => '10:00:00',],
                 2 => ['start_time' => '10:00:00','end_time' => '12:00:00',],

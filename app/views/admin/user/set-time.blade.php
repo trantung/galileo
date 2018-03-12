@@ -32,7 +32,7 @@
             </div>
             <div class="clear clearfix"></div>
             {{ Form::submit('Lưu', ['class'=>'btn btn-primary']) }}
-            <a href="{{ action('ManagerUserController@index') }}" class="btn btn-primary">quản lý viên trung tâm</a>
+            <a href="{{ action('ManagerUserController@index') }}" class="btn btn-primary">Quản lý viên trung tâm</a>
         </div>
     </div>
 {{ Form::close() }}

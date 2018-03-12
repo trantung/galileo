@@ -18,7 +18,7 @@ $(document).ready(function(){
     $(document).on('change', '.filter-document-form select.select-class, .filter-document-form select.select-subject', 
         function(){
         var classId = $(this).parents('.filter-document-form').find('select.select-class').val(),
-        subjectId = $(this).parents('.filter-document-form').find('select.select-class').val();
+        subjectId = $(this).parents('.filter-document-form').find('select.select-subject').val();
         $(this).parents('.filter-document-form').find('.select-level-from-class-subject > select').val('').change();
         // $('.filter-document-form .select-level-from-class-subject > select').val('').change();
         $(this).parents('.filter-document-form').find('.select-level-from-class-subject > select>option:not([value=""])').addClass('hidden');
