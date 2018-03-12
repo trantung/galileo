@@ -30,6 +30,7 @@
 	{{HTML::style('adminlte/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}
 	
 	{{ HTML::style('adminlte/plugins/jQueryUI/jquery-ui.css') }}
+	{{ HTML::style('adminlte/plugins/bootstrap-select/bootstrap-select.min.css') }}
 	{{ HTML::style('custom/css/style.css') }}
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,6 +67,7 @@
 	{{ HTML::script('adminlte/dist/js/app.min.js') }}
 	{{ HTML::script('custom/js/jquery.timepicker.min.js') }}
 	{{ HTML::script('custom/js/print.min.js') }}
+	{{ HTML::script('adminlte/plugins/bootstrap-select/bootstrap-select.min.js') }}
 	@yield('js_header')
 
 	<script>
@@ -76,10 +78,10 @@
 			});
 
 	    $('.timepicker').timepicker({
-		    'minTime': '6:00am',
-		    'maxTime': '10:00pm',
+		    'minTime': '7:00am',
+		    'maxTime': '9:00pm',
 		    'show2400': true,
-		    'timeFormat': 'H:i'
+		    'timeFormat': 'H:i:s'
 		})
 
 	  });

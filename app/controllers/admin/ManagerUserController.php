@@ -17,45 +17,37 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // if ($roleId == 1) {
         //  //
         // }
-        $users = User::all();
+        $users = User::paginate(30);
         return View::make('admin.user.index')->with(compact('users'));
     }
+
     public function getSetTime($id)
     {
-        $data = [];
-        $times = FreeTimeUser::where('user_id', $id)->get();
-        foreach ($times as $key => $value) {
-            $data[$value->time_id][] = [
-                'start_time' => $value->start_time,
-                'end_time' => $value->end_time,
-            ];
-        }
-
+        $data = Common::getFreeTimeOfUser($id);
         return View::make('admin.user.set-time')->with(compact('id', 'data'));
     }
 
     public function postSetTime($id)
     {
-
-        $input = Input::all();
-        FreeTimeUser::where('user_id', $id)->delete();
-        foreach ($input['start_time'] as $key => $value) {
+       $input =Input::all();
+       FreeTimeUser::where('user_id',$id)->delete();
+        foreach($input['start_time'] as $key => $value) {
             foreach ($value as $k => $time) {
-                if( !empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k]) ){
-                    if (!empty($time)) {
-                         $field = [
-                            'user_id' => $id, 
-                            'time_id' => $key,
-                            'start_time' => $time,
-                            'end_time' => $input['end_time'][$key][$k]
-                        ];
-                        CommonNormal::create($field, 'FreeTimeUser');
-                    }
+                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k]) && strtotime($input['end_time'][$key][$k]) > strtotime($input['start_time'][$key][$k])){
+                    $field = [
+                        'user_id'=>$id,
+                        'time_id'=> $key,
+                        'start_time' => $input['start_time'][$key][$k],
+                        'end_time' => $input['end_time'][$key][$k]
+                    ];
+                    CommonNormal::create($field, 'FreeTimeUser');
                 }
+
             }
         }
         return Redirect::action('ManagerUserController@getSetTime', $id);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -77,8 +69,8 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // dd($input);
         $check = Common::checkExist('User', $input['username'], 'username');
         if ($check) {
-            $message = 'Tồn tại username của partner';
-            return View::make('admin.user.create')->with(compact('message'));
+            $message = 'Username đã tồn tại';
+            return Redirect::back()->with(compact('message'));
         }
         //tao moi
         $input['password'] = Hash::make($input['password']);
@@ -100,7 +92,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
                 'level_id' => $value
             ]);
         }
-        return Redirect::action('ManagerUserController@index');
+        return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
 
     /**

@@ -61,17 +61,8 @@
                         </a>
                     </li>
                     @endif
-                    @if(checkUrlPermission('AdminPackageController@index'))
-                    <li>
-                        <a href="{{ action('PackageController@index') }}">
-                            <i class="fa fa-newspaper-o"></i> 
-                            <span>Quản lý Package</span>
-                        </a>
-                    </li>
-                    @endif
                </ul> 
             </li>
-            
             @if(checkUrlPermission('StudentController@index'))
             <li>
                 <a href="{{ action('StudentController@index') }}">
@@ -106,6 +97,40 @@
                 </ul>
             </li>
             
+            <li class="treeview">
+                <a href=""><i class="fa fa-newspaper-o"></i>
+                    <span>Quản lý lịch học</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    @if(checkUrlPermission('AdminPackageController@index'))
+                    <li>
+                        <a href="{{ action('PackageController@index') }}">
+                            <i class="fa fa-newspaper-o"></i> 
+                            <span>Quản lý gói học</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(checkUrlPermission('ScheduleController@index'))
+                    <li>
+                        <a href="{{ action('ScheduleController@index') }}">
+                            <i class="fa fa-newspaper-o"></i> 
+                            <span>Quản lý lịch học</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(checkUrlPermission('ScheduleController@course'))
+                    <li>
+                        <a href="{{ action('ScheduleController@course') }}">
+                            <i class="fa fa-newspaper-o"></i> 
+                            <span>Quản lý khóa học</span>
+                        </a>
+                    </li>
+                    @endif
+                </ul>
+            </li>
         </ul>
     </section>
 </aside>

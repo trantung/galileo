@@ -1,6 +1,34 @@
 <?php
 class Common {
 
+    public static function getFreeTimeOfUser($uid, $timeId = null, $startTime = null, $endTime = null){
+        $data = [];
+        $times = FreeTimeUser::where('user_id', $uid);
+        if( $timeId ){
+            $times->where('time_id', $timeId);
+        }
+        if( $startTime ){
+            $times->where('start_time', '<=', $startTime);
+        }
+        if( $endTime ){
+            /// Thoi gian ket thuc 1 ca day cua CVHT phai sau thoi gian dang kys
+            $times->where('end_time', '>=', $endTime);
+        }
+        if( $times->count() == 0 ){
+            return false;
+        }
+        foreach ($times->get() as $key => $value) {
+            $data[$value->time_id][] = [
+                'start_time' => $value->start_time,
+                'end_time' => $value->end_time,
+            ];
+        }
+        if( count($data) ){
+            return $data;
+        }
+        return false;
+    }
+
     public static function listFolderFiles($dir){
         if( !is_dir($dir) ){
             return [];
@@ -12,6 +40,7 @@ class Common {
 
         // prevent empty ordered elements
         if (count($ffs) < 1){
+            
             return [];
         }
 
@@ -264,14 +293,21 @@ class Common {
             ->lists('parent_id');
         foreach ($parentIds as $value) {
             $array[$value] = [
-                'P' => self::getDocumentObject($value, 1),
-                'D' => self::getDocumentObject($value, 2),
+                'P' => self::getDocumentObject($value, P),
+                'D' => self::getDocumentObject($value, D),
             ];
         }
         // dd($array);
         return $array;
     }
-
+    public static function getDocumentByParentId($parentId, $type)
+    {
+       $doc = Document::where('parent_id', $parentId)->where('type_id', $type)->first();
+        if ($doc) {
+            return $doc;
+        }
+        return null;
+    }
     public static function getDocumentObject($parentId, $typeId)
     {
        $ob = Document::where('parent_id', $parentId)
@@ -347,13 +383,19 @@ class Common {
         return Subject::orderBy('created_at', 'desc')->lists('name','id');
     }
 
-    public static function getLevelDropdownList($name, $default = null)
+    public static function getLevelDropdownList($name, $default = null, $classId = null, $subjectId = null)
     {
+        if( empty($classId) ){
+            $classId = Input::get('class_id');
+        }
+        if( empty($subjectId) ){
+            $subjectId = Input::get('subject_id');
+        }
         $levels = Level::orderBy('created_at', 'desc')->get();
         $html = '<select name="'. $name .'" class="form-control">
             <option value="">--Tất cả--</option>';
         foreach ($levels as $key => $value) {
-            $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
+            $html .= '<option '. (($value->id == $default) ? 'selected' : (( $value->class_id != $classId | $value->subject_id != $subjectId) ? 'class="hidden"' : '')) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
         }
         $html .= '<select>';
         return $html;
@@ -633,5 +675,59 @@ class Common {
         if ($gender == NU) {
             return 'Nữ';
         }
+    }
+
+    public static function getPackageDropdownList($name, $packages = [], $default = null)
+    {
+        $html = '<select name="'. $name .'" class="form-control" required>
+            <option value="">-- Chọn --</option>';
+        foreach ($packages as $key => $value) {
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' number-lesson="'. $value->lesson_per_week .'" value="'. $value->id .'">'. $value->name .'<p>-</p>'.$value->lesson_per_week.' buổi/tuần<p>-</p>'.$value->total_lesson.' buổi<p>-thời lượng </p>'.$value->duration.' phút<p>-tối đa </p>'.$value->max_student.' học sinh</option>';
+        }
+        $html .= '<select>';                                                                            
+        return $html;
+    }
+
+    public static function getParentPhone($id){
+        $family = Common::getObject(Student::find($id), 'families');
+        if( count($family) == 0 ){
+            return false;
+        }
+        if( Common::getObject($family[0], 'phone') ){
+            return Common::getObject($family[0], 'phone');
+        }
+        if( Common::getObject($family[1], 'phone') ){
+            return Common::getObject($family[1], 'phone');
+        }
+        return false;
+    }
+
+    public static function getStudentList()
+    {
+        if ( !Cache::has('student_list') ){
+            $students = Student::orderBy('created_at', 'DESC')->lists('fullname', 'id');
+            $student = [];
+            foreach ($students as $id => $name) {
+                $student[$id] = $name.' - '.Common::getParentPhone($id);
+            }
+            Cache::put('student_list', $student, 15);
+        }
+        $student = Cache::get('student_list');
+        
+        return $student;
+    }
+    public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
+        $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
+        if( $lesson ){
+            $lessonId = $lesson->id;
+            return $lessonId;
+        }
+        return null;
+     }
+
+     public static function getStartDate($id)
+    {
+        $startDate = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
+        return self::getObject($startDate, 'lesson_date');
     }
 }

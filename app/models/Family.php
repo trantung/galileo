@@ -13,6 +13,6 @@ class Family extends Eloquent
 
    public function students() 
     {
-        return $this->hasMany('Family', 'id', 'family_id');
+        return $this->hasMany('Student', 'family_id', 'group_id');
     }
 }

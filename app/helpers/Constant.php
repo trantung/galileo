@@ -7,6 +7,8 @@ define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
 /*
     Các role của nhân viên trung tâm
 */
+
+
 //quản lý trung tâm
 define('QLTT', 1);
 //giáo vụ
@@ -45,3 +47,5 @@ define('THL', 'THL');
 define('KEY_API', 'AVwtTTSaWpn7LfDW');
 define('ACTIVE', 1);
 define('INACTIVE', 2);
+define('REGISTER_LESSON', 0);
+
