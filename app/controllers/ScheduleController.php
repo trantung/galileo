@@ -162,6 +162,16 @@ class ScheduleController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
+
+    public function documentLink($lessonId)
+    {
+        $documents = Document::where('lesson_id', $lessonId)
+            ->groupBy('parent_id')
+            ->get();
+        return View::make('admin.schedule.document_link')->with(compact('documents'));
+    }
+
+
     public function show($id)
     {
         //

@@ -34,12 +34,12 @@
                         @endif
                         <td>{{ $value->lesson_hour }}</td>
                         <td>{{ Common::getObject($value->students, 'fullname') }}</td>
-                        <td>{{ Common::getParentPhone($value->student_id) }}</td>
+                        <td>{{ Common::getParentPhone($value->student_id) }}</td>h
                         <td>{{ Common::getObject($value->users, 'username') }}</td>
                         <td>{{ Common::getObject($value->classes, 'name') }}</td>
                         <td>{{ Common::getObject($value->subjects, 'name') }}</td>
                         <td>{{ Common::getObject($value->levels, 'name') }}</td>
-                        <td>{{ $value->lesson_code }}</td>
+                        <td><a href="{{ action('ScheduleController@documentLink', Common::getLessonIdByLessonCodeLevel($value->lesson_code, $value->level_id)) }}" target ="_blank"  class="btn btn-primary" style="width:80%;"> Buổi {{ $value->lesson_code }}</a></td>
                         <td>
                             @include('admin.schedule.modal')
                             <button class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ $value->id }}">Sửa</button>
