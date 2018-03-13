@@ -164,4 +164,9 @@ class CommonNormal
             return $groupId;
         }
     }
+    public static function getStartDateSpDetail($studentPackageId)
+    {
+        $sp = SpDetail::where('student_package_id', $studentPackageId)->orderBy('lesson_date', 'ASC')->first();
+        return $sp->lesson_date;
+    }
 }

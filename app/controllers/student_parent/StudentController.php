@@ -10,7 +10,7 @@ class StudentController extends BaseController {
      */
     public function index()
     {
-        $data = Student::paginate(PAGINATE);
+        $data = Student::orderBy('created_at', 'DESC')->paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));
     }
     /**
@@ -43,8 +43,8 @@ class StudentController extends BaseController {
                 'fullname'   => 'required',
                 'password'   => 'required|min:8|confirmed',
                 'code'       => 'required',
-                'email'      => 'required|email|unique:student',
-                'username'   => 'required|min:6|unique:student',
+                'email'      => 'required|email|unique:students',
+                'username'   => 'required|min:6|unique:students',
                 'center_id'  => 'required',
                 'birthday'   => 'required',
                 'gender'     => 'required'
@@ -64,7 +64,9 @@ class StudentController extends BaseController {
 
         if ($validator->fails())
         {
-            return Redirect::back()->withErrors($validator);
+            return Redirect::back()
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
         }
 
         // create family
