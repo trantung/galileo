@@ -1,14 +1,11 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='quản lý package' }}
+{{ $title='Quản lý gói học' }}
 @stop
 @section('content')
 
-
-    <a href="{{ action('PackageController@index') }}" class="btn btn-success">Danh sách  gói học</a>
- 
-
+<a href="{{ action('PackageController@index') }}" class="btn btn-primary">Danh sách  gói học</a>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">
@@ -29,7 +26,7 @@
               {{ Form::label('lesson_per_week', 'Số buổi học trong tuần') }}
               <div class="row">
                 <div class="col-sm-6">
-                 {{ Form::number('lesson_per_week', null, array('placeholder' => 'tsb', 'class' => 'form-control', 'required' => true)) }}
+                 {{ Form::number('lesson_per_week', null, array('placeholder' => 'số buổi', 'class' => 'form-control', 'required' => true)) }}
                 </div>
               </div>
             </div>
@@ -38,7 +35,7 @@
               {{ Form::label('total_lesson', 'Tổng số buổi') }}
               <div class="row">
                 <div class="col-sm-6">
-                  {{ Form::number('total_lesson', null, array('placeholder' => 'tongsb', 'class' => 'form-control', 'required' => true)) }}
+                  {{ Form::number('total_lesson', null, array('placeholder' => 'tổng số buổi', 'class' => 'form-control', 'required' => true)) }}
                 </div>
               </div>
             </div>
@@ -65,14 +62,10 @@
               {{ Form::label('max_student', 'Học sinh học') }}       
               <div class="row">
                 <div class="col-sm-6">
-                  {{ Form::select('max_student',[ '1' => '1' , '2' => '2', '3' => '3'],null,  ['class' => 'form-control']) }}
+                  {{ Form::select('max_student',[ '' => '-- chọn --', '1' => '1' , '2' => '2', '3' => '3'], null, ['class' => 'form-control']) }}
                 </div>
               </div>
             </div>
-            
-            
-	
-
 		  <div class="box-footer">
             <input type="submit" class="btn btn-primary" value="Lưu lại" />
             <input type="reset" class="btn btn-default" value="Nhập lại" />
