@@ -8,10 +8,11 @@ class Common {
             $times->where('time_id', $timeId);
         }
         if( $startTime ){
-            $times->where('start_time', $startTime);
+            $times->where('start_time', '<=', $startTime);
         }
         if( $endTime ){
-            $times->where('end_time', $endTime);
+            /// Thoi gian ket thuc 1 ca day cua CVHT phai sau thoi gian dang kys
+            $times->where('end_time', '>=', $endTime);
         }
         if( $times->count() == 0 ){
             return false;
@@ -39,6 +40,7 @@ class Common {
 
         // prevent empty ordered elements
         if (count($ffs) < 1){
+            
             return [];
         }
 
@@ -291,14 +293,21 @@ class Common {
             ->lists('parent_id');
         foreach ($parentIds as $value) {
             $array[$value] = [
-                'P' => self::getDocumentObject($value, 1),
-                'D' => self::getDocumentObject($value, 2),
+                'P' => self::getDocumentObject($value, P),
+                'D' => self::getDocumentObject($value, D),
             ];
         }
         // dd($array);
         return $array;
     }
-
+    public static function getDocumentByParentId($parentId, $type)
+    {
+       $doc = Document::where('parent_id', $parentId)->where('type_id', $type)->first();
+        if ($doc) {
+            return $doc;
+        }
+        return null;
+    }
     public static function getDocumentObject($parentId, $typeId)
     {
        $ob = Document::where('parent_id', $parentId)
@@ -374,13 +383,19 @@ class Common {
         return Subject::orderBy('created_at', 'desc')->lists('name','id');
     }
 
-    public static function getLevelDropdownList($name, $default = null)
+    public static function getLevelDropdownList($name, $default = null, $classId = null, $subjectId = null)
     {
+        if( empty($classId) ){
+            $classId = Input::get('class_id');
+        }
+        if( empty($subjectId) ){
+            $subjectId = Input::get('subject_id');
+        }
         $levels = Level::orderBy('created_at', 'desc')->get();
         $html = '<select name="'. $name .'" class="form-control">
             <option value="">--Tất cả--</option>';
         foreach ($levels as $key => $value) {
-            $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
+            $html .= '<option '. (($value->id == $default) ? 'selected' : (( $value->class_id != $classId | $value->subject_id != $subjectId) ? 'class="hidden"' : '')) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
         }
         $html .= '<select>';
         return $html;
@@ -671,5 +686,37 @@ class Common {
         }
         $html .= '<select>';                                                                            
         return $html;
+    }
+
+    public static function getParentPhone($id){
+        $family = Common::getObject(Student::find($id), 'families');
+        if( count($family) == 0 ){
+            return false;
+        }
+        if( Common::getObject($family[0], 'phone') ){
+            return Common::getObject($family[0], 'phone');
+        }
+        if( Common::getObject($family[1], 'phone') ){
+            return Common::getObject($family[1], 'phone');
+        }
+        return false;
+    }
+
+    public static function getStudentList()
+    {
+        $students = Student::lists('fullname', 'id');
+        $student = [];
+        foreach ($students as $id => $name) {
+            $student[$id] = $name.' - '.Common::getParentPhone($id);
+        }
+        return $student;
+    }
+    public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
+        $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
+        if( $lesson ){
+            $lessonId = $lesson->id;
+            return $lessonId;
+        }
+        return null;
     }
 }

@@ -5,7 +5,7 @@
 @stop
 @section('content')
 	<!-- Bo loc -->
-	<a href="{{ action('StudentController@create') }}" class="btn btn-primary " style=" background-color: green">Thêm học sinh mới</a>
+	<a href="{{ action('StudentController@create') }}" class="btn btn-primary">Thêm học sinh mới</a>
 	<table class="table table-bordered table-striped table-hove" >
 		<tr>
 			<th>STT</th>

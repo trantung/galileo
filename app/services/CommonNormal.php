@@ -25,7 +25,6 @@ class CommonNormal
         // }
         // return null;
     }
-
     public static function delete($id, $name = NULL)
     {
         $name = self::commonName($name);
@@ -44,7 +43,6 @@ class CommonNormal
         $id = $name::create($input)->id;
         return $id;
     }
-
     public static function commonName($name = NULL)
     {
         if ($name == NULL) {
@@ -98,7 +96,7 @@ class CommonNormal
         }
         return true;
     }
-
+    
     public static function commonSaveTime($startName, $endName, $input, $id) { 
         if(!empty($input[$startName])){ 
             foreach ($input[$startName] as $key => $value){  
@@ -166,5 +164,10 @@ class CommonNormal
             $groupId = $dadId;
             return $groupId;
         }
+    }
+    public static function getStartDateSpDetail($studentPackageId)
+    {
+        $sp = SpDetail::where('student_package_id', $studentPackageId)->orderBy('lesson_date', 'ASC')->first();
+        return $sp->lesson_date;
     }
 }

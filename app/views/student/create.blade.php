@@ -1,11 +1,12 @@
 @extends('admin.layout.default')
+
 @section('title')
 {{ $title='Quản lý học sinh' }}
 @stop
 
 @section('js_header')
-@parent
-{{ HTML::script( asset('custom/js/form-control.js') ) }}
+@parent 
+{{ HTML::script( asset('custom/js/form-control.js') ) }} 
 {{ HTML::script( asset('custom/js/ajax.js') ) }}
 @stop
 
@@ -22,7 +23,7 @@
                 @include('student.student')
                 <div class="box-body col-sm-6">
                     @include('student.family')
-                    @include('student.package')
+                    {{-- @include('student.package') --}}
                 </div>
             </div>
             <!-- /.box-body -->
@@ -34,12 +35,4 @@
         {{ Form::close() }}
     </div><!-- /.box -->
 </div>
-<script type="text/javascript">
-    $( function() {
-    var availableTags = <?php echo json_encode($userNameActive); ?>;
-    $( "#tags" ).autocomplete({
-      source: availableTags
-    });
-  } );
-</script>
 @stop

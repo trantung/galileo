@@ -1,9 +1,11 @@
 <?php
 class ManagerUserController extends AdminController implements AdminInterface{
+
     public function __construct() {
         parent::__construct();
         $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +33,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
        FreeTimeUser::where('user_id',$id)->delete();
         foreach($input['start_time'] as $key => $value) {
             foreach ($value as $k => $time) {
-                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k])){
+                if(!empty($input['start_time'][$key][$k]) && !empty($input['end_time'][$key][$k]) && strtotime($input['end_time'][$key][$k]) > strtotime($input['start_time'][$key][$k])){
                     $field = [
                         'user_id'=>$id,
                         'time_id'=> $key,
@@ -40,6 +42,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
                     ];
                     CommonNormal::create($field, 'FreeTimeUser');
                 }
+
             }
         }
         return Redirect::action('ManagerUserController@getSetTime', $id);
@@ -54,6 +57,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
     {
         return View::make('admin.user.create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -90,6 +94,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         }
         return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
+
     /**
      * Display the specified resource.
      *
@@ -100,18 +105,30 @@ class ManagerUserController extends AdminController implements AdminInterface{
     {
         
     }
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return Response
      */
+
     public function edit($id)
     {
         $data = User::findOrFail($id);
         $levelData = Common::getLevelOfUser($id);
+        $centerLevelId = UserCenterLevel::where('user_id', $id)
+            ->groupBy('center_level_id')
+            ->lists('center_level_id');
+        //TODO
+        $center = CenterLevel::whereIn('id', $centerLevelId)
+            ->groupBy('center_id')
+            ->first();
+        $centerId = $center->id;
+        $listData = Common::getClassSubjectLevelOfCenter($centerId);
         return View::make('admin.user.edit')->with( compact('listData', 'data', 'levelData') );
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -155,6 +172,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         CommonNormal::update($id, $input);
         return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -166,6 +184,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         CommonNormal::delete($id);
         return Redirect::action('ManagerUserController@index')->withMessage('Đã xóa thành công!');
     }
+
     public function login()
     {
         $checkLogin = Auth::admin()->check();
@@ -179,6 +198,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
             return View::make('admin.layout.login');
         }
     }
+
     public function doLogin()
     {
         $rules = array(
@@ -200,16 +220,19 @@ class ManagerUserController extends AdminController implements AdminInterface{
             }
         }
     }
+
     public function logout()
     {
         Auth::admin()->logout();
         Session::flush();
         return Redirect::route('admin.login');
     }
+
     public function getResetPass($id)
     {
         return View::make('admin.user.reset_password')->with(compact('id'));
     }
+
     public function postResetPass($id)
     {
         $input = Input::all();
@@ -229,6 +252,16 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $input = Input::all();
         Common::permissionDoc('User', $userId, $input);
         return Redirect::action('ManagerUserController@getPermission', $userId);
+    }
+    public function detroyFreeTime()
+    {
+        $input = Input::all();
+        FreeTimeUser::where('user_id', $userId)
+            ->where('time_id', $timeId)
+            ->where('start_time', $startTime)
+            ->where('end_time', $endTime)
+            ->delete();
+        return Response::json(['đã xóa rồi nhé ']);
     }
 }
 
