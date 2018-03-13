@@ -2,7 +2,8 @@
 
 @section('title')
 {{ $title='Quản lý gói học' }}
-@stop@section('content')	
+@stop
+@section('content')	
 
 	<a href="{{ action('PackageController@create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm gói học mới</a>
 	<table class ="table table-bordered table-striped table-hover">

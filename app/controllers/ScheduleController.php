@@ -164,9 +164,10 @@ class ScheduleController extends \BaseController {
      */
 
     public function documentLink($lessonId)
-    {   $documents = Document::where('lesson_id', $lessonId)
-        ->groupBy('parent_id')
-        ->get();
+    {
+        $documents = Document::where('lesson_id', $lessonId)
+            ->groupBy('parent_id')
+            ->get();
         return View::make('admin.schedule.document_link')->with(compact('documents'));
     }
 

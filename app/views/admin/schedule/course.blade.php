@@ -20,10 +20,7 @@
             <th>Số tiền đã đóng</td>
             <th>Tổng số buổi</td>
             <th>Bắt đầu học từ buổi</td>
-<<<<<<< HEAD
-=======
             <th width="50px">Action</th>
->>>>>>> tungtt2
         </tr>   
         @foreach($data as $key => $value)
         <tr>
@@ -31,15 +28,6 @@
             <td>{{ Common::getObject($value->students, 'fullname' ) }}</td>
             <td>{{ Common::getObject($value->centers, 'name' ) }}</td>
             <td>{{ Common::getObject($value->classes, 'name' ) }}</td>
-<<<<<<< HEAD
-            <td>{{ Common::getObject($value->subjects, 'name' ) }}</td>     
-            <td>{{ Common::getObject($value->levels, 'name' ) }}</td>
-            <td>{{ Common::getObject($value->packages, 'name' ) }}</td>
-            <td>{{ $value->money_paid }}</td>
-            <td>{{ Common::getStartDate($value->id) }}</td>
-            <td>{{ $value->lesson_total }}</td>
-            <td>{{ $value->lesson_code }}</td>
-=======
             <td>{{ Common::getObject($value->subjects, 'name' ) }}</td>
             <td>{{ Common::getObject($value->levels, 'name' ) }}</td>
             <td>{{ Common::getObject($value->packages, 'name' ) }}</td>
@@ -53,7 +41,6 @@
                 </button>
                 @include('admin.schedule.edit_course_modal')
             </td>
->>>>>>> tungtt2
         </tr>
         @endforeach
     </table>
