@@ -18,6 +18,7 @@
             <th>Trình độ</td>
             <th>Gói học</td>
             <th>Số tiền đã đóng</td>
+            <th>Ngày bắt đầu học</td>
             <th>Tổng số buổi</td>
             <th>Bắt đầu học từ buổi</td>
         </tr>   
