@@ -72,7 +72,7 @@ Route::get('/test/updatedb/T', 'TestController@updatedbT');
 Route::get('/test/import', 'TestController@import');
 Route::controller('/test', 'TestController');
 
-Route::resource('/', 'AdminController');
+// Route::resource('/', 'AdminController');
     
 Route::get('/parent/update', function(){
     $docs = Document::groupBy('lesson_id')->get();
@@ -94,10 +94,10 @@ Route::get('/parent/update', function(){
 Route::get('/test/upload', 'AdminController@getUpload');
 Route::post('/test/upload', 'AdminController@postUpload');
 
-Route::get('/', 'AdminController@index');
+// Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
 
-	Route::resource('/', 'AdminController');
+	// Route::resource('/administrator', 'AdminController');
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
@@ -153,7 +153,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('/user', 'ManagerUserController');
     Route::controller('/user', 'ManagerUserController');
-    Route::resource('/', 'AdminController');
+    // Route::resource('/', 'AdminController');
 
     /*
         Quản lý Level: CRUD level: tên, số buổi học
