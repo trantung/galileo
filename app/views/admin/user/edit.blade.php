@@ -22,7 +22,7 @@ Chỉnh sửa thành viên
     </div>
     <div class="form-group">
         {{ Form::label('name', 'Fullname') }}
-        {{ Form::email('full_name', $data->full_name, ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+        {{ Form::text('full_name', $data->full_name, ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
     </div>
     <div class="form-group">
         {{ Form::label('role_id', 'Phân quyền') }}

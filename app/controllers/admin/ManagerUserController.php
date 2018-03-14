@@ -78,19 +78,24 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // dd($userId);
         $centerId = $input['center_id'];
         $listLevelId = $input['level'];
+        // dd($centerId);
         foreach ($listLevelId as $key => $value) {
-            $userCenterLevel = CenterLevel::where('level_id', $value)
-                ->where('center_id', $centerId)
-                ->first();
-            if (!$userCenterLevel) {
-                dd('sai config');
+            foreach ($value as $k => $levelId) {
+                $userCenterLevel = CenterLevel::where('level_id', $levelId)
+                    ->where('center_id', $key)
+                    ->first();
+                if (!$userCenterLevel) {
+                    dd('sai config');
+                }
+                $userCenterLevelId = $userCenterLevel->id;
+                UserCenterLevel::create([
+                    'user_id' => $userId,
+                    'center_id' => $key,
+                    'center_level_id' => $userCenterLevelId,
+                    'level_id' => $levelId
+                ]);
             }
-            $userCenterLevelId = $userCenterLevel->id;
-            UserCenterLevel::create([
-                'user_id' => $userId,
-                'center_level_id' => $userCenterLevelId,
-                'level_id' => $value
-            ]);
+            
         }
         return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
