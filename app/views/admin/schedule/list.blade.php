@@ -34,7 +34,7 @@
                         @endif
                         <td>{{ $value->lesson_hour }}</td>
                         <td>{{ Common::getObject($value->students, 'fullname') }}</td>
-                        <td>{{ Common::getParentPhone($value->student_id) }}</td>h
+                        <td>{{ Common::getParentPhone($value->student_id) }}</td>
                         <td>{{ Common::getObject($value->users, 'username') }}</td>
                         <td>{{ Common::getObject($value->classes, 'name') }}</td>
                         <td>{{ Common::getObject($value->subjects, 'name') }}</td>

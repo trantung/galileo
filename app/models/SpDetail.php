@@ -49,4 +49,8 @@ class SpDetail extends Eloquent {
     {
         return $this->belongsTo('Level', 'level_id', 'id');
     }
+    public function student_package()
+    {
+        return $this->belongsTo('StudenPackage', 'student_package_id', 'id');
+    }
 }
