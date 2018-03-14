@@ -112,6 +112,13 @@ class ScheduleController extends \BaseController {
             'center_id', 'class_id', 'subject_id', 'level_id',
             'package_id', 'lesson_code', 'money_paid'
         );
+        if (!isset($studentPackageInput['lesson_code'])) {
+            $studentPackageInput['lesson_code'] = 1;
+        }
+        if (!isset($input['user_id'])) {
+            $input['user_id'] = null;
+        }
+
         $studentPackageInput['student_id'] = $input['student_id'];
         $studentPackageInput['center_id'] = $input['center_id'];
         // $studentPackageInput['time_id'] = getTimeId($input['time_id']);
