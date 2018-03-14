@@ -243,7 +243,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $input = Input::all();
         $user = User::find($id);
         $password = Hash::make($input['password']);
-        $user->update(['pass' => $password]);
+        $user->update(['password' => $password]);
         return Redirect::action('ManagerUserController@index');
 
     }

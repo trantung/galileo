@@ -26,6 +26,7 @@
 			</td>
 			<td>
 	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-primary">Edit</a>
+				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Phân quyền</a>
 			</td>
 			</td>
 			<td><a href=" {{ action('AdminController@getResetPass', $admin->id) }} " class="btn btn-warning">Reset password</a></td>
