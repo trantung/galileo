@@ -13,7 +13,7 @@ return array(
         ),
         'user' => array(
             'driver' => 'eloquent',
-            'table' => 'users'
+            'model' => 'users'
         )
     ),
 
