@@ -12,7 +12,7 @@ return array(
             'model' => 'Partner'
         ),
         'user' => array(
-            'driver' => 'database',
+            'driver' => 'eloquent',
             'table' => 'users'
         )
     ),
