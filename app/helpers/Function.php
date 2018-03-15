@@ -5,8 +5,8 @@ function getCodeDocument($documentId)
     $version = getVersionDocument($documentId);
     $type = DocumentType::find($doc->type_id)->code;
     $class = ClassModel::find($doc->class_id)->code;
-    $subject = ClassModel::find($doc->subject_id)->code;
-    $level = ClassModel::find($doc->level_id)->code;
+    $subject = Subject::find($doc->subject_id)->code;
+    $level = Level::find($doc->level_id)->code;
     $numberLesson = Lesson::find($doc->lesson_id)->code;
     $code = $type.'_'.$class.'_'.$subject.'_'.$level.'_'.$numberLesson.'_'.$documentId.'_'.$version;
     return $code;
@@ -364,4 +364,39 @@ function getUserIdOfStudent($inputUserId, $manualUser)
         return $userId;
     }
     return $inputUserId;
+}
+function getPermissionOfManageStudent($value = null)
+{
+    if ($value) {
+        return null;
+    }
+    $array = [
+        GV,
+        PTCM
+    ];
+    return $array;
+}
+function checkPermissionUserByField($field, $roleId = null)
+{
+    $admin = Auth::admin()->get();
+    if ($admin) {
+        return true;
+    }
+    $value = getValueUser($field);
+    if ($roleId) {
+        if ($value == $roleId) {
+            return true;
+        }
+        return false;
+    }
+    if (in_array($value, getPermissionOfManageStudent())) {
+        return true;
+    }
+    return false;
+}
+function getValueUser($field)
+{
+    $user = Auth::user()->get();
+    $value = $user->$field;
+    return $value;
 }

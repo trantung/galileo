@@ -110,12 +110,13 @@ Route::group(['prefix' => 'admin'], function () {
 
     //
     Route::resource('administrator', 'AdminController');
-    
+
+    Route::post('/schedule/additional/{id}/{student_id}', 'ScheduleController@postAdditional');
     Route::resource('student', 'StudentController');
     Route::resource('schedule', 'ScheduleController');
     Route::get('student_package', 'ScheduleController@course');
     Route::put('student_package/{id}', 'ScheduleController@courseEdit');
-    Route::get('document_link/{id}', 'ScheduleController@documentLink');
+    Route::get('document_link/{id}/{student_id}', 'ScheduleController@documentLink');
     
     
        /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
