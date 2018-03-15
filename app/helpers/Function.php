@@ -365,3 +365,14 @@ function getUserIdOfStudent($inputUserId, $manualUser)
     }
     return $inputUserId;
 }
+ function getCurrentUser()
+{
+    $user = false;
+    if( Auth::admin()->check() ){
+        $user = Auth::admin()->get();
+    }
+    if( Auth::user()->check() ){
+        $user = Auth::user()->get();
+    }
+    return $user;
+}
