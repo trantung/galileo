@@ -288,11 +288,18 @@ class ScheduleController extends \BaseController {
 
 
     public function courseEdit($id){
-        $input = Input::all();
-        $old = StudentPackage::find($id);
-        $input['code'] = $old->code;
-        $old->delete();
-        StudentPackage::create($input);
-        return Redirect::action('ScheduleController@course')->withMessage('Lưu thành công!');
+        $input = Input::get('lesson_code');
+        $FirstSpDetail = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
+        if( $FirstSpDetail ){
+            $balance = $input;
+            $spDetails = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->get();
+            foreach ($spDetails as $key => $item) {
+                $item->update(['lesson_code' => $balance]);
+                $balance++;
+            }
+        }
+        // dd($spDetail);
+        CommonNormal::update($id, ['lesson_code' => $input], 'StudentPackage');
+        return Redirect::back()->withMessage('Lưu thành công!');
     }
 }
