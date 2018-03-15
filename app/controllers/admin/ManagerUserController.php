@@ -125,11 +125,12 @@ class ManagerUserController extends AdminController implements AdminInterface{
         $centerLevelId = UserCenterLevel::where('user_id', $id)
             ->groupBy('center_level_id')
             ->lists('center_level_id');
+        // dd($centerLevelId);
         //TODO
         $center = CenterLevel::whereIn('id', $centerLevelId)
             ->groupBy('center_id')
             ->first();
-        $centerId = $center->id;
+        $centerId = $center->center_id;
         $listData = Common::getClassSubjectLevelOfCenter($centerId);
         return View::make('admin.user.edit')->with( compact('listData', 'data', 'levelData') );
     }
