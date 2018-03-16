@@ -1,8 +1,8 @@
 <?php
-class StudentController extends BaseController {
-    // public function __construct() {
-    //     $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-    // }
+class StudentController extends AdminController {
+    public function __construct() {
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -10,7 +10,17 @@ class StudentController extends BaseController {
      */
     public function index()
     {
+        $input =Input::all();
+        // nếu chưa có tìm kiếm nào thì hiện thị toàn bộ danh sách học sinh
         $data = Student::orderBy('created_at', 'DESC')->paginate(PAGINATE);
+
+        if( !empty($input['student_id']) ){
+            $data->where('student_id', $input['student_id']);
+        }
+        if( !empty($input['email']) ){
+            $data->where('email', $input['email']);
+        }
+
         return View::make('student.index')->with(compact('data'));
     }
     /**
@@ -132,8 +142,10 @@ class StudentController extends BaseController {
      * @return Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $center = Center::lists('name','id');
+        $student = Student::findOrFail($id);
+        return View::make('student.edit')->with(compact('student', 'center'));
     }
     /**
      * Update the specified resource in storage.
@@ -143,10 +155,10 @@ class StudentController extends BaseController {
      */
     public function update($id)
     {
-        // $input = Input::all();
-        // $input['password'] = Hash::make($input['password']);
-        // Student::findOrFail($id)->update($input);
-        // return Redirect::action('StudentController@index');
+        $input = Input::all();
+        $input['password'] = Hash::make($input['password']);
+        Student::findOrFail($id)->update($input);
+        return Redirect::action('StudentController@index');
     }
     /**
      * Remove the specified resource from storage.
@@ -204,5 +216,24 @@ class StudentController extends BaseController {
     {
         
     }
+
+    //  public function filterStudent()
+    // {
+    //     $input = Input::all();
+        
+    //     $data = Student::orderBy('created_at', 'ASC');
+
+    //     if( !empty($input['fullname']) ){
+    //         $data->where('fullname', $input['fullname']);
+    //     }
+    //     if( !empty($input['email']) ){
+    //         $data->where('email', $input['email']);
+    //     }
+        
+    //     $data = $data->paginate(PAGINATE);
+    //     return View::make('student.filter_student')->with(compact('data'));
+    // }
+    
+
 }
 
