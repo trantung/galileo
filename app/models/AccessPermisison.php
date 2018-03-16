@@ -6,6 +6,6 @@ class AccessPermisison extends Eloquent
     public $timestamps = true;
     
     protected $table = 'access_permission';
-    protected $fillable = ['model_name', 'model_id', 'permission_id', 'subject_id'];
+    protected $fillable = ['model_name', 'model_id', 'permission_id', 'subject_id', 'group_id'];
    
 }

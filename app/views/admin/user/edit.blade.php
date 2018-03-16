@@ -21,6 +21,10 @@ Chỉnh sửa thành viên
         {{ Form::email('email', Common::getObject($data, 'email'), ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
     </div>
     <div class="form-group">
+        {{ Form::label('name', 'Fullname') }}
+        {{ Form::text('full_name', $data->full_name, ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+    </div>
+    <div class="form-group">
         {{ Form::label('role_id', 'Phân quyền') }}
         {{ Form::select('role_id', ['' => '-- Chọn --'] + Common::getRoleUser(), Common::getObject($data, 'role_id'), ['class' => 'form-control', 'required' =>'']) }}
     </div>
@@ -31,10 +35,18 @@ Chỉnh sửa thành viên
         <div class="panel-body">
             <div class="form-group">
                 {{ Form::label('center_id', 'Trực thuộc trung tâm:') }}
-                {{ Form::select('center_id', ['' => '-- Chọn --'] + Common::getAllCenter(), Common::getObject($data, 'center_id'), ['class' => 'form-control select-center', 'required' =>'']) }}
-            </div>
-            <div class="get-list-level-by-center-wrap">
-            	@include('ajax.get_level_by_center', $listData+['levelData' => $levelData])
+                @foreach (Common::getAllCenter() as $centerId => $center)
+                    <?php $listData = Common::getClassSubjectLevelOfCenter($centerId); ?>
+                    <div class="form-group checkbox col-sm-6">
+                        <label for="center-{{ $centerId }}">
+                            {{ Form::checkbox( '', $centerId, true, ['id' => 'center-'.$centerId] ) . $center }}
+                        </label>
+
+                        <div class="get-list-level-by-center-wrap">
+                            @include('ajax.get_level_by_center', $listData+['levelData' => $levelData, 'centerId' => $centerId])
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

@@ -42,4 +42,9 @@ class Level extends Eloquent
     {
         return $this->hasMany('Lesson', 'level_id', 'id');
     }
+
+    public function students() 
+    {
+        return $this->belongsToMany('Student', 'student_level', 'level_id', 'student_id');
+    }
 }

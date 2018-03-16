@@ -110,10 +110,26 @@ class AdminController extends BaseController {
                 return Redirect::action('AdminController@login');
             }
         }
+        
+        if ($validator->fails()) {
+            return Redirect::action('UserController@login')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            $checkLogin = Auth::user()->attempt($input);
+            if($checkLogin) {
+                // dd(5555);
+                return Redirect::action('UserController@index');
+            } else {
+                return Redirect::action('UserController@login');
+            }
+        }
+
     }
     public function logout()
     {
         Auth::admin()->logout();
+        Auth::user()->logout();
         // Session::flush();
         return Redirect::action('AdminController@login');
     }
@@ -148,6 +164,20 @@ class AdminController extends BaseController {
             file_put_contents($link.$fileNameConvert.'.pdf', $result);
         }
         dd(555);
+    }
+
+    public function getResetPass($id)
+    {
+        return View::make('administrator.reset')->with(compact('id'));
+    }
+    public function postResetPass($id)
+    {
+        $input = Input::all();
+        $admin = Admin::find($id);
+        $password = Hash::make($input['password']);
+        $admin->update(['password' => $password]);
+        return Redirect::action('AdminController@index');
+
     }
 }
 

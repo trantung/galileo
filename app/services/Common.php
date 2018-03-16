@@ -1,6 +1,60 @@
 <?php
 class Common {
 
+    public static function getFreeTimeOfUser($uid, $timeId = null, $startTime = null, $endTime = null){
+        $data = [];
+        $times = FreeTimeUser::where('user_id', $uid);
+        if( $timeId ){
+            $times->where('time_id', $timeId);
+        }
+        if( $startTime ){
+            $times->where('start_time', '<=', $startTime);
+        }
+        if( $endTime ){
+            /// Thoi gian ket thuc 1 ca day cua CVHT phai sau thoi gian dang kys
+            $times->where('end_time', '>=', $endTime);
+        }
+        if( $times->count() == 0 ){
+            return false;
+        }
+        foreach ($times->get() as $key => $value) {
+            $data[$value->time_id][] = [
+                'start_time' => $value->start_time,
+                'end_time' => $value->end_time,
+            ];
+        }
+        if( count($data) ){
+            return $data;
+        }
+        return false;
+    }
+
+    public static function listFolderFiles($dir){
+        if( !is_dir($dir) ){
+            return [];
+        }
+        $ffs = scandir($dir);
+
+        unset($ffs[array_search('.', $ffs, true)]);
+        unset($ffs[array_search('..', $ffs, true)]);
+
+        // prevent empty ordered elements
+        if (count($ffs) < 1){
+            
+            return [];
+        }
+
+        $files = [];
+        foreach($ffs as $ff){
+            if( !is_dir($dir.'/'.$ff) ){
+                $files[] = $dir.'/'.$ff;
+            }else{
+                $files = array_merge($files, self::listFolderFiles($dir.'/'.$ff));
+            }
+        }
+        return $files;
+    }
+
     /**
      * Lay danh sach level cua 1 User
      */
@@ -239,14 +293,21 @@ class Common {
             ->lists('parent_id');
         foreach ($parentIds as $value) {
             $array[$value] = [
-                'P' => self::getDocumentObject($value, 1),
-                'D' => self::getDocumentObject($value, 2),
+                'P' => self::getDocumentObject($value, P),
+                'D' => self::getDocumentObject($value, D),
             ];
         }
         // dd($array);
         return $array;
     }
-
+    public static function getDocumentByParentId($parentId, $type)
+    {
+       $doc = Document::where('parent_id', $parentId)->where('type_id', $type)->first();
+        if ($doc) {
+            return $doc;
+        }
+        return null;
+    }
     public static function getDocumentObject($parentId, $typeId)
     {
        $ob = Document::where('parent_id', $parentId)
@@ -277,6 +338,8 @@ class Common {
                     $uploadSuccess = move_uploaded_file($v, public_path().$fileUrl);
                     if( $uploadSuccess ){
                         $doc['file_url'] = $fileUrl;
+                        $count = Document::where('lesson_id', $doc['lesson_id'])->count();
+                        $doc['order'] = $count + 1;
                         if ($arrayP == null) {
                             $array[$k] = $docId = Document::create($doc)->id;
                             $parentId = $docId;
@@ -284,7 +347,6 @@ class Common {
                             $parentId = $arrayP[$k];
                             $docId = Document::create($doc)->id;
                         }
-
                         /// Update code after insert document
                         $code = getCodeDocument($docId);
                         Document::find($docId)->update(['code' => $code, 'parent_id' => $parentId]);
@@ -301,7 +363,8 @@ class Common {
 
     public static function getDocument($document, $typeId)
     {
-        $ob = Document::where('parent_id', $document->id)
+        // dd($document->id);
+        $ob = Document::where('parent_id', $document->parent_id)
             ->where('type_id', $typeId)
             ->first();
         if ($ob) {
@@ -320,15 +383,32 @@ class Common {
         return Subject::orderBy('created_at', 'desc')->lists('name','id');
     }
 
-    public static function getLevelDropdownList($name, $default = null)
+    public static function getLevelDropdownList($name, $default = null, $classId = null, $subjectId = null)
     {
+        if( empty($classId) ){
+            $classId = Input::get('class_id');
+        }
+        if( empty($subjectId) ){
+            $subjectId = Input::get('subject_id');
+        }
         $levels = Level::orderBy('created_at', 'desc')->get();
         $html = '<select name="'. $name .'" class="form-control">
             <option value="">--Tất cả--</option>';
         foreach ($levels as $key => $value) {
-            $html .= '<option '. ( ($value->id == $default) ? 'selected' : ( ( $value->class_id != Input::get('class_id') | $value->subject_id != Input::get('subject_id') ) ? 'class="hidden"' : '') ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
+            $html .= '<option '. (($value->id == $default) ? 'selected' : (( $value->class_id != $classId | $value->subject_id != $subjectId) ? 'class="hidden"' : '')) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->name .'</option>';
         }
         $html .= '<select>';
+        return $html;
+    }
+
+    public static function getLevelMultiDropdownList($name, $levels = [], $default = null)
+    {
+        $html = '<select name="'. $name .'" class="form-control" multiple>
+            <option value="">--Tất cả--</option>';
+        foreach ($levels as $key => $value) {
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' class-id="'. $value->class_id .'" value="'. $value->id .'" subject-id="'. $value->subject_id .'">'. $value->subjects->name.' '.$value->name .'</option>';
+        }
+        $html .= '<select>';                                                                            
         return $html;
     }
 
@@ -441,36 +521,32 @@ class Common {
     {   
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
-            if (strstr($test, 'an') && strstr($test, 'ap')) {
-                $test1 = explode("-", $test);
-                $a = array_search('an', $test1);
+            if (strstr($test, 'an')&&strstr($test, 'ap')) {
                 return D;
             }
-            if (strstr($test, 'phieu')) {
-                $test1 = explode("-", $test);
-                $a = array_search('phieu', $test1);
+            if (strstr($test, 'phi')) {
                 return P;
             }
+            if (strstr($test, 'an')) {
+                return D;
+            }
         }
-        return $fileName.'_';
+        dd($fileName);
+        // return P;
     }
     public static function getSubjectDocByName($fileName, $input)
     {
         return $input['subject'];
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
             if (strstr($test, 'van')) {
-                $test1 = explode("-", $test);
-                $a = array_search('an', $test1);
                 return 'V';
             }
             if (strstr($test, 'toan')) {
-                $test1 = explode("-", $test);
-                $a = array_search('phieu', $test1);
                 return 'T';
             }
         }
@@ -496,17 +572,19 @@ class Common {
     {
         $array = explode("_", $fileName);
         foreach ($array as $key => $value) {
-            $test = clean($value);
+            $test = utf8convert($value);
             $test = strtolower($test);
             if (strstr($test, 'buoi')) {
                 $test1 = explode("-", $test);
-                $a = array_search('buoi', $test1);
-                $numberLesson = $test1[$a+1];
+                if (count($test1) > 0) {
+                   $a = array_search('buoi', $test1);
+                    $numberLesson = $test1[$a+1];
+                    return $numberLesson;
+                }
                 
-                return $numberLesson;
             }
         }
-        return '';
+        return 0;
     }
     public static function getIdDocByName($fileName)
     {
@@ -540,5 +618,116 @@ class Common {
         }
         return 0;
     }
+    public static function getListLessonCode()
+    {
+        $lesson = Lesson::groupBy('code')->orderBy('code', 'asc')->lists('code','code');
+        // dd($lesson);
+        usort($lesson, function($a, $b){
+            if( (int)$a > (int)$b ) {
+                return 1;
+            }
+            return -1;
+        });
+        $array = [];
+        foreach ($lesson as $key => $value) {
+            $array[$value] = $value;
+        }
+        return $array;
+    }
+    public static function permissionDoc($modelName, $modelId, $input)
+    {
+        AccessPermisison::where('model_name', $modelName)
+            ->where('model_id', $modelId)
+            ->delete();
+        if (isset($input['permission'])) {
+            $permission = $input['permission'];
+            foreach ($permission as $subjectId => $value) {
+                foreach ($value as $groupId => $v) {
+                    $access = [];
+                    $access['subject_id'] = $subjectId;
+                    $access['model_name'] = $modelName;
+                    $access['model_id'] = $modelId;
+                    $access['group_id'] = $groupId;
+                    AccessPermisison::create($access);
+                }
+            }
+        }
+        return true;
+    }
+    public static function getCenterByUser($userId)
+    {
+       $centerLevel = UserCenterLevel::where('user_id', $userId)
+            ->groupBy('center_level_id')
+            ->lists('center_level_id');
+        $listCenter = CenterLevel::whereIn('id', $centerLevel)->groupBy('center_id')->lists('center_id');
+        $name = '';
+        foreach ($listCenter as $key => $value) {
+            $center = Center::find($value);
+            $name .= $name.$center->name.',';
+        }
+        return $name;
+    }
+    public static function getNameGender($gender)
+    {
+        if ($gender == NAM) {
+            return 'Nam';
+        }
+        if ($gender == NU) {
+            return 'Nữ';
+        }
+    }
 
+    public static function getPackageDropdownList($name, $packages = [], $default = null)
+    {
+        $html = '<select name="'. $name .'" class="form-control" required>
+            <option value="">-- Chọn --</option>';
+        foreach ($packages as $key => $value) {
+            $html .= '<option '. ( ($value->id == $default) ? 'selected' : '' ) .' number-lesson="'. $value->lesson_per_week .'" value="'. $value->id .'">'. $value->name .'<p>-</p>'.$value->lesson_per_week.' buổi/tuần<p>-</p>'.$value->total_lesson.' buổi<p>-thời lượng </p>'.$value->duration.' phút<p>-tối đa </p>'.$value->max_student.' học sinh</option>';
+        }
+        $html .= '<select>';                                                                            
+        return $html;
+    }
+
+    public static function getParentPhone($id){
+        $family = Common::getObject(Student::find($id), 'families');
+        if( count($family) == 0 ){
+            return false;
+        }
+        if( Common::getObject($family[0], 'phone') ){
+            return Common::getObject($family[0], 'phone');
+        }
+        if( Common::getObject($family[1], 'phone') ){
+            return Common::getObject($family[1], 'phone');
+        }
+        return false;
+    }
+
+    public static function getStudentList()
+    {
+        if ( !Cache::has('student_list') ){
+            $students = Student::orderBy('created_at', 'DESC')->lists('fullname', 'id');
+            $student = [];
+            foreach ($students as $id => $name) {
+                $student[$id] = $name.' - '.Common::getParentPhone($id);
+            }
+            Cache::put('student_list', $student, 15);
+        }
+        $student = Cache::get('student_list');
+        
+        return $student;
+    }
+    public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
+        $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
+        if( $lesson ){
+            $lessonId = $lesson->id;
+            return $lessonId;
+        }
+        return null;
+     }
+
+     public static function getStartDate($id)
+    {
+        $startDate = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
+        return self::getObject($startDate, 'lesson_date');
+    }
 }

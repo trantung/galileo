@@ -56,6 +56,7 @@ function getMethodDefault($classController)
         'edit' => $classController,
         'update' => $classController,
         'destroy' => $classController,
+        'getPrint' => $classController,
     ];
     return $array;
 }
@@ -63,33 +64,40 @@ function checkActiveCheckbox($controllerName, $action, $groupId)
 {
     $ob = Permission::where('controller', $controllerName)
         ->where('action', $action)
-        ->where('group_id', $groupId)
         ->first();
     if ($ob) {
-        return true;
+        $permissionId = $ob->id;
+        $relation = RelationPerGroup::where('group_id', $groupId)
+            ->where('permission_id', $permissionId)
+            ->first();
+        if ($relation) {
+            return true;
+        }
+        return false;
     }
     return false;
 }
 function checkActiveUserPerCheckbox($modelName, $modelId, $groupId, $subjectId)
 {
-    $listPer = Permission::where('group_id', $groupId)->lists('id');
     $ob = AccessPermisison::where('model_name', $modelName)
         ->where('model_id', $modelId)
         ->where('subject_id', $subjectId)
-        ->whereIn('permission_id', $listPer)
-        ->get();
-    if (count($ob) > 0) {
-        return true;
+        ->where('group_id', $groupId)
+        ->first();
+    if (!$ob) {
+        return false;
     }
-    return false;
+    return true;
 }
 
 function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
 {
     $url = app('html')->linkAction($actionOld, $title, $parameter, $att);
     $admin = Auth::admin()->get();
-    if ($admin->role_id == ADMIN) {
-        return $url;
+    if (isset($admin)) {
+        if ($admin->role_id == ADMIN) {
+            return $url;
+        }
     }
     $array = checkPermission();
     if ($array) {
@@ -100,23 +108,25 @@ function renderUrlByPermission($actionOld, $title, $parameter, $att = null)
         $permission = Permission::where('controller', $controllerName)
             ->where('action', $method)
             ->first();
+        $permissionId = null;
         if ($permission) {
             $permissionId = $permission->id;
+        }
+        if (!$permissionId) {
+            return false;
         }
         $subjectId = null;
         if ($action = 'DocumentController') {
             $parentId = $parameter;
             $doc = Document::where('parent_id', $parentId)->first();
-            $subjectId = $doc->subject_id;
+            if ($doc) {
+                $subjectId = $doc->subject_id;
+            }
         }
-        $listPermission = getListPermission($subjectId);
-        if (!$permissionId) {
+        $listPermissionUser = getListPermission($subjectId);
+        if (!in_array($permissionId, $listPermissionUser)) {
             return false;
         }
-        if (!in_array($permissionId, $listPermission)) {
-            return false;
-        }
-        
         return $url;
     }
     return false;
@@ -132,6 +142,13 @@ function checkPermission()
         $array['model_id'] = $admin->id;
         return $array;
     }
+    $user = Auth::user()->get();
+    if ($user) {
+        $array = [];
+        $array['model_name'] = 'User';
+        $array['model_id'] = $user->id;
+        return $array;
+    }
     return false;
     //check xem là user... 
 }
@@ -141,14 +158,17 @@ function getListPermission($subjectId = null)
     $list = AccessPermisison::where('model_name', $array['model_name'])
         ->where('model_id', $array['model_id']);
     if (!$subjectId) {
-        $list = $list->groupBy('permission_id')
-            ->lists('permission_id');
+        $list = $list->groupBy('group_id')
+            ->lists('group_id');
     } else {
         $list = $list->where('subject_id', $subjectId)
-            ->groupBy('permission_id')
-            ->lists('permission_id');
+            ->groupBy('group_id')
+            ->lists('group_id');
     }
-    return $list;
+    $listPermision = RelationPerGroup::whereIn('group_id', $list)
+        ->groupBy('permission_id')
+        ->lists('permission_id');
+    return $listPermision;
 }
 function checkPermissionForm($actionOld, $title, $parameter)
 {
@@ -161,27 +181,35 @@ function checkPermissionForm($actionOld, $title, $parameter)
 function checkUrlPermission($route)
 {
     $admin = Auth::admin()->get();
-    if ($admin->role_id == ADMIN) {
-        return true;
+    if (isset($admin)) {
+        if ($admin->role_id == ADMIN) {
+            return true;
+        }
     }
+    $array = checkPermission();
     $action = explode("@", $route);
     $controllerName = $action[0];
     $method = $action[1];
-    $listPer = Permission::where('controller', $controllerName)
+    $per = Permission::where('controller', $controllerName)
         ->where('action', $method)
-        ->lists('id');
-    if (count($listPer) == 0) {
+        ->first();
+    if (!$per) {
         return false;
     }
-    $access = AccessPermisison::where('model_name', 'Admin')
-        ->where('model_id', $admin->id)
-        ->whereIn('permission_id', $listPer)
-        ->get();
-    if (count($access) == 0) {
+    $perId = $per->id;
+    $userPer = checkPermission();
+    $listGroupId = AccessPermisison::where('model_name', $userPer['model_name'])
+        ->where('model_id', $userPer['model_id'])
+        ->lists('group_id');
+    $count = RelationPerGroup::where('permission_id', $perId)
+        ->whereIn('group_id', $listGroupId)
+        ->count();
+    if ($count == 0) {
         return false;
     }
     return true;
 }
+
 function convert_api($src_format, $dst_format, $files, $parameters) {
     $parameters = array_change_key_case($parameters);
     $auth_param = array_key_exists('secret', $parameters) ? 'secret='.$parameters['secret'] : 'token='.$parameters['token'];
@@ -270,4 +298,70 @@ function clean($string) {
    $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 
    return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+}
+function getStatusDoc($doc)
+{
+    if ($doc->status == ACTIVE) {
+        return 'Đã kiểm duyệt';
+    }
+    if ($doc->status == INACTIVE) {
+        return 'Chưa kiểm duyệt';
+    }
+}
+
+function getCodeStudentPackage()
+{
+    $code = null;
+    return $code;
+}
+function getTimeId($time)
+{
+    $string = $time;
+    $timestamp = strtotime($string);
+    $day = date("l", $timestamp);
+    if ($day == 'Sunday') {
+        return CN;
+    }
+    if ($day == 'Monday') {
+        return T2;
+    }
+    if ($day == 'Tuesday') {
+        return T3;
+    }
+    if ($day == 'Wednesday') {
+        return T4;
+    }
+    if ($day == 'Thursday') {
+        return T5;
+    }
+    if ($day == 'Friday') {
+        return T6;
+    }
+    if ($day == 'Saturday') {
+        return T7;
+    }
+    return false;
+}
+function getTotalLessonByMoneyPaid($money, $packageId)
+{
+    $package = Package::find($packageId);
+    if (!$package) {
+        return false;
+    }
+    $price = $package->price;
+    $totalLesson = round($money/$price);
+    return $totalLesson;
+}
+function getUserIdOfStudent($inputUserId, $manualUser)
+{
+    if ($manualUser) {
+        $user = User::where('username', $manualUser)->first();
+        if (!$user) {
+            return false;
+        }
+        $userId = $user->id;
+        dd($userId);
+        return $userId;
+    }
+    return $inputUserId;
 }
