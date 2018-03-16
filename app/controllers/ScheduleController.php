@@ -68,7 +68,14 @@ class ScheduleController extends \BaseController {
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
-        $center = Center::lists('name', 'id');
+        $user = Auth::user()->get();
+        if (!$user) {
+            return Redirect::action('UserController@login');
+        }
+        $userId = $user->id;
+        $listCenterId = UserCenterLevel::where('user_id', $userId)->lists('center_id');
+        $center = Center::whereIn('id', $listCenterId)->lists('name', 'id');
+        
         $students = Student::lists('fullname', 'id');
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
@@ -112,6 +119,13 @@ class ScheduleController extends \BaseController {
             'center_id', 'class_id', 'subject_id', 'level_id',
             'package_id', 'lesson_code', 'money_paid'
         );
+        if (!isset($studentPackageInput['lesson_code'])) {
+            $studentPackageInput['lesson_code'] = 1;
+        }
+        if (!isset($input['user_id'])) {
+            $input['user_id'] = null;
+        }
+
         $studentPackageInput['student_id'] = $input['student_id'];
         $studentPackageInput['center_id'] = $input['center_id'];
         // $studentPackageInput['time_id'] = getTimeId($input['time_id']);
