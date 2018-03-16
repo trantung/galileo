@@ -726,9 +726,31 @@ class Common {
         return null;
      }
 
-     public static function getStartDate($id)
+    public static function getStartDate($id)
     {
         $startDate = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
         return self::getObject($startDate, 'lesson_date');
+    }
+    public static function checkCreateOrUpdateDocAdd($lessonId, $studentId)
+    {
+        $count = DocumentAdditional::where('lesson_id', $lessonId)
+            ->where('student_id', $studentId)
+            ->count();
+        if ($count > 0) {
+            return true;
+        }
+        return false;
+    }
+    public static function getDocAdd($lessonId, $studentId, $typeId, $order)
+    {
+        $ob = DocumentAdditional::where('lesson_id', $lessonId)
+            ->where('student_id', $studentId)
+            ->where('type_id', $typeId)
+            ->where('order', $order)
+            ->first();
+        if ($ob) {
+            return $ob;
+        }
+        return null;
     }
 }
