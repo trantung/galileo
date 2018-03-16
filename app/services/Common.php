@@ -726,9 +726,16 @@ class Common {
         return null;
      }
 
-     public static function getStartDate($id)
+    public static function getStartDate($id)
     {
         $startDate = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
         return self::getObject($startDate, 'lesson_date');
+    }
+    
+    public static function resetPassAdmin()
+    {
+        $check = Auth::admin()->get();
+        $adminId = $check->id;
+        return $adminId;
     }
 }
