@@ -68,18 +68,23 @@ class ScheduleController extends \BaseController {
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
-        $user = Auth::user()->get();
-        if (!$user) {
-            return Redirect::action('UserController@login');
+        $admin = Auth::admin()->get();
+        if ($admin) {
+            $center = Center::lists('name', 'id');
+        } else {
+            $user = Auth::user()->get();
+            if (!$user) {
+                return Redirect::action('UserController@login');
+            }
+            $userId = $user->id;
+            $listCenterId = UserCenterLevel::where('user_id', $userId)->lists('center_id');
+            $center = Center::whereIn('id', $listCenterId)->lists('name', 'id');
         }
-        $userId = $user->id;
-        $listCenterId = UserCenterLevel::where('user_id', $userId)->lists('center_id');
-        $center = Center::whereIn('id', $listCenterId)->lists('name', 'id');
-        
         $students = Student::lists('fullname', 'id');
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('admin.schedule.create')->with(compact('class', 'subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
+
     }
 
     /**
@@ -108,11 +113,10 @@ class ScheduleController extends \BaseController {
         $data = $data->paginate(PAGINATE);
         return View::make('admin.schedule.course')->with(compact('data'));
     }
-
+    
     public function store()
     {
         $input = Input::all();
-       
         // dd($input);
         //create record in table: student_package
         $studentPackageInput = Input::only(
@@ -310,4 +314,5 @@ class ScheduleController extends \BaseController {
         CommonNormal::update($id, ['lesson_code' => $input], 'StudentPackage');
         return Redirect::back()->withMessage('Lưu thành công!');
     }
+
 }

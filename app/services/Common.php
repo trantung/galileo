@@ -701,8 +701,10 @@ class Common {
             return Common::getObject($family[1], 'phone');
         }
         return false;
-    }
+   
+        
 
+    }
     public static function getStudentList()
     {
         if ( !Cache::has('student_list') ){
@@ -717,6 +719,7 @@ class Common {
         
         return $student;
     }
+    
     public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
         $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
         if( $lesson ){
@@ -753,4 +756,14 @@ class Common {
         }
         return null;
     }
+
+    public static function getUserCenterList()
+    {
+        $user = getCurrentUser();
+        if ($user) {
+            $userCenterList = UserCenterLevel::where('center_id', $user->id)->get();
+        }
+        return $userCenterList;
+    }
+    
 }

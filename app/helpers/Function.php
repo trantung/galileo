@@ -397,6 +397,7 @@ function checkPermissionUserByField($field, $roleId = null)
     if ($admin) {
         return true;
     }
+    // dd(111);
     $value = getValueUser($field);
     if ($roleId) {
         if ($value == $roleId) {
@@ -418,4 +419,15 @@ function getValueUser($field)
     $user = Auth::user()->get();
     $value = $user->$field;
     return $value;
+}
+function getCurrentUser()
+{
+    $user = false;
+    if( Auth::admin()->check() ){
+        $user = Auth::admin()->get();
+    }
+    if( Auth::user()->check() ){
+        $user = Auth::user()->get();
+    }
+    return $user;
 }
