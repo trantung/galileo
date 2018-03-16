@@ -22,6 +22,25 @@
                         {{ Form::label('lesson_code', 'Bắt đầu học từ buổi', ['style' => 'display: block']) }}
                         {{ Form::select('lesson_code', Common::getListLessonCode(), $value->lesson_code,['class' => 'form-control', 'required'=>true])}}
                     </div>
+                    <fieldset>
+                        <legend>Sửa lịch học</legend>
+                            @foreach(Common::getScheduleOfStudentPackage($value->id) as $key => $spdetail)
+                                <div class="form-group">
+                                    <div class="input-group inline-block">
+                                        <label>Ngày học</label>
+                                        {{ Form::select('time_id['.$key.']['.$spdetail->time_id.']', ['' => '-- Chọn --']+Common::getTimeIdList(), $spdetail->time_id, ['class' => 'form-control']) }}
+                                    </div>
+                                    <div class="input-group inline-block" style="width: 100px">
+                                        <label>Giờ học</label>
+                                        {{ Form::text('hours['.$key.']['.$spdetail->lesson_hour.']', $spdetail->lesson_hour, ['class' => 'form-control timepicker lesson_hour', 'required'=>true ]) }}
+                                    </div>
+                                    <div class="input-group inline-block">
+                                        <label>Cố vấn học tập</label>
+                                        {{ Form::select('user_id['.$key.']', ['' => '-- chọn --'] + Common::getCVHTList(), $spdetail->user_id,['class' => 'form-control selectpicker select-teacher', 'data-live-search' => 'true'])}}
+                                    </div>
+                                </div>
+                            @endforeach
+                    </fieldset>
                 </div>
             </div>
             <div class="modal-footer">

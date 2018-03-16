@@ -730,4 +730,37 @@ class Common {
         $startDate = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
         return self::getObject($startDate, 'lesson_date');
     }
+
+    public static function getScheduleOfStudentPackage($packageId){
+        // if ( !Cache::has('schedule_of_course_'.$packageId) ){
+            return SpDetail::where('student_package_id', $packageId)
+             ->orderBy('lesson_date', 'ASC')
+             ->groupBy('time_id')
+             ->get();
+            // $student = [];
+            // foreach ($schedule as $id => $name) {
+            //     $students[$id] = $name.' - '.Common::getParentPhone($id);
+            // }
+            // Cache::put('schedule_of_course_'.$packageId, $schedules, 1);
+        // }
+        // $schedules = Cache::get('schedule_of_course_'.$packageId);
+        
+        // return $schedules;
+    }
+
+    public static function getTimeIdList(){
+        return [
+            T2 => 'Thứ hai',
+            T3 => 'Thứ ba',
+            T4 => 'Thứ tư',
+            T5 => 'Thứ năm',
+            T6 => 'Thứ sáu',
+            T7 => 'Thứ bảy',
+            CN => 'Chủ nhật',
+        ];
+    }
+
+    public static function getCVHTList(){
+        return User::where('role_id', CVHT)->lists('username', 'id');
+    }
 }
