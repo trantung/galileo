@@ -63,14 +63,12 @@
                     @endif
                </ul> 
             </li>
-            @if(checkUrlPermission('StudentController@index'))
             <li>
                 <a href="{{ action('StudentController@index') }}">
                     <i class="fa fa-newspaper-o"></i> 
                     <span>Quản lý học sinh </span>
                 </a>
             </li>
-            @endif
             
             <li class="treeview">
                 <a href=""><i class="fa fa-newspaper-o"></i>
@@ -112,23 +110,19 @@
                     </li>
                     @endif
 
-                    @if(checkUrlPermission('ScheduleController@index'))
                     <li>
                         <a href="{{ action('ScheduleController@index') }}">
                             <i class="fa fa-newspaper-o"></i> 
                             <span>Quản lý lịch học</span>
                         </a>
                     </li>
-                    @endif
 
-                    @if(checkUrlPermission('ScheduleController@course'))
                     <li>
                         <a href="{{ action('ScheduleController@course') }}">
                             <i class="fa fa-newspaper-o"></i> 
                             <span>Quản lý khóa học</span>
                         </a>
                     </li>
-                    @endif
                 </ul>
             </li>
         </ul>
