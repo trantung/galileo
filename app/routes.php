@@ -1,4 +1,6 @@
 <?php
+// $user = Auth::user()->get();
+//         dd($user);
 /*
     Hệ thống
     1. Quản lý partner
@@ -12,6 +14,31 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/update_center_level_id_cvht', function(){
+    $centerId = 2;
+    $listLevelId = [$centerId => Level::lists('id')];
+    foreach ($listLevelId as $key => $value) {
+        foreach ($value as $k => $levelId) {
+            $userCenterLevel = CenterLevel::where('level_id', $levelId)
+                ->where('center_id', $key)
+                ->first();
+            if (!$userCenterLevel) {
+                dd('sai config');
+            }
+            $userCenterLevelId = $userCenterLevel->id;
+            foreach (User::lists('id') as $userId) {
+                UserCenterLevel::create([
+                    'user_id' => $userId,
+                    'center_id' => $key,
+                    'center_level_id' => $userCenterLevelId,
+                    'level_id' => $levelId
+                ]);
+            }
+        }
+    }
+    dd(1111);
+});
+
 Route::get('/update_permission_user_depend_subject', function(){
     $listUser = User::all();
     $group = PermissionGroup::where('code', 'VHL')->first();
@@ -110,8 +137,9 @@ Route::group(['prefix' => 'admin'], function () {
 
     //
     Route::resource('administrator', 'AdminController');
-
+    Route::post('/schedule/additional/update/{id}/{student_id}', 'ScheduleController@postUpdateAdditional');
     Route::post('/schedule/additional/{id}/{student_id}', 'ScheduleController@postAdditional');
+    
     Route::resource('student', 'StudentController');
     Route::resource('schedule', 'ScheduleController');
     Route::get('student_package', 'ScheduleController@course');

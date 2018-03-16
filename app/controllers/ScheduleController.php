@@ -68,18 +68,23 @@ class ScheduleController extends \BaseController {
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
-        $user = Auth::user()->get();
-        if (!$user) {
-            return Redirect::action('UserController@login');
+        $admin = Auth::admin()->get();
+        if ($admin) {
+            $center = Center::lists('name', 'id');
+        } else {
+            $user = Auth::user()->get();
+            if (!$user) {
+                return Redirect::action('UserController@login');
+            }
+            $userId = $user->id;
+            $listCenterId = UserCenterLevel::where('user_id', $userId)->lists('center_id');
+            $center = Center::whereIn('id', $listCenterId)->lists('name', 'id');
         }
-        $userId = $user->id;
-        $listCenterId = UserCenterLevel::where('user_id', $userId)->lists('center_id');
-        $center = Center::whereIn('id', $listCenterId)->lists('name', 'id');
-        
         $students = Student::lists('fullname', 'id');
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('admin.schedule.create')->with(compact('class', 'subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
+
     }
 
     /**
@@ -108,11 +113,10 @@ class ScheduleController extends \BaseController {
         $data = $data->paginate(PAGINATE);
         return View::make('admin.schedule.course')->with(compact('data'));
     }
-
+    
     public function store()
     {
         $input = Input::all();
-       
         // dd($input);
         //create record in table: student_package
         $studentPackageInput = Input::only(
@@ -257,35 +261,43 @@ class ScheduleController extends \BaseController {
         $levelCode = Level::find($lesson->level_id)->code;
         $lessonCode = $lesson ->code;
         $link = $subjectCode.'/'.$classCode.'/'.$levelCode.'/'.$lessonCode.'/';
+        // dd($input);
         foreach ($input['doc_new_file_p'] as $key => $value) {
+            $doc['type_id'] = P;
             $docAdditionalId = DocumentAdditional::create($doc)->id;
-        
-            $destinationPath = public_path().'/'.DOCUMENT_UPLOAD_ADDITIONAL.'/'.$link.'/'.$studentId.'/';
+            $linkDefault = DOCUMENT_UPLOAD_ADDITIONAL.'/'.$link.'/'.$studentId.'/';
+            $destinationPath = public_path().'/'.$linkDefault;
             $filename = $value->getClientOriginalName();
             $uploadSuccess = $value->move($destinationPath, $filename);
-
-
-            // $fileUrl = CommonUpload::uploadImage($studentId, DOCUMENT_UPLOAD_ADDITIONAL, 'doc_new_file_p', $link);
-            // CommonNormal::update($docAdditional, ['file_url' => $input['file_url']] );
             $docAdditional = DocumentAdditional::find($docAdditionalId);
-            $docAdditional->update(['file_url' => $filename]);
+            $docUpdate['parent_id'] = $docAdditionalId;
+            $docUpdate['file_url'] = $linkDefault.$filename;
+            $docUpdate['order'] = $key;
+            $docUpdate['code'] = commonGetCodeDocument($docAdditionalId, 'DocumentAdditional');
+            $docAdditional->update($docUpdate);
+            if (isset($input['doc_new_file_d'][$key])) {
+                $docD = $doc;
+                $docD['type_id'] = D;
+                $docAdditionalIdD = DocumentAdditional::create($docD)->id;
+                $destinationPathD = public_path().'/'.$linkDefault;
+                $filenameD = $input['doc_new_file_d'][$key]->getClientOriginalName();
+                $uploadSuccess = $input['doc_new_file_d'][$key]->move($destinationPathD, $filenameD);
+                $docAdditionalD = DocumentAdditional::find($docAdditionalIdD);
+                $docUpdateD['parent_id'] = $docAdditionalId;
+                $docUpdateD['file_url'] = $linkDefault.$filenameD;
+                $docUpdateD['code'] = commonGetCodeDocument($docAdditionalIdD, 'DocumentAdditional');
+                $docUpdateD['order'] = $key;
+                $docAdditionalD->update($docUpdateD);
+            }
 
         }
-        dd(3333);
-
-
-
-        $doc['code'] = $levelId;
-        $doc['file_url'] = $levelId;
-        $doc['order'] = $levelId;
-        $doc['type_id'] = $levelId;
-        $doc['parent_id'] = $levelId;
-
-        $arrayP = Common::saveDocument('doc_new_file_p', $doc);
-        Common::saveDocument('doc_new_file_d', $doc, $arrayP);
-
+        return Redirect::action('ScheduleController@index');
     }
-
+    public function postUpdateAdditional($id, $studentId)
+    {
+        $input = Input::all();
+        dd('chưa làm phần update doc add');
+    }
 
     public function courseEdit($id){
         $input = Input::get('lesson_code');
@@ -302,4 +314,5 @@ class ScheduleController extends \BaseController {
         CommonNormal::update($id, ['lesson_code' => $input], 'StudentPackage');
         return Redirect::back()->withMessage('Lưu thành công!');
     }
+
 }

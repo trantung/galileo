@@ -701,8 +701,10 @@ class Common {
             return Common::getObject($family[1], 'phone');
         }
         return false;
-    }
+   
+        
 
+    }
     public static function getStudentList()
     {
         if ( !Cache::has('student_list') ){
@@ -717,6 +719,7 @@ class Common {
         
         return $student;
     }
+    
     public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
         $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
         if( $lesson ){
@@ -726,9 +729,41 @@ class Common {
         return null;
      }
 
-     public static function getStartDate($id)
+    public static function getStartDate($id)
     {
         $startDate = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
         return self::getObject($startDate, 'lesson_date');
     }
+    public static function checkCreateOrUpdateDocAdd($lessonId, $studentId)
+    {
+        $count = DocumentAdditional::where('lesson_id', $lessonId)
+            ->where('student_id', $studentId)
+            ->count();
+        if ($count > 0) {
+            return true;
+        }
+        return false;
+    }
+    public static function getDocAdd($lessonId, $studentId, $typeId, $order)
+    {
+        $ob = DocumentAdditional::where('lesson_id', $lessonId)
+            ->where('student_id', $studentId)
+            ->where('type_id', $typeId)
+            ->where('order', $order)
+            ->first();
+        if ($ob) {
+            return $ob;
+        }
+        return null;
+    }
+
+    public static function getUserCenterList()
+    {
+        $user = getCurrentUser();
+        if ($user) {
+            $userCenterList = UserCenterLevel::where('center_id', $user->id)->get();
+        }
+        return $userCenterList;
+    }
+    
 }
