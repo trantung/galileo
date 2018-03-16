@@ -25,6 +25,11 @@ class StudentPackage extends Eloquent {
     );
     protected $dates = ['deleted_at'];
 
+    public function users()
+    {
+        return $this->belongsTo('User','user_id', 'id' );
+    }
+
     public function students()
     {
         return $this->belongsTo('Student','student_id', 'id' );
@@ -54,7 +59,4 @@ class StudentPackage extends Eloquent {
     {
         return $this->belongsTo('Package','package_id', 'id' );
     }
-
-    
-
 }

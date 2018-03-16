@@ -68,6 +68,7 @@ class Common {
      */
     public static function getClassSubjectLevelOfCenter($centerId){
         $levelsObject = Center::find($centerId);
+        // dd($centerId);
         $arr = [
             'listClasses' => [],
             'listSubjects' => [],

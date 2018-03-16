@@ -19,7 +19,8 @@
             <th>Gói học</td>
             <th>Số tiền đã đóng</td>
             <th>Tổng số buổi</td>
-            <th>Bắt đầu học từ buổi</td>
+            <th>Ngày bắt đầu học</td>
+            <th>Thao tác</th>
         </tr>   
         @foreach($data as $key => $value)
         <tr>
@@ -31,9 +32,12 @@
             <td>{{ Common::getObject($value->levels, 'name' ) }}</td>
             <td>{{ Common::getObject($value->packages, 'name' ) }}</td>
             <td>{{ $value->money_paid }}</td>
-            <td>{{ Common::getStartDate($value->id) }}</td>
             <td>{{ $value->lesson_total }}</td>
-            <td>{{ $value->lesson_code }}</td>
+            <td>{{ 'Buổi '.$value->lesson_code.', ngày '.Common::getStartDate($value->id) }}</td>
+            <td>
+                @include('admin.schedule.course_modal')
+                <button class="btn btn-primary" data-toggle="modal" data-target="#courseModal-{{ $value->id }}">Sửa</button>
+            </td>
         </tr>
         @endforeach
     </table>
