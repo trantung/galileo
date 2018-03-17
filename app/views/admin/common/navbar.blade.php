@@ -17,12 +17,7 @@
       <ul class="nav navbar-nav">
 
         <li class="user">
-            @if(Auth::admin()->get())
     	        <a href="{{ action('AdminController@getResetPass', Common::resetPassAdmin()) }}"><i class="fa fa-user"></i>Tài khoản</a>
-            @endif
-            @if(Auth::user()->get())
-                <a href="{{ action('ManagerUserController@getResetPass', Common::resetPassUser()) }}"><i class="fa fa-user"></i>Tài khoản</a>
-            @endif
         </li>
 
         <li class="user">

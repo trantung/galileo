@@ -90,7 +90,6 @@ class ScheduleController extends \BaseController {
     public function course()
     {
         $input = Input::all();
-        
         $data = StudentPackage::orderBy('code', 'ASC');
 
         if( !empty($input['class_id']) ){

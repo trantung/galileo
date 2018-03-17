@@ -717,6 +717,17 @@ class Common {
         
         return $student;
     }
+
+    public static function getStudentNameList()
+    {
+        return Student::orderBy('created_at', 'desc')->lists('fullname', 'id');
+    }
+
+    public static function getEmailStudentList()
+    {
+        return Student::orderBy('created_at', 'desc')->lists('email','id');
+    }
+
     public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
         $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
         if( $lesson ){
@@ -739,12 +750,6 @@ class Common {
         return $adminId;
     }
 
-    public static function resetPassUser()
-    {
-        $check = Auth::user()->get();
-        $userId = $check->id;
-        return $userId;
-    }
     public static function getScheduleOfStudentPackage($packageId){
         // if ( !Cache::has('schedule_of_course_'.$packageId) ){
             return SpDetail::where('student_package_id', $packageId)

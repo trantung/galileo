@@ -10,7 +10,15 @@ class StudentController extends BaseController {
      */
     public function index()
     {
-        $data = Student::orderBy('created_at', 'DESC')->paginate(PAGINATE);
+        $input = Input::all();
+        $data = Student::orderBy('created_at', 'DESC');
+        if( !empty($input['fullname']) ){
+            $data->where('fullname', $input['fullname']);
+        }
+        if( !empty($input['email']) ){
+            $data->where('email', $input['email']);
+        }
+        $data = $data->paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));
     }
     /**
@@ -41,7 +49,7 @@ class StudentController extends BaseController {
         $validator = Validator::make( $input,
             [
                 'fullname'   => 'required',
-                'password'   => 'required|min:8|confirmed',
+                'password'   => 'required|min:6|confirmed',
                 'code'       => 'required',
                 'email'      => 'required|email|unique:students',
                 'username'   => 'required|min:6|unique:students',
