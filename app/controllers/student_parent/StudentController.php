@@ -132,22 +132,18 @@ class StudentController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
-    {
-        //
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        // $input = Input::all();
-        // $input['password'] = Hash::make($input['password']);
-        // Student::findOrFail($id)->update($input);
-        // return Redirect::action('StudentController@index');
+    public function edit($id) 
+    { 
+        $center = Center::lists('name','id'); 
+        $student = Student::findOrFail($id); 
+        return View::make('student.edit')->with(compact('student', 'center')); 
+    } /** * Update the specified resource in storage. * * @param int $id * @return Response */ 
+    public function update($id) 
+    { 
+        $input = Input::all(); 
+        $input['password'] = Hash::make($input['password']); 
+        Student::findOrFail($id)->update($input); 
+        return Redirect::action('StudentController@index'); 
     }
     /**
      * Remove the specified resource from storage.

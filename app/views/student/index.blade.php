@@ -14,7 +14,7 @@
 			<th>Email</th>
 			<th>Giới tính</td>
 			<th>Địa chỉ</td>
-			<th width="150px">Action</th>
+			<th width="18%">Action</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
@@ -26,6 +26,7 @@
 			<td>{{ $value->address }}</td>
 			<td>
 	           <a href="{{ action('StudentController@show', $value->id) }}" class="btn btn-primary">Show</a>
+                	<a href="{{action('StudentController@edit', $value->id)}}" class="btn btn-primary">Sửa</a>
 			   {{ Form::open(array('method'=>'DELETE', 'action' => array('StudentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 	           {{ Form::close() }}

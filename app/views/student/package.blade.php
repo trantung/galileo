@@ -3,7 +3,7 @@
         <legend>Thông tin gói học</legend>
         <div class="form-group">
             <label>Chọn trung tâm</label>
-            {{ Form::select('center_id',['' => '--chọn--']+$center, null , ['class' => 'form-control ', 'required' => true]) }}
+            {{ Form::select('center_id',['' => '--chọn--'] + $center, null , ['class' => 'form-control ', 'required' => true]) }}
         </div>
         <div class="form-group">
             <label>Chọn học sinh</label>

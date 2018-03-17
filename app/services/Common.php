@@ -738,4 +738,11 @@ class Common {
         $adminId = $check->id;
         return $adminId;
     }
+
+    public static function resetPassUser()
+    {
+        $check = Auth::user()->get();
+        $userId = $check->id;
+        return $userId;
+    }
 }
