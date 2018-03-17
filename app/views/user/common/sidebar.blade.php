@@ -1,7 +1,6 @@
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
-            
             <li>
                 <a href="{{ action('StudentController@index') }}">
                     <i class="fa fa-newspaper-o"></i> 

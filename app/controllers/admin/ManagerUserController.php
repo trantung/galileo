@@ -17,7 +17,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // if ($roleId == 1) {
         //  //
         // }
-        $users = User::paginate(30);
+        $users = User::orderBy('created_at', 'DESC')->paginate(30);
         return View::make('admin.user.index')->with(compact('users'));
     }
 
