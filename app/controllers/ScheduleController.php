@@ -68,18 +68,23 @@ class ScheduleController extends \BaseController {
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
-        $user = Auth::user()->get();
-        if (!$user) {
-            return Redirect::action('UserController@login');
+        $admin = Auth::admin()->get();
+        if ($admin) {
+            $center = Center::lists('name', 'id');
+        } else {
+            $user = Auth::user()->get();
+            if (!$user) {
+                return Redirect::action('UserController@login');
+            }
+            $userId = $user->id;
+            $listCenterId = UserCenterLevel::where('user_id', $userId)->lists('center_id');
+            $center = Center::whereIn('id', $listCenterId)->lists('name', 'id');
         }
-        $userId = $user->id;
-        $listCenterId = UserCenterLevel::where('user_id', $userId)->lists('center_id');
-        $center = Center::whereIn('id', $listCenterId)->lists('name', 'id');
-        
         $students = Student::lists('fullname', 'id');
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('admin.schedule.create')->with(compact('class', 'subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
+
     }
 
     /**
@@ -107,11 +112,10 @@ class ScheduleController extends \BaseController {
         $data = $data->paginate(PAGINATE);
         return View::make('admin.schedule.course')->with(compact('data'));
     }
-
+    
     public function store()
     {
         $input = Input::all();
-       
         // dd($input);
         //create record in table: student_package
         $studentPackageInput = Input::only(
@@ -176,11 +180,12 @@ class ScheduleController extends \BaseController {
      * @return Response
      */
 
-    public function documentLink($lessonId)
-    {   $documents = Document::where('lesson_id', $lessonId)
-        ->groupBy('parent_id')
-        ->get();
-        return View::make('admin.schedule.document_link')->with(compact('documents'));
+    public function documentLink($lessonId, $studentId)
+    {   
+        $documents = Document::where('lesson_id', $lessonId)
+            ->groupBy('parent_id')
+            ->get();
+        return View::make('admin.schedule.document_link')->with(compact('documents', 'lessonId', 'studentId'));
     }
 
 
@@ -227,6 +232,66 @@ class ScheduleController extends \BaseController {
     public function destroy($id)
     {
         //
+    }
+    public function postAdditional($id, $studentId)
+    {
+        $input = Input::all();
+        // dd($input['doc_new_file_p']);
+        $doc['lesson_id'] = $id;
+        $doc['student_id'] = $studentId;
+        if (Auth::admin()->get()) {
+            $doc['user_id'] = null;
+        } else {
+            $doc['user_id'] = getValueUser('id');
+        }
+        $lesson = Lesson::find($id);
+        $levelId = $lesson->level_id;
+        $doc['level_id'] = $lesson->level_id;
+        $doc['subject_id'] = $lesson->subject_id;
+        $doc['class_id'] = $lesson->class_id;
+        $doc['status'] = 1;
+
+        $subjectCode = SubjectClass::find($lesson->subject_id)->code;
+        $classCode = ClassModel::find($lesson->class_id)->code;
+        $levelCode = Level::find($lesson->level_id)->code;
+        $lessonCode = $lesson ->code;
+        $link = $subjectCode.'/'.$classCode.'/'.$levelCode.'/'.$lessonCode.'/';
+        // dd($input);
+        foreach ($input['doc_new_file_p'] as $key => $value) {
+            $doc['type_id'] = P;
+            $docAdditionalId = DocumentAdditional::create($doc)->id;
+            $linkDefault = DOCUMENT_UPLOAD_ADDITIONAL.'/'.$link.'/'.$studentId.'/';
+            $destinationPath = public_path().'/'.$linkDefault;
+            $filename = $value->getClientOriginalName();
+            $uploadSuccess = $value->move($destinationPath, $filename);
+            $docAdditional = DocumentAdditional::find($docAdditionalId);
+            $docUpdate['parent_id'] = $docAdditionalId;
+            $docUpdate['file_url'] = $linkDefault.$filename;
+            $docUpdate['order'] = $key;
+            $docUpdate['code'] = commonGetCodeDocument($docAdditionalId, 'DocumentAdditional');
+            $docAdditional->update($docUpdate);
+            if (isset($input['doc_new_file_d'][$key])) {
+                $docD = $doc;
+                $docD['type_id'] = D;
+                $docAdditionalIdD = DocumentAdditional::create($docD)->id;
+                $destinationPathD = public_path().'/'.$linkDefault;
+                $filenameD = $input['doc_new_file_d'][$key]->getClientOriginalName();
+                $uploadSuccess = $input['doc_new_file_d'][$key]->move($destinationPathD, $filenameD);
+                $docAdditionalD = DocumentAdditional::find($docAdditionalIdD);
+                $docUpdateD['parent_id'] = $docAdditionalId;
+                $docUpdateD['file_url'] = $linkDefault.$filenameD;
+                $docUpdateD['code'] = commonGetCodeDocument($docAdditionalIdD, 'DocumentAdditional');
+                $docUpdateD['order'] = $key;
+                $docAdditionalD->update($docUpdateD);
+            }
+
+        }
+        return Redirect::action('ScheduleController@index');
+    }
+    public function postUpdateAdditional($id, $studentId)
+    {
+        $input = Input::all();
+        dd('chưa làm phần update doc add');
     }
 
     public function courseEdit($id){
