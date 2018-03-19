@@ -67,7 +67,7 @@
 
                 <div class="form-group">
                     <label for="center_id">Trung tâm</label>
-                    {{  Form::text('center_id', $student->centers->name, array('class' => 'form-control', 'disabled' => 'disabled' )) }}
+                    {{  Form::text('center_id', Common::getObject($student->centers, 'name'), array('class' => 'form-control', 'disabled' => 'disabled' )) }}
                 </div>
 
                 <div class="form-group">

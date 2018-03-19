@@ -150,6 +150,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
     Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
     Route::post('/user/{userId}/{timeId}/{startTime}/{endTime}/set-time', 'ManagerUserController@detroyFreeTime');
+    Route::get('/user/account_user/{id}', 'ManagerUserController@account_user');
+    Route::get('logout_user', 'ManagerUserController@logout');
 
     Route::resource('/user', 'ManagerUserController');
     Route::controller('/user', 'ManagerUserController');

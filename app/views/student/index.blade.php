@@ -7,7 +7,6 @@
 	<!-- Bo loc -->
 	<a href="{{ action('StudentController@create') }}" class="btn btn-primary">Thêm học sinh mới</a>
 	<div class="margin-bottom">
-		CHUA LAM BO LOC
         @include('student.filter')
     </div>
 	<table class="table table-bordered table-striped table-hove" >

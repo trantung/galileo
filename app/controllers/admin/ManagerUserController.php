@@ -2,8 +2,10 @@
 class ManagerUserController extends AdminController implements AdminInterface{
 
     public function __construct() {
-        parent::__construct();
-        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        // parent::__construct();
+        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+        
+        //---ĐÃ ĐÓNG 2 DÒNG TRÊN LẠI ĐỂ VÀO ACCOUNT_USER--//
     }
 
     /**
@@ -118,6 +120,12 @@ class ManagerUserController extends AdminController implements AdminInterface{
      * @param  int  $id
      * @return Response
      */
+
+    public function account_user($id)
+    {
+        $data = User::findOrFail($id);
+        return View::make('admin.user.account_user')->with(compact('data'));
+    }
 
     public function edit($id)
     {

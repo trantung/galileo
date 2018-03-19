@@ -13,13 +13,13 @@ class StudentController extends BaseController {
         $input = Input::all();
         $data = Student::orderBy('created_at', 'DESC');
         if( !empty($input['fullname']) ){
-            $data->where('fullname', $input['fullname']);
+            $data->where('id', $input['fullname']);
         }
         if( !empty($input['email']) ){
-            $data->where('email', $input['email']);
+            $data->where('id', $input['email']);
         }
         $data = $data->paginate(PAGINATE);
-        return View::make('student.index')->with(compact('data'));
+        return View::make('student.index')->with(compact('data', 'input'));
     }
     /**
      * Show the form for creating a new resource.

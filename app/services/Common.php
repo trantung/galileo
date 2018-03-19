@@ -718,7 +718,7 @@ class Common {
         return $student;
     }
 
-    public static function getStudentNameList()
+    public static function getNameStudentList()
     {
         return Student::orderBy('created_at', 'desc')->lists('fullname', 'id');
     }
@@ -743,11 +743,14 @@ class Common {
         return self::getObject($startDate, 'lesson_date');
     }
     
-    public static function resetPassAdmin()
+    public static function resetPassAdminOrUser()
     {
-        $check = Auth::admin()->get();
-        $adminId = $check->id;
-        return $adminId;
+        $admin = Auth::admin()->get();
+        if(!$admin){
+            $user = Auth::user()->get();
+            return $user->id;
+        }
+        return $admin->id;
     }
 
     public static function getScheduleOfStudentPackage($packageId){

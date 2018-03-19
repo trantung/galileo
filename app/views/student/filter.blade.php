@@ -9,12 +9,12 @@
 		
 		<div class="input-group inline-block">
             <label>Chọn học sinh</label>
-            {{ Form::select('fullname', ['' => '--Chọn--'] + Common::getStudentNameList(), null , ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) }}
+            {{ Form::select('fullname', ['' => '--Chọn--'] + Common::getNameStudentList(), Input::get('fullname') , ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) }}
         </div>
 
         <div class="input-group inline-block">
 			<label>Chọn Email</label>
-			{{ Form::select('email', ['' => '-- Chọn --'] + Common::getEmailStudentList(), null, ['class' => 'form-control']) }}
+			{{ Form::select('email', ['' => '-- Chọn --'] + Common::getEmailStudentList(), Input::get('email'), ['class' => 'form-control']) }}
 		</div>
 		<div class="input-group inline-block" style="vertical-align: bottom;">
 			<button type="submit" class="btn btn-primary">Tìm kiếm</button>
