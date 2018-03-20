@@ -155,37 +155,37 @@ class ManagerUserController extends AdminController implements AdminInterface{
     public function update($id)
     {
         $input = Input::all();
-        if( !empty($input['level']) ){
-            // Neu co nhap trinh do cua cac mon hoc
-            $levelIds = $input['level'];
-            $levelOlds = Common::getLevelOfUser($id);
-            $levelAdds = array_diff($levelIds, $levelOlds); // Lay cac Id moi de them vao
-            $levelDels = array_diff($levelOlds, $levelIds); // Lay cac Id se xoa
-            foreach ($levelDels as $key => $levelId) {
-                UserCenterLevel::where('user_id', $id)->where('level_id', $levelId)->delete();
-            }
-            foreach ($levelAdds as $key => $levelId) {
-                // Them moi level
-                $userCenterLevel = CenterLevel::where('level_id', $levelId)
-                    ->where('center_id', $input['center_id'])
-                    ->first();
-                if ($userCenterLevel != null) {
-                    $userCenterLevelId = $userCenterLevel->id;
-                    UserCenterLevel::create([
-                        'user_id' => $id,
-                        'center_level_id' => $userCenterLevelId,
-                        'level_id' => $levelId
-                    ]);
-                }
-            }
+        // if( !empty($input['level']) ){
+        //     // Neu co nhap trinh do cua cac mon hoc
+        //     $levelIds = $input['level'];
+        //     $levelOlds = Common::getLevelOfUser($id);
+        //     $levelAdds = array_diff($levelIds, $levelOlds); // Lay cac Id moi de them vao
+        //     $levelDels = array_diff($levelOlds, $levelIds); // Lay cac Id se xoa
+        //     foreach ($levelDels as $key => $levelId) {
+        //         UserCenterLevel::where('user_id', $id)->where('level_id', $levelId)->delete();
+        //     }
+        //     foreach ($levelAdds as $key => $levelId) {
+        //         // Them moi level
+        //         $userCenterLevel = CenterLevel::where('level_id', $levelId)
+        //             ->where('center_id', $input['center_id'])
+        //             ->first();
+        //         if ($userCenterLevel != null) {
+        //             $userCenterLevelId = $userCenterLevel->id;
+        //             UserCenterLevel::create([
+        //                 'user_id' => $id,
+        //                 'center_level_id' => $userCenterLevelId,
+        //                 'level_id' => $levelId
+        //             ]);
+        //         }
+        //     }
 
-        } else{
-            // Neu khong nhap gi thi xoa het trong bang center_user_level
-            $userCenterLevel = UserCenterLevel::where('user_id', $id)->delete();
-            // if( $userCenterLevel ){
-            //  $userCenterLevel->delete();
-            // }
-        }
+        // } else{
+        //     // Neu khong nhap gi thi xoa het trong bang center_user_level
+        //     $userCenterLevel = UserCenterLevel::where('user_id', $id)->delete();
+        //     // if( $userCenterLevel ){
+        //     //  $userCenterLevel->delete();
+        //     // }
+        // }
         CommonNormal::update($id, $input);
         return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }

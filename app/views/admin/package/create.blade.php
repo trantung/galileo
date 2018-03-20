@@ -59,10 +59,10 @@
             </div>
 
             <div class="form-group">
-              {{ Form::label('max_student', 'Học sinh học') }}       
+              {{ Form::label('max_student', 'Hình thức học') }}       
               <div class="row">
                 <div class="col-sm-6">
-                  {{ Form::select('max_student',[ '' => '-- chọn --', '1' => '1' , '2' => '2', '3' => '3'], null, ['class' => 'form-control']) }}
+                  {{ Form::select('max_student',[ '' => '-- chọn --', '1' => '1-1' , '2' => '1-2', '3' => '1-3'], null, ['class' => 'form-control']) }}
                 </div>
               </div>
             </div>

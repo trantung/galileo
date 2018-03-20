@@ -12,7 +12,9 @@
     <div class="margin-bottom">
         @include('admin.schedule.filter')
     </div>
-
+    <div class="margin-bottom" style="color: red">
+        <p>Co {{ $total }} lich hoc</p>
+    </div>
     @if( count($data) )
         <table class="table table-bordered table-striped table-hover" >
             <tr>

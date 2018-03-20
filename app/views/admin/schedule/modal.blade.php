@@ -1,4 +1,5 @@
 <div class="modal fade" id="myModal-{{ $value->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  @include('admin.common.message')
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       {{ Form::open(['action' => ['ScheduleController@update', $value->id], 'method' => "PUT" ]) }}
