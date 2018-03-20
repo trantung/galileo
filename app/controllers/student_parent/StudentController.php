@@ -1,8 +1,8 @@
 <?php
 class StudentController extends AdminController {
-    // public function __construct() {
+    public function __construct() {
        // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-    // }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -12,11 +12,8 @@ class StudentController extends AdminController {
     {
         $input = Input::all();
         $data = Student::orderBy('created_at', 'DESC');
-        if( !empty($input['fullname']) ){
-            $data->where('id', $input['fullname']);
-        }
-        if( !empty($input['email']) ){
-            $data->where('id', $input['email']);
+        if( !empty($input['student_id']) ){
+            $data->where('id', $input['student_id']);
         }
         $data = $data->paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));

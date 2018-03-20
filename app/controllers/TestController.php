@@ -4,7 +4,7 @@ class TestController extends AdminController implements AdminInterface {
 
 
     public function getImportFreeTimeUser(){
-        Excel::load('public/CVHT.xlsx', function($reader){
+        Excel::load('public/CVHT-V.xlsx', function($reader){
             $results = $reader->toArray();
             $frame = [
                 1 => ['start_time' => '08:00:00','end_time' => '10:00:00',],
@@ -15,13 +15,13 @@ class TestController extends AdminController implements AdminInterface {
                 6 => ['start_time' => '19:00:00','end_time' => '21:00:00',]
             ];
             foreach( $results as $key1 => $item){
-                $userName1 = $item['username'];
-                $userName = 'toan'.'.'.$userName1;
+                $userName = $item['username'];
+                
                 $user = User::where('username', $userName)->first();
                 if( empty($user) ){
                     $user = User::create([
                         'username' => $userName,
-                        'email' => $userName1.'@galileo.edu.vn',
+                        'email' => $userName.'@galileo.edu.vn',
                         'password' => Hash::make('123456'),
                         'role_id' => CVHT
                     ]);

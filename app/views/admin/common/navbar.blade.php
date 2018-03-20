@@ -16,7 +16,12 @@
 			<ul class="nav navbar-nav">
 		
 					<li class="user">
-						<a href="{{ action('AdminController@getResetPass', Common::resetPassAdminOrUser()) }}"><i class="fa fa-user"></i>Tài khoản</a>
+						@if(Auth::admin()->get())
+						<a href="{{ action('AdminController@getResetPass', Common::resetPassAdminOrUser()) }}"><i class="fa fa-user">
+						@else
+						<a href="{{action('ManagerUserController@account_user', Common::resetPassAdminOrUser())}}"><i class="fa fa-user">
+						@endif
+						</i>Tài khoản</a>
 					</li>
 					<li class="user">
 						<a href="{{ action('AdminController@logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
