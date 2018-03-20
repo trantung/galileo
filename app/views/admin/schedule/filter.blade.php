@@ -21,7 +21,6 @@
                  {{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="input-group inline-block">
 			<label>Ngày bắt đầu</label>
 			<input type="date" class="lesson_date form-control" value="{{ Input::get('start_date') }}" placeholder="Ngày bắt đầu" name="start_date">
