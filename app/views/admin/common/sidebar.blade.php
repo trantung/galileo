@@ -117,7 +117,6 @@
                             <span>Quản lý lịch học</span>
                         </a>
                     </li>
-
                     <li>
                         <a href="{{ action('ScheduleController@course') }}">
                             <i class="fa fa-newspaper-o"></i> 

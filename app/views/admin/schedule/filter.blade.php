@@ -21,7 +21,7 @@
                  {{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
             </div>
         </div>
-
+        <div class="clearfix"></div>
         <div class="input-group inline-block">
 			<label>Ngày bắt đầu</label>
 			<input type="date" class="lesson_date form-control" value="{{ Input::get('start_date') }}" placeholder="Ngày bắt đầu" name="start_date">
@@ -31,6 +31,7 @@
 			<label>Ngày kết thúc</label>
 			<input type="date" class="lesson_date form-control" value="{{ Input::get('end_date') }}" placeholder="Ngày kết thúc" name="end_date">
 		</div>
+		<div class="clearfix"></div>
 		<div class="input-group inline-block col-sm-2" >
             <label>Giờ băt đầu học</label>
             {{ Form::text('hour_start', Input::get('hour_start'), ['class' => 'form-control timepicker lesson_hour' ]) }}
@@ -39,7 +40,6 @@
             <label>Giờ kết thúc học</label>
             {{ Form::text('hour_end', Input::get('hour_end'), ['class' => 'form-control timepicker lesson_hour' ]) }}
         </div>
-
 		<div class="clearfix"></div>
 		<div class="input-group inline-block">
 			<label>Cố vấn học tập</label>
