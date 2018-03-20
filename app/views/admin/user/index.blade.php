@@ -23,7 +23,7 @@
 			  <th>Trung tâm</th>
 			  <th>Username</th>
 			  <th>Email</th>
-			  <th>Phân quyền</th>
+			  <th>Phân quyền học liệu</th>
 			  <th style="width:330px;">Action</th>
 			</tr>
 			 @foreach($users as $user)
@@ -33,7 +33,7 @@
 			  <td>{{ $user->username }}</td>
 			  <td>{{ $user->email }}</td>
 			  <td>
-				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Phân quyền</a>
+				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Phân quyền học liệu</a>
 			  </td>
 			  <td>
 			  	<a href="{{ action('ManagerUserController@getSetTime', [$user->id]) }}" class="btn btn-primary" > Set lịch</a>

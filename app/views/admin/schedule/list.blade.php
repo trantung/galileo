@@ -13,7 +13,7 @@
         @include('admin.schedule.filter')
     </div>
     <div class="margin-bottom" style="color: red">
-        <p>Co {{ $total }} lich hoc</p>
+        <p>Có tất cả {{ $total }} lượt học</p>
     </div>
     @if( count($data) )
         <table class="table table-bordered table-striped table-hover" >
@@ -27,7 +27,9 @@
                 <th>Môn học</td>
                 <th>Trình độ</td>
                 <th>STT buổi</td>
+                @if(checkPermissionUserByField('role_id', PTCM))
                 <th>Edit</td>
+                @endif
             </tr>
             @foreach($data as $key => $item)
                 @foreach($item as $i => $value)

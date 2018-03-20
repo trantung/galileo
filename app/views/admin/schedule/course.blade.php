@@ -20,7 +20,9 @@
             <th>Số tiền đã đóng</td>
             <th>Tổng số buổi</td>
             <th>Ngày bắt đầu học</td>
-            <th>Thao tác</th>
+            @if(checkPermissionUserByField('role_id', PTCM))
+                <th>Thao tác</th>
+            @endif
         </tr>   
         @foreach($data as $key => $value)
         <tr>
@@ -35,8 +37,10 @@
             <td>{{ $value->lesson_total }}</td>
             <td>{{ 'Buổi '.$value->lesson_code.', ngày '.Common::getStartDate($value->id) }}</td>
             <td>
-                @include('admin.schedule.course_modal')
-                <button class="btn btn-primary" data-toggle="modal" data-target="#courseModal-{{ $value->id }}">Sửa</button>
+                @if(checkPermissionUserByField('role_id', PTCM))
+                    @include('admin.schedule.course_modal')
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#courseModal-{{ $value->id }}">Sửa</button>
+                @endif
             </td>
         </tr>
         @endforeach
