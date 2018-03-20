@@ -41,5 +41,10 @@
         </tr>
         @endforeach
     </table>
+    <div class="row">
+        <div class="col-xs-12">
+            {{ $data->appends(Request::except('page'))->links() }}
+        </div>
+    </div>
     
 @stop
