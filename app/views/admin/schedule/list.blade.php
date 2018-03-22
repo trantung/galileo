@@ -5,13 +5,16 @@
 @stop
 
 @section('content')
+    @if(checkPermissionUserByField('role_id', GV))
     <a class="btn btn-primary" href="{{ action('ScheduleController@create') }}"><i class="fa fa-plus"></i> Tạo mới lịch học</a>
-    
+    @endif
     <!-- Bo loc -->
     <div class="margin-bottom">
         @include('admin.schedule.filter')
     </div>
-
+    <div class="margin-bottom" style="color: red">
+        <p>Có tất cả {{ $total }} lượt học</p>
+    </div>
     @if( count($data) )
         <table class="table table-bordered table-striped table-hover" >
             <tr>
@@ -24,7 +27,9 @@
                 <th>Môn học</td>
                 <th>Trình độ</td>
                 <th>STT buổi</td>
+                @if(checkPermissionUserByField('role_id', PTCM))
                 <th>Edit</td>
+                @endif
             </tr>
             @foreach($data as $key => $item)
                 @foreach($item as $i => $value)
@@ -39,10 +44,12 @@
                         <td>{{ Common::getObject($value->classes, 'name') }}</td>
                         <td>{{ Common::getObject($value->subjects, 'name') }}</td>
                         <td>{{ Common::getObject($value->levels, 'name') }}</td>
-                        <td><a href="{{ action('ScheduleController@documentLink', Common::getLessonIdByLessonCodeLevel($value->lesson_code, $value->level_id)) }}" target ="_blank"  class="btn btn-primary" style="width:80%;"> Buổi {{ $value->lesson_code }}</a></td>
+                        <td><a href="{{ action('ScheduleController@documentLink', [Common::getLessonIdByLessonCodeLevel($value->lesson_code, $value->level_id), $value->student_id]) }}" target ="_blank"  class="btn btn-primary" style="width:80%;"> Buổi {{ $value->lesson_code }}</a></td>
                         <td>
                             @include('admin.schedule.modal')
+                            @if(checkPermissionUserByField('role_id', PTCM))
                             <button class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ $value->id }}">Sửa</button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

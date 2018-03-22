@@ -22,7 +22,7 @@ Chỉnh sửa thành viên
     </div>
     <div class="form-group">
         {{ Form::label('name', 'Fullname') }}
-        {{ Form::email('full_name', $data->full_name, ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
+        {{ Form::text('full_name', $data->full_name, ['class' => 'form-control', 'required' =>'', 'autocomplete' => 'off']) }}
     </div>
     <div class="form-group">
         {{ Form::label('role_id', 'Phân quyền') }}
@@ -30,7 +30,7 @@ Chỉnh sửa thành viên
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">Thông tin thành viên</h3>
+            <h3 class="panel-title">Thông tin trung tâm</h3>
         </div>
         <div class="panel-body">
             <div class="form-group">

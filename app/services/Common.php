@@ -68,6 +68,7 @@ class Common {
      */
     public static function getClassSubjectLevelOfCenter($centerId){
         $levelsObject = Center::find($centerId);
+        // dd($centerId);
         $arr = [
             'listClasses' => [],
             'listSubjects' => [],
@@ -667,6 +668,7 @@ class Common {
         }
         return $name;
     }
+
     public static function getNameGender($gender)
     {
         if ($gender == NAM) {
@@ -700,8 +702,10 @@ class Common {
             return Common::getObject($family[1], 'phone');
         }
         return false;
-    }
+   
+        
 
+    }
     public static function getStudentList()
     {
         if ( !Cache::has('student_list') ){
@@ -716,6 +720,18 @@ class Common {
         
         return $student;
     }
+
+    public static function getNameStudentList()
+    {
+        return Student::orderBy('created_at', 'desc')->lists('fullname', 'id');
+    }
+
+    public static function getEmailStudentList()
+    {
+        return Student::orderBy('created_at', 'desc')->lists('email','id');
+    }
+
+
     public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
         $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
         if( $lesson ){
@@ -725,9 +741,87 @@ class Common {
         return null;
      }
 
-     public static function getStartDate($id)
+    public static function getStartDate($id)
     {
         $startDate = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
         return self::getObject($startDate, 'lesson_date');
     }
+    
+    public static function resetPassAdminOrUser()
+    {
+        $admin = Auth::admin()->get();
+        if(!$admin){
+            $user = Auth::user()->get();
+            return $user->id;
+        }
+        return $admin->id;
+    }
+
+    public static function getScheduleOfStudentPackage($packageId){
+        // if ( !Cache::has('schedule_of_course_'.$packageId) ){
+            return SpDetail::where('student_package_id', $packageId)
+             ->orderBy('lesson_date', 'ASC')
+             ->groupBy('time_id')
+             ->get();
+            // $student = [];
+            // foreach ($schedule as $id => $name) {
+            //     $students[$id] = $name.' - '.Common::getParentPhone($id);
+            // }
+            // Cache::put('schedule_of_course_'.$packageId, $schedules, 1);
+        // }
+        // $schedules = Cache::get('schedule_of_course_'.$packageId);
+        
+        // return $schedules;
+    }
+
+    public static function getTimeIdList(){
+        return [
+            T2 => 'Thứ hai',
+            T3 => 'Thứ ba',
+            T4 => 'Thứ tư',
+            T5 => 'Thứ năm',
+            T6 => 'Thứ sáu',
+            T7 => 'Thứ bảy',
+            CN => 'Chủ nhật',
+        ];
+    }
+
+    public static function getCVHTList()
+    {
+        return User::where('role_id', CVHT)->lists('username', 'id');
+    }
+
+    public static function checkCreateOrUpdateDocAdd($lessonId, $studentId)
+    {
+        $count = DocumentAdditional::where('lesson_id', $lessonId)
+            ->where('student_id', $studentId)
+            ->count();
+        if ($count > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static function getDocAdd($lessonId, $studentId, $typeId, $order)
+    {
+        $ob = DocumentAdditional::where('lesson_id', $lessonId)
+            ->where('student_id', $studentId)
+            ->where('type_id', $typeId)
+            ->where('order', $order)
+            ->first();
+        if ($ob) {
+            return $ob;
+        }
+        return null;
+    }
+
+    public static function getUserCenterList()
+    {
+        $user = getCurrentUser();
+        if ($user) {
+            $userCenterList = UserCenterLevel::where('center_id', $user->id)->get();
+        }
+        return $userCenterList;
+    }
+    
 }

@@ -1,4 +1,6 @@
 <?php
+// $user = Auth::user()->get();
+//         dd($user);
 /*
     Hệ thống
     1. Quản lý partner
@@ -12,6 +14,31 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/update_center_level_id_cvht', function(){
+    $centerId = 2;
+    $listLevelId = [$centerId => Level::lists('id')];
+    foreach ($listLevelId as $key => $value) {
+        foreach ($value as $k => $levelId) {
+            $userCenterLevel = CenterLevel::where('level_id', $levelId)
+                ->where('center_id', $key)
+                ->first();
+            if (!$userCenterLevel) {
+                dd('sai config');
+            }
+            $userCenterLevelId = $userCenterLevel->id;
+            foreach (User::lists('id') as $userId) {
+                UserCenterLevel::create([
+                    'user_id' => $userId,
+                    'center_id' => $key,
+                    'center_level_id' => $userCenterLevelId,
+                    'level_id' => $levelId
+                ]);
+            }
+        }
+    }
+    dd(1111);
+});
+
 Route::get('/update_permission_user_depend_subject', function(){
     $listUser = User::all();
     $group = PermissionGroup::where('code', 'VHL')->first();
@@ -72,7 +99,7 @@ Route::get('/test/updatedb/T', 'TestController@updatedbT');
 Route::get('/test/import', 'TestController@import');
 Route::controller('/test', 'TestController');
 
-Route::resource('/', 'AdminController');
+// Route::resource('/', 'AdminController');
     
 Route::get('/parent/update', function(){
     $docs = Document::groupBy('lesson_id')->get();
@@ -93,11 +120,13 @@ Route::get('/parent/update', function(){
 });
 Route::get('/test/upload', 'AdminController@getUpload');
 Route::post('/test/upload', 'AdminController@postUpload');
+Route::get('/uploadfile', 'AdminController@getUploadFile');
+Route::post('/uploadfile', 'AdminController@postUploadFile');
 
-Route::get('/', 'AdminController@index');
+// Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
 
-	Route::resource('/', 'AdminController');
+	// Route::resource('/administrator', 'AdminController');
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
@@ -110,12 +139,14 @@ Route::group(['prefix' => 'admin'], function () {
 
     //
     Route::resource('administrator', 'AdminController');
+    Route::post('/schedule/additional/update/{id}/{student_id}', 'ScheduleController@postUpdateAdditional');
+    Route::post('/schedule/additional/{id}/{student_id}', 'ScheduleController@postAdditional');
     
     Route::resource('student', 'StudentController');
     Route::resource('schedule', 'ScheduleController');
     Route::get('student_package', 'ScheduleController@course');
     Route::put('student_package/{id}', 'ScheduleController@courseEdit');
-    Route::get('document_link/{id}', 'ScheduleController@documentLink');
+    Route::get('document_link/{id}/{student_id}', 'ScheduleController@documentLink');
     
     
        /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
@@ -150,10 +181,12 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/user/{id}/set-time', 'ManagerUserController@getSetTime');
     Route::post('/user/{id}/set-time', 'ManagerUserController@postSetTime');
     Route::post('/user/{userId}/{timeId}/{startTime}/{endTime}/set-time', 'ManagerUserController@detroyFreeTime');
+    Route::get('/user/account_user/{id}', 'ManagerUserController@account_user');
+    Route::get('logout_user', 'ManagerUserController@logout');
 
     Route::resource('/user', 'ManagerUserController');
     Route::controller('/user', 'ManagerUserController');
-    Route::resource('/', 'AdminController');
+    // Route::resource('/', 'AdminController');
 
     /*
         Quản lý Level: CRUD level: tên, số buổi học

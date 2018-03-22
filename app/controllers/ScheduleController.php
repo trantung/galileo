@@ -35,6 +35,9 @@ class ScheduleController extends \BaseController {
         if( !empty($input['start_date']) && !empty($input['end_date']) ){
             $data2->whereBetween('lesson_date', [ $input['start_date'], $input['end_date'] ]);
         }
+        if( !empty($input['hour_start']) && !empty($input['hour_end']) ){
+            $data2->whereBetween('lesson_hour', [ $input['hour_start'], $input['hour_end'] ]);
+        }
         if( !empty($input['phone']) ){
             $families = Family::where('phone', trim($input['phone']))->get();
             if( count($families) == 0 ){
@@ -52,11 +55,12 @@ class ScheduleController extends \BaseController {
         }
 
         $data = [];
+        $total = count($data2->get());
         foreach ($data2->get() as $key => $value) {
             $data[$value->lesson_date][] = $value;
         }
         $data2 = $data2->paginate(PAGINATE);
-        return View::make('admin.schedule.list')->with(compact('data', 'data2'));
+        return View::make('admin.schedule.list')->with(compact('data', 'data2', 'total'));
     }
     /**
      * Show the form for creating a new resource.
@@ -68,11 +72,23 @@ class ScheduleController extends \BaseController {
         $class = ClassModel::lists('name', 'id');
         $subject = Subject::lists('name', 'id');
         $level = Level::lists('name', 'id');
-        $center = Center::lists('name', 'id');
+        $admin = Auth::admin()->get();
+        if ($admin) {
+            $center = Center::lists('name', 'id');
+        } else {
+            $user = Auth::user()->get();
+            if (!$user) {
+                return Redirect::action('UserController@login');
+            }
+            $userId = $user->id;
+            $listCenterId = UserCenterLevel::where('user_id', $userId)->lists('center_id');
+            $center = Center::whereIn('id', $listCenterId)->lists('name', 'id');
+        }
         $students = Student::lists('fullname', 'id');
         $userActive = User::where('role_id', CVHT)->lists('username', 'id');
         $userNameActive = User::where('role_id', CVHT)->lists('username');
         return View::make('admin.schedule.create')->with(compact('class', 'subject', 'level', 'center','package', 'student','userActive', 'userNameActive'));
+
     }
 
     /**
@@ -83,9 +99,12 @@ class ScheduleController extends \BaseController {
     public function course()
     {
         $input = Input::all();
-        
+        // dd($input);
         $data = StudentPackage::orderBy('code', 'ASC');
 
+        if( !empty($input['student_id']) ){
+            $data->where('student_id', $input['student_id']);
+        }
         if( !empty($input['class_id']) ){
             $data->where('class_id', $input['class_id']);
         }
@@ -101,17 +120,23 @@ class ScheduleController extends \BaseController {
         $data = $data->paginate(PAGINATE);
         return View::make('admin.schedule.course')->with(compact('data'));
     }
-
+    
     public function store()
     {
         $input = Input::all();
-       
         // dd($input);
         //create record in table: student_package
         $studentPackageInput = Input::only(
             'center_id', 'class_id', 'subject_id', 'level_id',
             'package_id', 'lesson_code', 'money_paid'
         );
+        if (!isset($studentPackageInput['lesson_code'])) {
+            $studentPackageInput['lesson_code'] = 1;
+        }
+        if (!isset($input['user_id'])) {
+            $input['user_id'] = null;
+        }
+
         $studentPackageInput['student_id'] = $input['student_id'];
         $studentPackageInput['center_id'] = $input['center_id'];
         // $studentPackageInput['time_id'] = getTimeId($input['time_id']);
@@ -152,7 +177,7 @@ class ScheduleController extends \BaseController {
             $spDetailInput['lesson_hour'] = $lessonDate[$i][1];
             $idSpDetail = SpDetail::create($spDetailInput)->id;
         }
-        return Redirect::action('ScheduleController@index');
+        return Redirect::action('ScheduleController@index')->withMessage('Bạn đã tạo thành công lịch  học sinh '.$input['student_id']);
     }
 
 
@@ -163,11 +188,12 @@ class ScheduleController extends \BaseController {
      * @return Response
      */
 
-    public function documentLink($lessonId)
-    {   $documents = Document::where('lesson_id', $lessonId)
-        ->groupBy('parent_id')
-        ->get();
-        return View::make('admin.schedule.document_link')->with(compact('documents'));
+    public function documentLink($lessonId, $studentId)
+    {   
+        $documents = Document::where('lesson_id', $lessonId)
+            ->groupBy('parent_id')
+            ->get();
+        return View::make('admin.schedule.document_link')->with(compact('documents', 'lessonId', 'studentId'));
     }
 
 
@@ -195,17 +221,13 @@ class ScheduleController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function updatecourse($id)
-    {
-        
-    }
 
     public function update($id)
     {
     	$input = Input::except('_token');
     	$spDetail = SpDetail::find($id);
     	$spDetail->update($input);
-    	return Redirect::action('ScheduleController@index');
+        return Redirect::action('ScheduleController@index')->withMessage('Lưu thông tin thành công!');
     }
 
 
@@ -219,13 +241,97 @@ class ScheduleController extends \BaseController {
     {
         //
     }
+    public function postAdditional($id, $studentId)
+    {
+        $input = Input::all();
+        // dd($input['doc_new_file_p']);
+        $doc['lesson_id'] = $id;
+        $doc['student_id'] = $studentId;
+        if (Auth::admin()->get()) {
+            $doc['user_id'] = null;
+        } else {
+            $doc['user_id'] = getValueUser('id');
+        }
+        $lesson = Lesson::find($id);
+        $levelId = $lesson->level_id;
+        $doc['level_id'] = $lesson->level_id;
+        $doc['subject_id'] = $lesson->subject_id;
+        $doc['class_id'] = $lesson->class_id;
+        $doc['status'] = 1;
+
+        $subjectCode = SubjectClass::find($lesson->subject_id)->code;
+        $classCode = ClassModel::find($lesson->class_id)->code;
+        $levelCode = Level::find($lesson->level_id)->code;
+        $lessonCode = $lesson ->code;
+        $link = $subjectCode.'/'.$classCode.'/'.$levelCode.'/'.$lessonCode.'/';
+        // dd($input);
+        foreach ($input['doc_new_file_p'] as $key => $value) {
+            $doc['type_id'] = P;
+            $docAdditionalId = DocumentAdditional::create($doc)->id;
+            $linkDefault = DOCUMENT_UPLOAD_ADDITIONAL.'/'.$link.'/'.$studentId.'/';
+            $destinationPath = public_path().'/'.$linkDefault;
+            $filename = $value->getClientOriginalName();
+            $uploadSuccess = $value->move($destinationPath, $filename);
+            $docAdditional = DocumentAdditional::find($docAdditionalId);
+            $docUpdate['parent_id'] = $docAdditionalId;
+            $docUpdate['file_url'] = $linkDefault.$filename;
+            $docUpdate['order'] = $key;
+            $docUpdate['code'] = commonGetCodeDocument($docAdditionalId, 'DocumentAdditional');
+            $docAdditional->update($docUpdate);
+            if (isset($input['doc_new_file_d'][$key])) {
+                $docD = $doc;
+                $docD['type_id'] = D;
+                $docAdditionalIdD = DocumentAdditional::create($docD)->id;
+                $destinationPathD = public_path().'/'.$linkDefault;
+                $filenameD = $input['doc_new_file_d'][$key]->getClientOriginalName();
+                $uploadSuccess = $input['doc_new_file_d'][$key]->move($destinationPathD, $filenameD);
+                $docAdditionalD = DocumentAdditional::find($docAdditionalIdD);
+                $docUpdateD['parent_id'] = $docAdditionalId;
+                $docUpdateD['file_url'] = $linkDefault.$filenameD;
+                $docUpdateD['code'] = commonGetCodeDocument($docAdditionalIdD, 'DocumentAdditional');
+                $docUpdateD['order'] = $key;
+                $docAdditionalD->update($docUpdateD);
+            }
+
+        }
+        return Redirect::action('ScheduleController@index');
+    }
+    public function postUpdateAdditional($id, $studentId)
+    {
+        $input = Input::all();
+        dd('chưa làm phần update doc add');
+    }
 
     public function courseEdit($id){
-        $input = Input::all();
-        $old = StudentPackage::find($id);
-        $input['code'] = $old->code;
-        $old->delete();
-        StudentPackage::create($input);
-        return Redirect::action('ScheduleController@course')->withMessage('Lưu thành công!');
+        $input = Input::get('lesson_code');
+        $FirstSpDetail = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->first();
+        if( $FirstSpDetail ){
+            $balance = $input;
+            $spDetails = SpDetail::where('student_package_id', $id)->orderBy('lesson_code', 'ASC')->get();
+            foreach ($spDetails as $key => $item) {
+                $item->update(['lesson_code' => $balance]);
+                $balance++;
+            }
+        }
+        // dd($spDetail);
+        CommonNormal::update($id, ['lesson_code' => $input], 'StudentPackage');
+
+        $inputSpdetail = Input::all();
+        foreach ($inputSpdetail['time_id'] as $key => $value) {
+            // dd(array_values($value)[0]);
+            if( !empty($inputSpdetail['user_id'][$key]) ){
+                // dd(array_keys($value)[0], array_values($value)[0]);
+                SpDetail::where( 'student_package_id', $id )
+                    ->where( 'time_id', array_keys($value)[0] )
+                    ->where( 'lesson_hour', array_keys($inputSpdetail['hours'][$key])[0] )
+                    ->update( [
+                        'user_id' => $inputSpdetail['user_id'][$key],
+                        'time_id' => array_values($value)[0],
+                        'lesson_hour' => array_values($inputSpdetail['hours'][$key])[0]
+                    ] );
+            }
+        }
+        // dd($inputSpdetail);
+        return Redirect::back()->withMessage('Lưu thành công!');
     }
 }

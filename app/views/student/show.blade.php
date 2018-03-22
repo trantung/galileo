@@ -14,7 +14,7 @@
 
 <div class="row margin-bottom">
   <div class="col-xs-12">
-    <a href="{{ action('StudentController@index') }}" class="btn btn-success">Danh sách học sinh</a>
+    <a href="{{ action('StudentController@index') }}" class="btn btn-primary">Danh sách học sinh</a>
 </div>
 </div>
 
@@ -67,7 +67,7 @@
 
                 <div class="form-group">
                     <label for="center_id">Trung tâm</label>
-                    {{  Form::text('center_id', $student->center_id, array('class' => 'form-control', 'disabled' => 'disabled' )) }}
+                    {{  Form::text('center_id', Common::getObject($student->centers, 'name'), array('class' => 'form-control', 'disabled' => 'disabled' )) }}
                 </div>
 
                 <div class="form-group">

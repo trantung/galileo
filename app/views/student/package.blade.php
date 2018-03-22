@@ -3,11 +3,12 @@
         <legend>Thông tin gói học</legend>
         <div class="form-group">
             <label>Chọn trung tâm</label>
-            {{ Form::select('center_id',['' => '--chọn--']+$center, null , ['class' => 'form-control ', 'required' => true]) }}
+
+            {{ Form::select('center_id', $center, Common::getUserCenterList(), ['class' => 'form-control ', 'required' => true]) }}
         </div>
         <div class="form-group">
             <label>Chọn học sinh</label>
-            {{ Form::select('student_id',['' => '--chọn--'] + Common::getStudentList(), null , ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true]) }}
+            {{ Form::select('student_id',['' => '--chọn--'] + Common::getStudentList(), Input::get('student_id') , ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true]) }}
         </div>
 
         <div class="box alert filter-document-form">
@@ -66,17 +67,19 @@
         </div>
 
        
-    </fieldset> <div class="form-group">
+    </fieldset>
+        <div class="form-group">
             {{ Form::label('money_paid', 'Số tiền đóng học') }} 
             {{ Form::text('money_paid','', ['class' => 'form-control','required'=>true])}}
         </div>
-        <div class="form-group">
+        
+        <!-- <div class="form-group">
             {{ Form::label('lesson_code', 'Bắt đầu học từ buổi', ['style' => 'display: block']) }}
-            {{ Form::select('lesson_code', Common::getListLessonCode(), null,['class' => 'form-control', 'required'=>true])}}
+            {{ Form::select('lesson_code', Common::getListLessonCode(), Input::get('lesson_code'),['class' => 'form-control', 'required'=>true])}}
         </div>
         <div class="form-group">
 
             {{ Form::label('user_id','Chọn cố vấn học tập') }}
             {{ Form::select('user_id', ['' => '-- chọn --'] + $userActive, null,['class' => 'form-control selectpicker select-teacher', 'data-live-search' => 'true'])}}
-        </div>
+        </div> -->
 </div>

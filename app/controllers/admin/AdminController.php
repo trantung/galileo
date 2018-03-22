@@ -1,3 +1,4 @@
+
 <?php
 class AdminController extends BaseController {
     public function __construct() {
@@ -165,6 +166,77 @@ class AdminController extends BaseController {
         }
         dd(555);
     }
+
+    public function getUploadFile(){
+        return View::make('upload_file');
+    }
+
+    public function postUploadFile()
+    {
+        $input =Input::all();
+        $countDocument = count($input['document']);
+        if( Input::hasFile('document') )
+        {
+            $files = Input::file('document');
+            foreach ($files as $file) {
+                $file_name = $file->getClientOriginalName();                // lấy tên file chọn 
+                $nameArray = substr($file_name, 0, count($file_name)-5);    //  bỏ đuôi file
+                $str = explode('_', $nameArray);                            //  tách chuối  bởi dấu _ 
+                $str0 = $str[0];                                             //  lấy chuỗi đầu sau khi tách
+                $title = substr($str0, 0, 1);                                // lấy ký tự đầu trong $str0  ( P-D ) 
+                $subject_id = substr($str0, 1, 1);                           // lấy ký tự thứ 2 trong $str0 ( Môn )
+                $str03 = substr($str0, 2, 2);                                 // lấy 2 ký tự cuối trong $str0( lớp )
+                if($str03 < 10){                                              // lấy ký tự lớp mà nhỏ hơn 10  thì lấy 1 ký tự  
+                    $class_id = $str03 % 10;
+                }
+                else{
+                    $class_id = $str03;                    // nêu lớn hơn thì lấy 2 ký tự
+                }
+                $levelCode = $str[1];
+                $lessonCode = $str[2];
+                $version = $str[3];
+                $typeCode = ($title == 'P') ? P : D;
+                $classCode = ClassModel::where('code', $class_id)->first();
+                $subjectCode = Subject::where('code', $subject_id)->first();
+                $levelCode = Level::where('code', $levelCode)
+                        ->where('class_id', $classCode->id)
+                        ->where('subject_id', $subjectCode->id)
+                        ->first();
+                $check = Document::where('code', $nameArray)->first();
+                $documentEmpty = count($check);
+                if($documentEmpty > 0){
+                    dd('chua hieu update nhu the nao');
+                }
+                else{
+                    $link = $class_id.'/'.$subject_id.'/'.$levelCode.'/'.$lessonCode.'/';
+                    $linkDefault = DOCUMENT_UPLOAD_DIR.'/'.$link.'/';
+                    $filee = public_path().'/'.$linkDefault;
+                    $uploadSuccess = $file->move($filee, $file_name);
+                    $field = [
+                    'file_url' => $linkDefault.$file_name,
+                    'type_id'  => $typeCode,
+                    'code'     => $nameArray,
+                    'class_id' => $classCode->id,
+                    'subject_id' => $subjectCode->id,
+                    'level_id' => $levelCode->id,
+                    'lesson_id' => $lessonCode,
+                    'status'   =>1
+                    ];
+                    if( $uploadSuccess ){                   // Neu upload thanh cong thi luu url vao database
+                        $documentId = Document::create($field)->id;
+                        Document::find($documentId)->update(['parent_id' => $documentId]);
+                    }
+                }
+            }
+        }
+       return  Redirect::back()->withMessage('Bạn đã upload thành công ! '.$countDocument.' file');
+    }
+
+
+
+
+
+
 
     public function getResetPass($id)
     {

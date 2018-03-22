@@ -26,7 +26,7 @@
 			  <th>Đối tác</th>
 			  <th>Phone</th>
 			  <th>Địa chỉ</th>
-			  <th style="width:300px;">Action</th>
+			  <th style="width:150px;">Action</th>
 			</tr>
 			 @foreach($centers as $center)
 			<tr>

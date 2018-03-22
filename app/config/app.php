@@ -79,7 +79,7 @@ return array(
 	|
 	*/
 
-	'key' => '3Grj3PiSfRWz90gnqE4tHQbPfqJx7ob4',
+	'key' => 'P0ctBZdzb9FAQ7QIv30ncDZw90r4bDN4',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -123,7 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		"Ollieread\Multiauth\MultiauthServiceProvider",
 		"Maatwebsite\Excel\ExcelServiceProvider",
-	    'Barryvdh\Debugbar\ServiceProvider',
+	//    'Barryvdh\Debugbar\ServiceProvider',
 	),
 
 	/*
@@ -191,7 +191,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Excel' 		  => 'Maatwebsite\Excel\Facades\Excel',
-		'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
+	//	'Debugbar' 	      => 'Barryvdh\Debugbar\Facade',
 	),
 
 );
