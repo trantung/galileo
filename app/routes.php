@@ -123,7 +123,7 @@ Route::post('/test/upload', 'AdminController@postUpload');
 Route::get('/uploadfile', 'AdminController@getUploadFile');
 Route::post('/uploadfile', 'AdminController@postUploadFile');
 
-// Route::get('/', 'AdminController@index');
+Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
 
 	// Route::resource('/administrator', 'AdminController');
