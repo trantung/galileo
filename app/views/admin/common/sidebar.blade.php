@@ -4,8 +4,9 @@
             <li class="treeview">
                 @if(checkUrlPermission('ManagerPartnerController@index'))
                     <a href=""><i class="fa fa-newspaper-o"></i>
-                        <span>Quản lý hệ thống</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                        <span class="inline-block">Quản lý hệ thống</span>
+                        <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
+                        {{-- <span style="margin-left:4.5em;" class="container inline-block"><i class="fa fa-angle-downpull-right "></i></span> --}}
                     </a>
                 @endif
                 <ul class="treeview-menu">
@@ -74,7 +75,7 @@
             <li class="treeview">
                 <a href=""><i class="fa fa-newspaper-o"></i>
                     <span>Quản lý nội dung</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                    <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
                     @if(checkUrlPermission('LevelController@index'))
@@ -99,7 +100,7 @@
             <li class="treeview">
                 <a href=""><i class="fa fa-newspaper-o"></i>
                     <span>Quản lý lịch học</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                    <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
                     @if(checkUrlPermission('PackageController@index'))
