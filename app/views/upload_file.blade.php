@@ -14,7 +14,7 @@
 
 	{{ Form::open(array('action' => array('AdminController@postUploadFile'), 'files' => true)) }}
 	<div class="col-sm-4">
-	    {{ Form::file('document[]', array('multiple'=>true, 'class' => 'form-control btn' )) }}
+	    {{ Form::file('document[]', array('multiple'=>true, 'class' => 'form-control btn', 'accept' => '.pdf' )) }}
 	  	{{-- <span>{{ $error }}</span> --}}
 	    <span class="text-danger"> <b>Chú ý :</b> Upload tối đa 100 file</span>
 	</div>

@@ -320,6 +320,16 @@ class Common {
         return null;
     }
 
+    public static function explodeDocumentName($name){
+        return [
+            'type' => substr($name, 0, 1),
+            'subject_code' => substr($name, 1, 1),
+            'class_code' => (int)substr($name, 2, 2),
+            'level_code' => (isset(explode('_', $name)[1]) ? explode('_', $name)[1] : ''),
+            'lesson_code' => (isset(explode('_', $name)[2]) ? explode('_', $name)[2] : ''),
+        ];
+    }
+
     public static function saveDocument($name, $doc, $arrayP = null)
     {
         $array = [];

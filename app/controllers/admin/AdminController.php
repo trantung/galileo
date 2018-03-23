@@ -174,62 +174,70 @@ class AdminController extends BaseController {
     public function postUploadFile()
     {
         $input =Input::all();
-        $countDocument = count($input['document']);
+        $countDocument = 0;
         if( Input::hasFile('document') )
         {
             $files = Input::file('document');
-            foreach ($files as $file) {
-                $file_name = $file->getClientOriginalName();                // lấy tên file chọn 
-                $nameArray = substr($file_name, 0, count($file_name)-5);    //  bỏ đuôi file
-                $str = explode('_', $nameArray);                            //  tách chuối  bởi dấu _ 
-                $str0 = $str[0];                                             //  lấy chuỗi đầu sau khi tách
-                $title = substr($str0, 0, 1);                                // lấy ký tự đầu trong $str0  ( P-D ) 
-                $subject_id = substr($str0, 1, 1);                           // lấy ký tự thứ 2 trong $str0 ( Môn )
-                $str03 = substr($str0, 2, 2);                                 // lấy 2 ký tự cuối trong $str0( lớp )
-                if($str03 < 10){                                              // lấy ký tự lớp mà nhỏ hơn 10  thì lấy 1 ký tự  
-                    $class_id = $str03 % 10;
+            $error = '';
+            foreach ($files as $key => $file) {
+                if( $key > 99 ){
+                    break;
                 }
-                else{
-                    $class_id = $str03;                    // nêu lớn hơn thì lấy 2 ký tự
+                if( $file->getClientOriginalExtension() != 'pdf' ){
+                    $error .= $file->getClientOriginalName().' Sai định dạng!<br>';
+                    continue;
                 }
-                $levelCode = $str[1];
-                $lessonCode = $str[2];
-                $version = $str[3];
-                $typeCode = ($title == 'P') ? P : D;
-                $classCode = ClassModel::where('code', $class_id)->first();
-                $subjectCode = Subject::where('code', $subject_id)->first();
-                $levelCode = Level::where('code', $levelCode)
-                        ->where('class_id', $classCode->id)
-                        ->where('subject_id', $subjectCode->id)
-                        ->first();
-                $check = Document::where('code', $nameArray)->first();
-                $documentEmpty = count($check);
-                if($documentEmpty > 0){
-                    dd('chua hieu update nhu the nao');
+                $file_name = $file->getClientOriginalName();
+                $nameArray = basename($file_name, '.pdf');    //  bỏ đuôi file
+                if( Document::where('code', $nameArray)->count() > 0 ){
+                    $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';
+                    continue;
                 }
-                else{
-                    $link = $class_id.'/'.$subject_id.'/'.$levelCode.'/'.$lessonCode.'/';
-                    $linkDefault = DOCUMENT_UPLOAD_DIR.'/'.$link.'/';
-                    $filee = public_path().'/'.$linkDefault;
-                    $uploadSuccess = $file->move($filee, $file_name);
-                    $field = [
+
+                $strArr = Common::explodeDocumentName($nameArray);
+                $lessonId = Lesson::where('code', (int)$strArr['lesson_code'])->first();
+                $classId = ClassModel::where('code', (int)$strArr['class_code'])->first();
+                $subjectId = Subject::where('code', $strArr['subject_code'])->first();
+                $levelId = Level::where('code', $strArr['level_code'])->first();
+                if( empty(Common::getObject($lessonId, 'id'))
+                    | empty(Common::getObject($classId, 'id'))
+                    | empty(Common::getObject($subjectId, 'id'))
+                    | empty(Common::getObject($levelId, 'id')) ){
+                    $error .= 'Học liệu '. $nameArray .' không đúng định dạng tên!<br>';
+                    continue;
+                }
+
+                $link = $strArr['subject_code'].'/'.$strArr['class_code'].'/'.$strArr['level_code'].'/'.$strArr['lesson_code'].'/';
+                $linkDefault = DOCUMENT_UPLOAD_DIR.$link;
+                $filee = public_path().'/'.$linkDefault;
+                $uploadSuccess = $file->move($filee, $file_name);
+                $field = [
                     'file_url' => $linkDefault.$file_name,
-                    'type_id'  => $typeCode,
+                    'type_id'  => ($strArr['type'] == 'P') ? P : D,
                     'code'     => $nameArray,
-                    'class_id' => $classCode->id,
-                    'subject_id' => $subjectCode->id,
-                    'level_id' => $levelCode->id,
-                    'lesson_id' => $lessonCode,
+                    'class_id' => Common::getObject($classId, 'id'),
+                    'subject_id' => Common::getObject($subjectId, 'id'),
+                    'level_id' => Common::getObject($levelId, 'id'),
+                    'lesson_id' => Common::getObject($lessonId, 'id'),
                     'status'   =>1
-                    ];
-                    if( $uploadSuccess ){                   // Neu upload thanh cong thi luu url vao database
-                        $documentId = Document::create($field)->id;
-                        Document::find($documentId)->update(['parent_id' => $documentId]);
-                    }
+                ];
+                if( $uploadSuccess ){                   // Neu upload thanh cong thi luu url vao database
+                    $documentId = Document::create($field)->id;
+                    Document::find($documentId)->update(['parent_id' => $documentId]);
                 }
+                $countDocument++;
             }
         }
-       return  Redirect::back()->withMessage('Bạn đã upload thành công ! '.$countDocument.' file');
+        if( !empty($error) ){
+            return  Redirect::back()->withError($error);
+        }
+        return  Redirect::back()->withMessage('Bạn đã upload thành công ! '.$countDocument.' file');
+
+        /** TODO **/
+        // Chua check parent_ID
+        // Chua gioi han so luong upload
+        // Chua check phien ban Document
+        // 
     }
 
 
