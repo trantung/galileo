@@ -91,6 +91,8 @@ class AdminController extends BaseController {
             return View::make('admin.layout.login');
         }
     }
+    //  trùng vẫn cho up 
+    // file  nào đúng vẫn cho up sai thì không cho up
     public function doLogin()
     {
         $rules = array(
@@ -140,6 +142,7 @@ class AdminController extends BaseController {
     }
     public function postUpload()
     {
+           
         $input = Input::except('_token');
         $destinationPath = public_path().DOCUMENT_UPLOAD_DIR;
         foreach ($input['files'] as $key => $file) {
@@ -170,10 +173,12 @@ class AdminController extends BaseController {
     public function getUploadFile(){
         return View::make('upload_file');
     }
-
+             //  trùng vẫn cho up 
+            // file  nào đúng vẫn cho up sai thì không cho up
     public function postUploadFile()
     {
         $input =Input::all();
+        $now = time();
         $countDocument = 0;
         if( Input::hasFile('document') )
         {
@@ -183,16 +188,23 @@ class AdminController extends BaseController {
                 if( $key > 99 ){
                     break;
                 }
+                
                 if( $file->getClientOriginalExtension() != 'pdf' ){
                     $error .= $file->getClientOriginalName().' Sai định dạng!<br>';
                     continue;
                 }
                 $file_name = $file->getClientOriginalName();
-                $nameArray = basename($file_name, '.pdf');    //  bỏ đuôi file
+                $nameArray = basename($file_name, '.pdf');   //  bỏ đuôi file
                 if( Document::where('code', $nameArray)->count() > 0 ){
-                    $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';
-                    continue;
+
+                     $ob = Document::where('code', $nameArray)->first();
+                     $fileUrl = $ob->file_url;
+                    $re_nameArray = rename(public_path().$fileUrl, public_path().$fileUrl.'_'.$now);
+
+                    // $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';
+                    // continue;
                 }
+
 
                 $strArr = Common::explodeDocumentName($nameArray);
                 $lessonId = Lesson::where('code', (int)$strArr['lesson_code'])->first();
@@ -221,9 +233,14 @@ class AdminController extends BaseController {
                     'lesson_id' => Common::getObject($lessonId, 'id'),
                     'status'   =>1
                 ];
-                if( $uploadSuccess ){                   // Neu upload thanh cong thi luu url vao database
-                    $documentId = Document::create($field)->id;
-                    Document::find($documentId)->update(['parent_id' => $documentId]);
+                if( $uploadSuccess ){      
+
+                             // Neu upload thanh cong thi luu url vao database
+                     if( Document::where('code', $nameArray)->count() == 0 ){
+                        $documentId = Document::create($field)->id;
+                        Document::find($documentId)->update(['parent_id' => $documentId]);
+                    }
+
                 }
                 $countDocument++;
             }

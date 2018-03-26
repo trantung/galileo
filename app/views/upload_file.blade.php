@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Upload File' }}
+	{{ $title='Upload File' }}
 @stop
 
 @section('js_header')

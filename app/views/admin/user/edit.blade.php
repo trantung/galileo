@@ -39,7 +39,7 @@ Chỉnh sửa thành viên
                     <?php $listData = Common::getClassSubjectLevelOfCenter($centerId); ?>
                     <div class="form-group checkbox col-sm-6">
                         <label for="center-{{ $centerId }}">
-                            {{ Form::checkbox( '', $centerId, true, ['id' => 'center-'.$centerId] ) . $center }}
+                            {{ Form::checkbox( '', $centerId, ['id' => 'center-'.$centerId] ) . $center }}
                         </label>
 
                         <div class="get-list-level-by-center-wrap">
