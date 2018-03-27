@@ -8,11 +8,10 @@
 
 @section('title')
 {{ $title='Tạo mới lịch học' }}
-<a class="btn btn-primary" href="{{ action('ScheduleController@index') }}">Danh sách lịch học</a>
 @stop
-
-
 @section('content')
+	<a class="btn btn-primary" style="margin-bottom: 5px;" href="{{ action('ScheduleController@index') }}">Danh sách lịch học</a>	
+	<div class="clearfix"></div>
 	{{ Form::open(['action' =>['ScheduleController@store'],'method' => 'POST', 'class' => 'col-sm-6 padding0 schedule-create-form']) }}
 		@include('student.package')
 		<div class="box-footer">

@@ -9,7 +9,7 @@
 		
 		<div class="input-group inline-block">
             <label>Chọn học sinh</label>
-            {{ Form::select('student_id', ['' => '--Chọn--'] + Common::getStudentList(), null , ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) }}
+            {{ Form::select('student_id', ['' => '--Chọn--'] + Common::getStudentList(), Input::get('student_id') , ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) }}
         </div>
 
 		<div class="input-group inline-block filter-document-form">
@@ -29,7 +29,7 @@
 
         <div class="input-group inline-block">
 			<label>Gói học</label>
-			{{ Form::select('package_id', ['' => '-- Chọn --'] + Package::lists('name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Gói học']) }}
+			{{ Form::select('package_id', ['' => '-- Chọn --'] + Package::lists('name', 'id'), Input::get('package_id'), ['class' => 'form-control', 'placeholder' => 'Gói học']) }}
 		</div>
 		<div class="input-group inline-block" style="vertical-align: bottom;">
 			<button type="submit" class="btn btn-primary">Tìm kiếm</button>

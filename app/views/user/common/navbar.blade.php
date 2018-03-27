@@ -15,14 +15,11 @@
 
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
-
-        <li class="user">
-        	<a href=" "><i class="fa fa-user"></i>Tài khoản</a>
+        <li class="user">   
+            <a href="{{action('ManagerUserController@account_user', Common::resetPassAdminOrUser())}}"><i class="fa fa-user"></i>Tài khoản</a>
         </li>
-
         <li class="user">
-        <a href="{{ action('UserController@logout') }}">
-          <i class="fa fa-power-off"></i>Đăng xuất</a>
+          <a href="{{ action('ManagerUserController@logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
         </li>
 
       </ul>
