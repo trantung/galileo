@@ -98,6 +98,9 @@ class ScheduleController extends \BaseController {
         
         $data = StudentPackage::orderBy('code', 'ASC');
 
+        if( !empty($input['student_id']) ){
+            $data->where('student_id', $input['student_id']);
+        }
         if( !empty($input['class_id']) ){
             $data->where('class_id', $input['class_id']);
         }

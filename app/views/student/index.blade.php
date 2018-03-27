@@ -33,15 +33,9 @@
 			<td>{{ Common::getNameGender($value->gender) }}</td>
 			<td>{{ $value->address }}</td>
 			<td>
-<<<<<<< HEAD
-	           <a href="{{ action('StudentController@show', $value->id) }}" class="btn btn-primary">Show</a>
-                	<a href="{{action('StudentController@edit', $value->id)}}" class="btn btn-primary">Sửa</a>
-=======
-
 	           <a href="{{ action('StudentController@show', $value->id) }}" class="btn btn-primary inline-block">Show</a>
 	           @if(checkPermissionUserByField('role_id', GV))
 	            <a href="{{ action('StudentController@edit', $value->id) }}" class="btn btn-primary inline-block">Sửa</a>
->>>>>>> e0154fb40e749b42439fe2b4c2a91b209fe8269f
 			   {{ Form::open(array('method'=>'DELETE', 'action' => array('StudentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 	           {{ Form::close() }}
