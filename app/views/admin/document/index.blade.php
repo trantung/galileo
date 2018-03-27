@@ -2,11 +2,12 @@
 
 @section('css_header')
 @parent
-{{--  --}}
+{{ HTML::script( asset('custom/js/form-control.js') ) }}
+{{ HTML::script( asset('custom/js/ajax.js') ) }}
 @stop
 
 @section('title')
-Danh sách học liệu
+    Danh sách học liệu
 @stop
 
 @section('content')
@@ -40,11 +41,12 @@ Danh sách học liệu
                         <td>{{ getStatusDoc($document) }}</td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
+                           
                         </td>
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                <a target="_blank" href="{{ asset($documentP->file_url) }}  ">view</a>
+                                <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $document->id }}">view</a>
                             @endif
 
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
@@ -91,7 +93,7 @@ Danh sách học liệu
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                <a target="_blank" href="{{ asset($documentD->file_url) }}  ">view</a>
+                                <a target="_blank" href="{{ asset($documentD->file_url) }}  " class="view_pdf" data-viewid="{{ $document->id }}">view</a>
                             @endif
 
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
@@ -127,3 +129,29 @@ Danh sách học liệu
     </div>
 </div>
 @stop
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.view_pdf').click(function(){
+             var id = $(this).attr('data-viewid');
+             alert(id);
+              $.ajax({
+                type:"POST",
+                url:'/document_download',
+                data:{
+                    id : id
+                }
+                success: function(data){
+                    if(data.status == 200){
+
+                    }
+                },
+                error: function(data){
+                    alert(data);
+                }
+            })
+        });
+    });
+
+</script>

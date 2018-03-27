@@ -35,6 +35,9 @@ class ScheduleController extends \BaseController {
         if( !empty($input['start_date']) && !empty($input['end_date']) ){
             $data2->whereBetween('lesson_date', [ $input['start_date'], $input['end_date'] ]);
         }
+        if( !empty($input['hour_start']) && !empty($input['hour_end']) ){
+            $data2->whereBetween('lesson_hour', [ $input['hour_start'], $input['hour_end'] ]);
+        }
         if( !empty($input['phone']) ){
             $families = Family::where('phone', trim($input['phone']))->get();
             if( count($families) == 0 ){
@@ -52,11 +55,12 @@ class ScheduleController extends \BaseController {
         }
 
         $data = [];
+        $total = count($data2->get());
         foreach ($data2->get() as $key => $value) {
             $data[$value->lesson_date][] = $value;
         }
         $data2 = $data2->paginate(PAGINATE);
-        return View::make('admin.schedule.list')->with(compact('data', 'data2'));
+        return View::make('admin.schedule.list')->with(compact('data', 'data2', 'total'));
     }
     /**
      * Show the form for creating a new resource.
@@ -95,7 +99,6 @@ class ScheduleController extends \BaseController {
     public function course()
     {
         $input = Input::all();
-        
         $data = StudentPackage::orderBy('code', 'ASC');
 
         if( !empty($input['student_id']) ){
@@ -223,7 +226,7 @@ class ScheduleController extends \BaseController {
     	$input = Input::except('_token');
     	$spDetail = SpDetail::find($id);
     	$spDetail->update($input);
-    	return Redirect::action('ScheduleController@index');
+        return Redirect::action('ScheduleController@index')->withMessage('Lưu thông tin thành công!');
     }
 
 

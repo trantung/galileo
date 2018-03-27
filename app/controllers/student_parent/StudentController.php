@@ -10,18 +10,14 @@ class StudentController extends AdminController {
      */
     public function index()
     {
-        $input =Input::all();
-        // nếu chưa có tìm kiếm nào thì hiện thị toàn bộ danh sách học sinh
-        $data = Student::orderBy('created_at', 'DESC')->paginate(PAGINATE);
-
+        $input = Input::all();
+        $data = Student::orderBy('created_at', 'DESC');
         if( !empty($input['student_id']) ){
-            $data->where('student_id', $input['student_id']);
+            $data->where('id', $input['student_id']);
         }
-        if( !empty($input['email']) ){
-            $data->where('email', $input['email']);
-        }
-
+        $data = $data->paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));
+
     }
     /**
      * Show the form for creating a new resource.
@@ -51,7 +47,7 @@ class StudentController extends AdminController {
         $validator = Validator::make( $input,
             [
                 'fullname'   => 'required',
-                'password'   => 'required|min:8|confirmed',
+                'password'   => 'required|min:6|confirmed',
                 'code'       => 'required',
                 'email'      => 'required|email|unique:students',
                 'username'   => 'required|min:6|unique:students',

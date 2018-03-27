@@ -167,6 +167,93 @@ class AdminController extends BaseController {
         dd(555);
     }
 
+    public function getUploadFile(){
+        return View::make('upload_file');
+    }
+             //  trùng vẫn cho up 
+            // file  nào đúng vẫn cho up sai thì không cho up
+    public function postUploadFile()
+    {
+        $input =Input::all();
+        $now = time();
+        $countDocument = 0;
+        if( Input::hasFile('document') )
+        {
+            $files = Input::file('document');
+            $error = '';
+            foreach ($files as $key => $file) {
+                if( $key > 99 ){
+                    break;
+                }
+                
+                if( $file->getClientOriginalExtension() != 'pdf' ){
+                    $error .= $file->getClientOriginalName().' Sai định dạng!<br>';
+                    continue;
+                }
+                $file_name = $file->getClientOriginalName();
+                $nameArray = basename($file_name, '.pdf');   //  bỏ đuôi file
+                if( Document::where('code', $nameArray)->count() > 0 ){
+
+                     $ob = Document::where('code', $nameArray)->first();
+                     $fileUrl = $ob->file_url;
+                    $re_nameArray = rename(public_path().$fileUrl, public_path().$fileUrl.'_'.$now);
+
+                    // $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';
+                    // continue;
+                }
+
+
+                $strArr = Common::explodeDocumentName($nameArray);
+                $lessonId = Lesson::where('code', (int)$strArr['lesson_code'])->first();
+                $classId = ClassModel::where('code', (int)$strArr['class_code'])->first();
+                $subjectId = Subject::where('code', $strArr['subject_code'])->first();
+                $levelId = Level::where('code', $strArr['level_code'])->first();
+                if( empty(Common::getObject($lessonId, 'id'))
+                    | empty(Common::getObject($classId, 'id'))
+                    | empty(Common::getObject($subjectId, 'id'))
+                    | empty(Common::getObject($levelId, 'id')) ){
+                    $error .= 'Học liệu '. $nameArray .' không đúng định dạng tên!<br>';
+                    continue;
+                }
+
+                $link = $strArr['subject_code'].'/'.$strArr['class_code'].'/'.$strArr['level_code'].'/'.$strArr['lesson_code'].'/';
+                $linkDefault = DOCUMENT_UPLOAD_DIR.$link;
+                $filee = public_path().'/'.$linkDefault;
+                $uploadSuccess = $file->move($filee, $file_name);
+                $field = [
+                    'file_url' => $linkDefault.$file_name,
+                    'type_id'  => ($strArr['type'] == 'P') ? P : D,
+                    'code'     => $nameArray,
+                    'class_id' => Common::getObject($classId, 'id'),
+                    'subject_id' => Common::getObject($subjectId, 'id'),
+                    'level_id' => Common::getObject($levelId, 'id'),
+                    'lesson_id' => Common::getObject($lessonId, 'id'),
+                    'status'   =>1
+                ];
+                if( $uploadSuccess ){      
+
+                             // Neu upload thanh cong thi luu url vao database
+                     if( Document::where('code', $nameArray)->count() == 0 ){
+                        $documentId = Document::create($field)->id;
+                        Document::find($documentId)->update(['parent_id' => $documentId]);
+                    }
+
+                }
+                $countDocument++;
+            }
+        }
+        if( !empty($error) ){
+            return  Redirect::back()->withError($error);
+        }
+        return  Redirect::back()->withMessage('Bạn đã upload thành công ! '.$countDocument.' file');
+
+        /* TODO */
+        // Chua check parent_ID
+        // Chua gioi han so luong upload
+        // Chua check phien ban Document
+        // 
+    }
+
     public function getResetPass($id)
     {
         return View::make('administrator.reset')->with(compact('id'));

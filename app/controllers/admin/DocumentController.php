@@ -180,5 +180,11 @@ class DocumentController extends AdminController implements AdminInterface {
 
     }
 
+    public function documentDownload()
+    {
+        $input = Input::all();
+        $document = Document::find($input->id);
+        $count = $document;
+    }
 }
 

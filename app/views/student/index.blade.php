@@ -8,6 +8,9 @@
 	@if(checkPermissionUserByField('role_id', GV))
 	<a href="{{ action('StudentController@create') }}" class="btn btn-primary">Thêm học sinh mới</a>
 	@endif
+	<div class="margin-bottom">
+        @include('student.filter')
+    </div>
 	<table class="table table-bordered table-striped table-hove" >
 	<div class="margin-bottom">
     </div>

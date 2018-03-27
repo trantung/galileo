@@ -720,7 +720,18 @@ class Common {
         
         return $student;
     }
-    
+
+    public static function getNameStudentList()
+    {
+        return Student::orderBy('created_at', 'desc')->lists('fullname', 'id');
+    }
+
+    public static function getEmailStudentList()
+    {
+        return Student::orderBy('created_at', 'desc')->lists('email','id');
+    }
+
+
     public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
         $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
         if( $lesson ){
@@ -738,20 +749,15 @@ class Common {
     
     public static function resetPassAdminOrUser()
     {
-        if($admin = Auth::admin()->get()){
-            return $admin->id;
-        }
-        if($user = Auth::user()->get()){
+
+        $admin = Auth::admin()->get();
+        if(!$admin){
+            $user = Auth::user()->get();
             return $user->id;
         }
+        return $admin->id;
     }
 
-    public static function resetPassUser()
-    {
-        $check = Auth::user()->get();
-        $userId = $check->id;
-        return $userId;
-    }
     public static function getScheduleOfStudentPackage($packageId){
         // if ( !Cache::has('schedule_of_course_'.$packageId) ){
             return SpDetail::where('student_package_id', $packageId)
@@ -781,9 +787,11 @@ class Common {
         ];
     }
 
-    public static function getCVHTList(){
+    public static function getCVHTList()
+    {
         return User::where('role_id', CVHT)->lists('username', 'id');
     }
+
     public static function checkCreateOrUpdateDocAdd($lessonId, $studentId)
     {
         $count = DocumentAdditional::where('lesson_id', $lessonId)
@@ -794,6 +802,7 @@ class Common {
         }
         return false;
     }
+
     public static function getDocAdd($lessonId, $studentId, $typeId, $order)
     {
         $ob = DocumentAdditional::where('lesson_id', $lessonId)
@@ -816,4 +825,13 @@ class Common {
         return $userCenterList;
     }
     
+    public static function explodeDocumentName($name){
+        return [
+            'type' => substr($name, 0, 1),
+            'subject_code' => substr($name, 1, 1),
+            'class_code' => (int)substr($name, 2, 2),
+            'level_code' => (isset(explode('_', $name)[1]) ? explode('_', $name)[1] : ''),
+            'lesson_code' => (isset(explode('_', $name)[2]) ? explode('_', $name)[2] : ''),
+        ];
+    }
 }
