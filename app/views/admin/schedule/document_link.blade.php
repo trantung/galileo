@@ -7,6 +7,9 @@
 
     <div class="col-xs-12">
         <div class="box box-primary">
+            @if(checkPermissionUserByField('role_id', PTCM))
+                @include('admin.schedule.additional')
+            @endif
                 @if(count($documents) > 0)
                     @foreach($documents as $document)
                         <div class="col-sm-6">

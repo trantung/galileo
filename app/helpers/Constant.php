@@ -4,6 +4,8 @@ define('BTV', 2);
 define('PAGINATE',20);
 
 define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
+
+define('DOCUMENT_UPLOAD_ADDITIONAL', '/uploads/document_additional/');
 /*
     Các role của nhân viên trung tâm
 */

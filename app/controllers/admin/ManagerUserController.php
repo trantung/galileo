@@ -79,6 +79,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // dd($userId);
         $centerId = $input['center_id'];
         $listLevelId = $input['level'];
+        // dd($input['level']);
         // dd($centerId);
         foreach ($listLevelId as $key => $value) {
             foreach ($value as $k => $levelId) {
@@ -128,6 +129,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
             ->lists('center_level_id');
         // dd($centerLevelId);
         //TODO
+
         $center = CenterLevel::whereIn('id', $centerLevelId)
             ->groupBy('center_id')
             ->first();

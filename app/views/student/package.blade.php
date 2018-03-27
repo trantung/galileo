@@ -3,9 +3,12 @@
         <legend>Thông tin gói học</legend>
         <div class="form-group">
             <label>Chọn trung tâm</label>
-            {{ Form::select('center_id',['' => '--chọn--'] + $center, null , ['class' => 'form-control ', 'required' => true]) }}
+
+            {{ Form::select('center_id', $center, Common::getUserCenterList(), ['class' => 'form-control ', 'required' => true]) }}
         </div>
         <div class="form-group">
+
+            
             <label>Chọn học sinh</label>
             {{ Form::select('student_id',['' => '--chọn--'] + Common::getStudentList(), null , ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'required' => true]) }}
         </div>

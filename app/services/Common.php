@@ -68,6 +68,7 @@ class Common {
      */
     public static function getClassSubjectLevelOfCenter($centerId){
         $levelsObject = Center::find($centerId);
+        // dd($centerId);
         $arr = [
             'listClasses' => [],
             'listSubjects' => [],
@@ -701,8 +702,10 @@ class Common {
             return Common::getObject($family[1], 'phone');
         }
         return false;
-    }
+   
+        
 
+    }
     public static function getStudentList()
     {
         if ( !Cache::has('student_list') ){
@@ -717,6 +720,7 @@ class Common {
         
         return $student;
     }
+    
     public static function getLessonIdByLessonCodeLevel($lessonCode, $levelId ){
         $lesson = Lesson::where('level_id', $levelId)->where('code', $lessonCode)->first();
         if( $lesson ){
@@ -732,11 +736,14 @@ class Common {
         return self::getObject($startDate, 'lesson_date');
     }
     
-    public static function resetPassAdmin()
+    public static function resetPassAdminOrUser()
     {
-        $check = Auth::admin()->get();
-        $adminId = $check->id;
-        return $adminId;
+        if($admin = Auth::admin()->get()){
+            return $admin->id;
+        }
+        if($user = Auth::user()->get()){
+            return $user->id;
+        }
     }
 
     public static function resetPassUser()
@@ -777,4 +784,36 @@ class Common {
     public static function getCVHTList(){
         return User::where('role_id', CVHT)->lists('username', 'id');
     }
+    public static function checkCreateOrUpdateDocAdd($lessonId, $studentId)
+    {
+        $count = DocumentAdditional::where('lesson_id', $lessonId)
+            ->where('student_id', $studentId)
+            ->count();
+        if ($count > 0) {
+            return true;
+        }
+        return false;
+    }
+    public static function getDocAdd($lessonId, $studentId, $typeId, $order)
+    {
+        $ob = DocumentAdditional::where('lesson_id', $lessonId)
+            ->where('student_id', $studentId)
+            ->where('type_id', $typeId)
+            ->where('order', $order)
+            ->first();
+        if ($ob) {
+            return $ob;
+        }
+        return null;
+    }
+
+    public static function getUserCenterList()
+    {
+        $user = getCurrentUser();
+        if ($user) {
+            $userCenterList = UserCenterLevel::where('center_id', $user->id)->get();
+        }
+        return $userCenterList;
+    }
+    
 }
