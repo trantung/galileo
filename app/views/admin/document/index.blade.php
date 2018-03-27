@@ -135,20 +135,17 @@
     $(document).ready(function() {
         $('.view_pdf').click(function(){
              var id = $(this).attr('data-viewid');
-             alert(id);
               $.ajax({
                 type:"POST",
                 url:'/document_download',
                 data:{
                     id : id
-                }
+                },
                 success: function(data){
-                    if(data.status == 200){
-
-                    }
+                    console.log(data);
                 },
                 error: function(data){
-                    alert(data);
+                    // alert(data);
                 }
             })
         });

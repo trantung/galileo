@@ -182,9 +182,12 @@ class DocumentController extends AdminController implements AdminInterface {
 
     public function documentDownload()
     {
+        $userId = Auth::admin()->get()->id;
+        
         $input = Input::all();
-        $document = Document::find($input->id);
-        $count = $document;
+        $document = Document::find($input['id']);
+        $doc['quantity_downoad'] = $document->quantity_downoad + 1;
+        $document->update($doc);
     }
 }
 
