@@ -2,11 +2,12 @@
 
 @section('css_header')
 @parent
-{{--  --}}
+{{ HTML::script( asset('custom/js/form-control.js') ) }}
+{{ HTML::script( asset('custom/js/ajax.js') ) }}
 @stop
 
 @section('title')
-Danh sách học liệu
+    Danh sách học liệu
 @stop
 
 @section('content')
@@ -40,6 +41,7 @@ Danh sách học liệu
                         <td>{{ getStatusDoc($document) }}</td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
+                           
                         </td>
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
