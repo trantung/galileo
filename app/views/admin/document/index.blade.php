@@ -38,7 +38,7 @@
                         $documentD = Common::getDocument($document, D);
                     ?>
                     @if($documentP)
-                        <td> {{ getStatusDoc($document) }} <input class="re-status" type="checkbox" value="{{ $document->id }}"  checked="checked"></td>
+                        <td> {{ getStatusDoc($document) }} <input class="re-status" type="checkbox" value ="{{ $document->id }}"  checked="checked"></td>
 
                         <td>
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}

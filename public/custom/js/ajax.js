@@ -155,21 +155,19 @@ $(document).ready(function(){
     	}
     })
 
-    // thay đổi trạng thái đã kiểm duyệt thành chưa kiểm duyệt
-   //  $(document).on('change', '.re-status',(function(){
-    
-   //  	var docmentId = $(this).val();	
-   //  	$.ajax({
-   //  		'url':'/ajax/re-status',
-   //  		'method': 'POST',
-   //  		'data': {'id': documentId},
-   //  		success: function(data){
-			// console.log(111);
-
-   //  		}
-   //  	});
-
-   //  });
-  
+   // thay đổi trạng thái đã kiểm duyệt thành chưa kiểm duyệt
+    $(document).on('change', '.re-status', function(){
+		var id = $(this).attr('value');
+		$.ajax({
+			'url': '/ajax/change-status',
+			'method': 'POST',
+			'data': {
+				'id': id 	
+			},
+			success: function(data) {
+				console.log(data);
+			}
+		});
+    })
 
 })

@@ -132,9 +132,21 @@ class AjaxController extends \BaseController {
 
         return Response::json($input);
     }
-    public function postChuaKiemDuyet()
+
+    public function postChangeStatus()
     {
          $input = Input::all();
-         dd($input);
+         $document = Document::find($input['id']);
+         $check = $document->status;
+         if($check == 1)
+         {
+            $new = Document::find($input['id'])->update(['status' => 2]);
+            getStatusDoc($new);
+         }
+         if($check == 2)
+         {
+            $new = Document::find($input['id'])->update(['status' => 1]);
+            getStatusDoc($new);
+         }
     }
 }
