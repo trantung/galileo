@@ -129,26 +129,3 @@
     </div>
 </div>
 @stop
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('.view_pdf').click(function(){
-             var id = $(this).attr('data-viewid');
-              $.ajax({
-                type:"POST",
-                url:'/document_download',
-                data:{
-                    id : id
-                },
-                success: function(data){
-                    console.log(data);
-                },
-                error: function(data){
-                    // alert(data);
-                }
-            })
-        });
-    });
-
-</script>

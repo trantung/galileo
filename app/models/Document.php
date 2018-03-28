@@ -13,7 +13,7 @@ class Document extends Eloquent
     
     protected $table = 'documents';
     protected $fillable = ['level_id', 'subject_id', 'class_id',
-    	'name', 'code', 'status', 'author_by', 'type_id', 'lesson_id', 'parent_id', 'file_url', 'order', 'quantity_downoad'];
+    	'name', 'code', 'status', 'author_by', 'type_id', 'lesson_id', 'parent_id', 'file_url', 'order', 'quantity_download'];
 
     // protected $hidden = array('password', 'remember_token');
     protected $dates = ['deleted_at'];

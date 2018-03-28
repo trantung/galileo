@@ -13,7 +13,7 @@ class AddQuantityDownloadIntoDocumentTable extends Migration {
 	public function up()
 	{
 		Schema::table('documents', function(Blueprint $table) {
-            $table->integer('quantity_downoad')->after('author_by')->default(0);
+            $table->integer('quantity_download')->after('author_by')->default(0);
         });
 	}
 
@@ -25,7 +25,7 @@ class AddQuantityDownloadIntoDocumentTable extends Migration {
 	public function down()
 	{
 		Schema::table('documents', function(Blueprint $table) {
-            $table->dropColumn('quantity_downoad');
+            $table->dropColumn('quantity_download');
         });
 	}
 

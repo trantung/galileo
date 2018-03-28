@@ -51,6 +51,35 @@ $(document).ready(function(){
 			}
 		});
     })
+
+	$(document).on('click', '.view_pdf', function(){
+		var id = $(this).attr('data-viewid');
+		$.ajax({
+			'url' : '/ajax/document-download',
+			'method': 'POST',
+			'data' : {
+				'id' : id
+			},
+			success: function(data){
+				console.log(data);
+			}
+		});
+	})
+    // $(document).ready(function() {
+    //     $('.view_pdf').click(function(){
+    //          var id = $(this).attr('data-viewid');
+    //           $.ajax({
+    //             'method':"POST",
+    //             'url':'/ajax/document_download',
+    //             'data':{
+    //                 'id' : id
+    //             },
+    //             success: function(data){
+    //                 console.log(data);
+    //             }
+    //         })
+    //     });
+    // });
     
     // //=============== get list level by class id &  subject id==============
     // $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){

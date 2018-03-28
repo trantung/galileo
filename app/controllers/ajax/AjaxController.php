@@ -132,8 +132,27 @@ class AjaxController extends \BaseController {
 
         return Response::json($input);
     }
+
     public function getPrint()
     {
 
     }
+
+    public function postDocumentDownload()
+    {
+        $input = Input::all();
+        // dd($input);
+        $document = Document::find($input['id']);
+        $doc['quantity_download'] = $document->quantity_download + 1;
+        $document->update($doc);
+
+        $user = Auth::admin()->get();
+        // dd($user);
+        $field['model_id'] = $user->id;
+        $field['model_name'] = $user->username;
+        $field['document_id'] = $input['id'];
+        $field['quantity_download'] = $document->quantity_download -1; 
+        $logId = DocumentLog::create($field)->id;
+        DocumentLog::find($logId)->update(['parent_id' => $logId]);
+     }
 }

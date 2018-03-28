@@ -99,7 +99,6 @@ Route::get('/test/updatedb/T', 'TestController@updatedbT');
 Route::get('/test/import', 'TestController@import');
 Route::controller('/test', 'TestController');
 
-Route::post('/document_download', 'DocumentController@documentDownload');
 
 // Route::resource('/', 'AdminController');
     

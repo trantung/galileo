@@ -17,6 +17,7 @@ class CreateDocumentLogTable extends Migration {
 			$table->increments('id');
 			$table->integer('parent_id')->nullable();
 		    $table->integer('model_id')->nullable();
+		    $table->integer('document_id')->nullable();
 			$table->string('model_name', 125)->nullable();
 			$table->integer('type_id')->nullable();
 		    $table->string('name', 225)->nullable();
