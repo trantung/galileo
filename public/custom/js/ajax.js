@@ -51,6 +51,7 @@ $(document).ready(function(){
 			}
 		});
     })
+      
     
     // //=============== get list level by class id &  subject id==============
     // $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){
@@ -153,5 +154,22 @@ $(document).ready(function(){
 			});
     	}
     })
+
+    // thay đổi trạng thái đã kiểm duyệt thành chưa kiểm duyệt
+   //  $(document).on('change', '.re-status',(function(){
+    
+   //  	var docmentId = $(this).val();	
+   //  	$.ajax({
+   //  		'url':'/ajax/re-status',
+   //  		'method': 'POST',
+   //  		'data': {'id': documentId},
+   //  		success: function(data){
+			// console.log(111);
+
+   //  		}
+   //  	});
+
+   //  });
+  
 
 })

@@ -132,8 +132,9 @@ class AjaxController extends \BaseController {
 
         return Response::json($input);
     }
-    public function getPrint()
+    public function postChuaKiemDuyet()
     {
-
+         $input = Input::all();
+         dd($input);
     }
 }

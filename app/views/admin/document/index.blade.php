@@ -38,7 +38,8 @@
                         $documentD = Common::getDocument($document, D);
                     ?>
                     @if($documentP)
-                        <td>{{ getStatusDoc($document) }}</td>
+                        <td> {{ getStatusDoc($document) }} <input class="re-status" type="checkbox" value="{{ $document->id }}"  checked="checked"></td>
+
                         <td>
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
                            
@@ -77,7 +78,7 @@
                         @if(checkPermissionForm('DocumentController@destroy', 'Xoá', $document->parent_id))
                         {{ Form::open(array('method'=>'DELETE', 'action' => array('DocumentController@destroy', $document->parent_id), 'style' => 'display: inline-block;')) }}
                             <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-                            </td>
+                    </td>
                         {{ Form::close() }}
                         @endif
                     </td>
