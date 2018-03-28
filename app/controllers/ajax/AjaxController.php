@@ -147,11 +147,23 @@ class AjaxController extends \BaseController {
         $document->update($doc);
 
         $user = Auth::admin()->get();
-        // dd($user);
         $field['model_id'] = $user->id;
         $field['model_name'] = $user->username;
         $field['document_id'] = $input['id'];
-        $field['quantity_download'] = $document->quantity_download -1; 
+        $field['quantity_download'] = $document->quantity_download -1;
+        $field['type_id'] = $document->type_id;
+        $field['name'] = $document->name; 
+        $field['code'] = $document->code;
+        $field['file_url']  = $document->file_url;
+        $field['student_id']  = $document->student_id;
+        $field['class_id']  = $document->class_id;
+        $field['subject_id']  = $document->subject_id;
+        $field['level_id']  = $document->level_id;
+        $field['lesson_id']  = $document->lesson_id;
+        $field['order']  = $document->order;
+        $field['day']  = $document->day;
+        $field['month']  = $document->month;
+        $field['year']  = $document->year;
         $logId = DocumentLog::create($field)->id;
         DocumentLog::find($logId)->update(['parent_id' => $logId]);
      }
