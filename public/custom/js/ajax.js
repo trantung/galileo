@@ -149,15 +149,16 @@ $(document).ready(function(){
 					wrapper.append(data);
 				},
 				error: function(error){
-					console.log(error.responseText);
+					console.log(data);
 				}
 			});
     	}
     })
 
    // thay đổi trạng thái đã kiểm duyệt thành chưa kiểm duyệt
-    $(document).on('change', '.re-status', function(){
-		var id = $(this).attr('value');
+   $(document).on('change', '.re-status', function(){
+		var id = $(this).attr('value'),
+                _this = $(this);      
 		$.ajax({
 			'url': '/ajax/change-status',
 			'method': 'POST',
@@ -165,9 +166,29 @@ $(document).ready(function(){
 				'id': id 	
 			},
 			success: function(data) {
-				console.log(data);
+			   _this.parent().find('#re_status').text(data);
+			    console.log(data);
+		    },
+			error: function(error){
+				console.log(error.responseText);
 			}
 		});
     })
+  //   $(document).on('change', '.re-status', function(){
+		// var id = $(this).attr('value');
+		// $.ajax({
+		// 	'url': '/ajax/change-status',
+		// 	'method': 'POST',
+		// 	'data': {
+		// 		'id': id 	
+		// 	},
+		// 	success: function(data) {
+		// 	    _this.html(data);
+		// 	    console.log(data);
+		// 	},
+		// 	error: function(error){
+		// 		console.log(error.responseText);
+		// });
+  //   })
 
 })

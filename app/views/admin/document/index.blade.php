@@ -38,7 +38,7 @@
                         $documentD = Common::getDocument($document, D);
                     ?>
                     @if($documentP)
-                        <td> {{ getStatusDoc($document) }} <input class="re-status" type="checkbox" value ="{{ $document->id }}"  checked="checked"></td>
+                        <td> <label id="re_status">{{ getStatusDoc($document) }}</label> <input class="re-status pull-right" type="checkbox"  value ="{{ $document->id }}" ></td>
 
                         <td>
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
@@ -87,7 +87,7 @@
                 @for ($i = 1; $i < $countSubject; $i++)
                     <tr class="bg-warning">
                         @if($documentD)
-                        <td>{{ getStatusDoc($document) }}</td>
+                        <td><label id="re_status">{{ getStatusDoc($document) }}</label> <input class="re-status pull-right" type="checkbox"  value ="{{ $document->id }}" ></td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
                         </td>
