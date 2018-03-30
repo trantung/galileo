@@ -87,7 +87,7 @@
                 @for ($i = 1; $i < $countSubject; $i++)
                     <tr class="bg-warning">
                         @if($documentD)
-                        <td><label id="re_status">{{ getStatusDoc($document) }}</label> <input class="re-status pull-right" type="checkbox"  value ="{{ $document->id }}" ></td>
+                        <td><label id="restatus">{{ getStatusDoc($document) }}</label></td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
                         </td>

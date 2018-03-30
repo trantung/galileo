@@ -158,7 +158,8 @@ $(document).ready(function(){
    // thay đổi trạng thái đã kiểm duyệt thành chưa kiểm duyệt
    $(document).on('change', '.re-status', function(){
 		var id = $(this).attr('value'),
-                _this = $(this);      
+                _this = $(this);  
+
 		$.ajax({
 			'url': '/ajax/change-status',
 			'method': 'POST',
@@ -167,6 +168,7 @@ $(document).ready(function(){
 			},
 			success: function(data) {
 			   _this.parent().find('#re_status').text(data);
+
 			    console.log(data);
 		    },
 			error: function(error){
