@@ -9,7 +9,7 @@ class QuantityDownload extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'quantity_downloads';
+	protected $table = 'quantity_download';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -19,4 +19,18 @@ class QuantityDownload extends Eloquent {
 	protected $fillable = array('max_account','max_document', 'start_time',
 		'end_time', 'level_id', 'class_id', 'subject_id');
 	
+	public function classes() 
+    {
+        return $this->belongsTo('ClassModel', 'class_id', 'id');
+    }
+
+    public function subjects() 
+    {
+        return $this->belongsTo('Subject', 'subject_id', 'id');
+    }
+
+    public function levels() 
+    {
+        return $this->belongsTo('Level', 'level_id', 'id');
+    }
 }

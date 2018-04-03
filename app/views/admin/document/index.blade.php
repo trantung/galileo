@@ -31,7 +31,6 @@
             <?php 
                 $countSubject = 2;
             ?>
-            
                 <tr class="bg-warning">
                     <td rowspan="{{ $countSubject }}" class="text-center"><strong>{{ $key+1 }}</strong></td>
                     <?php 
@@ -41,9 +40,7 @@
                     @if($documentP)
                         <td id="re_status"> {{ getStatusDoc($document) }} <input class="re-status" type="checkbox" value ="{{ $document->id }}"  checked="checked"></td>
                         <td>
-
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
-                            
                         </td>
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
@@ -98,7 +95,7 @@
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::checkQuantityDownload($documentD))
-                                <a target="_blank" href="{{ asset($documentD->file_url) }}  " class="view_pdf" data-viewid="{{ $documentD->id }}">view</a>
+                                <a target="_blank" href="{{ asset($documentD->file_url) }}  " class="view_pdf"  data-viewid ="{{ $documentD->id }}">view</a>
                                 @endif
                             @endif
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))

@@ -13,14 +13,7 @@
 {{ Form::open(array('action' => 'QuantityDownloadController@store', 'class' => 'student-form')) }}
 <div class="box-body col-sm-6">
     <div class="form-group well well-sm">
-        <div class="input-group inline-block">
-            <label for="max_account">Số lượt tải/tài khoản</label>
-            {{ Form::text('max_account', Input::get('max_account'), array('class' => 'form-control', 'placeholder' => 'Số lượt tải tối đa trên 1 tài khoản' )) }}
-        </div>
-        <div class="input-group inline-block">
-            <label for="max_document">Số lượt tải/tài liệu</label>
-            {{ Form::text('max_document', Input::get('max_document'), array('class' => 'form-control', 'placeholder' => 'Số lượt tải tối đa trên 1 tài liệu' )) }}
-        </div>
+        
         <div class="box alert filter-document-form">
             <div class="input-group inline-block">
             <label style="display: block;">Chọn lớp học</label>
@@ -38,11 +31,19 @@
             </div>
         
         </div>
-        <div class="input-group inline-block col-sm-5" >
+        <div class="input-group inline-block col-sm-8">
+            <label for="max_account">Số lượt tải/tài khoản</label>
+            {{ Form::text('max_account', Input::get('max_account'), array('class' => 'form-control', 'placeholder' => 'Số lượt tải tối đa trên 1 tài khoản' )) }}
+        </div>
+        <div class="input-group inline-block col-sm-8">
+            <label for="max_document">Số lượt tải/tài liệu</label>
+            {{ Form::text('max_document', Input::get('max_document'), array('class' => 'form-control', 'placeholder' => 'Số lượt tải tối đa trên 1 tài liệu' )) }}
+        </div>
+        <div class="input-group inline-block col-sm-4" >
             <label>Chọn ngày bắt đầu</label>
             <input type="date" class="lesson_date form-control" required placeholder="Ngày bắt đầu" name="start_time">
         </div>
-        <div class="input-group inline-block col-sm-5" >
+        <div class="input-group inline-block col-sm-4" >
             <label>Chọn ngày kết thúc</label>
             <input type="date" class="lesson_date form-control" required placeholder="Ngày kết thúc" name="end_time">
         </div>

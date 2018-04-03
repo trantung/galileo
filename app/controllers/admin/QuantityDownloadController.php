@@ -9,7 +9,25 @@ class QuantityDownloadController extends \BaseController {
 	 */
 	public function index()
 	{
-		$data = QuantityDownload::all();
+		$input = Input::all();
+        $data = QuantityDownload::orderBy('created_at', 'desc');
+        
+        if( !empty($input['class_id']) ){
+            $data = $data->where('class_id', $input['class_id']);
+        }
+        if( !empty($input['subject_id']) ){
+            $data = $data->where('subject_id', $input['subject_id']);
+        }
+        if( !empty($input['level_id']) ){
+            $data = $data->where('level_id', $input['level_id']);
+        }
+        if( !empty($input['start_time']) ){
+            $data = $data->where('start_time', $input['start_time']);
+        }
+        if( !empty($input['end_time']) ){
+            $data = $data->where('end_time', $input['end_time']);
+        }
+		$data = $data->paginate(15);
 		return View::make('admin.download.index')->with(compact('data'));
 	}
 
@@ -39,7 +57,7 @@ class QuantityDownloadController extends \BaseController {
 		$input['start_time'] = date('Y-m-d', strtotime(Input::get('start_time')));
 		$input['end_time'] = date('Y-m-d', strtotime(Input::get('end_time')));
 		$downloaId = QuantityDownload::create($input)->id;
-		return Redirect::action('QuantityDownloadController@edit');
+		return Redirect::action('QuantityDownloadController@index');
 	}
 
 
@@ -63,8 +81,8 @@ class QuantityDownloadController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$download = QuantityDownload::all();
-		return View::make('admin.download.edit')->with(compact('download'));
+		$quantity = QuantityDownload::findOrFail($id);
+		return View::make('admin.download.edit')->with(compact('quantity'));
 	}
 
 
@@ -78,6 +96,7 @@ class QuantityDownloadController extends \BaseController {
 	{
 		$input = Input::all();
 		QuantityDownload::findOrFail($id)->update($input);
+		return Redirect::action('QuantityDownloadController@index');
 	}
 
 
@@ -89,7 +108,8 @@ class QuantityDownloadController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		QuantityDownload::findOrFail($id)->delete();
+		return Redirect::action('QuantityDownloadController@index');
 	}
 
 
