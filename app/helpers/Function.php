@@ -21,15 +21,30 @@ function commonGetCodeDocument($modelId, $modelName = null)
     $version = getVersionDocument($modelId, $modelName);
     $type = DocumentType::find($doc->type_id)->code;
     $class = ClassModel::find($doc->class_id)->code;
+    if ($class < 10) {
+        $class = '0'.$class;
+    }
     $subject = Subject::find($doc->subject_id)->code;
     $level = Level::find($doc->level_id)->code;
     $numberLesson = Lesson::find($doc->lesson_id)->code;
-    $code = $type.'_'.$class.'_'.$subject.'_'.$level.'_'.$numberLesson.'_'.$modelId.'_'.$version;
+    if ($numberLesson < 10) {
+        $numberLesson = '0'.$numberLesson;
+    }
+    $orderId = getOrderDocument($modelId);
+    $code = $type.$subject.$class.'_'.$level.'_'.$numberLesson.'_'.$modelId.$version;
     return $code;
+}
+function getOrderDocument($modelId, $modelName = null)
+{
+    if (!$modelName) {
+        $modelName = 'Document';
+    }
+    $orderId = 1;
+    return $orderId;
 }
 function getVersionDocument($documentId, $modelName = null)
 {
-    return 1;
+    return 'A';
 }
 function getNameTypeId($typeId)
 {

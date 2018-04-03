@@ -48,7 +48,9 @@
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $document->id }}">view</a>
+                                @if(Common::checkQuantityDownload($documentP))
+                                <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}">view</a>
+                                @endif
                             @endif
 
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
@@ -95,7 +97,9 @@
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                <a target="_blank" href="{{ asset($documentD->file_url) }}  " class="view_pdf" data-viewid="{{ $document->id }}">view</a>
+                                @if(Common::checkQuantityDownload($documentD))
+                                <a target="_blank" href="{{ asset($documentD->file_url) }}  " class="view_pdf" data-viewid="{{ $documentD->id }}">view</a>
+                                @endif
                             @endif
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                 @if( Common::getObject($documentP, 'file_url') )

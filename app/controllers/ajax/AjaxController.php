@@ -145,9 +145,17 @@ class AjaxController extends \BaseController {
         $doc['quantity_download'] = $document->quantity_download + 1;
         $document->update($doc);
 
-        $user = Auth::admin()->get();
-        $field['model_id'] = $user->id;
-        $field['model_name'] = $user->username;
+        // $user = Auth::admin()->get();
+        // $field['model_id'] = $user->id;
+        // $field['model_name'] = $user->username;
+        if ($user = Auth::admin()->get()) {
+            $field['model_id'] = $user->id;
+            $field['model_name'] = 'Admin';
+        }
+        if ($user = Auth::user()->get()) {
+            $field['model_id'] = $user->id;
+            $field['model_name'] = 'User';
+        }
         $field['document_id'] = $input['id'];
         $field['quantity_download'] = $document->quantity_download -1;
         $field['type_id'] = $document->type_id;

@@ -837,23 +837,59 @@ class Common {
 
 
     //  hàm kiểm soát số lượng download (chưa đúng)
-    public static function checkQuantityDownload()
+    public static function checkQuantityDownload($document)
     {
-        $result = '';
-        $documentLog = QuantityDownload::orderBy('created_at', 'DESC')->first();
-        $levelId =  $documentLog->level_id;
-        $maxDoc = $documentLog->max_document;
-        $maxAcc = $documentLog->max_account;  
-        $document = Document::all();
-        foreach ($document as $key => $value) {
-            $conuntRecord = $value->quantity_download;
-            if($conuntRecord >= $maxDoc ){
-                $result = true;
-            }
-            else{
-                $result = false;
-            }
+        // $result = '';
+        // $documentLog = QuantityDownload::orderBy('created_at', 'DESC')->first();
+        // $levelId =  $documentLog->level_id;
+        // $maxDoc = $documentLog->max_document;
+        // $maxAcc = $documentLog->max_account;  
+        // $document = Document::all();
+        // foreach ($document as $key => $value) {
+        //     $conuntRecord = $value->quantity_download;
+        //     if($conuntRecord >= $maxDoc ){
+        //         $result = true;
+        //     }
+        //     else{
+        //         $result = false;
+        //     }
+        // }
+        // return $result;
+        if (Auth::admin()->get()) {
+            return true;
         }
-        return $result;
+        $documentId = $document->id;
+        $now = date("Y-m-d");
+        $quantityDownload = QuantityDownload::where('level_id', $document->level_id)
+            ->where('start_time', '<=', $now)
+            ->where('end_time', '>=', $now)
+            ->first();
+        if (!$quantityDownload) {
+            return true;
+        }
+
+        $maxDoc = $quantityDownload->max_document;
+        $maxAcc = $quantityDownload->max_account;
+        $docLogs = DocumentLog::where('model_name', 'User')
+            ->where('document_id', $document->id)
+            ->where('created_at', '>', $quantityDownload->start_time)
+            ->where('created_at', '<', $quantityDownload->end_time)
+            ->count();
+
+        if ($docLogs < $maxDoc) {
+            if ($user = Auth::user()->get()) {
+                $modelId = $user->id;
+                $maxAccDoc = DocumentLog::where('model_name', 'User')
+                    ->where('model_id', $modelId)
+                    ->where('level_id', $document->level_id)
+                    ->count();
+                if ($maxAccDoc < $maxAcc) {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 }
