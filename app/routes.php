@@ -149,6 +149,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('student_package', 'ScheduleController@course');
     Route::put('student_package/{id}', 'ScheduleController@courseEdit');
     Route::get('document_link/{id}/{student_id}', 'ScheduleController@documentLink');
+    // Route quantity download
+    Route::resource('download', 'QuantityDownloadController');
     
     
        /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt

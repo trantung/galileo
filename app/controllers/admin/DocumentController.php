@@ -114,6 +114,8 @@ class DocumentController extends AdminController implements AdminInterface {
         return View::make('admin.document.edit')->with(compact('groups', 'document', 'id'));
     }
 
+    
+
 
     /**
      * Update the specified resource in storage.

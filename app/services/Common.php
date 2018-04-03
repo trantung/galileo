@@ -834,4 +834,26 @@ class Common {
             'lesson_code' => (isset(explode('_', $name)[2]) ? explode('_', $name)[2] : ''),
         ];
     }
+
+
+    //  hàm kiểm soát số lượng download (chưa đúng)
+    public static function checkQuantityDownload()
+    {
+        $result = '';
+        $documentLog = QuantityDownload::orderBy('created_at', 'DESC')->first();
+        $levelId =  $documentLog->level_id;
+        $maxDoc = $documentLog->max_document;
+        $maxAcc = $documentLog->max_account;  
+        $document = Document::all();
+        foreach ($document as $key => $value) {
+            $conuntRecord = $value->quantity_download;
+            if($conuntRecord >= $maxDoc ){
+                $result = true;
+            }
+            else{
+                $result = false;
+            }
+        }
+        return $result;
+    }
 }

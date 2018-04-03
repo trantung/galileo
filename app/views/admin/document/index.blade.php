@@ -31,6 +31,7 @@
             <?php 
                 $countSubject = 2;
             ?>
+            
                 <tr class="bg-warning">
                     <td rowspan="{{ $countSubject }}" class="text-center"><strong>{{ $key+1 }}</strong></td>
                     <?php 
@@ -38,10 +39,11 @@
                         $documentD = Common::getDocument($document, D);
                     ?>
                     @if($documentP)
-                        <td>{{ getStatusDoc($document) }}</td>
+                        <td id="re_status"> {{ getStatusDoc($document) }} <input class="re-status" type="checkbox" value ="{{ $document->id }}"  checked="checked"></td>
                         <td>
+
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
-                           
+                            
                         </td>
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
@@ -95,7 +97,6 @@
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 <a target="_blank" href="{{ asset($documentD->file_url) }}  " class="view_pdf" data-viewid="{{ $document->id }}">view</a>
                             @endif
-
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                 @if( Common::getObject($documentP, 'file_url') )
                                     <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentD, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>

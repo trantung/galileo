@@ -141,7 +141,6 @@ class AjaxController extends \BaseController {
     public function postDocumentDownload()
     {
         $input = Input::all();
-        // dd($input);
         $document = Document::find($input['id']);
         $doc['quantity_download'] = $document->quantity_download + 1;
         $document->update($doc);
@@ -161,9 +160,9 @@ class AjaxController extends \BaseController {
         $field['level_id']  = $document->level_id;
         $field['lesson_id']  = $document->lesson_id;
         $field['order']  = $document->order;
-        $field['day']  = $document->day;
-        $field['month']  = $document->month;
-        $field['year']  = $document->year;
+        $field['day']  = '';
+        $field['month']  = '';
+        $field['year']  = '';
         $logId = DocumentLog::create($field)->id;
         DocumentLog::find($logId)->update(['parent_id' => $logId]);
      }

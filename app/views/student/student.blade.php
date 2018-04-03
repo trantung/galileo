@@ -71,7 +71,7 @@
                 <label for="phone">Số điện thoại</label>
                 {{ Form::text('phone', Input::get('phone'), array('class' => 'form-control', 'placeholder' => '0...' )) }}
             </div>
-              <div class="form-group">
+            <div class="form-group">
                 <label for="address">Địa chỉ</label>
                 {{ Form::text('address', Input::get('address'), array('class' => 'form-control', 'placeholder' => 'Địa chỉ' )) }}
             </div>

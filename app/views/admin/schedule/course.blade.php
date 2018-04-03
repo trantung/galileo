@@ -20,7 +20,6 @@
             <th>Số tiền đã đóng</td>
             <th>Ngày bắt đầu học</td>
             <th>Tổng số buổi</td>
-            <th>Ngày bắt đầu học</td>
             @if(checkPermissionUserByField('role_id', PTCM))
                 <th>Thao tác</th>
             @endif
