@@ -867,7 +867,6 @@ class Common {
         if (!$quantityDownload) {
             return true;
         }
-
         $maxDoc = $quantityDownload->max_document;
         $maxAcc = $quantityDownload->max_account;
         $docLogs = DocumentLog::where('model_name', 'User')
@@ -875,7 +874,6 @@ class Common {
             ->where('created_at', '>', $quantityDownload->start_time)
             ->where('created_at', '<', $quantityDownload->end_time)
             ->count();
-
         if ($docLogs < $maxDoc) {
             if ($user = Auth::user()->get()) {
                 $modelId = $user->id;
