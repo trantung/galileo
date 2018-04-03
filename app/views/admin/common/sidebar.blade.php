@@ -62,6 +62,14 @@
                         </a>
                     </li>
                     @endif
+                     @if(checkUrlPermission('AdminController@index'))
+                    <li>
+                        <a href="{{ action('AdminController@getUploadFile') }}">
+                            <i class="fa fa-newspaper-o"></i> 
+                            <span>Up load File</span>
+                        </a>
+                    </li>
+                    @endif
                </ul> 
             </li>
             @if(checkPermissionUserByField('role_id'))

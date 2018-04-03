@@ -238,15 +238,14 @@ class AdminController extends BaseController {
                              // Neu upload thanh cong thi luu url vao database
                      if( Document::where('code', $nameArray)->count() == 0 ){
                         $documentId = Document::create($field)->id;
-
                         $ob = Document::where('lesson_id', Common::getObject($lessonId, 'id'))->first();
                             if (!$ob) {
-                                $strArr = $strArr['type'];
-                                    if($strArr == 'D'){
-                                    
+                                $checktype = $strArr['type'];
+                                    if($checktype == 'D'){
+                                        dd($chectype);
                                     }
-                                    if($strArr == 'P'){
-   
+                                    if($checktype == 'P'){
+                                        Document::find($documentId)->update(['parent_id' => $documentId]);
                                     }
                        } else {
 
@@ -257,7 +256,7 @@ class AdminController extends BaseController {
                                 //nếu là phiếu thì parent_id = documentId
                             //nếu có thì xem record là phiếu hay đáp án
                                 //nếu là phiếu thì fileupload chắc chắn phải là đáp án->update parent_id của file upload là id của recored
-                                //nếu là đáp án thì fileupload chắc chắn phải là phiếu->update parent_id của fileupload là id vừa tạo và update parent_id của record = id của fileupload
+                                // nếu là đáp án thì fileupload chắc chắn phải là phiếu->update parent_id của fileupload là id vừa tạo và update parent_id của record = id của fileupload
                         Document::find($documentId)->update(['parent_id' => $documentId]);
                     }
 
