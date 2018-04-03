@@ -1,6 +1,7 @@
 <?php
 class Common {
 
+
     public static function getFreeTimeOfUser($uid, $timeId = null, $startTime = null, $endTime = null){
         $data = [];
         $times = FreeTimeUser::where('user_id', $uid);
@@ -833,5 +834,11 @@ class Common {
         }
         return $userCenterList;
     }
-    
+    public static function checkedCheckbox($document)
+    {
+        if ($document->status == 1) {
+            return 'checked';
+        }
+        return null;
+    }
 }

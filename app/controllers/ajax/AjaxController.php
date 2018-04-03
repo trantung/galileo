@@ -135,24 +135,16 @@ class AjaxController extends \BaseController {
 
     public function postChangeStatus()
     {
-        $input = Input::all();
-        $document = Document::find($input['id']);
-        $check = $document->status;
-        $new = Document::find($input['id']);
-        $message = '';
-        if($check == 1)
-        {
-            $new = Document::find($input['id']);
-            $new->update(['status' => 2]);
-            $message = 'Đã kiểm duyệt';
+        $documentId = Input::get('id');
+        $document = Document::find($documentId);
+        $status = 2;
+        $message = 'Chưa kiểm duyệt';
+        if( $document->status == 2 ){
+          $status = 1;
+          $message = 'Đã kiểm duyệt';
         }
-        if($check == 2)
-        {
-            $new = Document::find($input['id']);
-            $new->update(['status' => 1]);
-            $message = 'Chưa kiểm duyệt';
-        }
-        return Response::json($message);
+        $document->update(['status' => $status]);
+        return Response::json( $message );
 
+        }
     }
-}

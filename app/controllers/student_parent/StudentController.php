@@ -44,6 +44,7 @@ class StudentController extends AdminController {
     public function store()
     {
         $input = Input::all();
+  
         $validator = Validator::make( $input,
             [
                 'fullname'   => 'required',
