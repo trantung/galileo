@@ -61,6 +61,13 @@
                         </a>
                     </li>
                     @endif
+
+                    <li>
+                        <a href="{{ action('QuantityDownloadController@index') }}">
+                            <i class="fa fa-newspaper-o"></i> 
+                            <span>Quản lý số lượt tải</span>
+                        </a>
+                    </li>
                </ul> 
             </li>
             @if(checkPermissionUserByField('role_id'))

@@ -10,6 +10,7 @@ class QuantityDownloadController extends \BaseController {
 	public function index()
 	{
 		$input = Input::all();
+		// dd($input);
         $data = QuantityDownload::orderBy('created_at', 'desc');
         
         if( !empty($input['class_id']) ){
@@ -21,12 +22,10 @@ class QuantityDownloadController extends \BaseController {
         if( !empty($input['level_id']) ){
             $data = $data->where('level_id', $input['level_id']);
         }
-        if( !empty($input['start_time']) ){
-            $data = $data->where('start_time', $input['start_time']);
+        if( !empty($input['role_id']) ){
+            $data = $data->where('role_id', $input['role_id']);
         }
-        if( !empty($input['end_time']) ){
-            $data = $data->where('end_time', $input['end_time']);
-        }
+        
 		$data = $data->paginate(15);
 		return View::make('admin.download.index')->with(compact('data'));
 	}

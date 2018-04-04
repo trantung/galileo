@@ -38,15 +38,20 @@
                         $documentD = Common::getDocument($document, D);
                     ?>
                     @if($documentP)
-                        <td id="re_status"> {{ getStatusDoc($document) }} <input class="re-status" type="checkbox" value ="{{ $document->id }}"  checked="checked"></td>
+                        <td> 
+                            <label>{{ getStatusDoc($documentP) }}</label>
+                            <input class="re-status pull-right" type="checkbox"  value ="{{ $documentP->id }}" {{Common::checkedCheckbox($documentP)}}>
+                        </td>
+
                         <td>
                             {{ getNameTypeId(Common::getObject($documentP, 'type_id')) }}
+                           
                         </td>
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::checkQuantityDownload($documentP))
-                                <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}">view</a>
+                                    <a target="_blank" href="{{ asset($documentP->file_url) }}"  class="view_pdf" data-viewid="{{ $documentP->id }}"">view</a>
                                 @endif
                             @endif
 
@@ -78,7 +83,7 @@
                         @if(checkPermissionForm('DocumentController@destroy', 'Xoá', $document->parent_id))
                         {{ Form::open(array('method'=>'DELETE', 'action' => array('DocumentController@destroy', $document->parent_id), 'style' => 'display: inline-block;')) }}
                             <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-                            </td>
+                    </td>
                         {{ Form::close() }}
                         @endif
                     </td>
@@ -87,17 +92,20 @@
                 @for ($i = 1; $i < $countSubject; $i++)
                     <tr class="bg-warning">
                         @if($documentD)
-                        <td>{{ getStatusDoc($document) }}</td>
+                        <td>
+                           <label>{{ getStatusDoc($documentD) }}</label>
+                           <input class="re-status pull-right" type="checkbox"  value ="{{ $documentD->id }}" {{Common::checkedCheckbox($documentD)}}>
+
+                        </td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
                         </td>
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                @if(Common::checkQuantityDownload($documentD))
-                                <a target="_blank" href="{{ asset($documentD->file_url) }}  " class="view_pdf"  data-viewid ="{{ $documentD->id }}">view</a>
-                                @endif
+                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentP->id }}">view</a>
                             @endif
+
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                 @if( Common::getObject($documentP, 'file_url') )
                                     <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentD, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>

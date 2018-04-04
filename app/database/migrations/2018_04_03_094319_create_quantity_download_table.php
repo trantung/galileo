@@ -15,6 +15,7 @@ class CreateQuantityDownloadTable extends Migration {
 		Schema::create('quantity_downloads', function($table)
 		{
 			$table->increments('id');
+			$table->integer('role_id')->nullable();
 		    $table->integer('class_id')->nullable();
 		    $table->integer('subject_id')->nullable();
 		    $table->integer('level_id')->nullable();

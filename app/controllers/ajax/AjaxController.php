@@ -138,10 +138,26 @@ class AjaxController extends \BaseController {
 
     }
 
+    public function postChangeStatus()
+    {
+        $documentId = Input::get('id');
+        $document = Document::find($documentId);
+        $status = 2;
+        $message = 'Chưa kiểm duyệt';
+        if( $document->status == 2 ){
+          $status = 1;
+          $message = 'Đã kiểm duyệt';
+        }
+        $document->update(['status' => $status]);
+        return Response::json( $message );
+   }
+    
+
     public function postDocumentDownload()
     {
         $input = Input::all();
         $document = Document::find($input['id']);
+        // dd($document);
         $doc['quantity_download'] = $document->quantity_download + 1;
         $document->update($doc);
 
@@ -165,10 +181,10 @@ class AjaxController extends \BaseController {
         $field['year']  = '';
         $logId = DocumentLog::create($field)->id;
         if($logId){
-            if($field['type_id'] == 'P'){
+            if($document->type_id == 1){
                 DocumentLog::find($logId)->update(['parent_id' => $logId]);
             }   
-            else{
+            if($document->type_id == 2){
                 DocumentLog::find($logId)->update(['parent_id' => null]);
             }           
         }

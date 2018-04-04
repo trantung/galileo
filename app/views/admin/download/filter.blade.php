@@ -21,15 +21,10 @@
                  {{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
             </div>
         </div>
-        <div class="input-group inline-block col-sm-3">
-			<label>Ngày bắt đầu</label>
-			<input type="date" class="lesson_date form-control" value="{{ Input::get('start_date') }}" placeholder="Ngày bắt đầu" name="start_date">
-		</div>
-		
-		<div class="input-group inline-block col-sm-3">
-			<label>Ngày kết thúc</label>
-			<input type="date" class="lesson_date form-control" value="{{ Input::get('end_date') }}" placeholder="Ngày kết thúc" name="end_date">
-		</div>
+        <div class="input-group inline-block col-sm-4">
+            <label>Chọn đối tượng</label>
+            {{ Form::select('role_id', ['' => '-- chọn --', 2 => 'Giáo vụ', 3 => 'Phụ trách chuyên môn', 4 => 'Cố vấn học tập'], Input::get('role_id'),['class' => 'form-control', 'data-live-search' => 'true'])}}
+        </div>
 		
 		<div class="input-group inline-block" style="vertical-align: bottom;">
 			<button type="submit" class="btn btn-primary">Tìm kiếm</button>

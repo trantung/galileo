@@ -31,6 +31,12 @@
             </div>
         
         </div>
+
+        <div class="input-group inline-block col-sm-8">
+            <label>Chọn đối tượng</label>
+            {{ Form::select('role_id', ['' => '-- chọn --', 2 => 'Giáo vụ', 3 => 'Phụ trách chuyên môn', 4 => 'Cố vấn học tập'], Input::get('role_id'),['class' => 'form-control', 'data-live-search' => 'true'])}}
+        </div>
+
         <div class="input-group inline-block col-sm-8">
             <label for="max_account">Số lượt tải/tài khoản</label>
             {{ Form::text('max_account', Input::get('max_account'), array('class' => 'form-control', 'placeholder' => 'Số lượt tải tối đa trên 1 tài khoản' )) }}

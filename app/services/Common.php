@@ -890,4 +890,12 @@ class Common {
         }
         return false;
     }
+
+    public static function checkedCheckbox($document)
+    {
+        if($document->status == 1){
+            return 'checked';
+        }
+        return null;
+    }
 }

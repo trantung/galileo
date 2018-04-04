@@ -15,7 +15,7 @@
     <div class="margin-bottom">
     </div>
         <tr>
-            
+            <th>Đối tượng</th>
             <th>Lớp học</th>
             <th>Môn học</th>
             <th>Trình độ</th>
@@ -27,6 +27,7 @@
         </tr>
         @foreach($data as $key => $value)
         <tr>
+            <td>{{ $value->role_id }}</td>
             <td>{{ $value->classes->name }}</td>
             <td>{{ $value->subjects->name }}</td>
             <td>{{ $value->levels->name }}</td>
