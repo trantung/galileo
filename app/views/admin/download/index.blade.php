@@ -6,8 +6,10 @@
 @section('content')
     <!-- Bo loc -->
     
-    <a href="{{ action('QuantityDownloadController@create') }}" class="btn btn-primary">Thêm tùy chỉnh</a>
-   
+    <a href="{{ action('QuantityDownloadController@create') }}" class="btn btn-primary">Thêm bản ghi</a>
+    <a href="{{ action('QuantityDownloadController@getChangeGV') }}" class="btn btn-danger" style="margin-left: 10px"> Thay đổi theo GV</a>
+    <a href="{{ action('QuantityDownloadController@getChangePTCM') }}" class="btn btn-danger">Thay đổi theo PTCM</a>
+    <a href="{{ action('QuantityDownloadController@getChangeCVHT') }}" class="btn btn-danger">Thay đổi theo CVHT</a>
     <div class="margin-bottom">
         @include('admin.download.filter')
     </div>
@@ -27,10 +29,10 @@
         </tr>
         @foreach($data as $key => $value)
         <tr>
-            <td>{{ $value->role_id }}</td>
-            <td>{{ $value->classes->name }}</td>
-            <td>{{ $value->subjects->name }}</td>
-            <td>{{ $value->levels->name }}</td>
+            <td>{{ Common::getRoleName($value->role_id) }}</td>
+            <td>{{ Common::getObject($value->classes, 'name') }}</td>
+            <td>{{ Common::getObject($value->subjects, 'name') }}</td>
+            <td>{{ Common::getObject($value->levels, 'name') }}</td>
             <td>{{ $value->start_time }}</td>
             <td>{{ $value->end_time }}</td>
             <td>{{ $value->max_account }}</td>

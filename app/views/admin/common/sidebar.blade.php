@@ -100,6 +100,14 @@
                         </a>
                     </li>
                     @endif
+                    @if(checkUrlPermission('AdminController@getUploadFile'))
+                    <li>
+                        <a href="{{ action('AdminController@getUploadFile') }}">
+                            <i class="fa fa-newspaper-o"></i> 
+                            <span>Upload tài liệu</span>
+                        </a>
+                    </li>
+                    @endif
                 </ul>
             </li>
             

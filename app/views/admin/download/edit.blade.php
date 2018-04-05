@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Quản lý số lượt download' }}
+{{ $title='Chỉnh sửa bản ghi' }}
 @stop
 
 @section('js_header')

@@ -150,6 +150,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::put('student_package/{id}', 'ScheduleController@courseEdit');
     Route::get('document_link/{id}/{student_id}', 'ScheduleController@documentLink');
     // Route quantity download
+
+    Route::get('download/GV', 'QuantityDownloadController@getChangeGV');
+    Route::get('download/PTCM', 'QuantityDownloadController@getChangePTCM');
+    Route::get('download/CVHT', 'QuantityDownloadController@getChangeCVHT');
+
+    Route::post('download/GV', 'QuantityDownloadController@postChangeGV');
+    Route::post('download/PTCM', 'QuantityDownloadController@postChangePTCM');
+    Route::post('download/CVHT', 'QuantityDownloadController@postChangeCVHT');
+
     Route::resource('download', 'QuantityDownloadController');
     
     

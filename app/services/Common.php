@@ -898,4 +898,17 @@ class Common {
         }
         return null;
     }
+
+    public static function getRoleName($role)
+    {
+        if($role == 2){
+            return 'Giáo vụ';
+        }
+        if($role == 3){
+            return 'Phụ trách chuyên môn';
+        }
+        if($role == 4){
+            return  'Cố vấn học tập';
+        }
+    }
 }

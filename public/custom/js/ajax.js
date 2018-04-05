@@ -65,6 +65,25 @@ $(document).ready(function(){
 			}
 		});
 	})
+
+	$(document).on('change', '.re-status', function(){
+		var id = $(this).attr('value'),
+                _this = $(this);  
+		$.ajax({
+			'url': '/ajax/change-status',
+			'method': 'POST',
+			'data': {
+				'id': id 	
+			},
+			success: function(data) {
+			   _this.parent().find('label').text(data);
+			    console.log(data);
+		    },
+			error: function(error){
+				console.log(error.responseText);
+			}
+		});
+    })
     // $(document).ready(function() {
     //     $('.view_pdf').click(function(){
     //          var id = $(this).attr('data-viewid');

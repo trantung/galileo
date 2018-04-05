@@ -111,5 +111,77 @@ class QuantityDownloadController extends \BaseController {
 		return Redirect::action('QuantityDownloadController@index');
 	}
 
+	public function getChangeGV()
+	{
+		return View::make('admin.download.changeGV');
+	}
+
+	public function postChangeGV()
+	{
+		$input = Input::all();
+		$field = [
+			'max_account' => $input['max_account'], 
+			'max_document' => $input['max_document'], 
+			'start_time' => $input['start_time'], 
+			'end_time' => $input['end_time'] 
+		];
+		$obj = QuantityDownload::where('role_id', 2)->get();
+		$count = $obj->count();
+		if($count > 0){
+			foreach ($obj as $key => $value) {
+				$value::find($value->id)->update($field);
+			}
+			return Redirect::action('QuantityDownloadController@index');
+		}
+		return Redirect::action('QuantityDownloadController@create')->withMessage('Chưa có bản ghi nào! Vui lòng tạo mới');
+	}
+	public function getChangePTCM()
+	{
+		return View::make('admin.download.changePTCM');
+	}
+
+	public function postChangePTCM()
+	{
+		$input = Input::all();
+		$field = [
+			'max_account' => $input['max_account'], 
+			'max_document' => $input['max_document'], 
+			'start_time' => $input['start_time'], 
+			'end_time' => $input['end_time'] 
+		];
+		$obj = QuantityDownload::where('role_id', 3)->get();
+		$count = $obj->count();
+		if($count > 0){
+			foreach ($obj as $key => $value) {
+				$value::find($value->id)->update($field);
+				return Redirect::action('QuantityDownloadController@index');
+			}
+		}
+		return Redirect::action('QuantityDownloadController@create')->withMessage('Chưa có bản ghi nào! Vui lòng tạo mới');
+	}
+	public function getChangeCVHT()
+	{
+		return View::make('admin.download.changeCVHT');
+	}
+
+	public function changeCVHT()
+	{
+		$input = Input::all();
+		$field = [
+			'max_account' => $input['max_account'], 
+			'max_document' => $input['max_document'], 
+			'start_time' => $input['start_time'], 
+			'end_time' => $input['end_time'] 
+		];
+		$obj = QuantityDownload::where('role_id', 4)->get();
+		$count = $obj->count();
+		if($count > 0){
+			foreach ($obj as $key => $value) {
+				$value::find($value->id)->update($field);
+				return Redirect::action('QuantityDownloadController@index');
+			}
+		}
+		return Redirect::action('QuantityDownloadController@create')->withMessage('Chưa có bản ghi nào! Vui lòng tạo mới');
+	}
 
 }

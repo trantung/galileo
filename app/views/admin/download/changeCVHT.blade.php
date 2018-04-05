@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Tạo mới bản ghi' }}
+{{ $title='Quản lý số lượt tải của cố vấn học tập' }}
 @stop
 
 @section('js_header')
@@ -10,32 +10,10 @@
 @stop
 
 @section('content')
-{{ Form::open(array('action' => 'QuantityDownloadController@store', 'class' => 'student-form')) }}
+<a href="{{ action('QuantityDownloadController@index') }}" class="btn btn-primary glyphicon glyphicon-arrow-left "></a>
+{{ Form::open(array('action' => 'QuantityDownloadController@postChangeCVHT', 'class' => 'student-form')) }}
 <div class="box-body col-sm-6">
     <div class="form-group well well-sm">
-        
-        <div class="box alert filter-document-form">
-            <div class="input-group inline-block">
-            <label style="display: block;">Chọn lớp học</label>
-            {{ Form::select('class_id', ['' => '--Tất cả--'] + Common::getClassList(), Input::get('class_id'), ['class' => 'form-control select-class', 'required' => true]) }}
-            </div>
-
-            <div class="input-group inline-block">
-            <label style="display: block;">Chọn môn học</label>
-            {{ Form::select('subject_id', ['' => '--Tất cả--'] + Common::getSubjectList(), Input::get('subject_id'), ['class' => 'form-control select-subject', 'required' => true]) }}
-            </div>
-
-            <div class="input-group inline-block select-level-from-class-subject">
-                <label style="display: block;">Chọn trình độ</label>
-                 {{ Common::getLevelDropdownList('level_id', Input::get('level_id')) }}
-            </div>
-        
-        </div>
-
-        <div class="input-group inline-block col-sm-8">
-            <label>Chọn đối tượng</label>
-            {{ Form::select('role_id', ['' => '-- chọn --', 2 => 'Giáo vụ', 3 => 'Phụ trách chuyên môn', 4 => 'Cố vấn học tập'], Input::get('role_id'),['class' => 'form-control', 'data-live-search' => 'true'])}}
-        </div>
 
         <div class="input-group inline-block col-sm-8">
             <label for="max_account">Số lượt tải/tài khoản</label>
