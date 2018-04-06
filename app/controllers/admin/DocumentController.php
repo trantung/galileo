@@ -181,5 +181,9 @@ class DocumentController extends AdminController implements AdminInterface {
     {
 
     }
+    public function getCheckDoc()
+    {
+        
+    }
 }
 

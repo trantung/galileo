@@ -40,7 +40,9 @@
                     @if($documentP)
                         <td> 
                             <label>{{ getStatusDoc($documentP) }}</label>
+                            @if(checkUrlPermission('DocumentController@getCheckDoc'))
                             <input class="re-status pull-right" type="checkbox"  value ="{{ $documentP->id }}" {{Common::checkedCheckbox($documentP)}}>
+                            @endif
                         </td>
 
                         <td>
@@ -51,7 +53,7 @@
                             {{ Common::getObject($documentP, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::checkQuantityDownload($documentP))
-                                    <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}"">view</a>
+                                    <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}">view</a>
                                 @endif
                             @endif
 
@@ -94,8 +96,9 @@
                         @if($documentD)
                         <td>
                            <label>{{ getStatusDoc($documentD) }}</label>
-                           <input class="re-status pull-right" type="checkbox"  value ="{{ $documentD->id }}" {{Common::checkedCheckbox($documentD)}}>
-
+                            @if(checkUrlPermission('DocumentController@getCheckDoc'))
+                            <input class="re-status pull-right" type="checkbox"  value ="{{ $documentD->id }}" {{Common::checkedCheckbox($documentD)}}>
+                            @endif
                         </td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
@@ -103,7 +106,7 @@
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentP->id }}">view</a>
+                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">view</a>
                             @endif
 
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
