@@ -157,10 +157,8 @@ class AjaxController extends \BaseController {
     {
         $input = Input::all();
         $document = Document::find($input['id']);
-        // dd($document);
         $doc['quantity_download'] = $document->quantity_download + 1;
         $document->update($doc);
-
         $user = Auth::admin()->get();
         $field['model_id'] = $user->id;
         $field['model_name'] = $user->username;
@@ -180,13 +178,13 @@ class AjaxController extends \BaseController {
         $field['month']  = '';
         $field['year']  = '';
         $logId = DocumentLog::create($field)->id;
-        if($logId){
-            if($document->type_id == 1){
-                DocumentLog::find($logId)->update(['parent_id' => $logId]);
-            }   
-            if($document->type_id == 2){
-                DocumentLog::find($logId)->update(['parent_id' => null]);
-            }           
-        }
+        // if($logId){
+        //     if($document->type_id == 1){
+        //         DocumentLog::find($logId)->update(['parent_id' => $logId]);
+        //     }   
+        //     if($document->type_id == 2){
+        //         DocumentLog::find($logId)->update(['parent_id' => null]);
+        //     }           
+        // }
     }
 }

@@ -51,7 +51,7 @@
                             {{ Common::getObject($documentP, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::checkQuantityDownload($documentP))
-                                    <a target="_blank" href="{{ asset($documentP->file_url) }}"  class="view_pdf" data-viewid="{{ $documentP->id }}"">view</a>
+                                    <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}"">view</a>
                                 @endif
                             @endif
 

@@ -42,15 +42,15 @@
             <label for="max_document">Số lượt tải/tài liệu</label>
             {{ Form::text('max_document', $quantity->max_document, array('class' => 'form-control')) }}
         </div>
-        <div class="input-group inline-block col-sm-4" >
-            <label>Chọn ngày bắt đầu</label>
-            <input type="date" class="lesson_date form-control" required value="{{ $quantity->start_time }}" name="start_time">
-        </div>
-        <div class="input-group inline-block col-sm-4" >
-            <label>Chọn ngày kết thúc</label>
-            <input type="date" class="lesson_date form-control" required value="{{ $quantity->end_time }}" name="end_time">
+        <div class="form-group">
+            <label for="start_time">Ngày bắt đầu</label>
+            <input type="date" class="form-control" id="start_time" value="{{ date('Y-m-d', strtotime($quantity->start_time)) }}" name="start_time">
         </div>
         <div class="form-group">
+            <label for="end_time">Ngày kết thúc</label>
+            <input type="date" class="form-control" id="end_time" value="{{ date('Y-m-d', strtotime($quantity->end_time)) }}" name="end_time">
+        </div>
+        <div class="form-group">    
             <input type="submit" class="btn btn-primary" value="Lưu lại"/>
             <input type="reset" class="btn btn-default" value="Nhập lại"/>
         </div>

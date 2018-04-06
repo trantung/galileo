@@ -65,7 +65,6 @@ $(document).ready(function(){
 			}
 		});
 	})
-
 	$(document).on('change', '.re-status', function(){
 		var id = $(this).attr('value'),
                 _this = $(this);  
@@ -84,6 +83,7 @@ $(document).ready(function(){
 			}
 		});
     })
+
     // $(document).ready(function() {
     //     $('.view_pdf').click(function(){
     //          var id = $(this).attr('data-viewid');
