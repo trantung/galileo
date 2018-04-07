@@ -103,7 +103,7 @@
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentP->id }}">view</a>
+                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">view</a>
                             @endif
 
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))

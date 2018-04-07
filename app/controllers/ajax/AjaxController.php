@@ -159,16 +159,21 @@ class AjaxController extends \BaseController {
         $document = Document::find($input['id']);
         $doc['quantity_download'] = $document->quantity_download + 1;
         $document->update($doc);
-        $user = Auth::admin()->get();
-        $field['model_id'] = $user->id;
-        $field['model_name'] = $user->username;
+        if($admin = Auth::admin()->get()){
+            $field['model_id'] = $admin->id;
+            $field['model_name'] = 'Admin';
+        }
+        if($user = Auth::user()->get()){
+            $field['model_id'] = $user->id;
+            $field['model_name'] = 'Admin';
+        }
         $field['document_id'] = $input['id'];
-        $field['quantity_download'] = $document->quantity_download - 1;
+        $field['quantity_download'] = 1;
         $field['type_id'] = $document->type_id;
+        $field['parent_id'] = $document->parent_id;
         $field['name'] = $document->name; 
         $field['code'] = $document->code;
         $field['file_url']  = $document->file_url;
-        $field['student_id']  = $document->student_id;
         $field['class_id']  = $document->class_id;
         $field['subject_id']  = $document->subject_id;
         $field['level_id']  = $document->level_id;
@@ -178,13 +183,6 @@ class AjaxController extends \BaseController {
         $field['month']  = '';
         $field['year']  = '';
         $logId = DocumentLog::create($field)->id;
-        // if($logId){
-        //     if($document->type_id == 1){
-        //         DocumentLog::find($logId)->update(['parent_id' => $logId]);
-        //     }   
-        //     if($document->type_id == 2){
-        //         DocumentLog::find($logId)->update(['parent_id' => null]);
-        //     }           
-        // }
+        
     }
 }
