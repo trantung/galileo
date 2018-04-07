@@ -194,8 +194,8 @@ class AdminController extends BaseController {
                 $nameArray = basename($file_name, '.pdf');   //  bỏ đuôi file
                 if( Document::where('code', $nameArray)->count() > 0 ){
 
-                     $ob = Document::where('code', $nameArray)->first();
-                     $fileUrl = $ob->file_url;
+                    $ob = Document::where('code', $nameArray)->first();
+                    $fileUrl = $ob->file_url;
                     $re_nameArray = rename(public_path().$fileUrl, public_path().$fileUrl.'_'.$now);
 
                     // $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';
@@ -233,9 +233,17 @@ class AdminController extends BaseController {
                 if( $uploadSuccess ){      
 
                              // Neu upload thanh cong thi luu url vao database
-                     if( Document::where('code', $nameArray)->count() == 0 ){
-                        $documentId = Document::create($field)->id;
-                        Document::find($documentId)->update(['parent_id' => $documentId]);
+                    if( Document::where('code', $nameArray)->count() == 0 ){
+                        // $documentId = Document::create($field)->id;
+                        // Document::find($documentId)->update(['parent_id' => $documentId]);
+                        
+                        //kiểm tra là xem lesson_id có bản ghi hay ko
+                            //nếu không có thì kiểm tra file upload là đáp án hay phiếu
+                                //nếu là đáp án thfi parent_id = null
+                                //nếu là phiếu thì parent_id = documentId
+                            //nếu có thì xem record là phiếu hay đáp án
+                                //nếu là phiếu thì fileupload chắc chắn phải là đáp án->update parent_id của file upload là id của recored
+                                // nếu là đáp án thì fileupload chắc chắn phải là phiếu->update parent_id của fileupload là id vừa tạo và update parent_id của record = id của fileupload
                     }
 
                 }
