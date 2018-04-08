@@ -164,7 +164,7 @@ class QuantityDownloadController extends \BaseController {
 		return View::make('admin.download.changeCVHT');
 	}
 
-	public function changeCVHT()
+	public function postchangeCVHT()
 	{
 		$input = Input::all();
 		$field = [
@@ -184,4 +184,25 @@ class QuantityDownloadController extends \BaseController {
 		return Redirect::action('QuantityDownloadController@create')->withMessage('Chưa có bản ghi nào! Vui lòng tạo mới');
 	}
 
+	public function getAskPermission($id)
+	{
+		return View::make('admin.download.askpermission')->with(compact('id'));
+	}
+
+	public function postAskPermission()
+	{
+		$input = Input::all();
+		// dd($input);
+		$document = Document::where('parent_id', $input['documnent_id'])->first();
+		// dd($document);
+		$field = [
+			// 'model_id'     => $input['id'],
+			'model_name'   => 'Admin',
+			'document_id'  => $document->id,
+			'document_code'=> $document->code,
+			'status'       => 1
+		];
+		$askPermissionId = AskPermission::create($field)->id;
+		return Redirect::action('DocumentController@index');
+	}
 }

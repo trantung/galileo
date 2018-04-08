@@ -51,7 +51,11 @@
                             {{ Common::getObject($documentP, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::checkQuantityDownload($documentP))
-                                    <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}"">view</a>
+                                    @if(Common::AskPermission($documentP->id))
+                                        <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}"">View</a>
+                                    @else
+                                         <a href="{{ action('QuantityDownloadController@getAskPermission', $documentP->id) }}" class="btn btn-danger">Limit</a>
+                                    @endif
                                 @endif
                             @endif
 
@@ -103,11 +107,17 @@
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">view</a>
+                                @if(Common::checkQuantityDownload($documentD))
+                                    @if(Common::AskPermission($documentD->id))
+                                        <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">View</a>
+                                    @else
+                                         <a href="{{ action('QuantityDownloadController@getAskPermission', $documentD->id) }}" class="btn btn-danger">Limit</a>
+                                    @endif
+                                @endif
                             @endif
 
                             @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
-                                @if( Common::getObject($documentP, 'file_url') )
+                                @if( Common::getObject($documentD, 'file_url') )
                                     <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentD, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
                                 @endif
                             @endif

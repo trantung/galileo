@@ -839,22 +839,6 @@ class Common {
     //  hàm kiểm soát số lượng download (chưa đúng)
     public static function checkQuantityDownload($document)
     {
-        // $result = '';
-        // $documentLog = QuantityDownload::orderBy('created_at', 'DESC')->first();
-        // $levelId =  $documentLog->level_id;
-        // $maxDoc = $documentLog->max_document;
-        // $maxAcc = $documentLog->max_account;  
-        // $document = Document::all();
-        // foreach ($document as $key => $value) {
-        //     $conuntRecord = $value->quantity_download;
-        //     if($conuntRecord >= $maxDoc ){
-        //         $result = true;
-        //     }
-        //     else{
-        //         $result = false;
-        //     }
-        // }
-        // return $result;
         if (Auth::admin()->get()) {
             return true;
         }
@@ -909,6 +893,24 @@ class Common {
         }
         if($role == 4){
             return  'Cố vấn học tập';
+        }
+    }
+
+    // Hàm kiểm tra số lượt download khi limit
+    public static function AskPermission($id)
+    {
+        $check = Auth::admin()->get();
+        $countRecord = DocumentLog::where('model_name', 'Admin')
+                                  ->where('model_id', $check->id)
+                                  ->where('document_id', $id)
+                                  ->count();
+        $data = QuantityDownload::where('role_id', 2)->first();
+        $max_account = $data->max_account;
+        if($countRecord < $max_account){
+            return true ;
+        }
+        else{
+            return false;
         }
     }
 }
