@@ -249,13 +249,13 @@ class AdminController extends BaseController {
                             Document::find($documentId)->update(['parent_id' => null]);
                         }
                     }
-                    else{   //đã có lesson_id
+                    else{ 
                         if( $check = Document::where('code', $nameArray)->first() ){
-                            if($check->type_id == 1){     //phiếu
+                            if($check->type_id == 1){
                                 $documentD = Document::create($field);
                                 Document::find($documentD->id)->update(['parent_id' => $check->id]);
                             }
-                            if($check->type_id == 2){   // đáp án
+                            if($check->type_id == 2){
                                 $documentP = Document::create($field);
                                 Document::find($documentP->id)->update(['parent_id' => $documentP->id]);
                                 Document::find($check->id)->update(['parent_id' => $documentP->id]);
