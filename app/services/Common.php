@@ -905,6 +905,7 @@ class Common {
                                   ->where('document_id', $id)
                                   ->count();
         $data = QuantityDownload::where('role_id', 2)->first();
+        if($da)
         $max_account = $data->max_account;
         if($countRecord < $max_account){
             return true ;
