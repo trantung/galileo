@@ -53,19 +53,19 @@
                             {{ Common::getObject($documentP, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::AskPermission($documentP->id))
-                                    @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                        @if(Common::checkQuantityDownload($documentP))
-                                            <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}"">View</a>
-                                        @endif
+                                    @if(Common::checkQuantityDownload($documentP))
+                                        <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}">View</a>
                                     @endif
-
                                     @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                         @if( Common::getObject($documentP, 'file_url') )
                                             <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
                                         @endif
                                     @endif
                                 @else
-                                    <a href="{{ action('QuantityDownloadController@getAskPermission', $documentP->id) }}" class="btn btn-danger">Limit</a>
+                                    {{ Form::open(array('method'=>'POST', 'action' => array('QuantityDownloadController@postAskPermission', $documentP->id), 'style' => 'display: inline-block;')) }}
+                                        <button class="btn btn-danger" onclick="return confirm('Bạn hết lượt view, hãy hỏi quản lý?');">Limit</button>
+                                        </td>
+                                    {{ Form::close() }}
                                 @endif   
                             @endif 
                         </td>
@@ -113,20 +113,19 @@
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::AskPermission($documentD->id))
-                                    @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                        @if(Common::checkQuantityDownload($documentD))
-                                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">View</a>
-                                        @endif
+                                    @if(Common::checkQuantityDownload($documentD))
+                                            <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">View</a>
                                     @endif
-
-
                                     @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                         @if( Common::getObject($documentD, 'file_url') )
                                             <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentD, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
                                         @endif
                                     @endif
                                 @else
-                                     <a href="{{ action('QuantityDownloadController@getAskPermission', $documentD->id) }}" class="btn btn-danger"> Limit</a>
+                                    {{ Form::open(array('method'=>'POST', 'action' => array('QuantityDownloadController@postAskPermission', $documentD->id), 'style' => 'display: inline-block;')) }}
+                                        <button class="btn btn-danger" onclick="return confirm('Bạn hết lượt view, hãy hỏi quản lý?');">Limit</button>
+                                        </td>
+                                    {{ Form::close() }}
                                 @endif
                             @endif
                         </td>
