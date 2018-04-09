@@ -901,7 +901,6 @@ class Common {
     public static function AskPermission($documentId)
     {
         $check = Auth::admin()->get();
-
         if ($check) {
             return true;
         }
@@ -909,12 +908,13 @@ class Common {
         if (!$check) {
             return false;
         }
+
         $userId = $check->id;
         $countRecord = DocumentLog::where('model_name', 'User')
             ->where('document_id', $documentId)
             ->count();
-
         $now = date("Y-m-d");
+
         $document = Document::find($documentId);
         $quantityDownload = QuantityDownload::where('level_id', $document->level_id)
             ->where('start_time', '<=', $now)
@@ -938,7 +938,7 @@ class Common {
             return false;
         }
         //kiểm tra lịch dạy của cvht
-        if ($check->role_id == CVHT) {
+        if (in_array($check->role_id, [CVHT, PTCM, GV])) {
             //lấy lịch dạy của cvht
             $timeIdCVHT = FreeTimeUser::where('user_id', $userId)->lists('time_id');
             if (count($timeIdCVHT) == 0) {
