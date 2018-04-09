@@ -194,8 +194,8 @@ class AdminController extends BaseController {
                 $nameArray = basename($file_name, '.pdf');   //  bỏ đuôi file
                 if( Document::where('code', $nameArray)->count() > 0 ){
 
-                     $ob = Document::where('code', $nameArray)->first();
-                     $fileUrl = $ob->file_url;
+                    $ob = Document::where('code', $nameArray)->first();
+                    $fileUrl = $ob->file_url;
                     $re_nameArray = rename(public_path().$fileUrl, public_path().$fileUrl.'_'.$now);
 
                     // $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';

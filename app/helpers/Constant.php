@@ -50,4 +50,8 @@ define('KEY_API', 'AVwtTTSaWpn7LfDW');
 define('ACTIVE', 1);
 define('INACTIVE', 2);
 define('REGISTER_LESSON', 0);
+//define status trong bang ask_permission: 1 la approve, 2 là chờ approve
+define('APPROVE', 1);
+define('WAIT_APPROVE', 2);
+
 

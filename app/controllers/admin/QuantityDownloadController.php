@@ -173,7 +173,7 @@ class QuantityDownloadController extends \BaseController {
 			'start_time' => $input['start_time'], 
 			'end_time' => $input['end_time'] 
 		];
-		$obj = QuantityDownload::where('role_id', 4)->get();
+		$obj = QuantityDownload::where('role_id', CVHT)->get();
 		$count = $obj->count();
 		if($count > 0){
 			foreach ($obj as $key => $value) {
@@ -189,17 +189,17 @@ class QuantityDownloadController extends \BaseController {
 		return View::make('admin.download.askpermission')->with(compact('id'));
 	}
 
-	public function postAskPermission()
+	public function postAskPermission($documentId)
 	{
 		$input = Input::all();
-		$admin = Auth::admin()->get();
-		$document = Document::where('parent_id', $input['documnent_id'])->first();
+		$user = Auth::user()->get();
+		$document = Document::find($documentId);
 		$field = [
-			'model_id'       => $admin->id,
-			'model_name'     => 'Admin',
-			'document_id'    => $document->id,
+			'model_id'       => $user->id,
+			'model_name'     => 'User',
+			'document_id'    => $documentId,
 			'document_code'  => $document->code,
-			'status'         => 1
+			'status'         => WAIT_APPROVE
 		];
 		$askPermissionId = AskPermission::create($field)->id;
 		

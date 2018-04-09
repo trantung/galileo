@@ -897,21 +897,69 @@ class Common {
     }
 
     // Hàm kiểm tra số lượt download khi limit
-    public static function AskPermission($id)
+    public static function AskPermission($documentId)
     {
         $check = Auth::admin()->get();
-        $countRecord = DocumentLog::where('model_name', 'Admin')
-                                  ->where('model_id', $check->id)
-                                  ->where('document_id', $id)
-                                  ->count();
-        $data = QuantityDownload::where('role_id', 2)->first();
-        if($da)
-        $max_account = $data->max_account;
-        if($countRecord < $max_account){
-            return true ;
+
+        if ($check) {
+            return true;
         }
-        else{
+        $check = Auth::user()->get();
+        if (!$check) {
             return false;
         }
+        $userId = $check->id;
+        $countRecord = DocumentLog::where('model_name', 'User')
+            ->where('document_id', $documentId)
+            ->count();
+
+        $now = date("Y-m-d");
+        $document = Document::find($documentId);
+        $quantityDownload = QuantityDownload::where('level_id', $document->level_id)
+            ->where('start_time', '<=', $now)
+            ->where('end_time', '>=', $now)
+            ->first();
+        if (!$quantityDownload) {
+            return true;
+        }
+        $maxDoc = $quantityDownload->max_document;
+        $maxAcc = $quantityDownload->max_account;
+        //kiểm tra maxdoc và số lượng bản ghi với doc_id trong documentlog có nhiều hơn ko
+        if ($countRecord >= $maxDoc) {
+            return false;
+        }
+        //kiểm tra maxacc và số lượng bản ghi với doc_id trong documentlog có nhiều hơn ko đối với 1 acc
+        $countRecordAcc = DocumentLog::where('model_name', 'User')
+            ->where('model_id', $check->id)
+            ->where('document_id', $documentId)
+            ->count();
+        if ($countRecordAcc >= $maxAcc) {
+            return false;
+        }
+        //kiểm tra lịch dạy của cvht
+        if ($check->role_id == CVHT) {
+            //lấy lịch dạy của cvht
+            $timeIdCVHT = FreeTimeUser::where('user_id', $userId)->lists('time_id');
+            if (count($timeIdCVHT) == 0) {
+                return false;
+            }
+            //kiểm tra thứ mấy có trùng với time_id trong lịch dạy ko
+            $time = date( 'Y-m-d', time());
+            $dayNumber = getTimeId($time);
+            if (!in_array($dayNumber, $timeIdCVHT)) {
+                return false;
+            }
+            //nếu now mà < thừoi gian bắt đầu - 1 khoảng thời gian(2 tiếng) thì false
+            $hourCheck = date('H:i:s', strtotime('+2 hours'));
+            $currentHour = date('H:i:s');
+            $hour = FreeTimeUser::where('user_id', $userId)
+                ->where('end_time', '>=', $currentHour)
+                ->where('start_time', '<=', $hourCheck)
+                ->count();
+            if ($hour == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -175,7 +175,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('download/PTCM', 'QuantityDownloadController@postChangePTCM');
     Route::post('download/CVHT', 'QuantityDownloadController@postChangeCVHT');
 
-    Route::get('download/ask_permission/{id}', 'QuantityDownloadController@getAskPermission');
+    Route::post('download/ask_permission/{documentId}', 'QuantityDownloadController@postAskPermission');
     Route::post('download/ask_permission', 'QuantityDownloadController@postAskPermission');
 
     Route::resource('download', 'QuantityDownloadController');
