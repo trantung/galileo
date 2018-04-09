@@ -192,17 +192,17 @@ class QuantityDownloadController extends \BaseController {
 	public function postAskPermission()
 	{
 		$input = Input::all();
-		// dd($input);
+		$admin = Auth::admin()->get();
 		$document = Document::where('parent_id', $input['documnent_id'])->first();
-		// dd($document);
 		$field = [
-			// 'model_id'     => $input['id'],
-			'model_name'   => 'Admin',
-			'document_id'  => $document->id,
-			'document_code'=> $document->code,
-			'status'       => 1
+			'model_id'       => $admin->id,
+			'model_name'     => 'Admin',
+			'document_id'    => $document->id,
+			'document_code'  => $document->code,
+			'status'         => 1
 		];
 		$askPermissionId = AskPermission::create($field)->id;
+		
 		return Redirect::action('DocumentController@index');
 	}
 }
