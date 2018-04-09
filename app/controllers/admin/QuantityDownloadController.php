@@ -173,7 +173,7 @@ class QuantityDownloadController extends \BaseController {
 			'start_time' => $input['start_time'], 
 			'end_time' => $input['end_time'] 
 		];
-		$obj = QuantityDownload::where('role_id', 4)->get();
+		$obj = QuantityDownload::where('role_id', CVHT)->get();
 		$count = $obj->count();
 		if($count > 0){
 			foreach ($obj as $key => $value) {
