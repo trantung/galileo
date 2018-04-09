@@ -570,3 +570,18 @@ input[type="radio"]:checked +label{
 }
 
 .checkradio {margin-bottom: 10px;}
+
+
+.modal{
+	width: 300px;
+	height: 350px;
+	position: relative;
+	top: -2437px;
+    left: 522px;
+}
+.close{
+	position: relative;
+	top: 23px;
+	left: 264px;
+}
+
