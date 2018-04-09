@@ -185,8 +185,8 @@
             {{ Form::close() }}
             <div class ="report">
                 <h2 class="impact text-chanform white">đã có</h2>
-                <span id="number"><h1>890</h1></span>
-                <span> <b class="text-chanform">nguyễn tiến dũng </b> vừa đăng ký</span>
+                <span><h1 id="number"></h1></span>
+                <span> <b class="text-chanform">{{ CommonLanding::getStudentCurrent() }} </b> vừa đăng ký</span>
             </div>
         </content>
     <div class=" thanh1 clear-both" ></div>
