@@ -43,6 +43,7 @@
         </header>
         <!-- open sidebar -->
                                                                             <!-- end sidebar -->
+        @include('admin.common.message')
         <content>
             {{ Form::open(array('action' => 'LandingPageController@store')) }}
                 {{ Form::hidden('utm_source', $utmSource) }}
@@ -194,3 +195,31 @@
     </footer>
     </body>
 </html>
+<?php
+    $timeCustom = 1523167000;
+    $numberTime = 1000;
+    $now = time();
+    $so1 =500;
+    $count = ceil(($now-$timeCustom)/$numberTime);
+    $so = $so1 + $count;
+?>
+<script>
+    var numberTime =  <?php print($numberTime); ?>;
+    var so = <?php print($so); ?>;
+    var count = <?php print($count); ?>;
+    var now = <?php print($now); ?>;
+    var timeCustom = <?php print($timeCustom); ?>;
+    function cong(){
+        so++;
+        if(so <10000000){
+            document.getElementById('number').innerHTML = so;
+            setTimeout('cong()', 1000);
+        }else{
+             document.getElementById('munber').innerHTML =" het thoi gian";
+
+        }
+    }
+
+    cong();
+
+</script>
