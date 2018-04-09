@@ -896,10 +896,12 @@ class Common {
         }
     }
 
+
     // Hàm kiểm tra số lượt download khi limit
     public static function AskPermission($documentId)
     {
         $check = Auth::admin()->get();
+
         if ($check) {
             return true;
         }

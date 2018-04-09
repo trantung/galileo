@@ -28,7 +28,7 @@
 			  <th>Địa chỉ</th>
 			  <th style="width:150px;">Action</th>
 			</tr>
-			 @foreach($centers as $center)
+			@foreach($centers as $center)
 			<tr>
 			  <td>{{ $center->id }}</td>
 			  <td>{{ $center->name }}</td>

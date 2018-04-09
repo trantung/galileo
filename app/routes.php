@@ -179,7 +179,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('download/ask_permission/{documentId}', 'QuantityDownloadController@postAskPermission');
     Route::post('download/ask_permission', 'QuantityDownloadController@postAskPermission');
 
+    Route::resource('ask_permission', 'AskPermissionController');
+
     Route::resource('download', 'QuantityDownloadController');
+    
     
     
        /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt

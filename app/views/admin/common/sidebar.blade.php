@@ -68,6 +68,13 @@
                             <span>Quản lý số lượt tải</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="{{ action('AskPermissionController@index') }}">
+                            <i class="fa fa-newspaper-o"></i> 
+                            <span>Quản lý số lịch sử tải</span>
+                        </a>
+                    </li>
                </ul> 
             </li>
             @if(checkPermissionUserByField('role_id'))

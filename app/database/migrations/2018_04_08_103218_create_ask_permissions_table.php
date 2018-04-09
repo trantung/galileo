@@ -20,6 +20,7 @@ class CreateAskPermissionsTable extends Migration {
 		    $table->integer('document_id');
 		    $table->string('document_code');
 		    $table->integer('status');
+		    $table->softDeletes();
 		    $table->timestamps();
 		});
 	}
