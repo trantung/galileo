@@ -14,6 +14,22 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/update_check_doc_per', function(){
+    $permissionId = Permission::create([
+        'controller' => 'DocumentController',
+        'action' => 'getCheckDoc',
+        'model' => 'Document',
+    ])->id;
+    $group = Group::where('code', 'KDHL')->first();
+    if ($group) {
+        RelationPerGroup::create([
+            'group_id' => $group->id,
+            'permission_id' => $permissionId
+        ]);
+        dd('success');
+    }
+    dd($group);
+});
 Route::get('/update_center_level_id_cvht', function(){
     $centerId = 2;
     $listLevelId = [$centerId => Level::lists('id')];

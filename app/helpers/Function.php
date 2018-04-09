@@ -87,6 +87,7 @@ function getMethodDefault($classController)
         'update' => $classController,
         'destroy' => $classController,
         'getPrint' => $classController,
+        'getCheckDoc' => $classController,
     ];
     return $array;
 }

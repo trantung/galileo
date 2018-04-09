@@ -156,16 +156,18 @@ class AjaxController extends \BaseController {
     public function postDocumentDownload()
     {
         $input = Input::all();
+        $now = date( 'Y-m-d', time());
+        $timestamp = strtotime($now);
         $document = Document::find($input['id']);
         $doc['quantity_download'] = $document->quantity_download + 1;
         $document->update($doc);
-        if($admin = Auth::admin()->get()){
-            $field['model_id'] = $admin->id;
-            $field['model_name'] = 'Admin';
-        }
-        if($user = Auth::user()->get()){
+        if ($user = Auth::admin()->get()) {
             $field['model_id'] = $user->id;
             $field['model_name'] = 'Admin';
+        }
+        if ($user = Auth::user()->get()) {
+            $field['model_id'] = $user->id;
+            $field['model_name'] = 'User';
         }
         $field['document_id'] = $input['id'];
         $field['quantity_download'] = 1;
@@ -173,15 +175,15 @@ class AjaxController extends \BaseController {
         $field['parent_id'] = $document->parent_id;
         $field['name'] = $document->name; 
         $field['code'] = $document->code;
-        $field['file_url']  = $document->file_url;
-        $field['class_id']  = $document->class_id;
-        $field['subject_id']  = $document->subject_id;
-        $field['level_id']  = $document->level_id;
-        $field['lesson_id']  = $document->lesson_id;
-        $field['order']  = $document->order;
-        $field['day']  = '';
-        $field['month']  = '';
-        $field['year']  = '';
+        $field['file_url'] = $document->file_url;
+        $field['class_id'] = $document->class_id;
+        $field['subject_id'] = $document->subject_id;
+        $field['level_id'] = $document->level_id;
+        $field['lesson_id'] = $document->lesson_id;
+        $field['order'] = $document->order;
+        $field['day'] = getTimeId($now);
+        $field['month'] = date("m", $timestamp);
+        $field['year'] = date("Y", $timestamp);
         $logId = DocumentLog::create($field)->id;
         
     }

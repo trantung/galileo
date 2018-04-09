@@ -39,8 +39,11 @@
                     ?>
                     @if($documentP)
                         <td> 
-                            <label>{{ getStatusDoc($documentP) }}</label>
+                            <label>{{ getStat
+                            usDoc($documentP) }}</label>
+                            @if(checkUrlPermission('DocumentController@getCheckDoc'))
                             <input class="re-status pull-right" type="checkbox"  value ="{{ $documentP->id }}" {{Common::checkedCheckbox($documentP)}}>
+                            @endif
                         </td>
 
                         <td>
@@ -49,10 +52,10 @@
                         </td>
                         <td>
                             {{ Common::getObject($documentP, 'code') }}
-                            @if(Common::AskPermission($documentP->id))
-                                @if(renderUrlByPermission('DocumentController@index', 'index', ''))
+                            @if(renderUrlByPermission('DocumentController@index', 'index', ''))
+                                @if(Common::AskPermission($documentP->id))
                                     @if(Common::checkQuantityDownload($documentP))
-                                        <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}"">View</a>
+                                        <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}">view</a>
                                     @endif
                                 @endif
 
@@ -98,20 +101,20 @@
                         @if($documentD)
                         <td>
                            <label>{{ getStatusDoc($documentD) }}</label>
-                           <input class="re-status pull-right" type="checkbox"  value ="{{ $documentD->id }}" {{Common::checkedCheckbox($documentD)}}>
-
+                            @if(checkUrlPermission('DocumentController@getCheckDoc'))
+                            <input class="re-status pull-right" type="checkbox"  value ="{{ $documentD->id }}" {{Common::checkedCheckbox($documentD)}}>
+                            @endif
                         </td>
                         <td>
                             {{ getNameTypeId(Common::getObject($documentD, 'type_id')) }}
                         </td>
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
-                            @if(Common::AskPermission($documentD->id))
-                                @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                    @if(Common::checkQuantityDownload($documentD))
-                                            <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">View</a>
-                                    @endif
+                            @if(renderUrlByPermission('DocumentController@index', 'index', ''))
+                                 @if(Common::AskPermission($documentD->id))
+                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">view</a>
                                 @endif
+                            @endif
 
                                 @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                     @if( Common::getObject($documentD, 'file_url') )
