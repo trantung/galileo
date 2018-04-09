@@ -53,5 +53,7 @@ define('REGISTER_LESSON', 0);
 //define status trong bang ask_permission: 1 la approve, 2 là chờ approve
 define('APPROVE', 1);
 define('WAIT_APPROVE', 2);
+//define subject email landingpage
+define('LANDING_PAGE_EMAIL_SUBJECT', '[HOCMAI]_Xác nhận đăng ký tham gia thi thử/ĐGNL thành công');
 
 

@@ -14,6 +14,7 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::resource('/dang-ky-thi', 'LandingPageController');
 Route::get('/update_check_doc_per', function(){
     $permissionId = Permission::create([
         'controller' => 'DocumentController',
