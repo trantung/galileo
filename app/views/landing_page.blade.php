@@ -43,7 +43,6 @@
         </header>
         <!-- open sidebar -->
                                                                             <!-- end sidebar -->
-        @include('admin.common.message')
         <content>
             {{ Form::open(array('action' => 'LandingPageController@store')) }}
                 {{ Form::hidden('utm_source', $utmSource) }}
@@ -54,9 +53,9 @@
                     <h3 class="text-chanform margin text-center personal">thông tin cá nhân</h3>
                     <div  class="#">
                         <div class="thongtin float_left">
-                            <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" required ></label><br><br>
-                            <label>Họ và tên con : <input type="text" name="fullname" required ></label><br><br>
-                            <label>Số điện thoại :<input type="text" name="phone" required ></label>
+                            <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
+                            <label>Họ và tên con : <input type="text" name="fullname" ></label><br><br>
+                            <label>Số điện thoại :<input type="text" name="phone" ></label>
                         </div>
                         <div class="thongtin float_right">
                             <label> email :<input type="email" name="email" ></label><br><br>
@@ -180,7 +179,7 @@
                     </div>
                 </article>
                 <div  class="regiter" >
-                    {{ Form::submit('ĐĂNG KÝ', ['class'=>'button']) }}
+                    {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn']) }}
                 </div>
             {{ Form::close() }}
             <div class ="report">
@@ -189,6 +188,14 @@
                 <span> <b class="text-chanform">{{ CommonLanding::getStudentCurrent() }} </b> vừa đăng ký</span>
             </div>
         </content>
+        @if(Session::has('message'))
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close white">x</span>
+                <p><img src="/image_landing/thongbao.png"></p>
+            </div>
+        </div>
+        @endif
     <div class=" thanh1 clear-both" ></div>
     <footer class="footer text-chanform">
         <p>hệ thống giáo dục hocmai - trung tâm học chủ động galieo - hotline: 090.211.0033</p>
@@ -222,4 +229,31 @@
 
     cong();
 
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 </script>

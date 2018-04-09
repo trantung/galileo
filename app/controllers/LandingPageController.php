@@ -63,7 +63,7 @@ class LandingPageController extends \BaseController {
                 <p><img src="/image_landing/thongbao.png"></p>
             </div>
         </div>';
-        return Redirect::action('LandingPageController@index')->withMesage($message);
+        return Redirect::action('LandingPageController@index')->withMessage($message);
     }
 
 
