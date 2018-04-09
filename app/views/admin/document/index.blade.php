@@ -41,7 +41,7 @@
                         <td> 
                             <label>{{ getStatusDoc($documentP) }}</label>
                             @if(checkUrlPermission('DocumentController@getCheckDoc'))
-                            <input class="re-status pull-right" type="checkbox"  value ="{{ $documentP->id }}" {{Common::checkedCheckbox($documentP)}}>
+                                <input class="re-status pull-right" type="checkbox"  value ="{{ $documentP->id }}" {{Common::checkedCheckbox($documentP)}}>
                             @endif
                         </td>
 

@@ -896,6 +896,7 @@ class Common {
         }
     }
 
+
     // Hàm kiểm tra số lượt download khi limit
     public static function AskPermission($documentId)
     {
