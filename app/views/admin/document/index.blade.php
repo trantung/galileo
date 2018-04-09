@@ -39,8 +39,7 @@
                     ?>
                     @if($documentP)
                         <td> 
-                            <label>{{ getStat
-                            usDoc($documentP) }}</label>
+                            <label>{{ getStatusDoc($documentP) }}</label>
                             @if(checkUrlPermission('DocumentController@getCheckDoc'))
                             <input class="re-status pull-right" type="checkbox"  value ="{{ $documentP->id }}" {{Common::checkedCheckbox($documentP)}}>
                             @endif
@@ -54,19 +53,21 @@
                             {{ Common::getObject($documentP, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::AskPermission($documentP->id))
-                                    @if(Common::checkQuantityDownload($documentP))
-                                        <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}">view</a>
+                                    @if(renderUrlByPermission('DocumentController@index', 'index', ''))
+                                        @if(Common::checkQuantityDownload($documentP))
+                                            <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}"">View</a>
+                                        @endif
                                     @endif
-                                @endif
 
-                                @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
-                                    @if( Common::getObject($documentP, 'file_url') )
-                                        <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                                    @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
+                                        @if( Common::getObject($documentP, 'file_url') )
+                                            <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentP, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                                        @endif
                                     @endif
-                                @endif
-                            @else
-                                <a href="{{ action('QuantityDownloadController@getAskPermission', $documentP->id) }}" class="btn btn-danger">Limit</a>
-                            @endif    
+                                @else
+                                    <a href="{{ action('QuantityDownloadController@getAskPermission', $documentP->id) }}" class="btn btn-danger">Limit</a>
+                                @endif   
+                            @endif 
                         </td>
                         <td>
                             {{ getClassByDocument($document) }}
@@ -111,18 +112,22 @@
                         <td>
                             {{ Common::getObject($documentD, 'code') }}
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
-                                 @if(Common::AskPermission($documentD->id))
-                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">view</a>
-                                @endif
-                            @endif
-
-                                @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
-                                    @if( Common::getObject($documentD, 'file_url') )
-                                        <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentD, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                                @if(Common::AskPermission($documentD->id))
+                                    @if(renderUrlByPermission('DocumentController@index', 'index', ''))
+                                        @if(Common::checkQuantityDownload($documentD))
+                                                <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">View</a>
+                                        @endif
                                     @endif
+
+
+                                    @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
+                                        @if( Common::getObject($documentD, 'file_url') )
+                                            <a type="button" class="btn" onclick="printJS({printable: '{{ Common::getObject($documentD, 'file_url') }}', type:'pdf', showModal:true})"><i class="glyphicon glyphicon-print"></i></a>
+                                        @endif
+                                    @endif
+                                @else
+                                     <a href="{{ action('QuantityDownloadController@getAskPermission', $documentD->id) }}" class="btn btn-danger"> Limit</a>
                                 @endif
-                            @else
-                                 <a href="{{ action('QuantityDownloadController@getAskPermission', $documentD->id) }}" class="btn btn-danger"> Limit</a>
                             @endif
                         </td>
                         @else
