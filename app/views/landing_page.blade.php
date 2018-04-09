@@ -6,38 +6,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
         {{ HTML::style('landing_page/css/style.css') }}
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="jquery-3.3.1.min.js"></script>
-        <script>
-            // Get the modal
-            var modal = document.getElementById('myModal');
-
-            // Get the button that opens the modal
-            var btn = document.getElementById("myBtn");
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks the button, open the modal 
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-            </script>
     </head>
     <body>
         <header>
@@ -50,7 +22,7 @@
                 <div class="header_register">
                     <a href="#"><img class="div" src="/image_landing/thong bao.png" > </a>
                     <img  class="div notebook"  src="/image_landing/sach1.png" >
-            
+
                     <div class="vao">
                         <span>v</span>
                         <span>à</span>
@@ -70,9 +42,7 @@
             </div>
         </header>
         <!-- open sidebar -->
-        @if(Session::has('message'))
-            {{ Session::get('message') }}
-        @endif                                                                   <!-- end sidebar -->
+                                                                            <!-- end sidebar -->
         <content>
             {{ Form::open(array('action' => 'LandingPageController@store')) }}
                 {{ Form::hidden('utm_source', $utmSource) }}
@@ -91,7 +61,6 @@
                             <label> email :<input type="email" name="email" ></label><br><br>
                             <label> Con học lớp :</label>
                             {{ Form::select('class', [ '' => 'Chọn lớp', 5 => 'LỚP 5', 9 => 'LỚP 9'], '') }}
-                            
                         </div>
                     </div><!--  hêt phần thông tin cá nhân -->
 
@@ -123,52 +92,47 @@
                     <h3 class=" margin clear-both text-center contest"> <!-- chọn diềm đăng ký dự thi --></h3>
                     <div class="" >
                         <div class="checkradio">
-                            <span></span>
                             <input type="radio" name="address" value="1" class="radio">
-                            <label for="radio"  class="radio">Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</label>
+                            <label for="radio"  class="radio"><span class="checkmark"></span>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</label>
                         </div>
                         <div class="checkradio">
-                            <span></span>
-
                             <input type="radio" name="address" value="2" class="radio">
-                            <label for="radio" class="radio">Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</label>
+                            <label for="radio" class="radio"><span class="checkmark"></span>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</label>
                         </div>
 
                         <div class="checkradio">
-                            <span></span>
                             <input type="radio" name="address" value="3" class="radio">
-                             <label for="radio"  class="radio">Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</label>
+                             <label for="radio"  class="radio"><span class="checkmark"></span>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</label>
                         </div>
 
-                        <div class="checkradio">    
-                            <span></span>
+                        <div class="checkradio">
                             <input type="radio" name="address" value="4" class="radio">
-                            <label for="radio"  class="radio">Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</label>
+                            <label for="radio"  class="radio"><span class="checkmark"></span>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</label>
                         </div>
                     </div><!-- hết phần chọn điểm đăng ký dự thi -->
                 </div> <!-- hết container trên -->
-            
+
                 <article>   <!-- //lựa chọn môn thi -->
                     <div class="check_subject_name" >
                         <div class="check_subject_right float_right">
                             <div class="subject">
                                 <div class="check_subject">
-                                    <input type="radio" name="check_subject"  value="1" class="radio" checked="checked">
-                                    <label for="radio"> Toán (Toán &amp; KHTN đối với lớp 5)</label>
+                                    <input type="radio" name="check_subject[0]"  class="radio" checked="checked">
+                                    <label for="radio"><span class="checkmark"></span> Toán (Toán &amp; KHTN đối với lớp 5)</label>
                                 </div>
                                 <div class="check_subject">
-                                    <input type="radio" name="check_subject" value="2" class="radio">
-                                    <label for="radio"> Văn (Tiếng Việt và KHXH đối với lớp 5 )</label>
+                                    <input type="radio" name="check_subject[1]" class="radio">
+                                    <label for="radio"> <span class="checkmark"></span>Văn (Tiếng Việt và KHXH đối với lớp 5 )</label>
                                 </div>
                                 <div class="check_subject">
-                                    <input type="radio" name="check_subject" value="3" class="radio">
-                                    <label for="radio">Cả hai môn</label>
+                                    <input type="radio" name="check_subject[2]" class="radio">
+                                    <label for="radio"><span class="checkmark"></span>Cả hai môn</label>
                                 </div>
-                            
+
                             </div>
                         </div>
                     </div> <!--bên phải -->
-                
+
                     <div class="select float_left">
                         <div class="check_subject_left float_left">
                             <div class="book">
@@ -186,7 +150,7 @@
                 </div>
                 <div><!--  câu hỏi có hay không -->
                     <div class="cau_hoi margin">
-                        
+
                         <h2 class="text-chanform blue" > bạn có đang học tại</h2>
                         <h2 class="text-chanform yellow"> trung tâm học chủ động galileo không ?</h2>
                         <div class="question">
@@ -223,8 +187,7 @@
                 <span id="number"><h1>890</h1></span>
                 <span> <b class="text-chanform">nguyễn tiến dũng </b> vừa đăng ký</span>
             </div>
-        </content> 
-
+        </content>
     <div class=" thanh1 clear-both" ></div>
     <footer class="footer text-chanform">
         <p>hệ thống giáo dục họcmai-trung tâm học chủ động galieo-hotline: 090.211.0033</p>
