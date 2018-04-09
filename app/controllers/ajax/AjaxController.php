@@ -161,7 +161,6 @@ class AjaxController extends \BaseController {
         $document = Document::find($input['id']);
         $doc['quantity_download'] = $document->quantity_download + 1;
         $document->update($doc);
-
         if ($user = Auth::admin()->get()) {
             $field['model_id'] = $user->id;
             $field['model_name'] = 'Admin';
@@ -170,7 +169,6 @@ class AjaxController extends \BaseController {
             $field['model_id'] = $user->id;
             $field['model_name'] = 'User';
         }
-
         $field['document_id'] = $input['id'];
         $field['quantity_download'] = 1;
         $field['type_id'] = $document->type_id;

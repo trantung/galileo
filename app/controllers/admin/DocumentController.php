@@ -165,7 +165,7 @@ class DocumentController extends AdminController implements AdminInterface {
         return Redirect::back()->withMessage('Lưu thành công!');
     }
 
-
+    
     /**
      * Remove the specified resource from storage.
      *

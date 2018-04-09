@@ -204,6 +204,7 @@ class AdminController extends BaseController {
 
 
                 $strArr = Common::explodeDocumentName($nameArray);
+                // dd($strArr['type']);
                 $lessonId = Lesson::where('code', (int)$strArr['lesson_code'])->first();
                 $classId = ClassModel::where('code', (int)$strArr['class_code'])->first();
                 $subjectId = Subject::where('code', $strArr['subject_code'])->first();
@@ -230,22 +231,37 @@ class AdminController extends BaseController {
                     'lesson_id' => Common::getObject($lessonId, 'id'),
                     'status'   =>1
                 ];
-                if( $uploadSuccess ){      
-
-                             // Neu upload thanh cong thi luu url vao database
-                    if( Document::where('code', $nameArray)->count() == 0 ){
-                        // $documentId = Document::create($field)->id;
-                        // Document::find($documentId)->update(['parent_id' => $documentId]);
-                        
-                        //kiểm tra là xem lesson_id có bản ghi hay ko
-                            //nếu không có thì kiểm tra file upload là đáp án hay phiếu
-                                //nếu là đáp án thfi parent_id = null
-                                //nếu là phiếu thì parent_id = documentId
-                            //nếu có thì xem record là phiếu hay đáp án
-                                //nếu là phiếu thì fileupload chắc chắn phải là đáp án->update parent_id của file upload là id của recored
-                                // nếu là đáp án thì fileupload chắc chắn phải là phiếu->update parent_id của fileupload là id vừa tạo và update parent_id của record = id của fileupload
+                if( $uploadSuccess ){     
+                    // //kiểm tra là xem lesson_id có bản ghi hay ko 
+                    //nếu không có thì kiểm tra file upload là đáp án hay phiếu 
+                    //nếu là đáp án thfi parent_id = null //nếu là phiếu thì parent_id = documentId 
+                    //nếu có thì xem record là phiếu hay đáp án 
+                    //nếu là phiếu thì fileupload chắc chắn phải là đáp án->update parent_id của file upload là id của recored 
+                    // nếu là đáp án thì fileupload chắc chắn phải là phiếu->update parent_id của fileupload là id vừa tạo và update parent_id của record = id của fileupload 
+                     // if( Document::where('code', $nameArray)->count() == 0 ){
+                    if(Document::where('lesson_id', $strArr['lesson_code'])->count() == 0){
+                        if($strArr['type'] == 'P'){
+                            $documentId = Document::create($field)->id;
+                            Document::find($documentId)->update(['parent_id' => $documentId]);
+                        }
+                        if($strArr['type'] == 'D'){
+                            $documentId = Document::create($field)->id;
+                            Document::find($documentId)->update(['parent_id' => null]);
+                        }
                     }
-
+                    else{ 
+                        if( $check = Document::where('code', $nameArray)->first() ){
+                            if($check->type_id == 1){
+                                $documentD = Document::create($field);
+                                Document::find($documentD->id)->update(['parent_id' => $check->id]);
+                            }
+                            if($check->type_id == 2){
+                                $documentP = Document::create($field);
+                                Document::find($documentP->id)->update(['parent_id' => $documentP->id]);
+                                Document::find($check->id)->update(['parent_id' => $documentP->id]);
+                            }
+                        }
+                    }
                 }
                 $countDocument++;
             }
