@@ -951,16 +951,11 @@ class Common {
             //nếu now mà < thừoi gian bắt đầu - 1 khoảng thời gian(2 tiếng) thì false
             $hourCheck = date('H:i:s', strtotime('+2 hours'));
             $currentHour = date('H:i:s');
-            $hourStart = FreeTimeUser::where('user_id', $userId)
+            $hour = FreeTimeUser::where('user_id', $userId)
+                ->where('end_time', '>=', $currentHour)
                 ->where('start_time', '<=', $hourCheck)
                 ->count();
-            if ($hourStart == 0) {
-                return false;
-            }
-            $hourEnd = FreeTimeUser::where('user_id', $userId)
-                ->where('end_time', '<=', $currentHour)
-                ->count();
-            if ($hourEnd > 0) {
+            if ($hour == 0) {
                 return false;
             }
         }
