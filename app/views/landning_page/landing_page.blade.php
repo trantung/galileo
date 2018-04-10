@@ -98,16 +98,19 @@
                         <div class="checkradio">
                             <input type="radio" name="address" value="2" class="radio">
                             <label for="radio" class="radio"><span class="checkmark"></span><b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
+
                         </div>
 
                         <div class="checkradio">
                             <input type="radio" name="address" value="3" class="radio">
                              <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
+
                         </div>
 
                         <div class="checkradio">
                             <input type="radio" name="address" value="4" class="radio">
                             <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</b></label>
+
                         </div>
                     </div><!-- hết phần chọn điểm đăng ký dự thi -->
                 </div> <!-- hết container trên -->
@@ -127,6 +130,7 @@
                                 <div class="check_subject">
                                     <input  id="subject2" type='radio' name="subject" value="1">
                                     <label for="subject2" >Cả hai môn </label>
+
                                 </div>
 
                             </div>
@@ -186,6 +190,7 @@
                 <h2 class="impact text-chanform white">đã có</h2>
                 <span><h1 id="number"></h1></span>
                 <span class="text-center"> <b class="text-chanform t">{{ CommonLanding::getStudentCurrent() }} </b> vừa đăng ký</span>
+
             </div>
         </content>
         @if(Session::has('message'))
@@ -223,6 +228,7 @@
         if(so <10000000){
             document.getElementById('number').innerHTML = so;
             setTimeout('cong()', 5000  );
+
         }else{
              document.getElementById('munber').innerHTML =" het thoi gian";
 
