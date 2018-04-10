@@ -22,8 +22,9 @@ class LandingPageController extends \BaseController {
         if (Input::get('utm_term')) {
             $utmTerm = Input::get('utm_term');
         }
-        return View::make('landing_page')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
+        return View::make('landning_page.landing_page')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
     }
+
 
 
     /**
@@ -63,7 +64,7 @@ class LandingPageController extends \BaseController {
                 <p><img src="/image_landing/thongbao.png"></p>
             </div>
         </div>';
-        return Redirect::action('LandingPageController@index')->withMesage($message);
+        return Redirect::action('LandingPageController@index')->withMessage($message);
     }
 
 
@@ -73,9 +74,32 @@ class LandingPageController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $input = Input::all();
+        // dd($input);
+        $data = LandingPage::orderBy('created_at', 'DESC')->paginate(10);
+        
+        if( !empty($input['parent_name']) ){
+            $data->where('parent_name', $input['parent_name']);
+        }
+        if( !empty($input['fullname']) ){
+            $data->where('fullname', $input['fullname']);
+        }
+        if( !empty($input['phone']) ){
+            $data->where('phone', $input['phone']);
+        }
+        if( !empty($input['email']) ){
+            $data->where('email', $input['email']);
+        }
+        if( !empty($input['class']) ){
+            $data->where('class', $input['class']);
+        }
+        if( !empty($input['check_subject']) ){
+            $data->where('check_subject', $input['check_subject']);
+        }
+        // $data = $data->paginate();
+        return View::make('landning_page.index')->with(compact('data'));
     }
 
 

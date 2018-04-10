@@ -108,15 +108,13 @@ body{
 	height: 860px;
 }
 
-.container h3{
-	line-height: 66px;
+
+/*thong tin cac nhân*/
+.personal{
+    line-height: 66px;
     width: 351px;
     font-weight: bold;
     color: #fff;
-    margin-bottom: 15px;
-}
-/*thong tin cac nhân*/
-.personal{
 	background:url("/image_landing/thong tin ca nhan.png");
 }
  /*chon đợt thi muốn tham gia*/
@@ -128,11 +126,24 @@ body{
 	background:url("/image_landing/ck thu thi.png");
 	width: 350px;
 	height: 70px;
-	margin-top:20px;
+    position: relative;
+    top: 28px;
+}
+/*========================mơ đầu thông tin==============*/
+.mation{
+width: 800px;
+height: 195px;
+}
+/*===========chon  trung tâm=========*/
+.center{
+    width: 686px;
+    height: 300px;
+    margin-top: 58px;
+
 }
 .thongtin{
 	margin-top:30px;
-	width: 360px;
+	width: 374px;
 	height: 204px;
 }
 .thongtin label{
@@ -147,6 +158,7 @@ body{
 	border: 1px #7d9ab7 solid;
 	border-radius: 4px;
 	float: right;
+	padding-left: 10px;
 }
 /*nút check box/*/
 .checkbox label{
@@ -213,8 +225,14 @@ input[type="checkbox"]:checked +label{
     border: 2px solid #cbcbcb;
     display: inline-block;
     position: relative;
-    top: 16px;
+    top: 8px;
     background:#fff;
+}
+.checkradio b{
+	position: relative;
+	top: -7px;
+    left: 15px;
+    color: black;
 }
 
 input[type="radio"]:check + label span {
@@ -259,7 +277,7 @@ input[type="radio"]:checked +.checkradio span{
 .subject .check_subject label{
 	display: inline-block;
 	line-height: 60px;
-	width: 480px;
+	width: 482px;
 	text-align: center;
 	font-size: 16px;
 	font-weight: bold;
@@ -365,38 +383,6 @@ input[type="radio"]:checked +.checkradio span{
   border:1px solid
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .question{
 	width: 286px;
 	height: 30px;
@@ -497,7 +483,6 @@ margin: 128px 0 0 371px;
 	height: 76px;
 	line-height: 76px;
 	background:#062544;
- 	/*border: 1px solid blue;*/
  	color: white;
  	font-size: 35px;
 }
@@ -508,11 +493,12 @@ margin: 128px 0 0 371px;
  	margin-top: 20px;
 	color: #1a60a3;
 	font-size: 14px;
+	width: 228px;
 
 }
 .report h1{
 	font-size:60px;
-	margin: -25px 64px;
+	margin: -14px 0px;
 }
  /*phân cuối footer*/
 .footer{
@@ -558,7 +544,10 @@ input.radio {
     -o-transform: scale(3);
     padding: 10px;
 }
-
+.checkradio input[type="radio"] +label{
+	display:inline-block;
+	color: #fff;
+}
 
 input[type="radio"]:checked +label span{
 	background:url("/image_landing/check4.png") -25px no-repeat #fff;
@@ -569,4 +558,44 @@ input[type="radio"]:checked +label{
 
 }
 
-.checkradio {margin-bottom: 10px;}
+.checkradio {
+	margin-bottom: 10px;
+}
+
+.modal{
+    width: 286px;
+    height: 334px;
+	position: relative;
+	top: -2400px;
+    left: 522px;
+    background-image: url('/image_landing/thong_bao1.png');
+    padding-left: 5px;
+}
+.close{
+    position: relative;
+    top: -161px;
+    left: 119px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.modal-content{
+    width: 229px;
+    height: 155px;
+    position: relative;
+    margin: auto;
+    top: 150px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 20px;
+    padding: 20px;
+    color: #484948;
+}
+.modal-content h2{
+	color: red;
+	font-size:18px;
+	line-height: 39px;
+
+}
+
