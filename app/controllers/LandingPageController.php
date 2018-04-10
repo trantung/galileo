@@ -22,7 +22,7 @@ class LandingPageController extends \BaseController {
         if (Input::get('utm_term')) {
             $utmTerm = Input::get('utm_term');
         }
-        return View::make('landning_page.landing_page')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
+        return View::make('landing_page.landing_page')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
     }
 
 
@@ -58,12 +58,7 @@ class LandingPageController extends \BaseController {
             $message->to($input['email'])
                 ->subject(LANDING_PAGE_EMAIL_SUBJECT);
         });
-        $message = '<div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close white">x</span>
-                <p><img src="/image_landing/thongbao.png"></p>
-            </div>
-        </div>';
+        $message = 'success';
         return Redirect::action('LandingPageController@index')->withMessage($message);
     }
 
@@ -99,7 +94,7 @@ class LandingPageController extends \BaseController {
             $data->where('check_subject', $input['check_subject']);
         }
         // $data = $data->paginate();
-        return View::make('landning_page.index')->with(compact('data'));
+        return View::make('landing_page.index')->with(compact('data'));
     }
 
 

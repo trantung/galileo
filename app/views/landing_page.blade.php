@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html id="html" lang="vi" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Đăng ký Kiểm tra đánh giá lực vào 6 và thi thử vào 10</title>
+        <title>regiter</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +51,7 @@
                 {{ Form::hidden('utm_term', $utmTerm) }}
                 <div class="container">
                     <h3 class="text-chanform margin text-center personal">thông tin cá nhân</h3>
-                    <div class="mation">
+                    <div  class="#">
                         <div class="thongtin float_left">
                             <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
                             <label>Họ và tên con : <input type="text" name="fullname" ></label><br><br>
@@ -90,27 +90,24 @@
                     </div> <!-- hêt phần chọn đợt thi muôn tham gia -->
 
                     <h3 class=" margin clear-both text-center contest"> <!-- chọn diềm đăng ký dự thi --></h3>
-                    <div class="center" >
+                    <div class="" >
                         <div class="checkradio">
                             <input type="radio" name="address" value="1" class="radio">
-                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
+                            <label for="radio"  class="radio"><span class="checkmark"></span>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</label>
                         </div>
                         <div class="checkradio">
                             <input type="radio" name="address" value="2" class="radio">
-                            <label for="radio" class="radio"><span class="checkmark"></span><b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
-
+                            <label for="radio" class="radio"><span class="checkmark"></span>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</label>
                         </div>
 
                         <div class="checkradio">
                             <input type="radio" name="address" value="3" class="radio">
-                             <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
-
+                             <label for="radio"  class="radio"><span class="checkmark"></span>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</label>
                         </div>
 
                         <div class="checkradio">
                             <input type="radio" name="address" value="4" class="radio">
-                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</b></label>
-
+                            <label for="radio"  class="radio"><span class="checkmark"></span>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</label>
                         </div>
                     </div><!-- hết phần chọn điểm đăng ký dự thi -->
                 </div> <!-- hết container trên -->
@@ -120,17 +117,16 @@
                         <div class="check_subject_right float_right">
                             <div class="subject">
                                 <div class="check_subject">
-                                    <input id="subject" type='radio' name="subject" value="1" checked="checked" > 
-                                    <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
+                                    <input type="radio" name="check_subject" value="1"  class="radio" checked="checked">
+                                    <label for="radio"><span class="checkmark"></span> Toán (Toán &amp; KHTN đối với lớp 5)</label>
                                 </div>
                                 <div class="check_subject">
-                                    <input id="subject1"  type='radio' name="subject" value="1">
-                                    <label for="subject1">Văn (Tiếng Việt và KHXH đối với lớp 5 ) </label>
+                                    <input type="radio" name="check_subject" value="1" class="radio">
+                                    <label for="radio"> <span class="checkmark"></span>Văn (Tiếng Việt và KHXH đối với lớp 5 )</label>
                                 </div>
                                 <div class="check_subject">
-                                    <input  id="subject2" type='radio' name="subject" value="1">
-                                    <label for="subject2" >Cả hai môn </label>
-
+                                    <input type="radio" name="check_subject" value="1" class="radio">
+                                    <label for="radio"><span class="checkmark"></span>Cả hai môn</label>
                                 </div>
 
                             </div>
@@ -189,19 +185,16 @@
             <div class ="report">
                 <h2 class="impact text-chanform white">đã có</h2>
                 <span><h1 id="number"></h1></span>
-                <span class="text-center"> <b class="text-chanform t">{{ CommonLanding::getStudentCurrent() }} </b> vừa đăng ký</span>
-
+                <span> <b class="text-chanform">{{ CommonLanding::getStudentCurrent() }} </b> vừa đăng ký</span>
             </div>
         </content>
         @if(Session::has('message'))
         <div id="myModal" class="modal">
             <div class="modal-content">
-                <span class="close">X</span>
-                <h2>"Đăng ký thành công</h2>
-                <p>Vui lòng kiểm tra email xác nhận và diện thoại cá nhân. HOCMAI sẽ gửi thông tin xác nhận và hướng dẫn lấy SBD*</p>
-                <p><!-- <img src="image_landing/thongbao.png"> --></p>
+                <span class="close white">x</span>
+                <p><img src="/image_landing/thongbao.png"></p>
             </div>
-        </div> 
+        </div>
         @endif
     <div class=" thanh1 clear-both" ></div>
     <footer class="footer text-chanform">
@@ -227,8 +220,7 @@
         so++;
         if(so <10000000){
             document.getElementById('number').innerHTML = so;
-            setTimeout('cong()', 5000  );
-
+            setTimeout('cong()', 1000);
         }else{
              document.getElementById('munber').innerHTML =" het thoi gian";
 
