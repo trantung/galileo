@@ -20,9 +20,9 @@
     $urlBg = url('/image_landing/email/bgemail.jpg');
     $urlLogo = "/image_landing/email/logo2.png";
 ?>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-top: 40px;padding-bottom: 35px;background:"{{ $urlBg }}" ">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-top: 40px;padding-bottom: 35px;background-image:url('http://cloud.galileo.edu.vn/image_landing/email/bgemail.jpg') ">
     <tbody>
-    <tr><td><div  style="margin:0 auto;max-width:670px;width:100%;background:"{{$urlBgTop}}" no-repeat #fff;height:10px;"></div></td></tr>
+    <tr><td><div  style="margin:0 auto;max-width:670px;width:100%;background-image:url('http://cloud.galileo.edu.vn/image_landing/email/border-top-email.png') no-repeat #fff;height:10px;"></div></td></tr>
         <tr>
             <td>
                 <table align="center" style="width:100%;max-width:670px;text-align: center;padding-top:15px;background:#fff">                           
@@ -51,14 +51,14 @@
                 <table style="width:100%;max-width:713px;border-collapse:collapse;margin:0 auto;text-align: center;line-height: 32px;font-family: Arial, sans-serif;font-weight: bold">
                   
                     <tr>
-                        <td width="22" style="padding:0"><div style="width:22px;height:62px;background:'$urlBorderLeft' "></div></td>
+                        <td width="22" style="padding:0"><div style="width:22px;height:62px;background-image:url('http://cloud.galileo.edu.vn/image_landing/email/border-hotline-left.png') "></div></td>
                         <td style="width:100%;max-width:760px;padding:0;vertical-align:bottom;background:#fff">
                             <table style="width:100%;border-collapse:collapse">
                                
                                 <tr><td style="font-size:18px;color:#fff;background:#f49321;padding:0;text-align: center;height:46px">Hotline:  <a style="color:#fff" href="tel:19006933">090.211.0033</a> </td>
                             </table>
                         </td>                  
-                        <td width="22" style="padding:0"><div style="width:22px;height:62px;background:'$urlBorderRight' "></div></td>
+                        <td width="22" style="padding:0"><div style="width:22px;height:62px;background-image:url('http://cloud.galileo.edu.vn/image_landing/email/border-hotline-right.png') "></div></td>
                     </tr>
                 </table>
             </td>                  

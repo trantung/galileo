@@ -49,7 +49,7 @@
                             <table style="width:100%;max-width:670px;border-collapse: collapse;background: #0072bc;margin:0 auto;">
                                 <tr>
                                     <td style="padding-top:15px">
-                                        <div style="bottom:0;left:2px;width:100%;height:10px;background:'.$urlBgBottom.' no-repeat;"></div>
+                                        <div style="bottom:0;left:2px;width:100%;height:10px; no-repeat;"></div>
                                     </td>
                                 </tr>
                             </table>
