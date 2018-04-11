@@ -10,7 +10,7 @@
     </div>
 	<table class="table table-bordered table-striped table-hove" >
 	<div class="margin-bottom">
-	Có tất cả {{ count($data) }} dữ liệu
+	Có tất cả {{ $count }} dữ liệu
     </div>
 		<tr>
 			<th>STT</th>

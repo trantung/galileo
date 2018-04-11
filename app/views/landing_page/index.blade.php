@@ -51,6 +51,7 @@
                 {{ Form::hidden('utm_medium', $utmMedium) }}
                 {{ Form::hidden('utm_campaign', $utmCampaign) }}
                 {{ Form::hidden('utm_term', $utmTerm) }}
+                {{ Form::hidden('landing_id', 1) }}
                 <div class="container">
                     <h3 class="text-chanform margin text-center personal">thông tin cá nhân</h3>
                     <div class="mation">

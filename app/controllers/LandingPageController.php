@@ -133,8 +133,9 @@ class LandingPageController extends \BaseController {
         if( !empty($input['comment']) ){
             $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
         }
+        $count = $data->count();
         $data = $data->paginate(PAGINATE);
-        return View::make('landing_page.show')->with(compact('data'));
+        return View::make('landing_page.show')->with(compact('data', 'count'));
     }
 
 
