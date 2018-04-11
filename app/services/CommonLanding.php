@@ -65,7 +65,9 @@ class CommonLanding
     public static function getSubject()
     {
         $array = [
-            1 => 
+            1 => 'Toán',
+            2 => 'Văn',
+            3 => 'Cả 2 môn'
         ];
         return $array;
     }
