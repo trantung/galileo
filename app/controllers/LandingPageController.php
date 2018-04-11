@@ -47,8 +47,10 @@ class LandingPageController extends \BaseController {
     {
         $input = Input::all();
         if (empty($input['phone'])) {
-            // $error = 'sdt sai';
-            return Redirect::back()->withErrors(['error', 'sdt sai']);
+            return Redirect::back()->withErrors(['số điện thoại phải có']);
+        }
+        if (!checkValidatePhoneNumber($input['phone'])) {
+            return Redirect::back()->withErrors(['số điện thoại không đúng']);
         }
         // dd(111);
         LandingPage::create($input)->id;

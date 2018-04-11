@@ -57,10 +57,13 @@
                         <div class="thongtin float_left">
                             <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
                             <label>Họ và tên con : <input type="text" name="fullname" ></label><br><br>
+
+                            <label>Số điện thoại :
                             @if($errors->any())
                                 {{$errors->first()}}
                             @endif
-                            <label>Số điện thoại :<input type="text" name="phone" id="phone"></label>
+                                <input type="text" name="phone" id="phone">
+                            </label>
                         </div>
                         <div class="thongtin float_right">
                             <label> email :<input type="email" name="email" ></label><br><br>
