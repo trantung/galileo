@@ -46,7 +46,6 @@ class LandingPageController extends \BaseController {
     public function store()
     {
         $input = Input::all();
-        // dd($input);
         LandingPage::create($input)->id;
         //TO DO send mail
         $data = [

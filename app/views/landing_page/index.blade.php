@@ -120,15 +120,15 @@
                         <div class="check_subject_right float_right">
                             <div class="subject">
                                 <div class="check_subject">
-                                    <input id="subject" type='radio' name="subject" value="1" checked="checked" > 
+                                    <input id="subject" type='radio' name="check_subject" value="1" checked="checked" > 
                                     <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                 </div>
                                 <div class="check_subject">
-                                    <input id="subject1"  type='radio' name="subject" value="2">
+                                    <input id="subject1"  type='radio' name="check_subject" value="2">
                                     <label for="subject1">Văn (Tiếng Việt và KHXH đối với lớp 5 ) </label>
                                 </div>
                                 <div class="check_subject">
-                                    <input  id="subject2" type='radio' name="subject" value="3">
+                                    <input  id="subject2" type='radio' name="check_subject" value="3">
                                     <label for="subject2" >Cả hai môn </label>
 
                                 </div>
