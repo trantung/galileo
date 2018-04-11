@@ -22,7 +22,7 @@
 ?>
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-top: 40px;padding-bottom: 35px;background-image:url('http://cloud.galileo.edu.vn/image_landing/email/bgemail.jpg') ">
     <tbody>
-    <tr><td><div  style="margin:0 auto;max-width:670px;width:100%;background-image:url('http://cloud.galileo.edu.vn/image_landing/email/border-top-email.png') no-repeat #fff;height:10px;"></div></td></tr>
+    <tr><td><div style="margin:0 auto;max-width:670px;width:100%;background:url('http://cloud.galileo.edu.vn/image_landing/email/border-top-email.png') no-repeat #fff;height:10px;"></div></td></tr>
         <tr>
             <td>
                 <table align="center" style="width:100%;max-width:670px;text-align: center;padding-top:15px;background:#fff">                           
