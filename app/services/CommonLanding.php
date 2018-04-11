@@ -62,4 +62,51 @@ class CommonLanding
         return null;
         return end($array);
     }
+    public static function getSubject()
+    {
+        $array = [
+            '' => 'Chọn tất cả',
+            1 => 'Toán',
+            2 => 'Văn',
+            3 => 'Cả 2 môn'
+        ];
+        return $array;
+    }
+    public static function getClass()
+    {
+        $data = [
+            '' => 'Chọn tất cả',
+            5 => 'Lớp 5',
+            9 => 'Lớp 9'
+        ];
+        return $data;
+    }
+    public static function getPeriodStudent($data)
+    {
+        $text = '';
+        if ($data->period_1) {
+            $text = $text. self::getPeriod('period_1').', ';
+        }
+        if ($data->period_2) {
+            $text = $text. self::getPeriod('period_2').', ';
+        }
+        if ($data->period_3) {
+            $text = $text. self::getPeriod('period_3').', ';
+        }
+        if ($data->period_4) {
+            $text = $text. self::getPeriod('period_4').', ';
+        }
+        return $text;
+    }
+    public static function getPeriodName()
+    {
+        $array = [
+            ''  => 'Chọn tất cả',
+            'period_1' => 'Đợt 1 ( Lớp 5: 08/04/2018, Lớp 9: 15/04 )',
+            'period_2' => 'Đợt 2 ( Lớp 5: 22/04/2018, Lớp 9: 13/05 )',
+            'period_3' => 'Đợt 3 (Lớp 5: 06/05/2018,Lớp 9: 27/05 )',
+            'period_4' => 'Đợt 4 ( Lớp 5: 20/05/2018)'
+        ];
+        return $array;
+    }
 }

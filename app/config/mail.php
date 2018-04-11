@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'vnmini122015@gmail.com', 'name' => 'Vnmini'),
+	'from' => array('address' => 'galileo@hocmai.vn', 'name' => 'Galileo'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'vnmini122015@gmail.com',
+	'username' => 'galileo@hocmai.vn',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'tlnbhxlhqyrxbshp',
+	'password' => 'trungtamhoctapchudong',
 
 	/*
 	|--------------------------------------------------------------------------
