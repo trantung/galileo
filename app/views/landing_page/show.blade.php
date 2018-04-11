@@ -10,6 +10,7 @@
     </div>
 	<table class="table table-bordered table-striped table-hove" >
 	<div class="margin-bottom">
+	Có tất cả {{ count($data) }} dữ liệu
     </div>
 		<tr>
 			<th>STT</th>
@@ -18,10 +19,7 @@
 			<th>Số điện thoại</th>
 			<th>Email</th>
 			<th>Lớp</th>
-			<th>Giai đoạn 1</td>
-			<th>Giai đoạn 2</td>
-			<th>Giai đoạn 3</td>
-			<th>Giai đoạn 4</td>
+			<th>Đợt thi</td>
 			<th>Địa chỉ</td>
 			<th>Môn kiểm tra</td>
 			<th>Ý kiến</td>
@@ -29,16 +27,13 @@
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
-			<td>{{ $key + 1 }}</td>
+			<td>{{ $value->id }}</td>
 			<td>{{ $value->parent_name }}</td>
 			<td>{{ $value->fullname }}</td>
 			<td>{{ $value->phone }}</td>
 			<td>{{ $value->email }}</td>
 			<td>{{ $value->class }}</td>
-			<td>{{ $value->period_1 }}</td>
-			<td>{{ $value->period_2 }}</td>
-			<td>{{ $value->period_3 }}</td>
-			<td>{{ $value->period_4 }}</td>
+			<td>{{ CommonLanding::getPeriodStudent($value) }}</td>
 			<td>{{ $value->address }}</td>
 			<td>{{ $value->check_subject}}</td>
 			<td>{{ $value->comment}}</td>

@@ -78,23 +78,35 @@ class LandingPageController extends \BaseController {
         $input = Input::all();
         $data = LandingPage::orderBy('created_at', 'DESC');
         // dd($input);
-        if( !empty($input['parent_name']) ){
-            $data->where('parent_name', $input['parent_name']);
-        }
         if( !empty($input['fullname']) ){
-            $data->where('fullname', $input['fullname']);
+            $data = $data->where('fullname', $input['fullname']);
         }
         if( !empty($input['phone']) ){
-            $data->where('phone', $input['phone']);
+            $data = $data->where('phone', $input['phone']);
         }
         if( !empty($input['email']) ){
-            $data->where('email', $input['email']);
+            $data = $data->where('email', $input['email']);
         }
+        if( !empty($input['period']) ){
+            if ($input['period'] == 'period_1') {
+                $data = $data->where('period_1', 'on');
+            }
+            if ($input['period'] == 'period_2') {
+                $data = $data->where('period_2', 'on');
+            }
+            if ($input['period'] == 'period_3') {
+                $data = $data->where('period_3', 'on');
+            }
+            if ($input['period'] == 'period_4') {
+                $data = $data->where('period_4', 'on');
+            }
+        }
+
         if( !empty($input['class']) ){
-            $data->where('class', $input['class']);
+            $data = $data->where('class', $input['class']);
         }
         if( !empty($input['check_subject']) ){
-            $data->where('check_subject', $input['check_subject']);
+            $data = $data->where('check_subject', $input['check_subject']);
         }
         $data = $data->paginate(PAGINATE);
         return View::make('landing_page.show')->with(compact('data'));
