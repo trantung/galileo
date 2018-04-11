@@ -8,8 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{ HTML::style('landing_page/css/style.css') }}
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="jquery-3.3.1.min.js"></script>
+        {{ HTML::script('landing_page/js/jquery.min.js') }}
     </head>
     <body>
         <header>
@@ -41,6 +40,9 @@
                 </div>
             </div>
         </header>
+        <?php
+            $pattern = '^([01][0-9][0-9]|2[0-4][0-9]|9999999999[0-9])$';
+        ?>
         <!-- open sidebar -->
                                                                             <!-- end sidebar -->
         <content>
@@ -55,7 +57,10 @@
                         <div class="thongtin float_left">
                             <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
                             <label>Họ và tên con : <input type="text" name="fullname" ></label><br><br>
-                            <label>Số điện thoại :<input type="text" name="phone" ></label>
+                            @if($errors->any())
+                                {{$errors->first()}}
+                            @endif
+                            <label>Số điện thoại :<input type="text" name="phone" id="phone"></label>
                         </div>
                         <div class="thongtin float_right">
                             <label> email :<input type="email" name="email" ></label><br><br>
@@ -183,7 +188,7 @@
                     </div>
                 </article>
                 <div  class="regiter" >
-                    {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn']) }}
+                    {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn', 'onclick' => "phonenumber(Input::get('phone'))"]) }}
                 </div>
             {{ Form::close() }}
             <div class ="report">
@@ -262,6 +267,18 @@
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+        }
+    }
+    function phonenumber(inputtxt)
+    {
+        console.log(11);
+        var phoneno = /^\d{10}$/;
+        if(inputtxt.value.match(phoneno))
+        {
+          return true;
+        }else{
+            alert("Not a valid Phone Number");
+            return false;
         }
     }
 </script>

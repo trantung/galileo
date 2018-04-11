@@ -46,6 +46,11 @@ class LandingPageController extends \BaseController {
     public function store()
     {
         $input = Input::all();
+        if (empty($input['phone'])) {
+            // $error = 'sdt sai';
+            return Redirect::back()->withErrors(['error', 'sdt sai']);
+        }
+        // dd(111);
         LandingPage::create($input)->id;
         //TO DO send mail
         $data = [
