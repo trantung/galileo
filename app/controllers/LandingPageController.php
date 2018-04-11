@@ -71,10 +71,13 @@ class LandingPageController extends \BaseController {
      */
     public function show()
     {
-        $input = Input::all();
-        // dd($input);
-        $data = LandingPage::orderBy('created_at', 'DESC')->paginate(10);
         
+    }
+    public function admin()
+    {
+        $input = Input::all();
+        $data = LandingPage::orderBy('created_at', 'DESC');
+        // dd($input);
         if( !empty($input['parent_name']) ){
             $data->where('parent_name', $input['parent_name']);
         }
@@ -93,7 +96,7 @@ class LandingPageController extends \BaseController {
         if( !empty($input['check_subject']) ){
             $data->where('check_subject', $input['check_subject']);
         }
-        // $data = $data->paginate();
+        $data = $data->paginate(PAGINATE);
         return View::make('landing_page.show')->with(compact('data'));
     }
 

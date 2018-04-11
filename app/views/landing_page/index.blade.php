@@ -124,11 +124,11 @@
                                     <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                 </div>
                                 <div class="check_subject">
-                                    <input id="subject1"  type='radio' name="subject" value="1">
+                                    <input id="subject1"  type='radio' name="subject" value="2">
                                     <label for="subject1">Văn (Tiếng Việt và KHXH đối với lớp 5 ) </label>
                                 </div>
                                 <div class="check_subject">
-                                    <input  id="subject2" type='radio' name="subject" value="1">
+                                    <input  id="subject2" type='radio' name="subject" value="3">
                                     <label for="subject2" >Cả hai môn </label>
 
                                 </div>

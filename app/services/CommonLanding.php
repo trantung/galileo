@@ -62,4 +62,11 @@ class CommonLanding
         return null;
         return end($array);
     }
+    public static function getSubject()
+    {
+        $array = [
+            1 => 
+        ];
+        return $array;
+    }
 }
