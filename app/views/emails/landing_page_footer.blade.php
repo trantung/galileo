@@ -29,7 +29,7 @@
                                     </td>
                                     <td width="40" style="text-align: center;">
                                     <a href="{{ $urlYoutube }}" target="_blank">
-                                        <img src="/image_landing/email//social-youtube.png" alt="Youtube" style="display: inline-block;" border="0" />
+                                        <img src="/image_landing/email/social-youtube.png" alt="Youtube" style="display: inline-block;" border="0" />
                                     </a>
                                     </td>
                                     <td width="94"></td>
@@ -49,7 +49,7 @@
                             <table style="width:100%;max-width:670px;border-collapse: collapse;background: #0072bc;margin:0 auto;">
                                 <tr>
                                     <td style="padding-top:15px">
-                                        <div style="bottom:0;left:2px;width:100%;height:10px;background:{{ $urlBgBottom }} no-repeat;"></div>
+                                        <div style="bottom:0;left:2px;width:100%;height:10px;background:{{ url($urlBgBottom) }} no-repeat;"></div>
                                     </td>
                                 </tr>
                             </table>
