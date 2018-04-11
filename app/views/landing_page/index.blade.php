@@ -193,6 +193,7 @@
 
             </div>
         </content>
+        @if(Session::has('message'))
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">X</span>
@@ -201,6 +202,7 @@
                 <p><!-- <img src="image_landing/thongbao.png"> --></p>
             </div>
         </div> 
+        @endif
     <div class=" thanh1 clear-both" ></div>
     <footer class="footer text-chanform">
         <p>hệ thống giáo dục hocmai - trung tâm học chủ động galieo - hotline: 090.211.0033</p>
