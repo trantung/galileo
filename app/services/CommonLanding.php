@@ -135,5 +135,13 @@ class CommonLanding
         }
         return null;
     }
-
+    public static function getStatus()
+    {
+        $array = [
+            '' => 'Tất cả',
+            1 => 'Có',
+            2 => 'Không',
+        ];
+        return $array;
+    }
 }

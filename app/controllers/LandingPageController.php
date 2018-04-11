@@ -117,6 +117,9 @@ class LandingPageController extends \BaseController {
         if( !empty($input['check_subject']) ){
             $data = $data->where('check_subject', $input['check_subject']);
         }
+        if( !empty($input['status']) ){
+            $data = $data->where('status', $input['status']);
+        }
         $data = $data->paginate(PAGINATE);
         return View::make('landing_page.show')->with(compact('data'));
     }

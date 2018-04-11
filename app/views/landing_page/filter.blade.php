@@ -39,6 +39,10 @@
             <label>Môn kiểm tra</label>
             {{  Form::select('check_subject', CommonLanding::getSubject(), Input::get('check_subject'), array('class' => 'form-control')) }}
         </div>
+        <div class="input-group inline-block">
+            <label>Môn kiểm tra</label>
+            {{  Form::select('status', CommonLanding::getStatus(), Input::get('status'), array('class' => 'form-control')) }}
+        </div>
 
         <div class="input-group inline-block" style="vertical-align: bottom;">
             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
