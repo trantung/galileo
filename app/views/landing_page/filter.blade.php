@@ -40,7 +40,7 @@
             {{  Form::select('check_subject', CommonLanding::getSubject(), Input::get('check_subject'), array('class' => 'form-control')) }}
         </div>
         <div class="input-group inline-block">
-            <label>Môn kiểm tra</label>
+            <label>Học ở Galileo</label>
             {{  Form::select('status', CommonLanding::getStatus(), Input::get('status'), array('class' => 'form-control')) }}
         </div>
 
