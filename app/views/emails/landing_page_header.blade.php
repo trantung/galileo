@@ -19,12 +19,10 @@
     $urlBgTop = url('/image_landing/email/border-top-email.png');
     $urlBg = url('/image_landing/email/bgemail.jpg');
     $urlLogo = "/image_landing/email/logo2.png";
-    $table = '<table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-top: 40px;padding-bottom: 35px;background:'.$urlBg.' ">';
-    $table1 = '<tr><td><div  style="margin:0 auto;max-width:670px;width:100%;background:'.$urlBgTop.' no-repeat #fff;height:10px;"></div></td></tr>';
 ?>
-{{ $table }}
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-top: 40px;padding-bottom: 35px;background:"{{ $urlBg }}" ">
     <tbody>
-    {{ $table1 }}
+    <tr><td><div  style="margin:0 auto;max-width:670px;width:100%;background-image:{{url($urlBgTop)}} no-repeat #fff;height:10px;"></div></td></tr>
         <tr>
             <td>
                 <table align="center" style="width:100%;max-width:670px;text-align: center;padding-top:15px;background:#fff">                           
