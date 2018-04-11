@@ -102,6 +102,9 @@ class LandingPageController extends \BaseController {
             }
         }
 
+        if( !empty($input['address']) ){
+            $data = $data->where('address', $input['address']);
+        }
         if( !empty($input['class']) ){
             $data = $data->where('class', $input['class']);
         }
@@ -145,7 +148,11 @@ class LandingPageController extends \BaseController {
      */
     public function destroy($id)
     {
-        //
+        $data = LandingPage::find($id);
+        if ($data) {
+            $data->delete();
+        }
+        return Redirect::action('LandingPageController@admin');
     }
 
 

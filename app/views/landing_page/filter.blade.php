@@ -26,6 +26,11 @@
             {{  Form::select('period', CommonLanding::getPeriodName(), Input::get('period'), array('class' => 'form-control')) }}
         </div>
         <div class="input-group inline-block">
+            <label>Địa điểm thi</label>
+            {{  Form::select('address', CommonLanding::getAddress(), Input::get('address'), array('class' => 'form-control')) }}
+        </div>
+
+        <div class="input-group inline-block">
             <label>Lớp học</label>
             {{  Form::select('class', CommonLanding::getClass(), Input::get('class'), array('class' => 'form-control')) }}
         </div>

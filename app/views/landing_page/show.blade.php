@@ -20,23 +20,21 @@
 			<th>Email</th>
 			<th>Lớp</th>
 			<th>Đợt thi</td>
-			<th>Địa chỉ</td>
+			<th>Địa điểm thi</td>
 			<th>Môn kiểm tra</td>
-			<th>Ý kiến</td>
 			<th width="10%">Action</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
-			<td>{{ $value->id }}</td>
+			<td>{{ $key + 1 }}</td>
 			<td>{{ $value->parent_name }}</td>
 			<td>{{ $value->fullname }}</td>
 			<td>{{ $value->phone }}</td>
 			<td>{{ $value->email }}</td>
 			<td>{{ $value->class }}</td>
 			<td>{{ CommonLanding::getPeriodStudent($value) }}</td>
-			<td>{{ $value->address }}</td>
+			<td>{{ CommonLanding::getAddressName($value->address) }}</td>
 			<td>{{ $value->check_subject}}</td>
-			<td>{{ $value->comment}}</td>
 			<td>
 			   {{ Form::open(array('method'=>'DELETE', 'action' => array('LandingPageController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>

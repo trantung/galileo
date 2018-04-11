@@ -109,4 +109,22 @@ class CommonLanding
         ];
         return $array;
     }
+    public static function getAddress()
+    {
+        $array = [
+            1 => 'Cơ sở 1',
+            2 => 'Cơ sở 2',
+            3 => 'Cơ sở 3',
+            4 => 'Cơ sở 4'
+        ];
+        return $array;
+    }
+    public static function getAddressName($address)
+    {
+        $data = self::getAddress();
+        if (!empty($data[$address])) {
+            return $data[$address];
+        }
+        return null;
+    }
 }
