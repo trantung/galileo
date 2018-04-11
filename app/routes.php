@@ -1,15 +1,5 @@
 <?php
-// $time = date( 'Y-m-d', time());
-// dd($time);
-// $dayNumber = getTimeId($time);
-// dd($dayNumber);
-// // dd($time);
-// $now = date("Y-m-d");
-// dd($now);
-// $beforeHour = date('H:i:s', strtotime('-2 hours'));
-// dd($beforeHour);
-// $currentHour = date('H:i:s');       
-// dd($currentHour);
+
 /*
     Hệ thống
     1. Quản lý partner

@@ -1,4 +1,4 @@
-@extends('landning_page.default')
+@extends('landing_page.default')
 
 @section('title')
 {{ $title='Quản lý Langning' }}
@@ -6,7 +6,7 @@
 @section('content')
 	<!-- Bo loc -->
 	<div class="margin-bottom">
-        @include('landning_page.filter')
+        @include('landing_page.filter')
     </div>
 	<table class="table table-bordered table-striped table-hove" >
 	<div class="margin-bottom">

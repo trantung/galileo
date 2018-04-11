@@ -93,23 +93,23 @@
                     <div class="center" >
                         <div class="checkradio">
                             <input type="radio" name="address" value="1" class="radio">
-                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
+                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội</b></label>
                         </div>
                         <div class="checkradio">
                             <input type="radio" name="address" value="2" class="radio">
-                            <label for="radio" class="radio"><span class="checkmark"></span><b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
+                            <label for="radio" class="radio"><span class="checkmark"></span><b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội</b></label>
 
                         </div>
 
                         <div class="checkradio">
                             <input type="radio" name="address" value="3" class="radio">
-                             <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
+                             <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội</b></label>
 
                         </div>
 
                         <div class="checkradio">
                             <input type="radio" name="address" value="4" class="radio">
-                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</b></label>
+                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội</b></label>
 
                         </div>
                     </div><!-- hết phần chọn điểm đăng ký dự thi -->
@@ -183,7 +183,7 @@
                     </div>
                 </article>
                 <div  class="regiter" >
-                    <input type="submit" name="submit" value="ĐĂNG KÝ" class="button" id="myBtn" onclick="phonenumber(document.form_dk.phone)"/>
+                    <input type="submit" name="submit" value="ĐĂNG KÝ" class="button" id="myBtn"/>
                 </div>
             {{ Form::close() }}
             <div class ="report">
@@ -225,7 +225,7 @@
         so++;
         if(so <10000000){
             document.getElementById('number').innerHTML = so;
-            setTimeout('cong()', 5000  );
+            setTimeout('cong()', 4000  );
 
         }else{
              document.getElementById('munber').innerHTML =" het thoi gian";

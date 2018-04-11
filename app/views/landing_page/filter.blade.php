@@ -29,17 +29,17 @@
 
 		<div class="input-group inline-block">
 			<label>Lớp học</label>
-			{{ Form::text('class', Input::get('class'), ['class' => 'form-control', 'placeholder' => 'Lớp học']) }}
+			{{ Form::select('class', ['' => '--Chọn lớp--', '1' => 'Lớp 5', '2' => 'Lớp 9' ], ['class' => 'form-control']) }}
 		</div>
 
 		<div class="input-group inline-block">
 			<label>Môn kiểm tra</label>
-			{{ Form::text('check_subject', Input::get('check_subject'), ['class' => 'form-control', 'placeholder' => 'Môn kiểm tra']) }}
+			{{ Form::select('check_subject', ['' => '--Chọn môn--', '1' => 'Môn Toán', '2' => 'Môn Ngữ văn/Tiếng việt', '3' => 'Cả 2 môn' ], ['class' => 'form-control']) }}
 		</div>
 
 		<div class="input-group inline-block" style="vertical-align: bottom;">
 			<button type="submit" class="btn btn-primary">Tìm kiếm</button>
-			{{ link_to_action('LandingPageController@index', 'Reset', null, ['class' => 'btn btn-primary']) }}
+			{{ link_to_action('LandingPageController@show', 'Reset', null, ['class' => 'btn btn-primary']) }}
 		</div>
 	{{ Form::close() }}
 </div>

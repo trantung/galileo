@@ -46,7 +46,6 @@ class LandingPageController extends \BaseController {
     public function store()
     {
         $input = Input::all();
-        // dd($input);
         LandingPage::create($input)->id;
         //TO DO send mail
         $data = [
@@ -72,28 +71,27 @@ class LandingPageController extends \BaseController {
     public function show()
     {
         $input = Input::all();
-        // dd($input);
-        $data = LandingPage::orderBy('created_at', 'DESC')->paginate(10);
+        $data = LandingPage::orderBy('created_at', 'DESC');
         
         if( !empty($input['parent_name']) ){
-            $data->where('parent_name', $input['parent_name']);
+            $data = $data->where('parent_name', $input['parent_name']);
         }
         if( !empty($input['fullname']) ){
-            $data->where('fullname', $input['fullname']);
+            $data = $data->where('fullname', $input['fullname']);
         }
         if( !empty($input['phone']) ){
-            $data->where('phone', $input['phone']);
+            $data = $data->where('phone', $input['phone']);
         }
         if( !empty($input['email']) ){
-            $data->where('email', $input['email']);
+            $data = $data->where('email', $input['email']);
         }
         if( !empty($input['class']) ){
-            $data->where('class', $input['class']);
+            $data = $data->where('class', $input['class']);
         }
         if( !empty($input['check_subject']) ){
-            $data->where('check_subject', $input['check_subject']);
+            $data = $data->where('check_subject', $input['check_subject']);
         }
-        // $data = $data->paginate();
+        $data = $data->paginate(10);
         return View::make('landing_page.index')->with(compact('data'));
     }
 
@@ -130,7 +128,8 @@ class LandingPageController extends \BaseController {
      */
     public function destroy($id)
     {
-        //
+        LandingPage::findOrFail($id)->delete();
+        return Redirect::action('LandingPageController@show');
     }
 
 
