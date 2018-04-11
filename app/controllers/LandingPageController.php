@@ -22,7 +22,7 @@ class LandingPageController extends \BaseController {
         if (Input::get('utm_term')) {
             $utmTerm = Input::get('utm_term');
         }
-        return View::make('landing_page.landing_page')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
+        return View::make('landing_page.index')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
     }
 
 
@@ -94,7 +94,7 @@ class LandingPageController extends \BaseController {
             $data->where('check_subject', $input['check_subject']);
         }
         // $data = $data->paginate();
-        return View::make('landing_page.index')->with(compact('data'));
+        return View::make('landing_page.show')->with(compact('data'));
     }
 
 
