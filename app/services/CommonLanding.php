@@ -65,7 +65,7 @@ class CommonLanding
     public static function getSubject()
     {
         $array = [
-            '' => 'Chọn tất cả',
+            '' => 'Tất cả',
             1 => 'Toán',
             2 => 'Văn',
             3 => 'Cả 2 môn'
@@ -127,4 +127,13 @@ class CommonLanding
         }
         return null;
     }
+    public static function getSubjectName($subject)
+    {
+        $array = self::getSubject();
+        if (!empty($array[$subject])) {
+            return $array[$subject];
+        }
+        return null;
+    }
+
 }

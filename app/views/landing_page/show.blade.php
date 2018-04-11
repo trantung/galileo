@@ -34,7 +34,7 @@
 			<td>{{ $value->class }}</td>
 			<td>{{ CommonLanding::getPeriodStudent($value) }}</td>
 			<td>{{ CommonLanding::getAddressName($value->address) }}</td>
-			<td>{{ $value->check_subject}}</td>
+			<td>{{ CommonLanding::getSubjectName($value->check_subject) }}</td>
 			<td>
 			   {{ Form::open(array('method'=>'DELETE', 'action' => array('LandingPageController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
