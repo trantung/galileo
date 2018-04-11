@@ -91,7 +91,7 @@ class LandingPageController extends \BaseController {
             $data = $data->where('phone', $input['phone']);
         }
         if( !empty($input['email']) ){
-            $data = $data->where('email', $input['email']);
+            $data = $data-> where('email', 'LIKE', '%'.$input['email'].'%');
         }
         if( !empty($input['period']) ){
             if ($input['period'] == 'period_1') {
@@ -119,6 +119,9 @@ class LandingPageController extends \BaseController {
         }
         if( !empty($input['status']) ){
             $data = $data->where('status', $input['status']);
+        }
+        if( !empty($input['comment']) ){
+            $data = $data-> where('comment', 'LIKE', '%'.$input['comment'].'%');
         }
         $data = $data->paginate(PAGINATE);
         return View::make('landing_page.show')->with(compact('data'));
