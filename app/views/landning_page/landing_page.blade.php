@@ -58,7 +58,7 @@
                             <label>Số điện thoại :<input type="text" name="phone" ></label>
                         </div>
                         <div class="thongtin float_right">
-                            <label> email :<input type="email" name="email" ></label><br><br>
+                            <label> Email :<input type="email" name="email" ></label><br><br>
                             <label> Con học lớp :</label>
                             {{ Form::select('class', [ '' => 'Chọn lớp', 5 => 'LỚP 5', 9 => 'LỚP 9'], '') }}
                         </div>
@@ -160,11 +160,11 @@
                         <div class="question">
 
                                 <div class="radio_click">
-                                    <label class="check_radio">có
+                                    <label class="check_radio">Có
                                       <input type="radio" checked="checked" name="status" value="1">
                                       <span class="checkmark"></span>
                                     </label>
-                                    <label class="check_radio">không
+                                    <label class="check_radio">Không
                                       <input type="radio" name="status" value="2">
                                       <span class="checkmark"></span>
                                     </label>
@@ -183,7 +183,7 @@
                     </div>
                 </article>
                 <div  class="regiter" >
-                    {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn']) }}
+                    <input type="submit" name="submit" value="ĐĂNG KÝ" class="button" id="myBtn" onclick="phonenumber(document.form_dk.phone)"/>
                 </div>
             {{ Form::close() }}
             <div class ="report">
@@ -197,7 +197,7 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">X</span>
-                <h2>"Đăng ký thành công</h2>
+                <h2>Đăng ký thành công</h2>
                 <p>Vui lòng kiểm tra email xác nhận và diện thoại cá nhân. HOCMAI sẽ gửi thông tin xác nhận và hướng dẫn lấy SBD*</p>
                 <p><!-- <img src="image_landing/thongbao.png"> --></p>
             </div>
@@ -205,7 +205,7 @@
         @endif
     <div class=" thanh1 clear-both" ></div>
     <footer class="footer text-chanform">
-        <p>hệ thống giáo dục hocmai - trung tâm học chủ động galieo - hotline: 090.211.0033</p>
+        <p>hệ thống giáo dục hocmai - trung tâm học chủ động galileo - hotline: 090.211.0033</p>
     </footer>
     </body>
 </html>
@@ -264,4 +264,5 @@
             modal.style.display = "none";
         }
     }
+}
 </script>

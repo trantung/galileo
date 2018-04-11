@@ -202,7 +202,6 @@ class QuantityDownloadController extends \BaseController {
 			'status'         => WAIT_APPROVE
 		];
 		$askPermissionId = AskPermission::create($field)->id;
-		
 		return Redirect::action('DocumentController@index');
 	}
 }
