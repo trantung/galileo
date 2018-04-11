@@ -55,10 +55,20 @@ class LandingPageController extends \BaseController {
         // dd(111);
         LandingPage::create($input)->id;
         //TO DO send mail
+        $parentName = '';
+        if (!empty($input['parent_name'])) {
+            $parentName = $input['parent_name'];
+        }
+        $title = 'Kính gửi '.$parentName.'!';
+        $content = '';
+        $messageContent = 'Chúc mừng Quý phụ huynh/Bạn đã đăng ký tham gia thành công chương trình <b>
+        Kiểm tra đánh giá năng lực vào lớp 6/thi thử vào lớp 10 </b>của Hệ thống giáo dục HOCMAI. HOCMAI sẽ liên hệ để xác nhận các thông tin của Bạn trong vòng 1 ngày sau khi đăng ký.
+        <br/>
+        Trân trọng!';
         $data = [
-            // 'string' => $string,
-            // 'lessonDetail' => $lessonDetail,
-            // 'lessonDuration' => $input['lesson_duration'],
+            'title' => $title,
+            'content' => $content,
+            'messageContent' => $messageContent,
         ];
         Mail::send('emails.landing_page', $data, function($message) use ($input, $data){
             $message->to($input['email'])
