@@ -9,7 +9,7 @@
                 $urlFacebook = 'https://www.facebook.com/THCS.Tieuhoc/';
                 $contentUnsub = '';
                 $urlYoutube = 'https://www.youtube.com/c/HOCMAITHCS';
-                $urlBgBottom = url('/image_landing/email/border-bottom-email.png');   
+                $urlBgBottom = '/image_landing/email/border-bottom-email.png';   
 
             ?>
                 <td>

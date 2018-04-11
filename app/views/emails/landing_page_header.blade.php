@@ -14,10 +14,10 @@
 </head>
 <body style="margin: 0; padding: 0; background: #f0f0ef;">
 <?php 
-    $urlBorderLeft = url('/image_landing/email/border-hotline-left.png');
+    $urlBorderLeft = '/image_landing/email/border-hotline-left.png';
     $urlBorderRight = "/image_landing/email/border-hotline-right.png";
     $urlBgTop = "/image_landing/email/border-top-email.png";
-    $urlBg = url('/image_landing/email/bgemail.jpg');
+    $urlBg = '/image_landing/email/bgemail.jpg';
     $urlLogo = "/image_landing/email/logo2.png";
 ?>
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-top: 40px;padding-bottom: 35px;background:'.$urlBg.' ">
