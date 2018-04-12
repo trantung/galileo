@@ -70,20 +70,18 @@ class LandingPageController extends \BaseController {
      */
     public function show()
     {
-        
+        //    
     }
+
     public function admin()
     {
         $input = Input::all();
         $data = LandingPage::orderBy('created_at', 'DESC');
-<<<<<<< HEAD
         
         if( !empty($input['parent_name']) ){
             $data = $data->where('parent_name', $input['parent_name']);
         }
-=======
-        // dd($input);
->>>>>>> 72606cf5c37ee30219d1b31e7ad073b57774ab02
+
         if( !empty($input['fullname']) ){
             $data = $data->where('fullname', $input['fullname']);
         }
@@ -92,8 +90,7 @@ class LandingPageController extends \BaseController {
         }
         if( !empty($input['email']) ){
             $data = $data->where('email', $input['email']);
-<<<<<<< HEAD
-=======
+
         }
         if( !empty($input['period']) ){
             if ($input['period'] == 'period_1') {
@@ -108,7 +105,6 @@ class LandingPageController extends \BaseController {
             if ($input['period'] == 'period_4') {
                 $data = $data->where('period_4', 'on');
             }
->>>>>>> 72606cf5c37ee30219d1b31e7ad073b57774ab02
         }
 
         if( !empty($input['class']) ){
@@ -117,13 +113,9 @@ class LandingPageController extends \BaseController {
         if( !empty($input['check_subject']) ){
             $data = $data->where('check_subject', $input['check_subject']);
         }
-<<<<<<< HEAD
-        $data = $data->paginate(10);
-        return View::make('landing_page.index')->with(compact('data'));
-=======
+
         $data = $data->paginate(PAGINATE);
         return View::make('landing_page.show')->with(compact('data'));
->>>>>>> 72606cf5c37ee30219d1b31e7ad073b57774ab02
     }
 
 

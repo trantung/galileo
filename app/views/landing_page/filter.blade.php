@@ -26,27 +26,16 @@
             {{  Form::select('period', CommonLanding::getPeriodName(), Input::get('period'), array('class' => 'form-control')) }}
         </div>
         <div class="input-group inline-block">
+            <label>Địa điểm thi</label>
+            {{  Form::select('address', CommonLanding::getAddress(), Input::get('address'), array('class' => 'form-control')) }}
+        </div>
+
+        <div class="input-group inline-block">
             <label>Lớp học</label>
             {{  Form::select('class', CommonLanding::getClass(), Input::get('class'), array('class' => 'form-control')) }}
         </div>
 
-<<<<<<< HEAD
-		<div class="input-group inline-block">
-			<label>Lớp học</label>
-			{{ Form::select('class', ['' => '--Chọn lớp--', '1' => 'Lớp 5', '2' => 'Lớp 9' ], ['class' => 'form-control']) }}
-		</div>
 
-		<div class="input-group inline-block">
-			<label>Môn kiểm tra</label>
-			{{ Form::select('check_subject', ['' => '--Chọn môn--', '1' => 'Môn Toán', '2' => 'Môn Ngữ văn/Tiếng việt', '3' => 'Cả 2 môn' ], ['class' => 'form-control']) }}
-		</div>
-
-		<div class="input-group inline-block" style="vertical-align: bottom;">
-			<button type="submit" class="btn btn-primary">Tìm kiếm</button>
-			{{ link_to_action('LandingPageController@show', 'Reset', null, ['class' => 'btn btn-primary']) }}
-		</div>
-	{{ Form::close() }}
-=======
         <div class="input-group inline-block">
             <label>Môn kiểm tra</label>
             {{  Form::select('check_subject', CommonLanding::getSubject(), Input::get('check_subject'), array('class' => 'form-control')) }}
@@ -57,5 +46,4 @@
             {{ link_to_action('LandingPageController@admin', 'Reset', null, ['class' => 'btn btn-primary']) }}
         </div>
     {{ Form::close() }}
->>>>>>> 72606cf5c37ee30219d1b31e7ad073b57774ab02
 </div>
