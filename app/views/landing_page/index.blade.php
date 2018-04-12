@@ -11,6 +11,11 @@
         {{ HTML::script('landing_page/js/jquery.min.js') }}
     </head>
     <body>
+            <div id="popup"  class="popup">
+                <div  class="popup_con">
+                    <span id="close">X</span>
+                </div>
+            </div>
         <div class="container_body">
                 <header>
                     <div class="header">
@@ -228,7 +233,7 @@
                                 {{ Form::textarea('comment', '', array('cols' => 30, 'rows' => 5)) }}
                             </div>
                         </article>
-                        <div class="back_gound">
+                        <div class="background_bottom">
                         </div>
                         <div  class="regiter" >
                             {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn', 'onclick' => "phonenumber(Input::get('phone'))"]) }}
@@ -246,16 +251,6 @@
 
                     </div>
                 </content>
-                @if(Session::has('message'))
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">X</span>
-                        <h2>"Đăng ký thành công</h2>
-                        <p>Vui lòng kiểm tra email xác nhận và diện thoại cá nhân. HOCMAI sẽ gửi thông tin xác nhận và hướng dẫn lấy SBD*</p>
-                        <p><!-- <img src="image_landing/thongbao.png"> --></p>
-                    </div>
-                </div> 
-                @endif
             <div class=" thanh1 clear-both" ></div>
             <footer class="footer text-chanform">
                 <p>hệ thống giáo dục hocmai - trung tâm học chủ động galieo - hotline: 090.211.0033</p>
@@ -464,31 +459,14 @@
     })();
 </script>
 <script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    $(document).ready(function () {
+        $('#close').click(function(){
+            $('#popup').hide();
+        })
+        $('#myBtn').click(function(){
+            $('#popup').show();
+        })
+    })
     function showDiv(elem){
         if(elem.value == 5) {
             console.log(1133);
