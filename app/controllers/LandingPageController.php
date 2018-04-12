@@ -46,6 +46,7 @@ class LandingPageController extends \BaseController {
     public function store()
     {
         $input = Input::all();
+
         if (empty($input['phone'])) {
             return Redirect::back()->withErrors(['số điện thoại phải có']);
         }
@@ -87,13 +88,18 @@ class LandingPageController extends \BaseController {
      */
     public function show()
     {
-        
+        //    
     }
+
     public function admin()
     {
         $input = Input::all();
         $data = LandingPage::orderBy('created_at', 'DESC');
-        // dd($input);
+        
+        if( !empty($input['parent_name']) ){
+            $data = $data->where('parent_name', $input['parent_name']);
+        }
+
         if( !empty($input['fullname']) ){
             $data = $data->where('fullname', $input['fullname']);
         }
@@ -101,6 +107,7 @@ class LandingPageController extends \BaseController {
             $data = $data->where('phone', 'LIKE', '%'.$input['phone'].'%');
         }
         if( !empty($input['email']) ){
+
             $data = $data->where('email', 'LIKE', '%'.$input['email'].'%');
         }
         if( !empty($input['period']) ){
@@ -127,6 +134,7 @@ class LandingPageController extends \BaseController {
         if( !empty($input['check_subject']) ){
             $data = $data->where('check_subject', $input['check_subject']);
         }
+
         if( !empty($input['status']) ){
             $data = $data->where('status', $input['status']);
         }
@@ -177,6 +185,4 @@ class LandingPageController extends \BaseController {
         }
         return Redirect::action('LandingPageController@admin');
     }
-
-
 }

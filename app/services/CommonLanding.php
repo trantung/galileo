@@ -112,6 +112,7 @@ class CommonLanding
     public static function getAddress()
     {
         $array = [
+
             '' => 'Tất cả',
             1 => 'Cơ sở 1',
             2 => 'Cơ sở 2',
@@ -128,6 +129,7 @@ class CommonLanding
         }
         return null;
     }
+
     public static function getSubjectName($subject)
     {
         $array = self::getSubject();

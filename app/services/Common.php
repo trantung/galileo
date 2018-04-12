@@ -911,14 +911,15 @@ class Common {
 
         $userId = $check->id;
         $countRecord = DocumentLog::where('model_name', 'User')
+            ->where('model_id', $check->id)
             ->where('document_id', $documentId)
             ->count();
         $now = date("Y-m-d");
 
         $document = Document::find($documentId);
         $quantityDownload = QuantityDownload::where('level_id', $document->level_id)
-            ->where('start_time', '<=', $now)
-            ->where('end_time', '>=', $now)
+            ->where('start_time', '<', $now)
+            ->where('end_time', '>', $now)
             ->first();
         if (!$quantityDownload) {
             return true;
@@ -932,7 +933,6 @@ class Common {
         //kiểm tra maxacc và số lượng bản ghi với doc_id trong documentlog có nhiều hơn ko đối với 1 acc
         $countRecordAcc = DocumentLog::where('model_name', 'User')
             ->where('model_id', $check->id)
-            ->where('document_id', $documentId)
             ->count();
         if ($countRecordAcc >= $maxAcc) {
             return false;
@@ -944,20 +944,28 @@ class Common {
             if (count($timeIdCVHT) == 0) {
                 return false;
             }
-            //kiểm tra thứ mấy có trùng với time_id trong lịch dạy ko
+            //kiểm tra time_id trong lịch dạy có phải là hôm nay không, nếu không phải hôm nay thì return false
             $time = date( 'Y-m-d', time());
             $dayNumber = getTimeId($time);
             if (!in_array($dayNumber, $timeIdCVHT)) {
                 return false;
             }
-            //nếu now mà < thừoi gian bắt đầu - 1 khoảng thời gian(2 tiếng) thì false
-            $hourCheck = date('H:i:s', strtotime('+2 hours'));
+            //nếu now mà < thời gian bắt đầu - 1 khoảng thời gian(2 tiếng) thì false
+            $beforeHour = date('H:i:s', strtotime('-2 hours'));
+            $afterHour = date('H:i:s', strtotime('+2 hours'));
             $currentHour = date('H:i:s');
-            $hour = FreeTimeUser::where('user_id', $userId)
-                ->where('end_time', '>=', $currentHour)
-                ->where('start_time', '<=', $hourCheck)
+
+            $hour1 = FreeTimeUser::where('user_id', $userId)
+                ->where('end_time', '<', $beforeHour)
                 ->count();
-            if ($hour == 0) {
+            if ($hour1 > 0) {
+                return false;
+            }
+
+            $hour2 = FreeTimeUser::where('user_id', $userId)
+                ->where('start_time', '>', $afterHour)
+                ->count();
+            if ($hour2 > 0) {
                 return false;
             }
         }

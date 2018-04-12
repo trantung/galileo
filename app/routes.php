@@ -1,6 +1,5 @@
 <?php
-// $user = Auth::user()->get();
-//         dd($user);
+
 /*
     Hệ thống
     1. Quản lý partner

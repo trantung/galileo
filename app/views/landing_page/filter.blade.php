@@ -35,6 +35,7 @@
             {{  Form::select('class', CommonLanding::getClass(), Input::get('class'), array('class' => 'form-control')) }}
         </div>
 
+
         <div class="input-group inline-block">
             <label>Môn kiểm tra</label>
             {{  Form::select('check_subject', CommonLanding::getSubject(), Input::get('check_subject'), array('class' => 'form-control')) }}

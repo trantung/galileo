@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{ HTML::style('landing_page/css/style.css') }}
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  -->
-        {{ HTML::script('landing_page/js/jquery.min.js') }}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <header>
@@ -40,9 +41,6 @@
                 </div>
             </div>
         </header>
-        <?php
-            $pattern = '^([01][0-9][0-9]|2[0-4][0-9]|9999999999[0-9])$';
-        ?>
         <!-- open sidebar -->
                                                                             <!-- end sidebar -->
         <content>
@@ -51,23 +49,16 @@
                 {{ Form::hidden('utm_medium', $utmMedium) }}
                 {{ Form::hidden('utm_campaign', $utmCampaign) }}
                 {{ Form::hidden('utm_term', $utmTerm) }}
-                {{ Form::hidden('landing_id', 1) }}
                 <div class="container">
                     <h3 class="text-chanform margin text-center personal">thông tin cá nhân</h3>
                     <div class="mation">
                         <div class="thongtin float_left">
                             <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
                             <label>Họ và tên con : <input type="text" name="fullname" ></label><br><br>
-
-                            <label>Số điện thoại :
-                            @if($errors->any())
-                                {{$errors->first()}}
-                            @endif
-                                <input type="text" name="phone" id="phone">
-                            </label>
+                            <label>Số điện thoại :<input type="text" name="phone" ></label>
                         </div>
                         <div class="thongtin float_right">
-                            <label> email :<input type="email" name="email" ></label><br><br>
+                            <label> Email :<input type="email" name="email" ></label><br><br>
                             <label> Con học lớp :</label>
                             {{ Form::select('class', [ '' => 'Chọn lớp', 5 => 'LỚP 5', 9 => 'LỚP 9'], '') }}
                         </div>
@@ -102,23 +93,23 @@
                     <div class="center" >
                         <div class="checkradio">
                             <input type="radio" name="address" value="1" class="radio">
-                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
+                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội</b></label>
                         </div>
                         <div class="checkradio">
                             <input type="radio" name="address" value="2" class="radio">
-                            <label for="radio" class="radio"><span class="checkmark"></span><b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
+                            <label for="radio" class="radio"><span class="checkmark"></span><b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội</b></label>
 
                         </div>
 
                         <div class="checkradio">
                             <input type="radio" name="address" value="3" class="radio">
-                             <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
+                             <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội</b></label>
 
                         </div>
 
                         <div class="checkradio">
                             <input type="radio" name="address" value="4" class="radio">
-                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</b></label>
+                            <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội</b></label>
 
                         </div>
                     </div><!-- hết phần chọn điểm đăng ký dự thi -->
@@ -129,15 +120,15 @@
                         <div class="check_subject_right float_right">
                             <div class="subject">
                                 <div class="check_subject">
-                                    <input id="subject" type='radio' name="check_subject" value="1" checked="checked" > 
+                                    <input id="subject" type='radio' name="subject" value="1" checked="checked" > 
                                     <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                 </div>
                                 <div class="check_subject">
-                                    <input id="subject1"  type='radio' name="check_subject" value="2">
+                                    <input id="subject1"  type='radio' name="subject" value="1">
                                     <label for="subject1">Văn (Tiếng Việt và KHXH đối với lớp 5 ) </label>
                                 </div>
                                 <div class="check_subject">
-                                    <input  id="subject2" type='radio' name="check_subject" value="3">
+                                    <input  id="subject2" type='radio' name="subject" value="1">
                                     <label for="subject2" >Cả hai môn </label>
 
                                 </div>
@@ -169,11 +160,11 @@
                         <div class="question">
 
                                 <div class="radio_click">
-                                    <label class="check_radio">có
+                                    <label class="check_radio">Có
                                       <input type="radio" checked="checked" name="status" value="1">
                                       <span class="checkmark"></span>
                                     </label>
-                                    <label class="check_radio">không
+                                    <label class="check_radio">Không
                                       <input type="radio" name="status" value="2">
                                       <span class="checkmark"></span>
                                     </label>
@@ -192,7 +183,7 @@
                     </div>
                 </article>
                 <div  class="regiter" >
-                    {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn', 'onclick' => "phonenumber(Input::get('phone'))"]) }}
+                    <input type="submit" name="submit" value="ĐĂNG KÝ" class="button" id="myBtn"/>
                 </div>
             {{ Form::close() }}
             <div class ="report">
@@ -202,19 +193,17 @@
 
             </div>
         </content>
-        @if(Session::has('message'))
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">X</span>
-                <h2>"Đăng ký thành công</h2>
+                <h2>Đăng ký thành công</h2>
                 <p>Vui lòng kiểm tra email xác nhận và diện thoại cá nhân. HOCMAI sẽ gửi thông tin xác nhận và hướng dẫn lấy SBD*</p>
                 <p><!-- <img src="image_landing/thongbao.png"> --></p>
             </div>
         </div> 
-        @endif
     <div class=" thanh1 clear-both" ></div>
     <footer class="footer text-chanform">
-        <p>hệ thống giáo dục hocmai - trung tâm học chủ động galieo - hotline: 090.211.0033</p>
+        <p>hệ thống giáo dục hocmai - trung tâm học chủ động galileo - hotline: 090.211.0033</p>
     </footer>
     </body>
 </html>
@@ -236,7 +225,7 @@
         so++;
         if(so <10000000){
             document.getElementById('number').innerHTML = so;
-            setTimeout('cong()', 5000  );
+            setTimeout('cong()', 4000  );
 
         }else{
              document.getElementById('munber').innerHTML =" het thoi gian";
@@ -252,7 +241,8 @@
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+    var btn = document.getElementById("
+        ");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -273,17 +263,5 @@
             modal.style.display = "none";
         }
     }
-
-    function phonenumber(inputtxt)
-    {
-        console.log(11);
-        var phoneno = /^\d{10}$/;
-        if(inputtxt.value.match(phoneno))
-        {
-          return true;
-        }else{
-            alert("Not a valid Phone Number");
-            return false;
-        }
-    }
+}
 </script>
