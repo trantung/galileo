@@ -92,7 +92,10 @@ $(document).ready(function() {
             }
         });
     });
- 
+ $('.view_pdf').click(function(){
+             var id = $(this).attr('data-viewid');
+             alert(id);
+        });
 
 })
 

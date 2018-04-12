@@ -114,6 +114,8 @@ class DocumentController extends AdminController implements AdminInterface {
         return View::make('admin.document.edit')->with(compact('groups', 'document', 'id'));
     }
 
+    
+
 
     /**
      * Update the specified resource in storage.
@@ -163,7 +165,7 @@ class DocumentController extends AdminController implements AdminInterface {
         return Redirect::back()->withMessage('Lưu thành công!');
     }
 
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -179,6 +181,9 @@ class DocumentController extends AdminController implements AdminInterface {
     {
 
     }
-
+    public function getCheckDoc()
+    {
+        
+    }
 }
 
