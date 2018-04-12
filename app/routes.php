@@ -13,6 +13,7 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/', 'LandingPageController@index');
 Route::get('/dang-ky-thi/admin', 'LandingPageController@admin');
 Route::resource('/dang-ky-thi', 'LandingPageController');
 Route::get('/update_check_doc_per', function(){
