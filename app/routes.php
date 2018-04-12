@@ -1,6 +1,5 @@
 <?php
-// $user = Auth::user()->get();
-//         dd($user);
+
 /*
     Hệ thống
     1. Quản lý partner
@@ -14,6 +13,24 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/dang-ky-thi/admin', 'LandingPageController@admin');
+Route::resource('/dang-ky-thi', 'LandingPageController');
+Route::get('/update_check_doc_per', function(){
+    $permissionId = Permission::create([
+        'controller' => 'DocumentController',
+        'action' => 'getCheckDoc',
+        'model' => 'Document',
+    ])->id;
+    $group = Group::where('code', 'KDHL')->first();
+    if ($group) {
+        RelationPerGroup::create([
+            'group_id' => $group->id,
+            'permission_id' => $permissionId
+        ]);
+        dd('success');
+    }
+    dd($group);
+});
 Route::get('/update_center_level_id_cvht', function(){
     $centerId = 2;
     $listLevelId = [$centerId => Level::lists('id')];
@@ -99,6 +116,7 @@ Route::get('/test/updatedb/T', 'TestController@updatedbT');
 Route::get('/test/import', 'TestController@import');
 Route::controller('/test', 'TestController');
 
+
 // Route::resource('/', 'AdminController');
     
 Route::get('/parent/update', function(){
@@ -120,13 +138,14 @@ Route::get('/parent/update', function(){
 });
 Route::get('/test/upload', 'AdminController@getUpload');
 Route::post('/test/upload', 'AdminController@postUpload');
+
 Route::get('/uploadfile', 'AdminController@getUploadFile');
 Route::post('/uploadfile', 'AdminController@postUploadFile');
 
-Route::get('/', 'AdminController@index');
+// Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
 
-	// Route::resource('/administrator', 'AdminController');
+    // Route::resource('/administrator', 'AdminController');
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');
@@ -147,6 +166,23 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('student_package', 'ScheduleController@course');
     Route::put('student_package/{id}', 'ScheduleController@courseEdit');
     Route::get('document_link/{id}/{student_id}', 'ScheduleController@documentLink');
+    // Route quantity download
+
+    Route::get('download/GV', 'QuantityDownloadController@getChangeGV');
+    Route::get('download/PTCM', 'QuantityDownloadController@getChangePTCM');
+    Route::get('download/CVHT', 'QuantityDownloadController@getChangeCVHT');
+
+    Route::post('download/GV', 'QuantityDownloadController@postChangeGV');
+    Route::post('download/PTCM', 'QuantityDownloadController@postChangePTCM');
+    Route::post('download/CVHT', 'QuantityDownloadController@postChangeCVHT');
+
+    Route::post('download/ask_permission/{documentId}', 'QuantityDownloadController@postAskPermission');
+    Route::post('download/ask_permission', 'QuantityDownloadController@postAskPermission');
+
+    Route::resource('ask_permission', 'AskPermissionController');
+
+    Route::resource('download', 'QuantityDownloadController');
+    
     
     
        /* Quản lý partner: CRUD đối tác: tên, email, username, password, sđt
@@ -159,7 +195,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/partner', 'ManagerPartnerController');
 
     Route::resource('/class', 'ClassController');
-	Route::resource('/subject', 'SubjectController');
+    Route::resource('/subject', 'SubjectController');
 
     /*
         Quản lý trung tâm: CRUD trung tâm: tên, địa chỉ

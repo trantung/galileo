@@ -240,17 +240,21 @@ class AdminController extends BaseController {
                         $documentId = Document::create($field)->id;
                         $ob = Document::where('lesson_id', Common::getObject($lessonId, 'id'))->first();
                             if (!$ob) {
+                                dd(111);
                                 $checktype = $strArr['type'];
+                                dd($checktype);
                                     if($checktype == 'D'){
-                                        dd($chectype);
+                                        $documentId = Document::create($field)->id;
                                     }
                                     if($checktype == 'P'){
-                                        Document::find($documentId)->update(['parent_id' => $documentId]);
+                                        Document::find($ob)->create(['parent_id' => $ob]);
+
                                     }
                        } else {
 
+
                        }
-                        //kiểm tra là xem lesson_id có bản ghi hay ko
+                       //  //kiểm tra là xem lesson_id có bản ghi hay ko
                             //nếu không có thì kiểm tra file upload là đáp án hay phiếu
                                 //nếu là đáp án thfi parent_id = null
                                 //nếu là phiếu thì parent_id = documentId
