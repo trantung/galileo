@@ -262,31 +262,41 @@
     $so = $so1 + $count;
 ?>
 <script>
-    var adArray = ["T1", "T2", "T3", "T4"]; 
+    var adArray = [
+        "Ta Nguyen Phuong Linh", 
+        "lê nguyễn khánh linh", 
+        "Ngô phương linh", 
+        "Vũ đình duy anh",
+        "Vũ Thái Sơn",
+        "Nguyễn Trang Minh Hương",
+        "Trương Minh Trí",
+        "Hoàng Tuấn Dũng",
+        "Nguyễn Thị Minh Thư"
+    ]; 
     (function iterator() {
         var now = <?php print($now); ?>;
         var timeCustom = <?php print($timeCustom); ?>;
         var now = new Date().getTime();
         var a = Math.floor(now/1000) - timeCustom;
-        var b = 4; 
+        var b = 9; 
         var c = a % b;
         // console.log(timeCustom);
-        if (c == 0) {
+        // if (c == 0) {
+        //     document.getElementById('number').innerHTML = adArray[c];
+        //     setTimeout(iterator, 1000);
+        // };
+        // if (c == 1) {
+        //     document.getElementById('number').innerHTML = adArray[c];
+        //     setTimeout(iterator, 1000);
+        // };
+        // if (c == 2) {
+        //     document.getElementById('number').innerHTML = adArray[c];
+        //     setTimeout(iterator, 1000);
+        // };
+        // if (c == 3) {
             document.getElementById('number').innerHTML = adArray[c];
-            setTimeout(iterator, 1000);
-        };
-        if (c == 1) {
-            document.getElementById('number').innerHTML = adArray[c];
-            setTimeout(iterator, 1000);
-        };
-        if (c == 2) {
-            document.getElementById('number').innerHTML = adArray[c];
-            setTimeout(iterator, 1000);
-        };
-        if (c == 3) {
-            document.getElementById('number').innerHTML = adArray[c];
-            setTimeout(iterator, 1000);
-        };
+            setTimeout(iterator, 4000);
+        // };
 
         console.log(adArray[i]);
 
