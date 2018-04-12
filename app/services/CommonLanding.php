@@ -185,12 +185,26 @@ class CommonLanding
     }
     public static function getUtmMedium()
     {
-        $medium = [];
+        $medium = LandingPage::distinct('utm_medium')->lists('utm_medium', 'utm_medium');
+        foreach ($medium as $key => $value) {
+            if (empty($value)) {
+                unset($medium[$key]);
+                $medium['-1'] = 'Không có phương tiện';
+            }
+        }
+        $medium = [''=>'Tất cả'] + $medium;
         return $medium;
     }
     public static function getUtmCampaign()
     {   
-        $campaign = [];
+        $campaign = LandingPage::distinct('utm_campaign')->lists('utm_campaign', 'utm_campaign');
+        foreach ($campaign as $key => $value) {
+            if (empty($value)) {
+                unset($campaign[$key]);
+                $campaign['-1'] = 'Không có chiến dịch';
+            }
+        }
+        $campaign = [''=>'Tất cả'] + $campaign;
         return $campaign;
     }
 

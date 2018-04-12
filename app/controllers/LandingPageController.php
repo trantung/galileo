@@ -143,6 +143,22 @@ class LandingPageController extends \BaseController {
                 $data = $data->where('utm_source', 'LIKE', '%'.$input['utm_source'].'%');
             }
         }
+
+        if( !empty($input['utm_medium']) ){
+            if ($input['utm_medium'] == '-1') {
+                $data = $data->where('utm_medium', '');
+            } else {
+                $data = $data->where('utm_medium', 'LIKE', '%'.$input['utm_medium'].'%');
+            }
+        }
+
+        if( !empty($input['utm_campaign']) ){
+            if ($input['utm_campaign'] == '-1') {
+                $data = $data->where('utm_campaign', '');
+            } else {
+                $data = $data->where('utm_campaign', 'LIKE', '%'.$input['utm_campaign'].'%');
+            }
+        }
         $count = $data->count();
         $data = $data->paginate(PAGINATE);
         return View::make('landing_page.show')->with(compact('data', 'count'));
