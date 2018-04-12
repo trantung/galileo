@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="check">
                                     <input type="checkbox" name="period_4" class="checkbox">
-                                    <label for="checkbox"><span></span><b>{{ CommonLanding::getPeriod(4) }}</b></label>
+                                    <label for="checkbox"><span></span><b> {{ CommonLanding::getPeriod(4) }}</b></label>
                                 </div>
                             </div>
                         </div>
