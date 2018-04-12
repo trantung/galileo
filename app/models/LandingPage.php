@@ -9,7 +9,7 @@ class LandingPage extends Eloquent
     protected $fillable = [
     	'parent_name', 'fullname','phone', 'email', 'class', 'period_1',
     	'period_2','period_3', 'period_4', 'address', 'check_subject','status',
-    	'comment', 'utm_source','utm_medium','utm_campaign','utm_term'
+    	'comment', 'utm_source','utm_medium','utm_campaign','utm_term','landing_id'
     ];
 
    

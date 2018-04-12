@@ -40,7 +40,14 @@
             <label>Môn kiểm tra</label>
             {{  Form::select('check_subject', CommonLanding::getSubject(), Input::get('check_subject'), array('class' => 'form-control')) }}
         </div>
-
+        <div class="input-group inline-block">
+            <label>Học ở Galileo</label>
+            {{  Form::select('status', CommonLanding::getStatus(), Input::get('status'), array('class' => 'form-control')) }}
+        </div>
+        <div class="input-group inline-block">
+            <label>Nguyện vọng thi</label>
+            {{ Form::text('comment', Input::get('comment'), ['class' => 'form-control', 'placeholder' => 'nguyện vọng thi trường']) }}
+        </div>
         <div class="input-group inline-block" style="vertical-align: bottom;">
             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
             {{ link_to_action('LandingPageController@admin', 'Reset', null, ['class' => 'btn btn-primary']) }}

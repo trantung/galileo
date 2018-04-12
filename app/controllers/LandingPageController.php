@@ -46,12 +46,30 @@ class LandingPageController extends \BaseController {
     public function store()
     {
         $input = Input::all();
+
+        if (empty($input['phone'])) {
+            return Redirect::back()->withErrors(['số điện thoại phải có']);
+        }
+        if (!checkValidatePhoneNumber($input['phone'])) {
+            return Redirect::back()->withErrors(['số điện thoại không đúng']);
+        }
+        // dd(111);
         LandingPage::create($input)->id;
         //TO DO send mail
+        $parentName = '';
+        if (!empty($input['parent_name'])) {
+            $parentName = $input['parent_name'];
+        }
+        $title = 'Kính gửi '.$parentName.'!';
+        $content = '';
+        $messageContent = 'Chúc mừng Quý phụ huynh/Bạn đã đăng ký tham gia thành công chương trình <b>
+        Kiểm tra đánh giá năng lực vào lớp 6/thi thử vào lớp 10 </b>của Hệ thống giáo dục HOCMAI. HOCMAI sẽ liên hệ để xác nhận các thông tin của Bạn trong vòng 1 ngày sau khi đăng ký.
+        <br/>
+        Trân trọng!';
         $data = [
-            // 'string' => $string,
-            // 'lessonDetail' => $lessonDetail,
-            // 'lessonDuration' => $input['lesson_duration'],
+            'title' => $title,
+            'content' => $content,
+            'messageContent' => $messageContent,
         ];
         Mail::send('emails.landing_page', $data, function($message) use ($input, $data){
             $message->to($input['email'])
@@ -86,11 +104,11 @@ class LandingPageController extends \BaseController {
             $data = $data->where('fullname', $input['fullname']);
         }
         if( !empty($input['phone']) ){
-            $data = $data->where('phone', $input['phone']);
+            $data = $data->where('phone', 'LIKE', '%'.$input['phone'].'%');
         }
         if( !empty($input['email']) ){
-            $data = $data->where('email', $input['email']);
 
+            $data = $data->where('email', 'LIKE', '%'.$input['email'].'%');
         }
         if( !empty($input['period']) ){
             if ($input['period'] == 'period_1') {
@@ -107,6 +125,9 @@ class LandingPageController extends \BaseController {
             }
         }
 
+        if( !empty($input['address']) ){
+            $data = $data->where('address', $input['address']);
+        }
         if( !empty($input['class']) ){
             $data = $data->where('class', $input['class']);
         }
@@ -114,8 +135,15 @@ class LandingPageController extends \BaseController {
             $data = $data->where('check_subject', $input['check_subject']);
         }
 
+        if( !empty($input['status']) ){
+            $data = $data->where('status', $input['status']);
+        }
+        if( !empty($input['comment']) ){
+            $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
+        }
+        $count = $data->count();
         $data = $data->paginate(PAGINATE);
-        return View::make('landing_page.show')->with(compact('data'));
+        return View::make('landing_page.show')->with(compact('data', 'count'));
     }
 
 
@@ -151,9 +179,10 @@ class LandingPageController extends \BaseController {
      */
     public function destroy($id)
     {
-        LandingPage::findOrFail($id)->delete();
-        return Redirect::action('LandingPageController@show');
+        $data = LandingPage::find($id);
+        if ($data) {
+            $data->delete();
+        }
+        return Redirect::action('LandingPageController@admin');
     }
-
-
 }

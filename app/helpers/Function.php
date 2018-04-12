@@ -447,3 +447,16 @@ function getCurrentUser()
     }
     return $user;
 }
+function checkValidatePhoneNumber($number)
+{
+    if (!is_numeric($number)) {
+        return false;
+    }
+    if ($number < 99999999) {
+        return false;
+    }
+    if ($number > 9999999999) {
+        return false;
+    }
+    return true;
+}

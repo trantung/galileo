@@ -65,7 +65,7 @@ class CommonLanding
     public static function getSubject()
     {
         $array = [
-            '' => 'Chọn tất cả',
+            '' => 'Tất cả',
             1 => 'Toán',
             2 => 'Văn',
             3 => 'Cả 2 môn'
@@ -112,6 +112,8 @@ class CommonLanding
     public static function getAddress()
     {
         $array = [
+
+            '' => 'Tất cả',
             1 => 'Cơ sở 1',
             2 => 'Cơ sở 2',
             3 => 'Cơ sở 3',
@@ -126,5 +128,23 @@ class CommonLanding
             return $data[$address];
         }
         return null;
+    }
+
+    public static function getSubjectName($subject)
+    {
+        $array = self::getSubject();
+        if (!empty($array[$subject])) {
+            return $array[$subject];
+        }
+        return null;
+    }
+    public static function getStatus()
+    {
+        $array = [
+            '' => 'Tất cả',
+            1 => 'Có',
+            2 => 'Không',
+        ];
+        return $array;
     }
 }

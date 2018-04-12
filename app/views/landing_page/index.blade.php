@@ -8,8 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{ HTML::style('landing_page/css/style.css') }}
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="jquery-3.3.1.min.js"></script>
+        {{ HTML::script('landing_page/js/jquery.min.js') }}
     </head>
     <body>
         <header>
@@ -41,6 +40,9 @@
                 </div>
             </div>
         </header>
+        <?php
+            $pattern = '^([01][0-9][0-9]|2[0-4][0-9]|9999999999[0-9])$';
+        ?>
         <!-- open sidebar -->
                                                                             <!-- end sidebar -->
         <content>
@@ -49,13 +51,20 @@
                 {{ Form::hidden('utm_medium', $utmMedium) }}
                 {{ Form::hidden('utm_campaign', $utmCampaign) }}
                 {{ Form::hidden('utm_term', $utmTerm) }}
+                {{ Form::hidden('landing_id', 1) }}
                 <div class="container">
                     <h3 class="text-chanform margin text-center personal">thông tin cá nhân</h3>
                     <div class="mation">
                         <div class="thongtin float_left">
                             <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
                             <label>Họ và tên con : <input type="text" name="fullname" ></label><br><br>
-                            <label>Số điện thoại :<input type="text" name="phone" ></label>
+
+                            <label>Số điện thoại :
+                            @if($errors->any())
+                                {{$errors->first()}}
+                            @endif
+                                <input type="text" name="phone" id="phone">
+                            </label>
                         </div>
                         <div class="thongtin float_right">
                             <label> email :<input type="email" name="email" ></label><br><br>
@@ -120,15 +129,15 @@
                         <div class="check_subject_right float_right">
                             <div class="subject">
                                 <div class="check_subject">
-                                    <input id="subject" type='radio' name="subject" value="1" checked="checked" > 
+                                    <input id="subject" type='radio' name="check_subject" value="1" checked="checked" > 
                                     <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                 </div>
                                 <div class="check_subject">
-                                    <input id="subject1"  type='radio' name="subject" value="2">
+                                    <input id="subject1"  type='radio' name="check_subject" value="2">
                                     <label for="subject1">Văn (Tiếng Việt và KHXH đối với lớp 5 ) </label>
                                 </div>
                                 <div class="check_subject">
-                                    <input  id="subject2" type='radio' name="subject" value="3">
+                                    <input  id="subject2" type='radio' name="check_subject" value="3">
                                     <label for="subject2" >Cả hai môn </label>
 
                                 </div>
@@ -183,7 +192,7 @@
                     </div>
                 </article>
                 <div  class="regiter" >
-                    {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn']) }}
+                    {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn', 'onclick' => "phonenumber(Input::get('phone'))"]) }}
                 </div>
             {{ Form::close() }}
             <div class ="report">
@@ -262,6 +271,19 @@
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+        }
+    }
+
+    function phonenumber(inputtxt)
+    {
+        console.log(11);
+        var phoneno = /^\d{10}$/;
+        if(inputtxt.value.match(phoneno))
+        {
+          return true;
+        }else{
+            alert("Not a valid Phone Number");
+            return false;
         }
     }
 </script>
