@@ -59,18 +59,17 @@
                                 <div class="thongtin float_left">
                                     <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
                                     <label>Họ và tên con :
-                                    @if($errors->any())
-                                        <div color="red">
-                                            {{$errors->first()}}
-                                        </div>
+                                    @if(Session::has('msg_fullname'))
+                                        <font color="red">{{ Session::get('msg_fullname') }}</font>
                                     @endif
                                     <input type="text" name="fullname" ></label>
                                     <br><br>
                                     <label>Số điện thoại :
-                                    @if($errors->any())
-                                        <div color="red">
-                                            {{$errors->first()}}
-                                        </div>
+                                    @if(Session::has('msg_phone'))
+                                        <font color="red">{{ Session::get('msg_phone') }}</font>
+                                    @endif
+                                    @if(Session::has('msg_phone_valid'))
+                                        <font color="red">{{ Session::get('msg_phone_valid') }}</font>
                                     @endif
                                         <input type="text" name="phone" id="phone">
                                     </label>
@@ -78,10 +77,8 @@
                                 <div class="thongtin float_right">
                                     <label> Email :<input type="email" name="email" required></label><br><br>
                                     <label> Con học lớp :</label>
-                                    @if($errors->any())
-                                        <div color="red">
-                                            {{$errors->first()}}
-                                        </div>
+                                    @if(Session::has('msg_class'))
+                                        <font color="red">{{ Session::get('msg_class') }}</font>
                                     @endif
                                     <select id="test" name="class" onchange="showDiv(this)">
                                         <option value="1">Chọn lớp</option>
