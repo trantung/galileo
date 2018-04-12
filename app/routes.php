@@ -14,7 +14,7 @@
 //     return View::make('test_upload');
 // });
 Route::get('/', 'LandingPageController@index');
-Route::get('/dang-ky-thi/admin', 'LandingPageController@admin');
+Route::get('/thong-ke-landing', 'LandingPageController@admin');
 Route::resource('/dang-ky-thi', 'LandingPageController');
 Route::get('/update_check_doc_per', function(){
     $permissionId = Permission::create([

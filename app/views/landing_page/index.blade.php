@@ -67,33 +67,57 @@
                             </label>
                         </div>
                         <div class="thongtin float_right">
-                            <label> email :<input type="email" name="email" ></label><br><br>
+                            <label> Email :<input type="email" name="email" ></label><br><br>
                             <label> Con học lớp :</label>
-                            {{ Form::select('class', [ '' => 'Chọn lớp', 5 => 'LỚP 5', 9 => 'LỚP 9'], '') }}
+                            <select id="test" name="class" onchange="showDiv(this)">
+                                <option value="1">Chọn lớp</option>
+                                <option value="5">Lớp 5</option>
+                                <option value ="9">Lớp 9</option>
+                            </select>
                         </div>
                     </div><!--  hêt phần thông tin cá nhân -->
 
                     <h3 class=" margin clear-both text-center tilecheck"> <!-- chon đợt thi muốn tham gia--> </h3>
                     <div  class="#">
-                        <div class="checkbox float_left">
-                            <div class="check">
-                                <input type="checkbox" name="period_1" class="checkbox" checked="checked">
-                                <label for="checkbox" ><span></span><b>{{ CommonLanding::getPeriod('period_1') }}</b></label>
+                        <div class="#" id="class5" style="display: block;">
+                            <div class="checkbox float_left">
+                                <div class="check">
+                                    <input type="checkbox" name="period_1" class="checkbox">
+                                    <label for="checkbox" ><span></span><b>{{ CommonLanding::getPeriod(1) }}</b></label>
+                                </div>
+                                <div class="check">
+                                    <input type="checkbox" name="period_2" class="checkbox">
+                                    <label for="checkbox" ><span></span><b> {{ CommonLanding::getPeriod(2) }}</b></label>
+                                </div>
                             </div>
-                            <div class="check">
-                                <input type="checkbox" name="period_2" class="checkbox">
-                                <label for="checkbox" ><span></span><b> {{ CommonLanding::getPeriod('period_2') }}</b></label>
+
+                            <div class="checkbox float_right">
+                                <div class="check">
+                                    <input type="checkbox" name="period_3" class="checkbox">
+                                    <label for="checkbox"> <span></span><b> {{ CommonLanding::getPeriod(3) }}</b></label>
+                                </div>
+                                <div class="check">
+                                    <input type="checkbox" name="period_4" class="checkbox">
+                                    <label for="checkbox"><span></span><b>{{ CommonLanding::getPeriod(4) }}</b></label>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="checkbox float_right">
-                            <div class="check">
-                                <input type="checkbox" name="period_3" class="checkbox">
-                                <label for="checkbox"> <span></span><b> {{ CommonLanding::getPeriod('period_3') }}</b></label>
+                        <div class="#" id="class9" style="display: none;">
+                            <div class="checkbox float_left">
+                                <div class="check">
+                                    <input type="checkbox" name="period_5" class="checkbox">
+                                    <label for="checkbox" ><span></span><b>{{ CommonLanding::getPeriod(5) }}</b></label>
+                                </div>
+                                <div class="check">
+                                    <input type="checkbox" name="period_6" class="checkbox">
+                                    <label for="checkbox" ><span></span><b> {{ CommonLanding::getPeriod(6) }}</b></label>
+                                </div>
                             </div>
-                            <div class="check">
-                                <input type="checkbox" name="period_4" class="checkbox">
-                                <label for="checkbox"><span></span><b>{{ CommonLanding::getPeriod('period_4') }}</b></label>
+                            <div class="checkbox float_right">
+                                <div class="check">
+                                    <input type="checkbox" name="period_7" class="checkbox">
+                                    <label for="checkbox"> <span></span><b>{{ CommonLanding::getPeriod(7) }}</b></label>
+                                </div>
                             </div>
                         </div>
                     </div> <!-- hêt phần chọn đợt thi muôn tham gia -->
@@ -248,6 +272,37 @@
 
 </script>
 <script>
+// $(document).ready(function(){
+//     $(document).on('change', '.class_chosse', function(){
+//         var lesson_status = $(this).val();
+//         if(lesson_status == 5){
+//             $('.time_disable').find('input, select').removeAttr('disabled');
+//         } 
+//         else if(lesson_status == 4){
+//             $('.time_disable').find('select').removeAttr('disabled');
+//         }
+//         else{
+//             $('.time_disable').find('input, select').attr('disabled', 'disabled');
+//         }
+//     })
+
+// })
+    function showDiv(elem){
+        if(elem.value == 5) {
+            console.log(1133);
+            document.getElementById('class5').style.display = "block";
+            document.getElementById('class9').style.display = "none";
+        }
+        if(elem.value == 9) {
+            document.getElementById('class9').style.display = "block";
+            document.getElementById('class5').style.display = "none";
+        }
+        if(elem.value == 1) {
+            document.getElementById('class5').style.display = "block";
+            document.getElementById('class9').style.display = "none";
+        }
+
+    }
     // Get the modal
     var modal = document.getElementById('myModal');
 

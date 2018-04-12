@@ -46,16 +46,17 @@ class LandingPageController extends \BaseController {
     public function store()
     {
         $input = Input::all();
-
         if (empty($input['phone'])) {
             return Redirect::back()->withErrors(['số điện thoại phải có']);
         }
         if (!checkValidatePhoneNumber($input['phone'])) {
             return Redirect::back()->withErrors(['số điện thoại không đúng']);
         }
-        // dd(111);
-        LandingPage::create($input)->id;
-        //TO DO send mail
+        $periods = CommonLanding::getPeriodLanding($input);
+        $id = LandingPage::create($input)->id;
+        foreach ($periods as $key => $value) {
+            LandingPagePeriodRelation::create(['period_id' => $value, 'landing_page_id' => $id]);
+        }
         $parentName = '';
         if (!empty($input['parent_name'])) {
             $parentName = $input['parent_name'];
@@ -71,10 +72,12 @@ class LandingPageController extends \BaseController {
             'content' => $content,
             'messageContent' => $messageContent,
         ];
-        Mail::send('emails.landing_page', $data, function($message) use ($input, $data){
-            $message->to($input['email'])
-                ->subject(LANDING_PAGE_EMAIL_SUBJECT);
-        });
+        if (!empty($input['email'])) {
+            Mail::send('emails.landing_page', $data, function($message) use ($input, $data){
+                $message->to($input['email'])
+                    ->subject(LANDING_PAGE_EMAIL_SUBJECT);
+            });
+        }
         $message = 'success';
         return Redirect::action('LandingPageController@index')->withMessage($message);
     }
@@ -94,8 +97,13 @@ class LandingPageController extends \BaseController {
     public function admin()
     {
         $input = Input::all();
-        $data = LandingPage::orderBy('created_at', 'DESC');
-        
+        // dd($input);
+        if( !empty($input['period']) ){
+            $data = LandingPage::join('landing_page_relation_periods', 'landing_pages.id', '=', 'landing_page_relation_periods.landing_page_id');
+            $data = $data->where('landing_page_relation_periods.period_id', $input['period']);
+        } else {
+            $data = LandingPage::orderBy('created_at', 'DESC');
+        }
         if( !empty($input['parent_name']) ){
             $data = $data->where('parent_name', $input['parent_name']);
         }
@@ -110,21 +118,6 @@ class LandingPageController extends \BaseController {
 
             $data = $data->where('email', 'LIKE', '%'.$input['email'].'%');
         }
-        if( !empty($input['period']) ){
-            if ($input['period'] == 'period_1') {
-                $data = $data->where('period_1', 'on');
-            }
-            if ($input['period'] == 'period_2') {
-                $data = $data->where('period_2', 'on');
-            }
-            if ($input['period'] == 'period_3') {
-                $data = $data->where('period_3', 'on');
-            }
-            if ($input['period'] == 'period_4') {
-                $data = $data->where('period_4', 'on');
-            }
-        }
-
         if( !empty($input['address']) ){
             $data = $data->where('address', $input['address']);
         }
@@ -134,12 +127,21 @@ class LandingPageController extends \BaseController {
         if( !empty($input['check_subject']) ){
             $data = $data->where('check_subject', $input['check_subject']);
         }
-
         if( !empty($input['status']) ){
             $data = $data->where('status', $input['status']);
         }
         if( !empty($input['comment']) ){
             $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
+        }
+        if( !empty($input['comment']) ){
+            $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
+        }
+        if( !empty($input['utm_source']) ){
+            if ($input['utm_source'] == '-1') {
+                $data = $data->where('utm_source', '');
+            } else {
+                $data = $data->where('utm_source', 'LIKE', '%'.$input['utm_source'].'%');
+            }
         }
         $count = $data->count();
         $data = $data->paginate(PAGINATE);

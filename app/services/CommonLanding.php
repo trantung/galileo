@@ -2,18 +2,47 @@
 use Carbon\Carbon;
 class CommonLanding
 {
-    public static function getPeriod($period)
+    public static function getPeriod($periodId)
     {
         $array = [
-            'period_1' => 'Đợt 1 ( Lớp 5: 08/04/2018, Lớp 9: 15/04 )',
-            'period_2' => 'Đợt 2 ( Lớp 5: 22/04/2018, Lớp 9: 13/05 )',
-            'period_3' => 'Đợt 3 (Lớp 5: 06/05/2018,Lớp 9: 27/05 )',
-            'period_4' => 'Đợt 4 ( Lớp 5: 20/05/2018)'
+            1 => 'Đợt 1 ( Lớp 5: 08/04/2018)',
+            2 => 'Đợt 2 (Lớp 5: 22/04/2018 )',
+            3 => 'Đợt 3 (Lớp 5: 06/05/2018)',
+            4 => 'Đợt 4 (Lớp 5: 20/05/2018)',
+            5 => 'Đợt 1 (Lớp 9: 15/04 )',
+            6 => 'Đợt 2 (Lớp 9: 13/05 )',
+            7 => 'Đợt 3 (Lớp 9: 27/05 )',
         ];
-        if (isset($array[$period])) {
-            return $array[$period];
+        if (isset($array[$periodId])) {
+            return $array[$periodId];
         }
         return null;
+    }
+    public static function getPeriodLanding($input)
+    {
+        $period = [];
+        if (!empty($input['period_1'])) {
+            $period[] = 1; 
+        }
+        if (!empty($input['period_2'])) {
+            $period[] = 2; 
+        }
+        if (!empty($input['period_3'])) {
+            $period[] = 3; 
+        }
+        if (!empty($input['period_4'])) {
+            $period[] = 4; 
+        }
+        if (!empty($input['period_5'])) {
+            $period[] = 5; 
+        }
+        if (!empty($input['period_6'])) {
+            $period[] = 6; 
+        }
+        if (!empty($input['period_7'])) {
+            $period[] = 7; 
+        }
+        return $period;
     }
     public static function getStudentDefault()
     {
@@ -100,13 +129,8 @@ class CommonLanding
     }
     public static function getPeriodName()
     {
-        $array = [
-            ''  => 'Chọn tất cả',
-            'period_1' => 'Đợt 1 ( Lớp 5: 08/04/2018, Lớp 9: 15/04 )',
-            'period_2' => 'Đợt 2 ( Lớp 5: 22/04/2018, Lớp 9: 13/05 )',
-            'period_3' => 'Đợt 3 (Lớp 5: 06/05/2018,Lớp 9: 27/05 )',
-            'period_4' => 'Đợt 4 ( Lớp 5: 20/05/2018)'
-        ];
+        $array = LandingPagePeriod::lists('name', 'id');
+        $array = [ '' => 'Tất cả'] + $array;
         return $array;
     }
     public static function getAddress()
@@ -147,4 +171,27 @@ class CommonLanding
         ];
         return $array;
     }
+    public static function getUtmSource()
+    {
+        $source = LandingPage::distinct('utm_source')->lists('utm_source', 'utm_source');
+        foreach ($source as $key => $value) {
+            if (empty($value)) {
+                unset($source[$key]);
+                $source['-1'] = 'Không có nguồn';
+            }
+        }
+        $source = [''=>'Tất cả'] + $source;
+        return $source;
+    }
+    public static function getUtmMedium()
+    {
+        $medium = [];
+        return $medium;
+    }
+    public static function getUtmCampaign()
+    {   
+        $campaign = [];
+        return $campaign;
+    }
+
 }

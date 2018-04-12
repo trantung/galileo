@@ -48,6 +48,18 @@
             <label>Nguyện vọng thi</label>
             {{ Form::text('comment', Input::get('comment'), ['class' => 'form-control', 'placeholder' => 'nguyện vọng thi trường']) }}
         </div>
+        <div class="input-group inline-block">
+            <label>Nguồn</label>
+            {{ Form::select('utm_source', CommonLanding::getUtmSource(), Input::get('utm_source'), array('class' => 'form-control')) }}
+        </div>
+        <div class="input-group inline-block">
+            <label>Phương tiện</label>
+            {{ Form::select('utm_medium', CommonLanding::getUtmMedium(), Input::get('utm_medium'), array('class' => 'form-control')) }}
+        </div>
+        <div class="input-group inline-block">
+            <label>Chiến dịch</label>
+            {{ Form::select('utm_campaign', CommonLanding::getUtmCampaign(), Input::get('utm_campaign'), array('class' => 'form-control')) }}
+        </div>
         <div class="input-group inline-block" style="vertical-align: bottom;">
             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
             {{ link_to_action('LandingPageController@admin', 'Reset', null, ['class' => 'btn btn-primary']) }}
