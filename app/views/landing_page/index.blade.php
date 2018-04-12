@@ -11,11 +11,13 @@
         {{ HTML::script('landing_page/js/jquery.min.js') }}
     </head>
     <body>
-            <div id="popup"  class="popup">
-                <div  class="popup_con">
-                    <span id="close">X</span>
-                </div>
+    @if(Session::has('message'))
+        <div id="popup"  class="popup">
+            <div  class="popup_con">
+                <span id="close">X</span>
             </div>
+        </div>
+    @endif
         <div class="container_body">
                 <header>
                     <div class="header">
