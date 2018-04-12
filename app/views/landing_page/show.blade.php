@@ -10,7 +10,7 @@
     </div>
 	<table class="table table-bordered table-striped table-hove" >
 	<div class="margin-bottom">
-	Có tất cả {{ $count }} dữ liệu
+	Có tất cả {{ $count }} contact
     </div>
 		<tr>
 			<th>STT</th>
@@ -22,7 +22,6 @@
 			<th>Đợt thi</td>
 			<th>Địa điểm thi</td>
 			<th>Môn kiểm tra</td>
-			<th width="10%">Action</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
@@ -35,11 +34,6 @@
 			<td>{{ CommonLanding::getPeriodStudent($value) }}</td>
 			<td>{{ CommonLanding::getAddressName($value->address) }}</td>
 			<td>{{ CommonLanding::getSubjectName($value->check_subject) }}</td>
-			<td>
-			   {{ Form::open(array('method'=>'DELETE', 'action' => array('LandingPageController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-	           {{ Form::close() }}
-			</td>
 		</tr>
 		@endforeach
 	</table>

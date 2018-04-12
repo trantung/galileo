@@ -113,17 +113,11 @@ class CommonLanding
     public static function getPeriodStudent($data)
     {
         $text = '';
-        if ($data->period_1) {
-            $text = $text. self::getPeriod('period_1').', ';
-        }
-        if ($data->period_2) {
-            $text = $text. self::getPeriod('period_2').', ';
-        }
-        if ($data->period_3) {
-            $text = $text. self::getPeriod('period_3').', ';
-        }
-        if ($data->period_4) {
-            $text = $text. self::getPeriod('period_4').', ';
+        $landingId = $data->id;
+        $list = LandingPagePeriodRelation::where('landing_page_id', $landingId)->lists('period_id');
+        $period = LandingPagePeriod::whereIn('id', $list)->get();
+        foreach ($period as $key => $value) {
+            $text = $text . $value->name . ', ';
         }
         return $text;
     }
