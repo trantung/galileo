@@ -201,20 +201,48 @@ class LandingPageController extends \BaseController {
                 'Nguyện vọng' => $value->comment,
             ];
         }
-        Excel::create($fileName, function($excel) use ($dataArray) {
-            $excel->sheet('mySheet', function($sheet) use ($dataArray){
-                $sheet->getStyle('1')->applyFromArray(array(
-                    'fill' => array(
-                        'type'  => PHPExcel_Style_Fill::FILL_SOLID,
-                        'color' => array('rgb' => '3c8dbc'),
-                    ),
-                    'font-weight' => 'bold',
-                    'bold' => true,
-                    'color' => array('rgb' => 'FFFFFF'),
-                ));
-                $sheet->fromArray($dataArray);
-            });
-        })->download('xls');
+
+        // function filterData(&$str)
+        // {
+        //     $str = preg_replace("/\t/", "\\t", $str);
+        //     $str = preg_replace("/\r?\n/", "\\n", $str);
+        //     if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
+        // }
+        
+        // file name for download
+        $fileName = "codexworld_export_data" . date('Ymd') . ".xlsx";
+        
+        // headers for download
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header("Content-Type: application/vnd.ms-excel");
+        
+        $flag = false;
+        foreach($dataArray as $row) {
+            if(!$flag) {
+                // display column names as first row
+                echo implode("\t", array_keys($row)) . "\n";
+                $flag = true;
+            }
+            // filter data
+            // array_walk($row, 'filterData');
+            echo implode("\t", array_values($row)) . "\n";
+
+        }
+         exit;
+        // Excel::create($fileName, function($excel) use ($dataArray) {
+        //     $excel->sheet('mySheet', function($sheet) use ($dataArray){
+        //         $sheet->getStyle('1')->applyFromArray(array(
+        //             'fill' => array(
+        //                 'type'  => PHPExcel_Style_Fill::FILL_SOLID,
+        //                 'color' => array('rgb' => '3c8dbc'),
+        //             ),
+        //             'font-weight' => 'bold',
+        //             'bold' => true,
+        //             'color' => array('rgb' => 'FFFFFF'),
+        //         ));
+        //         $sheet->fromArray($dataArray);
+        //     });
+        // })->download('xls');
 
         return Redirect::action('LandingPageController@admin');
     }
