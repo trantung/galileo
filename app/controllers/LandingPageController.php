@@ -108,7 +108,12 @@ class LandingPageController extends \BaseController {
     {
         $input = Input::all();
         $data = CommonLanding::commonThongkeLanding($input);
-        $count = $data->count();
+        $count = $data->groupBy('email')
+            ->groupBy('phone')
+            ->groupBy('fullname')
+            ->groupBy('parent_name')
+            ->groupBy('class')
+            ->count();
         $data = $data->groupBy('email')
             ->groupBy('phone')
             ->groupBy('fullname')
@@ -179,6 +184,7 @@ class LandingPageController extends \BaseController {
             'Nguyen vong'
         ];
         $fileName = 'filename';
+        $dataArray = [];
         foreach ($data as $key => $value) {
             $dataArray[] = [
                 'STT' => $key+1,
@@ -187,10 +193,12 @@ class LandingPageController extends \BaseController {
                 'Số điện thoại' => $value->phone,
                 'Email' => $value->email,
                 'Lớp học' => $value->class,
-                'Đợt thi' => 2321,
-                'Địa điểm thi' => 42342,
-                'Môn kiểm tra' => 555,
-                'Nguyện vọng' => $value->comment
+
+                'SĐT' => $value->phone,
+                'Đợt thi' => CommonLanding::getPeriodStudent($value),
+                'Địa điểm thi' => CommonLanding::getAddressName($value->address),
+                'Môn kiểm tra' => CommonLanding::getSubjectName($value->check_subject),
+                'Nguyện vọng' => $value->comment,
             ];
         }
         Excel::create($fileName, function($excel) use ($dataArray) {

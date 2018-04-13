@@ -252,7 +252,7 @@
                 </content>
             <div class=" thanh1 clear-both" ></div>
             <footer class="footer text-chanform">
-                <p>hệ thống giáo dục hocmai - trung tâm học chủ động galileo - hotline: 090.211.0033</p>
+                <p>hệ thống giáo dục hocmai - trung tâm học tập chủ động galileo - hotline: 090.211.0033</p>
             </footer>
         </div>
     </body>
@@ -448,12 +448,22 @@
         //     setTimeout(iterator, 1000);
         // };
         // if (c == 3) {
+            // var check = document.getElementById("custom_name1").textContent;
+        // var check = document.getElementById("custom_name1");
+        // if(check == null){
+        //     document.getElementById('custom_name').innerHTML = adArray[c];
+        //     setTimeout(iterator, 4000);
+        // } else {
+        //     document.getElementById('custom_name1').innerHTML = adArray[c];
+        //     setTimeout(iterator, 5000);
+        // }
+        // if (document.getElementById("custom_name1").textContent == null) {
             document.getElementById('custom_name').innerHTML = adArray[c];
             setTimeout(iterator, 4000);
-        // };
-
-        console.log(adArray[i]);
-
+            
+        // } else {
+            
+        // }
     })();
 </script>
 <script>
