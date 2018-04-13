@@ -255,7 +255,7 @@
                 </content>
             <div class=" thanh1 clear-both" ></div>
             <footer class="footer text-chanform">
-                <p>hệ thống giáo dục hocmai - trung tâm học chủ động galieo - hotline: 090.211.0033</p>
+                <p>hệ thống giáo dục hocmai - trung tâm học chủ động galileo - hotline: 090.211.0033</p>
             </footer>
         </div>
     </body>
