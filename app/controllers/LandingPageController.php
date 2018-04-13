@@ -159,35 +159,46 @@ class LandingPageController extends \BaseController {
     }
     public function exportExcel()
     {
-        // dd(11);
-        // $input = Input::all();
-        // $data = CommonLanding::commonThongkeLanding($input);
-        // $data = $data->groupBy('email')
-        //     ->groupBy('phone')
-        //     ->groupBy('fullname')
-        //     ->groupBy('parent_name')
-        //     ->groupBy('class')
-        //     ->get();
-        $data = [
-            1 => 'tunglaso1',
-            2 => 'tunglaso2',
-            3 => 'tunglaso3',
+        $input = Input::all();
+        $data = CommonLanding::commonThongkeLanding($input);
+        $data = $data->groupBy('email')
+            ->groupBy('phone')
+            ->groupBy('fullname')
+            ->groupBy('parent_name')
+            ->groupBy('class')
+            ->get();
+        $dataHeader = [
+            'Họ và tên bố/mẹ', 
+            'Họ và tên HS', 
+            'Số điện thoại', 
+            'Emal', 
+            'Lớp học', 
+            'Đợt thi', 
+            'Địa điểm thi', 
+            'Môn kiểm tra', 
+            'Nguyện vọng'
         ];
-        $fileName = 'file_export_'.date('d_m_y__H_i_s', time());
-        Excel::create($fileName , function($excel) use ($data) {
-            $excel->sheet('mySheet', function($sheet) use ($data){
-                $sheet->getStyle('1')->applyFromArray(array(
-                    'fill' => array(
-                        'type'  => PHPExcel_Style_Fill::FILL_SOLID,
-                        'color' => array('rgb' => '3c8dbc'),
-                    ),
-                    'font-weight' => 'bold',
-                    'bold' => true,
-                    'color' => array('rgb' => 'FFFFFF'),
-                ));
-                $sheet->fromArray($data);
+        Excel::create('Filename', function($excel) use($data, $dataHeader) {
+            $excel->sheet('Sheetname', function($sheet) use($data, $dataHeader) {
+                $sheet->row(1, $dataHeader);
+                $i = 2;
+                foreach ($data as $key => $value) {
+                    $array = [
+                        $value->parent_name,
+                        $value->fullname,
+                        $value->phone,
+                        $value->email,
+                        $value->class,
+                        CommonLanding::getPeriodStudent($value),
+                        CommonLanding::getAddressName($value->address),
+                        CommonLanding::getSubjectName($value->check_subject),
+                        $value->comment,
+                    ];
+                    $sheet->row($i, $array);
+                    $i++;
+                }
             });
-        })->download('xlsx');
+        })->export('xls');
         return Redirect::action('LandingPageController@admin');
     }
 
