@@ -56,7 +56,7 @@ class LandingPageController extends \BaseController {
             return Redirect::back()->with('msg_fullname', 'Tên học sinh phải có');
         }
 
-        if ($input['class'] == 1) {
+        if ($input['class'] == '') {
             return Redirect::back()->with('msg_class', 'Phải chọn lớp');
         }
         if (!checkValidatePhoneNumber($input['phone'])) {
