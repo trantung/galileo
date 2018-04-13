@@ -207,5 +207,69 @@ class CommonLanding
         $utm = LandingPage::all();
         
     }
+    public static function commonThongkeLanding($input)
+    {
+        if( !empty($input['period']) ){
+            $data = LandingPage::join('landing_page_relation_periods', 'landing_pages.id', '=', 'landing_page_relation_periods.landing_page_id');
+            $data = $data->where('landing_page_relation_periods.period_id', $input['period']);
+        } else {
+            $data = LandingPage::orderBy('created_at', 'DESC');
+        }
+        if( !empty($input['parent_name']) ){
+            $data = $data->where('parent_name', $input['parent_name']);
+        }
 
+        if( !empty($input['fullname']) ){
+            $data = $data->where('fullname', $input['fullname']);
+        }
+        if( !empty($input['phone']) ){
+            $data = $data->where('phone', 'LIKE', '%'.$input['phone'].'%');
+        }
+        if( !empty($input['email']) ){
+
+            $data = $data->where('email', 'LIKE', '%'.$input['email'].'%');
+        }
+        if( !empty($input['address']) ){
+            $data = $data->where('address', $input['address']);
+        }
+        if( !empty($input['class']) ){
+            $data = $data->where('class', $input['class']);
+        }
+        if( !empty($input['check_subject']) ){
+            $data = $data->where('check_subject', $input['check_subject']);
+        }
+        if( !empty($input['status']) ){
+            $data = $data->where('status', $input['status']);
+        }
+        if( !empty($input['comment']) ){
+            $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
+        }
+        if( !empty($input['comment']) ){
+            $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
+        }
+        if( !empty($input['utm_source']) ){
+            if ($input['utm_source'] == '-1') {
+                $data = $data->where('utm_source', '');
+            } else {
+                $data = $data->where('utm_source', 'LIKE', '%'.$input['utm_source'].'%');
+            }
+        }
+
+        if( !empty($input['utm_medium']) ){
+            if ($input['utm_medium'] == '-1') {
+                $data = $data->where('utm_medium', '');
+            } else {
+                $data = $data->where('utm_medium', 'LIKE', '%'.$input['utm_medium'].'%');
+            }
+        }
+
+        if( !empty($input['utm_campaign']) ){
+            if ($input['utm_campaign'] == '-1') {
+                $data = $data->where('utm_campaign', '');
+            } else {
+                $data = $data->where('utm_campaign', 'LIKE', '%'.$input['utm_campaign'].'%');
+            }
+        }
+        return $data;
+    }
 }
