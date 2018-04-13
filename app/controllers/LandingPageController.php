@@ -168,15 +168,15 @@ class LandingPageController extends \BaseController {
             ->groupBy('class')
             ->get();
         $dataHeader = [
-            'Họ và tên bố/mẹ', 
-            'Họ và tên HS', 
-            'Số điện thoại', 
+            'bm', 
+            ' HS', 
+            'p', 
             'Emal', 
-            'Lớp học', 
-            'Đợt thi', 
-            'Địa điểm thi', 
-            'Môn kiểm tra', 
-            'Nguyện vọng'
+            'clc', 
+            'dt', 
+            'dd', 
+            'm', 
+            'nvg'
         ];
         Excel::create('Filename', function($excel) use($data, $dataHeader) {
             $excel->sheet('Sheetname', function($sheet) use($data, $dataHeader) {
@@ -198,7 +198,7 @@ class LandingPageController extends \BaseController {
                     $i++;
                 }
             });
-        })->export('xls');
+        })->download('xls');
         return Redirect::action('LandingPageController@admin');
     }
 
