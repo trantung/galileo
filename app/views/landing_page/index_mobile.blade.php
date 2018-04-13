@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html id="html" lang="vi" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Đăng ký Kiểm tra đánh giá lực vào 6 và thi thử vào 10</title>
+        <title>m.mobile</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +11,8 @@
         <link rel="stylesheet" media="mediatype and|not|only (media feature)" href="url('/landing_page/css/reset.css')">
     </head>
     <body>
-    @if(Session::has('message'))
-        <div id="popup" class="popup">
-            <div  class="popup_con">
-                <span id="close">X</span>
-            </div>
-        </div>
-    @endif
+     
+            
         <div class="container ">
             <header><!-- open header -->
                 <div class="logo"></div>  
@@ -35,16 +30,11 @@
                     <div class="header_ten float_right">
                         <span  class="impact ten">10</span>
                     </div>
-                </div>
+                </div><
 
             </header><!-- end header -->
 
-            {{ Form::open(array('action' => 'LandingPageController@store')) }}
-            {{ Form::hidden('utm_source', $utmSource) }}
-            {{ Form::hidden('utm_medium', $utmMedium) }}
-            {{ Form::hidden('utm_campaign', $utmCampaign) }}
-            {{ Form::hidden('utm_term', $utmTerm) }}
-            {{ Form::hidden('landing_id', 1) }}
+            <form  action="" method="POST"> 
                 <content>                
                     <div class="content">
                        
@@ -64,8 +54,7 @@
                             <input type="email" name="email" ><br>
 
                             <label> Con học lớp :</label>
-                            <select id="test" name="class" onchange="showDiv(this)">
-                                <option value="1">Chọn lớp</option>
+                            <select>
                                 <option value="5">LỚP 5</option>
                                 <option value="9">LỚP 9</option>
                             </select>
@@ -73,49 +62,26 @@
 
                         <h3 class="tilecheck white"> bạn có muốn đăng ký đợt thi</h3>
                         <div class="check_class">
-
-                            <div class="#" id="class5" style="display: block;">
-                                <div  class="float_left">                               
-                                    <div class="check">
-                                        <input  id= "checkbox" type="checkbox" name="period_1"  checked="checked">
-                                        <label for="checkbox"><span></span>{{ CommonLanding::getPeriod(1) }}</label>
-                                    </div>
-                                    <div class="check">
-                                        <input  id= "checkbox1" type="checkbox" name="period_2" >
-                                        <label for="checkbox1"><span></span>{{ CommonLanding::getPeriod(2) }}</label>
-                                    </div>
+                            <div  class="float_left">                               
+                                <div class="check">
+                                    <input  id= "checkbox" type="checkbox" name="period[0]"  checked="checked">
+                                    <label for="checkbox"><span></span>Đợt 1 ( Lớp 5: 08/04/2018, Lớp 9: 15/04 )</label>
                                 </div>
-                                <div  class="float_left"> 
-                                    <div class="check" >
-                                        <input  id= "checkbox2"type="checkbox" name="period_3" >
-                                        <label for="checkbox2"> <span></span>{{ CommonLanding::getPeriod(3) }})</label>
-                                    </div>
-                                    <div class="check">
-                                        <input id= "checkbox3" type="checkbox" name="period_4" >
-                                        <label for="checkbox3"><span></span>{{ CommonLanding::getPeriod(4) }}</label>
-                                    </div>
-                                </div> 
-                            </div>
-
-                            <div class="#" id="class9" style="display: none;">
-                                <div  class="float_left">                               
-                                    <div class="check">
-                                        <input  id= "checkbox4" type="checkbox" name="period_5"  checked="checked">
-                                        <label for="checkbox4"><span></span>{{ CommonLanding::getPeriod(5) }}</label>
-                                    </div>
-                                    <div class="check">
-                                        <input  id= "checkbox5" type="checkbox" name="period_6" >
-                                        <label for="checkbox5"><span></span>{{ CommonLanding::getPeriod(6) }}</label>
-                                    </div>
+                                <div class="check">
+                                    <input  id= "checkbox1" type="checkbox" name="period[1]" >
+                                    <label for="checkbox1"><span></span> Đợt 2 ( Lớp 5: 22/04/2018, Lớp 9: 13/05 )</label>
                                 </div>
-                                <div  class="float_left"> 
-                                    <div class="check" >
-                                        <input  id= "checkbox6"type="checkbox" name="period_7" >
-                                        <label for="checkbox6"> <span></span>{{ CommonLanding::getPeriod(7) }})</label>
-                                    </div>
-                                </div> 
                             </div>
-
+                            <div  class="float_left"> 
+                                <div class="check" >
+                                    <input  id= "checkbox2"type="checkbox" name="period[2]" >
+                                    <label for="checkbox2"> <span></span> Đợt 3 (Lớp 5: 06/05/2018,Lớp 9: 27/05 )</label>
+                                </div>
+                                <div class="check">
+                                    <input id= "checkbox3" type="checkbox" name="period[3]" >
+                                    <label for="checkbox3"><span></span>Đợt 4 ( Lớp 5: 20/05/2018) </label>
+                                </div>
+                            </div>   
                         </div><!-- end dang ký thi -->
 
                         <h3 class="address">bạn muốn thi tại</h3>
@@ -124,21 +90,21 @@
                         <div class=" center">
                             <div  class="float_left">
                                 <div class="check_address">
-                                    <input  id= "radio" type="radio" name ="address" value="1"  checked="checked">
+                                    <input  id= "radio" type="radio" name ="address" value="period[0]"  checked="checked">
                                     <label for="radio"><span class="span1"></span> <b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
                                 </div>
                                 <div class="check_address">
-                                    <input  id= "radio1" type="radio" name ="address" value="2" >
+                                    <input  id= "radio1" type="radio" name ="address" value="period[1]" >
                                     <label for="radio1"><span ></span>   <b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
                                 </div>
                             </div>
                         <div class="float_left">
                             <div class="check_address" >
-                                <input  id= "radio2"type="radio" name ="address" value="3" >
+                                <input  id= "radio2"type="radio" name ="address" value="period[2]" >
                                 <label for="radio2"> <span></span> <b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
                             </div>
                             <div class="check_address">
-                                <input id= "radio3" type="radio" name ="address" value="4" >
+                                <input id= "radio3" type="radio" name ="address" value="period[3]" >
                                 <label for="radio3"><span class="span2"></span>  <b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội. </b> </label>
                             </div>
                         </div>
@@ -147,15 +113,15 @@
                             <div class="check_subject_right float_right">
                                 <div class="subject">
                                     <div class="check_subject">
-                                        <input id="subject" type='radio' name="check_subject" value="1" checked="checked" > 
+                                        <input id="subject" type='radio' name="subject" value="0" checked="checked" > 
                                         <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                     </div>
                                     <div class="check_subject">
-                                        <input id="subject1"  type='radio' name="check_subject" value="2">
-                                        <label for="subject1">Văn (Tiếng Việt &amp; KHXH &amp; Tiếng Anh đối với lớp 5 ) </label>
+                                        <input id="subject1"  type='radio' name="subject" value="1">
+                                        <label for="subject1">Văn (Tiếng Việt và KHXH đối với lớp 5 ) </label>
                                     </div>
                                     <div class="check_subject">
-                                        <input  id="subject2" type='radio' name="check_subject" value="3">
+                                        <input  id="subject2" type='radio' name="subject" value="2">
                                         <label for="subject2" >Cả hai môn </label>
                                     </div>
                                 </div>
@@ -175,11 +141,11 @@
                             <h2 class="text-chanform yellow"> trung tâm học chủ động galileo không ?</h2>
                             <div class="question">
                                 <div class="radio_click">
-                                    <label class="check_radio">Có
+                                    <label class="check_radio">có
                                       <input type="radio" checked="checked" name="status" value="1">
                                       <span class="checkmark"></span>
                                     </label>
-                                    <label class="check_radio">Không
+                                    <label class="check_radio">không
                                       <input type="radio" name="status" value="2">
                                       <span class="checkmark"></span>
                                     </label>
@@ -188,44 +154,22 @@
                         </div>
                         <!-- hết câu hỏi -->
                         <div  class="article_right"> <!-- bên phải -->
-                            {{ Form::textarea('comment', '', array('cols' => 30, 'rows' => 5)) }}
+                            <textarea  cols="30"  rows="5" name="comment" form="usrform"></textarea>
                         </div>
                         <div  class="regiter" >
-                            {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn']) }}
+                            <input id="myBtn"  class="button" type="submit" name="submit" value=" ĐĂNG KÝ">
                         </div>
                     </div><!--  end conten  -->
                 </content> 
-            {{ Form::close() }}
+            </form>
         </div>  <!-- end container --> 
         <footer>
             <div class="footter text-chanform">
                  <p class="he_thong">hệ thống giáo dục hocmai</p> 
-                 <p>trung tâm học tập chủ động galileo - hotline: 090.211.0033</p>
+                 <p>trung tâm học chủ động galieo - hotline: 090.211.0033</p>
             </div>
         </footer>
+
+
     </body>
 </html>
-<script>
-    $(document).ready(function () {
-        $('#close').click(function(){
-            $('#popup').hide();
-        })
-        $('#myBtn').click(function(){
-            $('#popup').show();
-        })
-    })
-    function showDiv(elem){
-        if(elem.value == 5) {
-            document.getElementById('class5').style.display = "block";
-            document.getElementById('class9').style.display = "none";
-        }
-        if(elem.value == 9) {
-            document.getElementById('class9').style.display = "block";
-            document.getElementById('class5').style.display = "none";
-        }
-        if(elem.value == 1) {
-            document.getElementById('class5').style.display = "block";
-            document.getElementById('class9').style.display = "none";
-        }
-    }
-</script>
