@@ -4,12 +4,12 @@
         <title>Đăng ký Kiểm tra đánh giá lực vào 6 và thi thử vào 10</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         
         {{ HTML::script('landing_page/js/jquery.min.js') }}
         {{ HTML::style('landing_page/css/style_m.css') }}
         {{ HTML::style('landing_page/css/reset.css') }}
-        <link rel="stylesheet" media="mediatype and|not|only (media feature)" href="url('/landing_page/css/reset.css')">
+        <link rel="stylesheet" media="mediatype and|not|only (media feature)" href="{{url('/landing_page/css/reset.css')}}">
     </head>
     <body>
     @if(Session::has('message'))
