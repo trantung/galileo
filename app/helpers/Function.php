@@ -1,4 +1,5 @@
 <?php
+use Jenssegers\Agent\Agent;
 function getCodeDocument($documentId)
 {
     // $doc = Document::find($documentId);
@@ -459,4 +460,17 @@ function checkValidatePhoneNumber($number)
         return false;
     }
     return true;
+}
+function getDevice($device = null)
+{
+    if(isset($device)) {
+        return $device;
+    }
+    //agent check tablet mobile desktop
+    $agent = new Agent();
+    if($agent->isMobile() || $agent->isTablet()) {
+        return MOBILE;
+    } else {
+        return COMPUTER;
+    }
 }

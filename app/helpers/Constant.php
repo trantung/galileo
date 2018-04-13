@@ -55,5 +55,8 @@ define('APPROVE', 1);
 define('WAIT_APPROVE', 2);
 //define subject email landingpage
 define('LANDING_PAGE_EMAIL_SUBJECT', '[HOCMAI]_Xác nhận đăng ký tham gia thi thử/ĐGNL thành công');
+//define device
+define('COMPUTER', 1);
+define('MOBILE', 2);
 
 
