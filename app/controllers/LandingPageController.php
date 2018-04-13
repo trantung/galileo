@@ -218,4 +218,24 @@ class LandingPageController extends \BaseController {
         }
         return Redirect::action('LandingPageController@admin');
     }
+    public function exportExcel()
+    {
+        dd(11);
+        Excel::create($fileName , function($excel) use ($data) {
+            $excel->sheet('mySheet', function($sheet) use ($data){
+                $sheet->getStyle('1')->applyFromArray(array(
+                    'fill' => array(
+                        'type'  => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '3c8dbc'),
+                    ),
+                    'font-weight' => 'bold',
+                    'bold' => true,
+                    'color' => array('rgb' => 'FFFFFF'),
+                ));
+                $sheet->fromArray($data);
+            });
+        })->download('xlsx');
+        return Redirect::action('LandingPageController@admin');
+    }
+
 }

@@ -65,4 +65,7 @@
             {{ link_to_action('LandingPageController@admin', 'Reset', null, ['class' => 'btn btn-primary']) }}
         </div>
     {{ Form::close() }}
+        <div class="input-group inline-block" style="vertical-align: bottom;">
+            {{ link_to_action('LandingPageController@exportExcel', 'Xuất excel', null, ['class' => 'btn btn-danger']) }}
+        </div>
 </div>

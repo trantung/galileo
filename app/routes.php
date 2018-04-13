@@ -16,6 +16,7 @@
 // });
 Route::get('/', 'LandingPageController@index');
 Route::post('/', 'LandingPageController@store');
+Route::get('/thong-ke-landing/export-excel', 'LandingPageController@exportExcel');
 Route::get('/thong-ke-landing', 'LandingPageController@admin');
 // Route::resource('/dang-ky-thi', 'LandingPageController');
 Route::get('/update_check_doc_per', function(){
