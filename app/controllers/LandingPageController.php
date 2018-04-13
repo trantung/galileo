@@ -22,7 +22,10 @@ class LandingPageController extends \BaseController {
         if (Input::get('utm_term')) {
             $utmTerm = Input::get('utm_term');
         }
-        return View::make('landing_page.index')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
+        if (getDevice() == COMPUTER) {
+            return View::make('landing_page.index')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
+        }
+        return View::make('landing_page.index_mobile')->with(compact('utmSource', 'utmMedium', 'utmCampaign','utmTerm'));
     }
 
 
