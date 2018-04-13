@@ -66,29 +66,20 @@
                                 <div class="thongtin float_left">
                                     <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
                                     <label>Họ và tên con :
-                                    @if(Session::has('msg_fullname'))
-                                        <font color="red">{{ Session::get('msg_fullname') }}</font>
-                                    @endif
-                                    <input type="text" name="fullname" ></label>
+                                    <input type="text" name="fullname" required></label>
                                     <br><br>
                                     <label>Số điện thoại :
-                                    @if(Session::has('msg_phone'))
-                                        <font color="red">{{ Session::get('msg_phone') }}</font>
-                                    @endif
                                     @if(Session::has('msg_phone_valid'))
                                         <font color="red">{{ Session::get('msg_phone_valid') }}</font>
                                     @endif
-                                        <input type="text" name="phone" id="phone">
+                                        <input type="text" name="phone" id="phone" required>
                                     </label>
                                 </div>
                                 <div class="thongtin float_right">
                                     <label> Email :<input type="email" name="email" required></label><br><br>
                                     <label> Con học lớp :</label>
-                                    @if(Session::has('msg_class'))
-                                        <font color="red">{{ Session::get('msg_class') }}</font>
-                                    @endif
-                                    <select id="test" name="class" onchange="showDiv(this)">
-                                        <option value="1">Chọn lớp</option>
+                                    <select required id="test" name="class" onchange="showDiv(this)">
+                                        <option value="">Chọn lớp</option>
                                         <option value="5">Lớp 5</option>
                                         <option value ="9">Lớp 9</option>
                                     </select>
@@ -467,6 +458,32 @@
     })();
 </script>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var elements = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].oninvalid = function(e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity("Thông tin bắt buộc phải có");
+                }
+            };
+            elements[i].oninput = function(e) {
+                e.target.setCustomValidity("");
+            };
+        }
+        var select = document.getElementsByTagName("SELECT");
+        for (var i = 0; i < select.length; i++) {
+            select[i].oninvalid = function(e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity("Thông tin bắt buộc phải có");
+                }
+            };
+            select[i].oninput = function(e) {
+                e.target.setCustomValidity("");
+            };
+        }
+    })
     $(document).ready(function () {
         $('#close').click(function(){
             $('#popup').hide();
