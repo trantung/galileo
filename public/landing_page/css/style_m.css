@@ -436,72 +436,37 @@ footer p{
 .he_thong{
     padding-top:20px;
 }
-/*modan*/
-/*.modal{
-    position:absolute;
-    width:768px;
-    height:4000px;
-    z-index:10;
-    background:#67676799;
-}*/
-/*.modal-content{
-    width: 37%;
-    height: 333px;
-    background:url('/image_landing/image_mobile/thong_bao1.png');
-    border:1px solid;
-    margin: 373px auto;
-}
-.noi_dung {
-    width:90%;
-    height:100px;
-    text-align:center;
-    border:1px solid red;
-    margin-top: 178px;
-    padding:0 20px 0 20px;
-
-}
-.noi_dung h2 {
-    font-size: 140%;
-    color: red;
-}
-*/
-    /*border: 1px solid blue;
-    /*display:none;*/
-  /*  width: 286px;
-    height: 334px;
+.popup{
+/*display: none; */
     position: absolute;
-    background: url("/image_landing/image_mobile/thong_bao1.png");
-    background-position: 51% -4%;
-    margin: -24% 0 0 17%;
-    z-index: 10;
-
-}
-.modal-content{
-    width: 229px;
-    height: 155px;
-    /*position: relative;*/
-    /*margin: auto;
-    top: 150px;
-    text-align: center;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 20px;
-    padding: 20px;
-    color: #484948;
-}*/
-/*.modal-content h2{
-    color: red;
-    font-size:18px;
-    line-height: 39px;
-
-}
-.close{
-    position: relative;
-    top:  -158px;
-    left: 118px;
+    margin-left: 287px;
+    display: inline-block;
+    margin-bottom: -33px;
+    float: right;
     font-size: 20px;
-    color: #fff;
-*/
+    color: white;
+    z-index: 999;
+}
+.popup_con{
+    /*display: none;*/
+    width: 312px;
+    height: 387px;
+    margin-top: 40%;
+    margin-left: -14%;
+    border: 1px solid blue;
+    background: url('/image_landing/image_mobile/popup_mobile.jpg')no-repeat;
+}
+ .popup span{
+    /*display: none;*/
+    position: absolute;
+    margin-left: 288px;
+    display: inline-block;
+    margin-bottom: -33px;
+    float: right;
+    font-size: 20px;
+    color: white;
+    z-index: 999
+}
 
 
 
