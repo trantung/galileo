@@ -5,10 +5,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=768; height=device-height" />
+
+
         {{ HTML::script('landing_page/js/jquery.min.js') }}
         {{ HTML::style('landing_page/css/style_m.css') }}
         {{ HTML::style('landing_page/css/reset.css') }}
+        <script type="text/javascript">
+            document.documentElement.addEventListener('touchstart', function(event) {
+             if (event.touches.length > 1) {
+               event.preventDefault();
+             }
+           }, false);
+        </script>
         <link rel="stylesheet" media="mediatype and|not|only (media feature)" href="{{url('/landing_page/css/reset.css')}}">
     </head>
     <body>
