@@ -217,6 +217,20 @@
     </body>
 </html>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var elements = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].oninvalid = function(e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity("Thông tin bắt buộc phải có");
+                }
+            };
+            elements[i].oninput = function(e) {
+                e.target.setCustomValidity("");
+            };
+        }
+    })
     $(document).ready(function () {
         $('#close').click(function(){
             $('#popup').hide();
