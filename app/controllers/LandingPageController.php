@@ -210,12 +210,14 @@ class LandingPageController extends \BaseController {
         // }
         
         // file name for download
-        $fileName = "codexworld_export_data" . date('Ymd') . ".xlsx";
+        $fileName = "codexworld_export_data" . date('Ymd') . ".xls";
         
         // headers for download
         header("Content-Disposition: attachment; filename=\"$fileName\"");
         header("Content-Type: application/vnd.ms-excel");
-        
+
+        // header("Content-Type":content="text/html; charset=utf-8" ");
+
         $flag = false;
         foreach($dataArray as $row) {
             if(!$flag) {
