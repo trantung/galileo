@@ -205,7 +205,7 @@ class CommonLanding
     public static function getUtm()
     {
         $utm = LandingPage::all();
-        dd($utm->utm_source);
+        
     }
 
 }
