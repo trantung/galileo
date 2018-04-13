@@ -113,7 +113,9 @@ class LandingPageController extends \BaseController {
             ->groupBy('fullname')
             ->groupBy('parent_name')
             ->groupBy('class')
-            ->count();
+            ->get();
+            $count = count($count);
+        // dd(count($count));
         $data = $data->groupBy('email')
             ->groupBy('phone')
             ->groupBy('fullname')
