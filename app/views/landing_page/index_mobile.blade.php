@@ -135,7 +135,7 @@
                         <div class=" center">
                             <div  class="float_left">
                                 <div class="check_address">
-                                    <input  id= "radio" type="radio" name ="address" value="1">
+                                    <input  id= "radio" type="radio" name ="address" value="1" required>
                                     <label for="radio"><span class="span1"></span> <b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
                                 </div>
                                 <div class="check_address">
@@ -158,7 +158,7 @@
                             <div class="check_subject_right float_right">
                                 <div class="subject">
                                     <div class="check_subject">
-                                        <input id="subject" type='radio' name="check_subject" value="1"> 
+                                        <input id="subject" type='radio' name="check_subject" value="1" required> 
                                         <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                     </div>
                                     <div class="check_subject">
@@ -187,7 +187,7 @@
                             <div class="question">
                                 <div class="radio_click">
                                     <label class="check_radio">Có
-                                      <input type="radio" checked="checked" name="status" value="1">
+                                      <input type="radio" checked="checked" name="status" value="1" required>
                                       <span class="checkmark"></span>
                                     </label>
                                     <label class="check_radio">Không
