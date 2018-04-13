@@ -8,7 +8,7 @@
         {{ HTML::script('landing_page/js/jquery.min.js') }}
         {{ HTML::style('landing_page/css/style_m.css') }}
         {{ HTML::style('landing_page/css/reset.css') }}
-        <link rel="stylesheet" media="mediatype and|not|only (media feature)" href="reset.css">
+        <link rel="stylesheet" media="mediatype and|not|only (media feature)" href="url('/landing_page/css/reset.css')">
     </head>
     <body>
     @if(Session::has('message'))
