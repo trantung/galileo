@@ -208,4 +208,10 @@ class CommonLanding
         return $campaign;
     }
 
+    public static function getUtm()
+    {
+        $utm = LandingPage::all();
+        dd($utm->utm_source);
+    }
+
 }
