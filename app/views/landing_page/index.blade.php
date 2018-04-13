@@ -96,73 +96,70 @@
                             </div><!--  hêt phần thông tin cá nhân -->
 
                             <h3 class=" margin clear-both text-center tilecheck"> <!-- chon đợt thi muốn tham gia--> </h3>
-                            <div  class="#">
-                                <div class="#" id="class5" style="display: block;">
+                            <div  class="select_subject">
+                                <div class="select_subject_5" id="class5" style="display: block;">
                                     <div class="checkbox float_left">
                                         <div class="check">
-                                            <input type="checkbox" name="period_1" class="checkbox">
-                                            <label for="checkbox" ><span></span><b>{{ CommonLanding::getPeriod(1) }}</b></label>
+                                            <input type="checkbox" name="period_1" id="checkbox1" class="checkbox">
+                                            <label for="checkbox1" ><span></span><b>{{ CommonLanding::getPeriod(1) }}</b></label>
                                         </div>
                                         <div class="check">
-                                            <input type="checkbox" name="period_2" class="checkbox">
-                                            <label for="checkbox" ><span></span><b> {{ CommonLanding::getPeriod(2) }}</b></label>
+                                            <input type="checkbox" name="period_2" id="checkbox2" class="checkbox">
+                                            <label for="checkbox2" ><span></span><b> {{ CommonLanding::getPeriod(2) }}</b></label>
                                         </div>
                                     </div>
 
                                     <div class="checkbox float_right">
                                         <div class="check">
-                                            <input type="checkbox" name="period_3" class="checkbox">
-                                            <label for="checkbox"> <span></span><b> {{ CommonLanding::getPeriod(3) }}</b></label>
+                                            <input type="checkbox" name="period_3" id="checkbox3" class="checkbox">
+                                            <label for="checkbox3"> <span></span><b> {{ CommonLanding::getPeriod(3) }}</b></label>
                                         </div>
                                         <div class="check">
-                                            <input type="checkbox" name="period_4" class="checkbox">
-                                            <label for="checkbox"><span></span><b>{{ CommonLanding::getPeriod(4) }}</b></label>
+                                            <input type="checkbox" name="period_4" id="checkbox4" class="checkbox">
+                                            <label for="checkbox4"><span></span><b>{{ CommonLanding::getPeriod(4) }}</b></label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="#" id="class9" style="display: none;">
+                                <div class="select_subject_9" id="class9" style="display: none;">
                                     <div class="checkbox float_left">
                                         <div class="check">
-                                            <input type="checkbox" name="period_5" class="checkbox">
-                                            <label for="checkbox" ><span></span><b>{{ CommonLanding::getPeriod(5) }}</b></label>
+                                            <input type="checkbox" name="period_5" id="checkbox5" class="checkbox">
+                                            <label for="checkbox5" ><span></span><b>{{ CommonLanding::getPeriod(5) }}</b></label>
                                         </div>
                                         <div class="check">
-                                            <input type="checkbox" name="period_6" class="checkbox">
-                                            <label for="checkbox" ><span></span><b> {{ CommonLanding::getPeriod(6) }}</b></label>
+                                            <input type="checkbox" name="period_6" id="checkbox6" class="checkbox">
+                                            <label for="checkbox6" ><span></span><b> {{ CommonLanding::getPeriod(6) }}</b></label>
                                         </div>
                                     </div>
                                     <div class="checkbox float_right">
                                         <div class="check">
-                                            <input type="checkbox" name="period_7" class="checkbox">
-                                            <label for="checkbox"> <span></span><b>{{ CommonLanding::getPeriod(7) }}</b></label>
+                                            <input type="checkbox" name="period_7" id="checkbox7" class="checkbox">
+                                            <label for="checkbox7"> <span></span><b>{{ CommonLanding::getPeriod(7) }}</b></label>
                                         </div>
                                     </div>
                                 </div>
-
 
                             </div> <!-- hêt phần chọn đợt thi muôn tham gia -->
 
                             <h3 class=" margin clear-both text-center contest"> <!-- chọn diềm đăng ký dự thi --></h3>
                             <div class="center" >
                                 <div class="checkradio">
-                                    <input type="radio" name="address" value="1" class="radio" checked="=checked">
-                                    <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
+                                    <input type="radio" name="address" id="radio1" value="1" class="radio">
+                                    <label for="radio1"  class="radio"><span class="checkmark"></span><b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
                                 </div>
                                 <div class="checkradio">
-                                    <input type="radio" name="address" value="2" class="radio">
-                                    <label for="radio" class="radio"><span class="checkmark"></span><b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
-
-                                </div>
-
-                                <div class="checkradio">
-                                    <input type="radio" name="address" value="3" class="radio">
-                                     <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
-
+                                    <input type="radio" name="address" id="radio2" value="2" class="radio">
+                                    <label for="radio2" class="radio"><span class="checkmark"></span><b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
                                 </div>
 
                                 <div class="checkradio">
-                                    <input type="radio" name="address" value="4" class="radio">
-                                    <label for="radio"  class="radio"><span class="checkmark"></span><b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</b></label>
+                                    <input type="radio" name="address" id="radio3" value="3" class="radio">
+                                     <label for="radio3"  class="radio"><span class="checkmark"></span><b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
+                                </div>
+
+                                <div class="checkradio">
+                                    <input type="radio" name="address" id="radio4" value="4" class="radio">
+                                    <label for="radio4"  class="radio"><span class="checkmark"></span><b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội.</b></label>
 
                                 </div>
                             </div><!-- hết phần chọn điểm đăng ký dự thi -->
@@ -173,7 +170,7 @@
                                 <div class="check_subject_right float_right">
                                     <div class="subject">
                                         <div class="check_subject">
-                                            <input id="subject" type='radio' name="check_subject" value="1" checked="checked" > 
+                                            <input id="subject" type='radio' name="check_subject" value="1" > 
                                             <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                         </div>
                                         <div class="check_subject">
@@ -271,10 +268,10 @@
 ?>
 <script>
     var adArray = [
-        'Ta Nguyen Phuong Linh',
-        'lê nguyễn khánh linh',
-        'Ngô phương linh',
-        'Vũ đình duy anh',
+        'Tạ Nguyễn Phương Linh',
+        'Lê Nguyễn Khánh Linh',
+        'Ngô Phương Linh',
+        'Vũ Đình Duy Anh',
         'Vũ Thái Sơn',
         'Nguyễn Trang Minh Hương',
         'Nguyễn Trang Minh Hương',
@@ -283,7 +280,7 @@
         'Hoàng Tuấn Dũng',
         'Nguyễn Thị Minh Thư',
         'Nguyễn Hữu Minh Thái',
-        'Trần mai sương',
+        'Trần Mai Sương',
         'Vũ Gia Bách',
         'Trần Minh Hiếu',
         'Hà My',
@@ -355,12 +352,12 @@
         'Trần Thu Phương',
         'Hà Trường Anh',
         'Đỗ Ngọc Vân',
-        'NGUYỄN KIM HOÀNG VŨ',
-        'TRẦN NGÔ KHÁNH VY',
+        'Nguyễn Kim Hoàng Vũ',
+        'Trần Ngô Khánh Vy',
         'Lê Xuân Khánh',
-        'ĐỖ VIỆT SƠN',
+        'Đỗ Việt Sơn',
         'Nguyễn Tiến Duy',
-        'Nguyễn công bảo anh',
+        'Nguyễn Công Bảo Anh',
         'Vũ Minh Hiền',
         'Lê Mạnh Cường',
         'Lưu Gia Huy',
@@ -369,15 +366,15 @@
         'Đỗ Chi Mai',
         'Lê Nguyên Hạnh Dung',
         'Vũ Minh Hải Phong',
-        'VŨ LAM ANH',
+        'Vũ Lam Anh',
         'Vũ Khánh Hà',
         'Bùi Đăng Minh Hiếu',
         'Dương Hoàng Gia Thuỵ',
         'Trần Tuấn Nghĩa',
         'Bùi Đức Huy',
         'Lương Vân Hà',
-        'Nguyễn An Phu',
-        'nguyen an phuc',
+        'Nguyễn An Phú',
+        'Nguyễn An Phúc',
         'Khương Tuấn Nam',
         'Nguyễn Cảnh Thắng',
         'Nguyễn Hải Anh',
@@ -389,9 +386,9 @@
         'Thé Sơn',
         'Nguyễn Mai Tuấn Khôi',
         'Lê Nhật Duy',
-        'Đào khánh chi',
+        'Đào Khánh Chi',
         'Nguyen Pham Minh Phuong',
-        'Hà trịnh anh đức',
+        'Hà Trịnh Anh Đức',
         'Nguyễn Ngọc Dung',
         'Phạm Nguyễn Hồng Ngọc',
         'Vũ Ngọc Ninh',
@@ -418,14 +415,13 @@
         'Đàm Hải Đăng',
         'Nghiêm Phú Thành',
         'Nguyễn Minh Sơn',
-        'Tgghh',
         'Bùi Long Nhật',
-        'Đoàn minh tuấn',
+        'Đoàn Minh Tuấn',
         'Đào Đức Bảo Tuyên',
         'Nguyen hien anh',
-        'Trần công hiếu',
+        'Trần Công Hiếu',
         'Tạ Ngọc Hiển',
-        'Nguyen Le Phong',
+        'Nguyễn Lê Phong',
         'Trần Đức Nghĩa',
         'Phạm Ngọc Hải',
         'Nguyễn Thị Minh Hằng',
