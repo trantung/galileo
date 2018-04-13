@@ -168,37 +168,46 @@ class LandingPageController extends \BaseController {
             ->groupBy('class')
             ->get();
         $dataHeader = [
-            'bm', 
-            ' HS', 
-            'p', 
-            'Emal', 
-            'clc', 
-            'dt', 
-            'dd', 
-            'm', 
-            'nvg'
+            'Ba me', 
+            'Hoc sinh', 
+            'So dien thoai', 
+            'Email', 
+            'Lop hoc',
+            'Dot thi', 
+            'Dia diem', 
+            'Mon kiem tra', 
+            'Nguyen vong'
         ];
-        Excel::create('Filename', function($excel) use($data, $dataHeader) {
-            $excel->sheet('Sheetname', function($sheet) use($data, $dataHeader) {
-                $sheet->row(1, $dataHeader);
-                $i = 2;
-                foreach ($data as $key => $value) {
-                    $array = [
-                        $value->parent_name,
-                        $value->fullname,
-                        $value->phone,
-                        $value->email,
-                        $value->class,
-                        CommonLanding::getPeriodStudent($value),
-                        CommonLanding::getAddressName($value->address),
-                        CommonLanding::getSubjectName($value->check_subject),
-                        $value->comment,
-                    ];
-                    $sheet->row($i, $array);
-                    $i++;
-                }
+        $fileName = 'filename';
+        foreach ($data as $key => $value) {
+            $dataArray[] = [
+                'STT' => $key+1,
+                'Họ và tên bố/mẹ' => $value->parent_name,
+                'Họ và tên HS' => $value->fullname,
+                'Số điện thoại' => $value->phone,
+                'Email' => $value->email,
+                'Lớp học' => $value->class,
+                'Đợt thi' => 2321,
+                'Địa điểm thi' => 42342,
+                'Môn kiểm tra' => 555,
+                'Nguyện vọng' => $value->comment
+            ];
+        }
+        Excel::create($fileName, function($excel) use ($dataArray) {
+            $excel->sheet('mySheet', function($sheet) use ($dataArray){
+                $sheet->getStyle('1')->applyFromArray(array(
+                    'fill' => array(
+                        'type'  => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '3c8dbc'),
+                    ),
+                    'font-weight' => 'bold',
+                    'bold' => true,
+                    'color' => array('rgb' => 'FFFFFF'),
+                ));
+                $sheet->fromArray($dataArray);
             });
         })->download('xls');
+
         return Redirect::action('LandingPageController@admin');
     }
 
