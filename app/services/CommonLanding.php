@@ -5,13 +5,13 @@ class CommonLanding
     public static function getPeriod($periodId)
     {
         $array = [
-            1 => 'Đợt 1 ( Lớp 5: 08/04/2018)',
-            2 => 'Đợt 2 (Lớp 5: 22/04/2018 )',
-            3 => 'Đợt 3 (Lớp 5: 06/05/2018)',
-            4 => 'Đợt 4 (Lớp 5: 20/05/2018)',
-            5 => 'Đợt 1 (Lớp 9: 15/04 )',
-            6 => 'Đợt 2 (Lớp 9: 13/05 )',
-            7 => 'Đợt 3 (Lớp 9: 27/05 )',
+            1 => 'Đợt 1: 08/04/2018',
+            2 => 'Đợt 2: 22/04/2018',
+            3 => 'Đợt 3: 06/05/2018',
+            4 => 'Đợt 4: 20/05/2018',
+            5 => 'Đợt 1: 15/04/2018',
+            6 => 'Đợt 2: 13/05/2018',
+            7 => 'Đợt 3: 27/05/2018',
         ];
         if (isset($array[$periodId])) {
             return $array[$periodId];
@@ -113,17 +113,11 @@ class CommonLanding
     public static function getPeriodStudent($data)
     {
         $text = '';
-        if ($data->period_1) {
-            $text = $text. self::getPeriod('period_1').', ';
-        }
-        if ($data->period_2) {
-            $text = $text. self::getPeriod('period_2').', ';
-        }
-        if ($data->period_3) {
-            $text = $text. self::getPeriod('period_3').', ';
-        }
-        if ($data->period_4) {
-            $text = $text. self::getPeriod('period_4').', ';
+        $landingId = $data->id;
+        $list = LandingPagePeriodRelation::where('landing_page_id', $landingId)->lists('period_id');
+        $period = LandingPagePeriod::whereIn('id', $list)->get();
+        foreach ($period as $key => $value) {
+            $text = $text . $value->name . ', ';
         }
         return $text;
     }

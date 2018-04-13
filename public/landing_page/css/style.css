@@ -614,7 +614,7 @@ input[type="radio"]:checked +label{
 	font-size:18px;
 	line-height: 39px;
 }
-.back_gound{
+.background_bottom{
  	width: 1349px;
  	height: 500px;
  	position: absolute;
@@ -622,4 +622,32 @@ input[type="radio"]:checked +label{
     z-index: -1;
 	background: url('/image_landing/bg_bottom.png');
 	margin-top: -55px;
+}
+.popup{
+	/*display: none;*/
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+	height:100%;
+	background: #00000024;
+	z-index: 1000;
+}
+.popup_con{
+	/*display: none;*/
+    width: 691px;
+    height: 260px;
+    margin: 100px auto;
+    border: 1px solid blue;
+    background: url('/image_landing/popup_con.jpg');
+}
+ .popup span{
+	/*display: none;*/
+	position: absolute;
+	margin-left: 671px;
+    display: inline-block;
+    margin-bottom: -33px;
+    float: right;
+    font-size: 20px;
+    color: white;
+    z-index: 999
 }

@@ -11,6 +11,13 @@
         {{ HTML::script('landing_page/js/jquery.min.js') }}
     </head>
     <body>
+    @if(Session::has('message'))
+        <div id="popup"  class="popup">
+            <div  class="popup_con">
+                <span id="close">X</span>
+            </div>
+        </div>
+    @endif
         <div class="container_body">
                 <header>
                     <div class="header">
@@ -58,17 +65,28 @@
                             <div class="mation">
                                 <div class="thongtin float_left">
                                     <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
-                                    <label>Họ và tên con : <input type="text" name="fullname" ></label><br><br>
+                                    <label>Họ và tên con :
+                                    @if(Session::has('msg_fullname'))
+                                        <font color="red">{{ Session::get('msg_fullname') }}</font>
+                                    @endif
+                                    <input type="text" name="fullname" ></label>
+                                    <br><br>
                                     <label>Số điện thoại :
-                                    @if($errors->any())
-                                        {{$errors->first()}}
+                                    @if(Session::has('msg_phone'))
+                                        <font color="red">{{ Session::get('msg_phone') }}</font>
+                                    @endif
+                                    @if(Session::has('msg_phone_valid'))
+                                        <font color="red">{{ Session::get('msg_phone_valid') }}</font>
                                     @endif
                                         <input type="text" name="phone" id="phone">
                                     </label>
                                 </div>
                                 <div class="thongtin float_right">
-                                    <label> Email :<input type="email" name="email" ></label><br><br>
+                                    <label> Email :<input type="email" name="email" required></label><br><br>
                                     <label> Con học lớp :</label>
+                                    @if(Session::has('msg_class'))
+                                        <font color="red">{{ Session::get('msg_class') }}</font>
+                                    @endif
                                     <select id="test" name="class" onchange="showDiv(this)">
                                         <option value="1">Chọn lớp</option>
                                         <option value="5">Lớp 5</option>
@@ -217,7 +235,7 @@
                                 {{ Form::textarea('comment', '', array('cols' => 30, 'rows' => 5)) }}
                             </div>
                         </article>
-                        <div class="back_gound">
+                        <div class="background_bottom">
                         </div>
                         <div  class="regiter" >
                             {{ Form::submit('ĐĂNG KÝ', ['class'=>'button', 'id' => 'myBtn', 'onclick' => "phonenumber(Input::get('phone'))"]) }}
@@ -228,23 +246,13 @@
                             @if(Session::has('message'))
                                 <span><h3>{{ CommonLanding::getStudentCurrent() }}</h3></span>
                             @else 
-                                <span><h3 id="number"></h3></span>
+                                <span><h3 id="custom_name"></h3></span>
                             @endif
                             <span class="text-center"> <b class="text-chanform ">vừa đăng ký </b> </span>
                         </div>
 
                     </div>
                 </content>
-                @if(Session::has('message'))
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">X</span>
-                        <h2>"Đăng ký thành công</h2>
-                        <p>Vui lòng kiểm tra email xác nhận và diện thoại cá nhân. HOCMAI sẽ gửi thông tin xác nhận và hướng dẫn lấy SBD*</p>
-                        <p><!-- <img src="image_landing/thongbao.png"> --></p>
-                    </div>
-                </div> 
-                @endif
             <div class=" thanh1 clear-both" ></div>
             <footer class="footer text-chanform">
                 <p>hệ thống giáo dục hocmai - trung tâm học chủ động galileo - hotline: 090.211.0033</p>
@@ -262,62 +270,205 @@
     $so = $so1 + $count;
 ?>
 <script>
-    var adArray = ["T1", "T2", "T3", "T4"]; 
+    var adArray = [
+        'Ta Nguyen Phuong Linh',
+        'lê nguyễn khánh linh',
+        'Ngô phương linh',
+        'Vũ đình duy anh',
+        'Vũ Thái Sơn',
+        'Nguyễn Trang Minh Hương',
+        'Nguyễn Trang Minh Hương',
+        'Nguyễn Trang Minh Hương',
+        'Trương Minh Trí',
+        'Hoàng Tuấn Dũng',
+        'Nguyễn Thị Minh Thư',
+        'Nguyễn Hữu Minh Thái',
+        'Trần mai sương',
+        'Vũ Gia Bách',
+        'Trần Minh Hiếu',
+        'Hà My',
+        'Nguyễn Tiến Huy',
+        'Nguyễn Thị Minh Hoà ',
+        'Trần Cao Khánh Linh',
+        'Nguyễn Quang',
+        'Le Duc Dung',
+        'Nguyễn Trí Dũng',
+        'Lê Công Duy',
+        'Bùi Hồng Phương Linh',
+        'Trần Trọng Minh',
+        'Lương Vy Thảo',
+        'Nguyễn Bá Trần Khoa',
+        'Nguyễn Trung Hiếu',
+        'Nguyễn Anh Thư',
+        'Nguyễn Tuấn An',
+        'Phạm Hồng Minh',
+        'Nguyễn Minh Hà',
+        'Nguyễn Bảo Long',
+        'Phạm Xuân Bách',
+        'Phạm Vũ Thái An',
+        'Tô nguyễn Thịnh',
+        'Ngô khôi nguyên ',
+        'Nguyễn Lan Phương',
+        'Quách Gia Khoa',
+        'Ngô Khôi Nguyên ',
+        'Nguyễn công bảo anh',
+        'Nguyễn Nhật Mỹ Anh',
+        'Nguyễn Minh Hà',
+        'Trần Minh Anh',
+        'Trần Quang Huy',
+        'Nguyễn Ngọc Phương Anh',
+        'Chế Hà My',
+        'Nguyễn Lê Tường Vy',
+        'Nhữ Hà Linh',
+        'Bùi Duy Quang',
+        'Dang tran nhat minh',
+        'Tô Minh Đức',
+        'Phạm Lê Minh',
+        'Trần thanh huyền',
+        'Đặng Trà Mi',
+        'Ngô Quang Minh',
+        'Giang Đức Huy',
+        'Đào Quang Sơn',
+        'Nguyễn Kim Ngân',
+        'Trần Hà Diệu Anh',
+        'Nguyễn Đình Huy',
+        'Lê Minh Thảo',
+        'Nguyễn Danh Hoàng',
+        'Võ Hải Minh',
+        'Lương Quang Bình ',
+        'Lê Hương Giang',
+        'Phạm yến nhi',
+        'Nguyễn Nhật Minh',
+        'Trần Minh Vũ',
+        'Võ tấn sang',
+        'Lê Đăng Khôi',
+        'nguyen khoi nguyen',
+        'Trần Đức Việt Anh',
+        'Trịnh Khánh Linh',
+        'Nguyễn Trà My',
+        'Hoàng Tuấn Minh',
+        'Lê Minh Thư',
+        'Nguyễn Đỗ Uyên Nhi',
+        'Lê Bảo Minh',
+        'Nguyễn Lê Nhật Minh',
+        'Đỗ Ngọc Diệp',
+        'Trần Thu Phương',
+        'Hà Trường Anh',
+        'Đỗ Ngọc Vân',
+        'NGUYỄN KIM HOÀNG VŨ',
+        'TRẦN NGÔ KHÁNH VY',
+        'Lê Xuân Khánh',
+        'ĐỖ VIỆT SƠN',
+        'Nguyễn Tiến Duy',
+        'Nguyễn công bảo anh',
+        'Vũ Minh Hiền',
+        'Lê Mạnh Cường',
+        'Lưu Gia Huy',
+        'Nguyễn Việt Linh',
+        'Mào Khang Luân',
+        'Đỗ Chi Mai',
+        'Lê Nguyên Hạnh Dung',
+        'Vũ Minh Hải Phong',
+        'VŨ LAM ANH',
+        'Vũ Khánh Hà',
+        'Bùi Đăng Minh Hiếu',
+        'Dương Hoàng Gia Thuỵ',
+        'Trần Tuấn Nghĩa',
+        'Bùi Đức Huy',
+        'Lương Vân Hà',
+        'Nguyễn An Phu',
+        'nguyen an phuc',
+        'Khương Tuấn Nam',
+        'Nguyễn Cảnh Thắng',
+        'Nguyễn Hải Anh',
+        'Trần Phương Thảo',
+        'nguyễn Minh Ngọc ',
+        'Nguyễn Quang Huy',
+        'Nguyễn Quang Huy',
+        'Nguyễn Quang Huy',
+        'Thé Sơn',
+        'Nguyễn Mai Tuấn Khôi',
+        'Lê Nhật Duy',
+        'Đào khánh chi',
+        'Nguyen Pham Minh Phuong',
+        'Hà trịnh anh đức',
+        'Nguyễn Ngọc Dung',
+        'Phạm Nguyễn Hồng Ngọc',
+        'Vũ Ngọc Ninh',
+        'nguyễn thủy tiên',
+        'Trần Hà My',
+        'Lê Duy Anh',
+        'Nguyễn Thủy Tiên',
+        'Trần Hà My',
+        'Lê Hoàng Linh Chi',
+        'Nguyễn Thị Hoàng Tâm',
+        'Phạm Yến Trang',
+        'Hoàng Hương Giang',
+        'Trần nguyễn quang minh',
+        'Phan Trường Sơn',
+        'Bùi Đỗ Minh Hải',
+        'Thắng  Tiến Khang',
+        'Lê Công Tùng',
+        'Nguyễn Thị Hoàng Tâm',
+        'Phạm Khôi Nguyên',
+        'Nhữ Hà Linh',
+        'Lê Diệu Anh',
+        'Phạm Đặng Nam Sơn',
+        'Nguyễn Khánh Chi',
+        'Đàm Hải Đăng',
+        'Nghiêm Phú Thành',
+        'Nguyễn Minh Sơn',
+        'Tgghh',
+        'Bùi Long Nhật',
+        'Đoàn minh tuấn',
+        'Đào Đức Bảo Tuyên',
+        'Nguyen hien anh',
+        'Trần công hiếu',
+        'Tạ Ngọc Hiển',
+        'Nguyen Le Phong',
+        'Trần Đức Nghĩa',
+        'Phạm Ngọc Hải',
+        'Nguyễn Thị Minh Hằng',
+        'Nguyễn Đỗ Hoàng Giang'
+    ];
     (function iterator() {
         var now = <?php print($now); ?>;
         var timeCustom = <?php print($timeCustom); ?>;
         var now = new Date().getTime();
         var a = Math.floor(now/1000) - timeCustom;
-        var b = 4; 
+        var b = 9; 
         var c = a % b;
         // console.log(timeCustom);
-        if (c == 0) {
-            document.getElementById('number').innerHTML = adArray[c];
-            setTimeout(iterator, 1000);
-        };
-        if (c == 1) {
-            document.getElementById('number').innerHTML = adArray[c];
-            setTimeout(iterator, 1000);
-        };
-        if (c == 2) {
-            document.getElementById('number').innerHTML = adArray[c];
-            setTimeout(iterator, 1000);
-        };
-        if (c == 3) {
-            document.getElementById('number').innerHTML = adArray[c];
-            setTimeout(iterator, 1000);
-        };
+        // if (c == 0) {
+        //     document.getElementById('number').innerHTML = adArray[c];
+        //     setTimeout(iterator, 1000);
+        // };
+        // if (c == 1) {
+        //     document.getElementById('number').innerHTML = adArray[c];
+        //     setTimeout(iterator, 1000);
+        // };
+        // if (c == 2) {
+        //     document.getElementById('number').innerHTML = adArray[c];
+        //     setTimeout(iterator, 1000);
+        // };
+        // if (c == 3) {
+            document.getElementById('custom_name').innerHTML = adArray[c];
+            setTimeout(iterator, 4000);
+        // };
 
         console.log(adArray[i]);
 
     })();
 </script>
 <script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    $(document).ready(function () {
+        $('#close').click(function(){
+            $('#popup').hide();
+        })
+        $('#myBtn').click(function(){
+            $('#popup').show();
+        })
+    })
     function showDiv(elem){
         if(elem.value == 5) {
             console.log(1133);

@@ -47,10 +47,17 @@ class LandingPageController extends \BaseController {
     {
         $input = Input::all();
         if (empty($input['phone'])) {
-            return Redirect::back()->withErrors(['số điện thoại phải có']);
+            return Redirect::back()->with('msg_phone', 'Số điện thoại phải có');
+        }
+        if (empty($input['fullname'])) {
+            return Redirect::back()->with('msg_fullname', 'Tên học sinh phải có');
+        }
+
+        if ($input['class'] == 1) {
+            return Redirect::back()->with('msg_class', 'Phải chọn lớp');
         }
         if (!checkValidatePhoneNumber($input['phone'])) {
-            return Redirect::back()->withErrors(['số điện thoại không đúng']);
+            return Redirect::back()->with('msg_phone_valid', 'Số điện thoại sai');
         }
         $periods = CommonLanding::getPeriodLanding($input);
         $id = LandingPage::create($input)->id;
@@ -160,7 +167,12 @@ class LandingPageController extends \BaseController {
             }
         }
         $count = $data->count();
-        $data = $data->paginate(PAGINATE);
+        $data = $data->groupBy('email')
+            ->groupBy('phone')
+            ->groupBy('fullname')
+            ->groupBy('parent_name')
+            ->groupBy('class')
+            ->paginate(PAGINATE);
         return View::make('landing_page.show')->with(compact('data', 'count'));
     }
 
