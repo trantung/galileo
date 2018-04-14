@@ -87,6 +87,9 @@
                             </div><!--  hêt phần thông tin cá nhân -->
 
                             <h3 class=" margin clear-both text-center tilecheck"> <!-- chon đợt thi muốn tham gia--> </h3>
+                            @if(Session::has('msg_address'))
+                                <font color="red">{{ Session::get('msg_address') }}</font>
+                            @endif
                             <div  class="select_subject">
                                 <div class="select_subject_5" id="class5" style="display: block;">
                                     <div class="checkbox float_left">
@@ -202,7 +205,7 @@
 
                                         <div class="radio_click">
                                             <label class="check_radio">Có
-                                              <input type="radio" checked="checked" name="status" value="1" required>
+                                              <input type="radio" checked="checked" name="status" value="1">
                                               <span class="checkmark"></span>
                                             </label>
                                             <label class="check_radio">Không
