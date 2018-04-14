@@ -1,3 +1,12 @@
+<?php 
+    $admin = Auth::admin()->get();
+    $roleId = null;
+    $email = null;
+    if ($admin) {
+        $roleId = $admin->role_id;
+        $email = $admin->email;
+    }
+?>
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
@@ -91,7 +100,7 @@
                     <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    @if(checkUrlPermission('LevelController@index'))
+                    @if(checkUrlPermission('LevelController@index') || isset($roleId))
                     <li>
                         <a href="{{ action('LevelController@index') }}">
                             <i class="fa fa-newspaper-o"></i> 
@@ -99,7 +108,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(checkUrlPermission('DocumentController@index'))
+                    @if(checkUrlPermission('DocumentController@index') || isset($roleId))
                     <li>
                         <a href="{{ action('DocumentController@index') }}">
                             <i class="fa fa-newspaper-o"></i> 
@@ -107,7 +116,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(checkUrlPermission('AdminController@getUploadFile'))
+                    @if(checkUrlPermission('AdminController@getUploadFile') || (isset($roleId) && isset($email)))
                     <li>
                         <a href="{{ action('AdminController@getUploadFile') }}">
                             <i class="fa fa-newspaper-o"></i> 

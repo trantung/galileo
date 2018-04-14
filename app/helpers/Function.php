@@ -223,9 +223,6 @@ function checkUrlPermission($route)
         if ($admin->role_id == ADMIN) {
             return true;
         }
-        if ($admin->email == 'cd@galileo.edu.vn') {
-            return true;
-        }
     }
     $array = checkPermission();
     $action = explode("@", $route);
