@@ -251,17 +251,22 @@ class LandingPageController extends \BaseController {
             ];
         }
 
-        // function filterData(&$str)
-        // {
-        //     $str = preg_replace("/\t/", "\\t", $str);
-        //     $str = preg_replace("/\r?\n/", "\\n", $str);
-        //     if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
-        // }
+        function filterData(&$str)
+        {
+            $str = preg_replace("/\t/", "\\t", $str);
+            $str = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u',
+                        ' ', $str);
+            $str = preg_replace("/\r?\n/", "\\n", $str);
+            if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
+        }
         
         // file name for download
         $fileName = "codexworld_export_data" . date('Ymd') . ".xls";
-        
-        // headers for download
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header("Content-Type: application/json; charset=utf8_decode");
+        header('Content-type: text/html; charset=utf-8');
+        header("Content-Transfer-Encoding: UTF-8");
+        header('Content-Encoding: UTF-8');
         header("Content-Disposition: attachment; filename=\"$fileName\"");
         header("Content-Type: application/vnd.ms-excel");
 
