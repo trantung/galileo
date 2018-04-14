@@ -126,7 +126,7 @@
                     @endif
                 </ul>
             </li>
-            
+            @if(isset($roleId) && $roleId == ADMIN)
             <li class="treeview">
                 <a href=""><i class="fa fa-newspaper-o"></i>
                     <span>Quản lý lịch học</span>
@@ -157,6 +157,7 @@
                     @endif
                 </ul>
             </li>
+            @endif
         </ul>
     </section>
 </aside>
