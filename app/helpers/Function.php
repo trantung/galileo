@@ -1,3 +1,4 @@
+
 <?php
 use Jenssegers\Agent\Agent;
 function getCodeDocument($documentId)
