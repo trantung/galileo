@@ -66,29 +66,20 @@
                                 <div class="thongtin float_left">
                                     <label>Họ và tên bố/mẹ :<input type="text" name="parent_name" ></label><br><br>
                                     <label>Họ và tên con :
-                                    @if(Session::has('msg_fullname'))
-                                        <font color="red">{{ Session::get('msg_fullname') }}</font>
-                                    @endif
-                                    <input type="text" name="fullname" ></label>
+                                    <input type="text" name="fullname" required></label>
                                     <br><br>
                                     <label>Số điện thoại :
-                                    @if(Session::has('msg_phone'))
-                                        <font color="red">{{ Session::get('msg_phone') }}</font>
-                                    @endif
                                     @if(Session::has('msg_phone_valid'))
                                         <font color="red">{{ Session::get('msg_phone_valid') }}</font>
                                     @endif
-                                        <input type="text" name="phone" id="phone">
+                                        <input type="text" name="phone" id="phone" required>
                                     </label>
                                 </div>
                                 <div class="thongtin float_right">
                                     <label> Email :<input type="email" name="email" required></label><br><br>
                                     <label> Con học lớp :</label>
-                                    @if(Session::has('msg_class'))
-                                        <font color="red">{{ Session::get('msg_class') }}</font>
-                                    @endif
-                                    <select id="test" name="class" onchange="showDiv(this)">
-                                        <option value="1">Chọn lớp</option>
+                                    <select required id="test" name="class" onchange="showDiv(this)">
+                                        <option value="">Chọn lớp</option>
                                         <option value="5">Lớp 5</option>
                                         <option value ="9">Lớp 9</option>
                                     </select>
@@ -144,7 +135,7 @@
                             <h3 class=" margin clear-both text-center contest"> <!-- chọn diềm đăng ký dự thi --></h3>
                             <div class="center" >
                                 <div class="checkradio">
-                                    <input type="radio" name="address" id="radio1" value="1" class="radio">
+                                    <input type="radio" name="address" id="radio1" value="1" class="radio" required>
                                     <label for="radio1"  class="radio"><span class="checkmark"></span><b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
                                 </div>
                                 <div class="checkradio">
@@ -170,7 +161,7 @@
                                 <div class="check_subject_right float_right">
                                     <div class="subject">
                                         <div class="check_subject">
-                                            <input id="subject" type='radio' name="check_subject" value="1" > 
+                                            <input id="subject" type='radio' name="check_subject" value="1" required> 
                                             <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                         </div>
                                         <div class="check_subject">
@@ -211,7 +202,7 @@
 
                                         <div class="radio_click">
                                             <label class="check_radio">Có
-                                              <input type="radio" checked="checked" name="status" value="1">
+                                              <input type="radio" checked="checked" name="status" value="1" required>
                                               <span class="checkmark"></span>
                                             </label>
                                             <label class="check_radio">Không
@@ -467,6 +458,44 @@
     })();
 </script>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var elements = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].oninvalid = function(e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity("Thông tin bắt buộc phải có");
+                }
+            };
+            elements[i].oninput = function(e) {
+                e.target.setCustomValidity("");
+            };
+        }
+        var select = document.getElementsByTagName("SELECT");
+        for (var i = 0; i < select.length; i++) {
+            select[i].oninvalid = function(e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity("Thông tin bắt buộc phải có");
+                }
+            };
+            select[i].oninput = function(e) {
+                e.target.setCustomValidity("");
+            };
+        }
+        var radio = document.getElementsByTagName("RADIO");
+        for (var i = 0; i < radio.length; i++) {
+            radio[i].oninvalid = function(e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity("Thông tin bắt buộc phải có");
+                }
+            };
+            radio[i].oninput = function(e) {
+                e.target.setCustomValidity("");
+            };
+        }
+    })
     $(document).ready(function () {
         $('#close').click(function(){
             $('#popup').hide();

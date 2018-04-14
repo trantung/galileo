@@ -4,11 +4,22 @@
         <title>Đăng ký Kiểm tra đánh giá lực vào 6 và thi thử vào 10</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=768; height=device-height" />
+
+
         {{ HTML::script('landing_page/js/jquery.min.js') }}
         {{ HTML::style('landing_page/css/style_m.css') }}
         {{ HTML::style('landing_page/css/reset.css') }}
-        <link rel="stylesheet" media="mediatype and|not|only (media feature)" href="url('/landing_page/css/reset.css')">
+        <script type="text/javascript">
+            document.documentElement.addEventListener('touchstart', function(event) {
+             if (event.touches.length > 1) {
+               event.preventDefault();
+             }
+           }, false);
+        </script>
+        <link rel="stylesheet" media="mediatype and|not|only (media feature)" href="{{url('/landing_page/css/reset.css')}}">
     </head>
     <body>
     @if(Session::has('message'))
@@ -51,7 +62,7 @@
                         <h3 class="personal white">thông tin cá nhân</h3>
                         <div class="thong_tin auto">
                             <label class="in_bl">Họ và tên bố/mẹ :</label>
-                            <input type="text" name="parent_name" required ><br>
+                            <input type="text" name="parent_name" ><br>
 
                             <label>Họ và tên con : </label>
                             <input type="text" name="fullname" required ><br>
@@ -61,11 +72,11 @@
                             <span class=""></span>
 
                             <label> email :</label>
-                            <input type="email" name="email" ><br>
+                            <input type="email" name="email" required><br>
 
                             <label> Con học lớp :</label>
-                            <select id="test" name="class" onchange="showDiv(this)">
-                                <option value="1">Chọn lớp</option>
+                            <select required id="test" name="class" onchange="showDiv(this)">
+                                <option value="">Chọn lớp</option>
                                 <option value="5">LỚP 5</option>
                                 <option value="9">LỚP 9</option>
                             </select>
@@ -77,7 +88,7 @@
                             <div class="#" id="class5" style="display: block;">
                                 <div  class="float_left">                               
                                     <div class="check">
-                                        <input  id= "checkbox" type="checkbox" name="period_1"  checked="checked">
+                                        <input  id= "checkbox" type="checkbox" name="period_1">
                                         <label for="checkbox"><span></span>{{ CommonLanding::getPeriod(1) }}</label>
                                     </div>
                                     <div class="check">
@@ -100,7 +111,7 @@
                             <div class="#" id="class9" style="display: none;">
                                 <div  class="float_left">                               
                                     <div class="check">
-                                        <input  id= "checkbox4" type="checkbox" name="period_5"  checked="checked">
+                                        <input  id= "checkbox4" type="checkbox" name="period_5">
                                         <label for="checkbox4"><span></span>{{ CommonLanding::getPeriod(5) }}</label>
                                     </div>
                                     <div class="check">
@@ -124,7 +135,7 @@
                         <div class=" center">
                             <div  class="float_left">
                                 <div class="check_address">
-                                    <input  id= "radio" type="radio" name ="address" value="1"  checked="checked">
+                                    <input  id= "radio" type="radio" name ="address" value="1" required>
                                     <label for="radio"><span class="span1"></span> <b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
                                 </div>
                                 <div class="check_address">
@@ -147,7 +158,7 @@
                             <div class="check_subject_right float_right">
                                 <div class="subject">
                                     <div class="check_subject">
-                                        <input id="subject" type='radio' name="check_subject" value="1" checked="checked" > 
+                                        <input id="subject" type='radio' name="check_subject" value="1" required> 
                                         <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                     </div>
                                     <div class="check_subject">
@@ -176,7 +187,7 @@
                             <div class="question">
                                 <div class="radio_click">
                                     <label class="check_radio">Có
-                                      <input type="radio" checked="checked" name="status" value="1">
+                                      <input type="radio" checked="checked" name="status" value="1" required>
                                       <span class="checkmark"></span>
                                     </label>
                                     <label class="check_radio">Không
@@ -206,6 +217,20 @@
     </body>
 </html>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var elements = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].oninvalid = function(e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity("Thông tin bắt buộc phải có");
+                }
+            };
+            elements[i].oninput = function(e) {
+                e.target.setCustomValidity("");
+            };
+        }
+    })
     $(document).ready(function () {
         $('#close').click(function(){
             $('#popup').hide();

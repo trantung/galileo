@@ -13,6 +13,7 @@ content{
     height: 1000px ;
     /*border: 1px solid;*/
     width: 766px;
+    width: 100%;
 }
 
 .container{
@@ -243,6 +244,7 @@ input[type="checkbox"]:checked + label span{
 .subject .check_subject label{
     display: inline-block;
     line-height: 76px;
+    height: 76px;
     width: 482px;
     text-align: center;
     font-size: 16px;

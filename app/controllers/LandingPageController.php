@@ -56,7 +56,7 @@ class LandingPageController extends \BaseController {
             return Redirect::back()->with('msg_fullname', 'Tên học sinh phải có');
         }
 
-        if ($input['class'] == 1) {
+        if ($input['class'] == '') {
             return Redirect::back()->with('msg_class', 'Phải chọn lớp');
         }
         if (!checkValidatePhoneNumber($input['phone'])) {
@@ -113,7 +113,9 @@ class LandingPageController extends \BaseController {
             ->groupBy('fullname')
             ->groupBy('parent_name')
             ->groupBy('class')
-            ->count();
+            ->get();
+            $count = count($count);
+        // dd(count($count));
         $data = $data->groupBy('email')
             ->groupBy('phone')
             ->groupBy('fullname')
@@ -218,6 +220,11 @@ class LandingPageController extends \BaseController {
         header('Content-type: text/html; charset=utf-8');
         header("Content-Transfer-Encoding: UTF-8");
         header('Content-Encoding: UTF-8');
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header("Content-Type: application/vnd.ms-excel");
+
+        // header("Content-Type":content="text/html; charset=utf-8" ");
+
         $flag = false;
         foreach($dataArray as $row) {
             if(!$flag) {
