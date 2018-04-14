@@ -205,7 +205,7 @@
 
                                         <div class="radio_click">
                                             <label class="check_radio">Có
-                                              <input type="radio" checked="checked" name="status" value="1">
+                                              <input type="radio"  name="status" value="1" required>
                                               <span class="checkmark"></span>
                                             </label>
                                             <label class="check_radio">Không
