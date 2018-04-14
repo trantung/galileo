@@ -256,4 +256,55 @@ class LandingPageController extends \BaseController {
         return Redirect::action('LandingPageController@admin');
     }
 
+    // public function exportExcelLanding()
+    // {
+    //     $input = Input::all();
+    //     $data = CommonLanding::commonThongkeLanding($input);
+    //     $data = $data->groupBy('email')
+    //         ->groupBy('phone')
+    //         ->groupBy('fullname')
+    //         ->groupBy('parent_name')
+    //         ->groupBy('class')
+    //         ->get();
+    //         // dd($data);
+    //     $dataHeader = [
+    //         'Ba me', 
+    //         'Hoc sinh', 
+    //         'So dien thoai', 
+    //         'Email', 
+    //         'Lop hoc',
+    //         'Dot thi', 
+    //         'Dia diem', 
+    //         'Mon kiem tra', 
+    //         'Nguyen vong'
+    //     ];
+    //     $fileName = 'Filename';
+    //     $dataArray = [];
+    //     //
+    //     Excel::create('Filename', function($excel) {
+    //         // $excel->sheet('New sheet', function($sheet) {
+    //         //     $sheet->loadView('view', ['key' => 'value']);
+    //         // });
+    //         //
+    //             $excel->sheet('Sheetname', function($sheet) {
+    //                 $sheet->fromArray(array(
+    //                     array('data1', 'data2'),
+    //                     array('data3', 'data4')
+    //                 ));
+
+    //                  $sheet->cell('A1', function($cell) {
+    //                     // Set black background
+    //                     $cells->setBackground('#000000');
+    //                     // Set font
+    //                     $cells->setFont([
+    //                         'family'     => 'Calibri',
+    //                         'size'       => '16',
+    //                         'bold'       =>  true
+    //                     ]);
+    //                     });
+    //             });
+    //         //
+    //     })->export('xls');
+    //     return Redirect::action('LandingPageController@admin');
+    // }
 }
