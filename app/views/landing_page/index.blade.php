@@ -11,6 +11,14 @@
         {{ HTML::script('landing_page/js/jquery.min.js') }}
     </head>
     <body>
+        {{-- @if(Session::has('message')) --}}
+            <div id="pupup"  class="pupup">
+                <div  class="pupup_con">
+                    <span id="close">X</span>
+                </div>
+            </div>
+        {{-- @endif --}}
+
         <div class="container_body">
                 <header>
                     <div class="header">
@@ -207,18 +215,23 @@
 
                     </div>
                 </content>
+
+                
+
+
+
+
+
+
+
+
+
+
                 @if(Session::has('message'))
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">X</span>
-                        <h2>"Đăng ký thành công</h2>
-                        <p>Vui lòng kiểm tra email xác nhận và diện thoại cá nhân. HOCMAI sẽ gửi thông tin xác nhận và hướng dẫn lấy SBD*</p>
-                        <p><!-- <img src="image_landing/thongbao.png"> --></p>
-                    </div>
-                </div> 
+               
                 @endif
             <div class=" thanh1 clear-both" ></div>
-            <footer class="footer">
+            <footer class="footer text-chanform">
                 <p>hệ thống giáo dục hocmai - trung tâm học chủ động galieo - hotline: 090.211.0033</p>
             </footer>
         </div>
@@ -233,6 +246,16 @@
     $count = ceil(($now-$timeCustom)/$numberTime);
     $so = $so1 + $count;
 ?>
+<script>
+    $(document).ready(function () {
+        $('#close').click(function(){
+            $('#pupup').hide();
+        })
+        $('#myBtn').click(function(){
+            $('#pupup').show();
+        })
+    })
+</script>
 <script>
     var numberTime =  <?php print($numberTime); ?>;
     var so = <?php print($so); ?>;
