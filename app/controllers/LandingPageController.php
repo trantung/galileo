@@ -171,32 +171,73 @@ class LandingPageController extends \BaseController {
     {
         $input = Input::all();
         $objPHPExcel = new PHPExcel();
-        dd($objPHPExcel);
+        $data = CommonLanding::commonThongkeLanding($input);
+        $data = $data->groupBy('email')
+            ->groupBy('phone')
+            ->groupBy('fullname')
+            ->groupBy('parent_name')
+            ->groupBy('class')
+            ->get();
+        // $dataHeader = [
+        //     'Ba me', 
+        //     'Hoc sinh', 
+        //     'So dien thoai', 
+        //     'Email', 
+        //     'Lop hoc',
+        //     'Dot thi', 
+        //     'Dia diem', 
+        //     'Mon kiem tra', 
+        //     'Nguyen vong'
+        // ];
+        $fileName = 'filename';
+        $dataArray = [];
+        foreach ($data as $key => $value) {
+            $dataArray[] = [
+                'STT' => $key+1,
+                'Họ và tên bố/mẹ' => $value->parent_name,
+                'Họ và tên HS' => $value->fullname,
+                'Số điện thoại' => $value->phone,
+                'Email' => $value->email,
+                'Lớp học' => $value->class,
+                'Đợt thi' => CommonLanding::getPeriodStudent($value),
+                'Địa điểm thi' => CommonLanding::getAddressName($value->address),
+                'Môn kiểm tra' => CommonLanding::getSubjectName($value->check_subject),
+                'Nguyện vọng' => $value->comment,
+            ];
+        }
 
         $activeSheet = $objPHPExcel->getActiveSheet();
 
         $activeSheet->setCellValue('A1', 'STT')
-            ->setCellValue('B1', 'Tài Khoản')
-            ->setCellValue('C1', 'Họ Tên')
-            ->setCellValue('D1', 'Email')
-            ->setCellValue('E1', 'Phone')
-            ->setCellValue('F1', 'Date');
+            ->setCellValue('B1', 'Họ và tên bố/mẹ')
+            ->setCellValue('C1', 'Họ và tên HS')
+            ->setCellValue('D1', 'Số điện thoại')
+            ->setCellValue('E1', 'Email')
+            ->setCellValue('F1', 'Lớp học')
+            ->setCellValue('G1', 'Đợt thi')
+            ->setCellValue('H1', 'Địa điểm thi')
+            ->setCellValue('I1', 'Môn kiểm tra')
+            ->setCellValue('J1', 'Nguyện vọng');
         $r = 2;
-        foreach ($results as $result) {
-            $user = get_record('user', 'id', $result->userid);
+        $i = 1;
+        foreach ($data as $value) {
             $activeSheet->setCellValue('A'.$r, $i++)
-                ->setCellValue('B'.$r, $user->username)
-                ->setCellValue('C'.$r, $user->lastname . ' ' . $user->firstname)
-                ->setCellValue('D'.$r, $user->email)
-                ->setCellValue('E'.$r, $result->phone)
-                ->setCellValue('F'.$r, date('d/m/Y H:i:s', $result->created));
+                ->setCellValue('B'.$r, $value->parent_name)
+                ->setCellValue('C'.$r, $value->fullname)
+                ->setCellValue('D'.$r, $value->phone)
+                ->setCellValue('E'.$r, $value->email)
+                ->setCellValue('F'.$r, $value->class)
+                ->setCellValue('G'.$r, CommonLanding::getPeriodStudent($value))
+                ->setCellValue('H'.$r, CommonLanding::getAddressName($value->address))
+                ->setCellValue('I'.$r, CommonLanding::getSubjectName($value->check_subject))
+                ->setCellValue('J'.$r, $value->comment);
             $r++;
         }
 
         $activeSheet->setTitle('Danh sách');
         $objPHPExcel->setActiveSheetIndex(0);
 
-        $filename = "contact-dat-cho-nen-tang-2018-".time().".xls";
+        $filename = "name".time().".xls";
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="'.$filename.'"');
         header('Cache-Control: max-age=0');
@@ -209,96 +250,96 @@ class LandingPageController extends \BaseController {
         header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
         header ('Pragma: public'); // HTTP/1.0
 
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save('php://output');
 
 
 
-        $data = CommonLanding::commonThongkeLanding($input);
-        $data = $data->groupBy('email')
-            ->groupBy('phone')
-            ->groupBy('fullname')
-            ->groupBy('parent_name')
-            ->groupBy('class')
-            ->get();
-        $dataHeader = [
-            'Ba me', 
-            'Hoc sinh', 
-            'So dien thoai', 
-            'Email', 
-            'Lop hoc',
-            'Dot thi', 
-            'Dia diem', 
-            'Mon kiem tra', 
-            'Nguyen vong'
-        ];
-        $fileName = 'filename';
-        $dataArray = [];
-        foreach ($data as $key => $value) {
-            $dataArray[] = [
-                'STT' => $key+1,
-                'Họ và tên bố/mẹ' => $value->parent_name,
-                'Họ và tên HS' => $value->fullname,
-                'Số điện thoại' => $value->phone,
-                'Email' => $value->email,
-                'Lớp học' => $value->class,
+        // $data = CommonLanding::commonThongkeLanding($input);
+        // $data = $data->groupBy('email')
+        //     ->groupBy('phone')
+        //     ->groupBy('fullname')
+        //     ->groupBy('parent_name')
+        //     ->groupBy('class')
+        //     ->get();
+        // $dataHeader = [
+        //     'Ba me', 
+        //     'Hoc sinh', 
+        //     'So dien thoai', 
+        //     'Email', 
+        //     'Lop hoc',
+        //     'Dot thi', 
+        //     'Dia diem', 
+        //     'Mon kiem tra', 
+        //     'Nguyen vong'
+        // ];
+        // $fileName = 'filename';
+        // $dataArray = [];
+        // foreach ($data as $key => $value) {
+        //     $dataArray[] = [
+        //         'STT' => $key+1,
+        //         'Họ và tên bố/mẹ' => $value->parent_name,
+        //         'Họ và tên HS' => $value->fullname,
+        //         'Số điện thoại' => $value->phone,
+        //         'Email' => $value->email,
+        //         'Lớp học' => $value->class,
 
-                'SĐT' => $value->phone,
-                'Đợt thi' => CommonLanding::getPeriodStudent($value),
-                'Địa điểm thi' => CommonLanding::getAddressName($value->address),
-                'Môn kiểm tra' => CommonLanding::getSubjectName($value->check_subject),
-                'Nguyện vọng' => $value->comment,
-            ];
-        }
+        //         'SĐT' => $value->phone,
+        //         'Đợt thi' => CommonLanding::getPeriodStudent($value),
+        //         'Địa điểm thi' => CommonLanding::getAddressName($value->address),
+        //         'Môn kiểm tra' => CommonLanding::getSubjectName($value->check_subject),
+        //         'Nguyện vọng' => $value->comment,
+        //     ];
+        // }
 
-        function filterData(&$str)
-        {
-            $str = preg_replace("/\t/", "\\t", $str);
-            $str = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u',
-                        ' ', $str);
-            $str = preg_replace("/\r?\n/", "\\n", $str);
-            if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
-        }
+        // function filterData(&$str)
+        // {
+        //     $str = preg_replace("/\t/", "\\t", $str);
+        //     $str = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u',
+        //                 ' ', $str);
+        //     $str = preg_replace("/\r?\n/", "\\n", $str);
+        //     if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
+        // }
         
-        // file name for download
-        $fileName = "codexworld_export_data" . date('Ymd') . ".xls";
-        header("Content-Disposition: attachment; filename=\"$fileName\"");
-        header("Content-Type: application/json; charset=utf8_decode");
-        header('Content-type: text/html; charset=utf-8');
-        header("Content-Transfer-Encoding: UTF-8");
-        header('Content-Encoding: UTF-8');
-        header("Content-Disposition: attachment; filename=\"$fileName\"");
-        header("Content-Type: application/vnd.ms-excel");
+        // // file name for download
+        // $fileName = "codexworld_export_data" . date('Ymd') . ".xls";
+        // header("Content-Disposition: attachment; filename=\"$fileName\"");
+        // header("Content-Type: application/json; charset=utf8_decode");
+        // header('Content-type: text/html; charset=utf-8');
+        // header("Content-Transfer-Encoding: UTF-8");
+        // header('Content-Encoding: UTF-8');
+        // header("Content-Disposition: attachment; filename=\"$fileName\"");
+        // header("Content-Type: application/vnd.ms-excel");
 
-        // header("Content-Type":content="text/html; charset=utf-8" ");
+        // // header("Content-Type":content="text/html; charset=utf-8" ");
 
-        $flag = false;
-        foreach($dataArray as $row) {
-            if(!$flag) {
-                // display column names as first row
-                echo implode("\t", array_keys($row)) . "\n";
-                $flag = true;
-            }
-            // filter data
-            // array_walk($row, 'filterData');
-            echo implode("\t", array_values($row)) . "\n";
+        // $flag = false;
+        // foreach($dataArray as $row) {
+        //     if(!$flag) {
+        //         // display column names as first row
+        //         echo implode("\t", array_keys($row)) . "\n";
+        //         $flag = true;
+        //     }
+        //     // filter data
+        //     // array_walk($row, 'filterData');
+        //     echo implode("\t", array_values($row)) . "\n";
 
-        }
-         exit;
-        // Excel::create($fileName, function($excel) use ($dataArray) {
-        //     $excel->sheet('mySheet', function($sheet) use ($dataArray){
-        //         $sheet->getStyle('1')->applyFromArray(array(
-        //             'fill' => array(
-        //                 'type'  => PHPExcel_Style_Fill::FILL_SOLID,
-        //                 'color' => array('rgb' => '3c8dbc'),
-        //             ),
-        //             'font-weight' => 'bold',
-        //             'bold' => true,
-        //             'color' => array('rgb' => 'FFFFFF'),
-        //         ));
-        //         $sheet->fromArray($dataArray);
-        //     });
-        // })->download('xls');
+        // }
+        //  exit;
+        // // Excel::create($fileName, function($excel) use ($dataArray) {
+        // //     $excel->sheet('mySheet', function($sheet) use ($dataArray){
+        // //         $sheet->getStyle('1')->applyFromArray(array(
+        // //             'fill' => array(
+        // //                 'type'  => PHPExcel_Style_Fill::FILL_SOLID,
+        // //                 'color' => array('rgb' => '3c8dbc'),
+        // //             ),
+        // //             'font-weight' => 'bold',
+        // //             'bold' => true,
+        // //             'color' => array('rgb' => 'FFFFFF'),
+        // //         ));
+        // //         $sheet->fromArray($dataArray);
+        // //     });
+        // // })->download('xls');
 
         return Redirect::action('LandingPageController@admin');
     }
