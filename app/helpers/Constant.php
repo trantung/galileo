@@ -59,4 +59,5 @@ define('LANDING_PAGE_EMAIL_SUBJECT', '[HOCMAI]_Xác nhận đăng ký tham gia t
 define('COMPUTER', 1);
 define('MOBILE', 2);
 
-
+// define login in landing_page
+define('SESSION_LANDING_LOGIN', 'ortherlogin');

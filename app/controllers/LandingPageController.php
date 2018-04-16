@@ -2,6 +2,9 @@
 
 class LandingPageController extends \BaseController {
 
+    public function __construct() {
+            $this->beforeFilter('orther', array('except'=>array('login','doLogin')));
+        }
     /**
      * Display a listing of the resource.
      *
@@ -206,5 +209,37 @@ class LandingPageController extends \BaseController {
             });
         })->download('xls');
         return Redirect::action('LandingPageController@admin');
+    }
+
+    public function login()
+    {
+        $checkLogin = Auth::check();
+        if($checkLogin) {
+            return Redirect::action('LandingPageController@index');
+        } else {
+            return View::make('landing_page.login');
+        }
+    }
+    public function doLogin()
+    {
+        $rules = array(
+            'username' => 'required',
+            'password' => 'required',
+        );
+        $input = Input::except('_token');
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails()) {
+            return Redirect::action('AdminController@login')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            if($input['username'] == 'user' && $input['password'] == '123456') {
+                Session::put(SESSION_LANDING_LOGIN, $input);
+                return Redirect::action('LandingPageController@index');
+            } else {
+                Session::forget(SESSION_LANDING_LOGIN);
+                return Redirect::action('LandingPageController@login');
+            }
+        }
     }
 }

@@ -82,6 +82,7 @@ Route::filter('user', function()
     if (Auth::user()->guest()){
         return Redirect::action('UserController@login');
     }
+
     // $admin = Auth::admin()->get();
  //    if ($admin->role_id != ADMIN) {
  //     $route = Route::getCurrentRoute()->getActionName();
@@ -136,5 +137,13 @@ Route::filter('csrf', function()
     if (Session::token() != Input::get('_token'))
     {
         throw new Illuminate\Session\TokenMismatchException;
+    }
+});
+
+Route::filter('orther', function()
+{
+    $value = Session::get(SESSION_LANDING_LOGIN);
+    if (!$value){
+        return Redirect::action('LandingPageController@login');
     }
 });
