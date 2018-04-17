@@ -181,33 +181,46 @@ class LandingPageController extends \BaseController {
             ->groupBy('parent_name')
             ->groupBy('class')
             ->get();
-        $dataHeader = [
-            'Ba me', 
-            'Hoc sinh', 
-            'So dien thoai', 
-            'Email', 
-            'Lop hoc',
-            'Dot thi', 
-            'Dia diem', 
-            'Mon kiem tra', 
-            'Nguyen vong'
-        ];
         $fileName = 'filename';
-        $dataArray = [];
-        Excel::create($fileName, function($excel) use ($dataArray) {
-            $excel->sheet('mySheet', function($sheet) use ($dataArray){
-                $sheet->getStyle('1')->applyFromArray(array(
-                    'fill' => array(
-                        'type'  => PHPExcel_Style_Fill::FILL_SOLID,
-                        'color' => array('rgb' => '3c8dbc'),
-                    ),
-                    'font-weight' => 'bold',
-                    'bold' => true,
-                    'color' => array('rgb' => 'FFFFFF'),
-                ));
-                $sheet->fromArray($dataArray);
-            });
-        })->download('xls');
+        $activeSheet = $objPHPExcel->getActiveSheet();
+        $activeSheet->setCellValue('A1', 'STT')
+            ->setCellValue('B1', 'Họ và tên bố/mẹ')
+            ->setCellValue('C1', 'Họ và tên HS')
+            ->setCellValue('D1', 'Số điện thoại')
+            ->setCellValue('E1', 'Email')
+            ->setCellValue('F1', 'Lớp học')
+            ->setCellValue('G1', 'Đợt thi')
+            ->setCellValue('H1', 'Địa điểm thi')
+            ->setCellValue('I1', 'Môn kiểm tra')
+            ->setCellValue('J1', 'Nguyện vọng');
+        $r = 2;
+        $i = 1;
+        foreach ($data as $value) {
+            $activeSheet->setCellValue('A'.$r, $i++)
+                ->setCellValue('B'.$r, $value->parent_name)
+                ->setCellValue('C'.$r, $value->fullname)
+                ->setCellValue('D'.$r, $value->phone)
+                ->setCellValue('E'.$r, $value->email)
+                ->setCellValue('F'.$r, $value->class)
+                ->setCellValue('G'.$r, CommonLanding::getPeriodStudent($value))
+                ->setCellValue('H'.$r, CommonLanding::getAddressName($value->address))
+                ->setCellValue('I'.$r, CommonLanding::getSubjectName($value->check_subject))
+                ->setCellValue('J'.$r, $value->comment);
+            $r++;
+        }
+        $activeSheet->setTitle('Danh sách');
+        $objPHPExcel->setActiveSheetIndex(0);
+        ob_clean();
+        $filename = "name".time().".xlsx";
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save('php://output');
+        dd(111);
         return Redirect::action('LandingPageController@admin');
     }
 

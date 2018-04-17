@@ -4,7 +4,6 @@
         <title>Đăng ký Kiểm tra đánh giá lực vào 6 và thi thử vào 10</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
-        {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=768; height=device-height" />
         <meta content="width=768, initial-scale=0.47, maximum-scale=1.0, user-scalable=1" name="viewport">
