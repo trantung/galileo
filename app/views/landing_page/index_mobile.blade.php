@@ -4,13 +4,14 @@
         <title>Đăng ký Kiểm tra đánh giá lực vào 6 và thi thử vào 10</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=768; height=device-height" />
-        <meta content="width=768, initial-scale=0.47, maximum-scale=1.0, user-scalable=1" name="viewport">
 
 
         {{ HTML::script('landing_page/js/jquery.min.js') }}
         {{ HTML::style('landing_page/css/style_m.css') }}
+        {{ HTML::style('landing_page/css/reset.css') }}
         <script type="text/javascript">
             document.documentElement.addEventListener('touchstart', function(event) {
              if (event.touches.length > 1) {
@@ -82,9 +83,6 @@
                         </div><!--  hêt phần thông tin cá nhân -->
 
                         <h3 class="tilecheck white"> bạn có muốn đăng ký đợt thi</h3>
-                        @if(Session::has('msg_address'))
-                            <font color="red">{{ Session::get('msg_address') }}</font>
-                        @endif
                         <div class="check_class">
 
                             <div class="#" id="class5" style="display: block;">
@@ -163,12 +161,10 @@
                                         <input id="subject" type='radio' name="check_subject" value="1" required> 
                                         <label for="subject">Toán (Toán &amp; KHTN đối với lớp 5) </label>
                                     </div>
-
                                     <div class="check_subject">
                                         <input id="subject1"  type='radio' name="check_subject" value="2">
                                         <label for="subject1">Văn (Tiếng Việt &amp; KHXH &amp; Tiếng Anh đối với lớp 5 ) </label>
                                     </div>
-
                                     <div class="check_subject">
                                         <input  id="subject2" type='radio' name="check_subject" value="3">
                                         <label for="subject2" >Cả hai môn </label>
@@ -176,14 +172,13 @@
                                 </div>
                             </div>
                         </div> 
-                        <div class="book"></div>
-                        {{-- <div class="select">
+                        <div class="select">
                             <div class="check_subject_left ">
                                 <div class="book">
                                     <img src="/image_landing/image_mobile/chon_mon_thi.png">
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                   <!--   </div> --> <!-- bên trái -->
                     <!--  câu hỏi có hay không -->
                         <div class="question_center">
@@ -192,7 +187,7 @@
                             <div class="question">
                                 <div class="radio_click">
                                     <label class="check_radio">Có
-                                      <input type="radio" name="status" value="1" required>
+                                      <input type="radio" checked="checked" name="status" value="1" required>
                                       <span class="checkmark"></span>
                                     </label>
                                     <label class="check_radio">Không
