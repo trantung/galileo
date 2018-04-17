@@ -1,38 +1,30 @@
-* {margin: 0; padding: 0;}
-ul, ol{   list-style: none;}
-img{   border: 0;}
-a{  color: #000; text-decoration: none;  }  
-a:hover  {   text-decoration: underline;  } 
-.floatLeft{ float: left; }
-.floatRight{ float: right; }
-.clear-both{ clear: both; }
-.blue{color:#094177; }
-.yellow{color:#ff8400;}
-.in_bl{ display:inline-block; }
-.impact{ font-family:Impact, Charcoal, sans-serif; }
-.text-chanform{text-transform: uppercase; text-align: center;}
-.text-center{text-align: center;}
-.auto{margin:0px auto;}
-
 body{
     width:768px;
     color: #676767;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     margin: 0 auto;
 }
+
 header{
     height: 802px;
 }
+
 content{
     height: 1000px ;
+    /*border: 1px solid;*/
     width: 766px;
+    width: 100%;
 }
+
 .container{
     width: 767px;
-    height:4559px;;
+    height:100%;
     margin: auto;
     background:url("/image_landing/image_mobile/background6.png");
+
 }
+
+
 /*===========logo======*/
 .logo{
     margin-left: 5%;
@@ -40,6 +32,7 @@ content{
     height: 132px;
     background:url("/image_landing/image_mobile/logo.png")no-repeat; 
 }/*=============end logo=========*/
+
 .host_line{
     font-size: 183%;
     text-shadow: 3px 0 0 #fff, -3px 0 0 #fff, 0 3px 0 #fff, 0 -3px 0 #fff, 2px 2px #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;
@@ -47,6 +40,7 @@ content{
     float: right;
     font-weight: bold;
     font-family: Impact, Charcoal, sans-serif;
+
 }
 .host_line span{
     color: #ff0000;
@@ -55,27 +49,35 @@ content{
 /*===========end sô đt=========*/
 
 /*======chỉnh chữ đánh giá kiểm tra năng lực=========*/
+
 .header_register{
     width: 48%;
     margin: 27px 17%;
     height: 117px;
 }
+
 /*-=======chu vao======= */
+
 .header_register b{
     font-size: 727%;
     background-color: #ffd201;
     font-family: Impact, Charcoal, sans-serif;
-    padding: 4px 4%;
+    padding:0px 6%;
     color: #094177;
     display: inline-block;
 }
+
 .vao{
-    width: 146%;
-    margin:10px -17px;
+    width:150%;
+    
+    margin: 13px 0px;
+
 }
+
 /*=============chỉnh số 6===============*/
 .six{ margin-left: 15px; }
 /*=========chỉnh số 10========*/
+
 .ten{
     color:#fff;
     font-size:1000%;
@@ -83,7 +85,9 @@ content{
     top: -36px;
     right: -102%;
 }
- /      dây là phần con ten nội dung      /
+
+ /*      dây là phần con ten nội dung      */
+
 .personal,.tilecheck,.address{
     font-size: 264%;
     width: 79%;
@@ -97,40 +101,45 @@ content{
     font-size: 192%;
     color: #fff;
 }
+
 .personal{
     background:url("/image_landing/image_mobile/thong_tin_ca_nhan.png")no-repeat;
-    margin-bottom: 80px;
 }
+
  /*chon đợt thi muốn tham gia*/
+
 .tilecheck{
     background:url("/image_landing/image_mobile/chon_dot_muon_tham_gia.png")no-repeat;
-    margin: 48px auto;
+    position: relative;
+    top: -60px;
 }
  /*========== style  đăng ký thông tin gia đình học sinh =====*/
+
 .address{
     background:url("/image_landing/image_mobile/ban_muon_thi_tai.png")no-repeat;
-    margin-top: 44px;
 }
- .thong_tin{
-    width: 80%;
-    /*border: 1px solid blue;*/
+
+.thong_tin{
+    width: 79%;
+    border-top: 142px solid #fff;
     height: 420px;
-    margin: 30px auto; 
+
 }
+
 .thong_tin label, .thong_tin  input, .thong_tin select{
     display: inline-block;
     height: 50px;
-    border: 7px solid #fff ;
+    border: 2px solid #fff;
     line-height: 50px;
     font-weight: 30%;
     margin-bottom: 15px;
     font-weight: bold;
     letter-spacing:1%;
     font-family:  Arial, Helvetica, sans-serif!important;
-    width: 26%;
 }
+
 .thong_tin input, select{
-    width:55%;
+    width: 66%;
     padding-left: 2%;
     float: right;
     margin-right: 5%;
@@ -139,25 +148,32 @@ content{
     color: #336699;
     font-size: 100%;
 }
+
 .thong_tin select{
-    width:  58%;
+    width: 69%;
     border: 2px solid #336699;
+
 }
 
  /*========== end style  đăng ký thông tin gia đình học sinh= ====*/}
  /*---------*/
  /*======= chọn môn học ========*/
-.check_class{
+
+ .check_class{
     width: 500px;
     height: 500px;
     border: 2px solid blue;
     background: #ddd;
 }
+
 .check{
      margin: 15px auto;
      width: 80%;
+    
+
 }
-.check label{
+
+ .check label{
     display: inline-block;
     line-height: 110px;
     padding-left: 8%;
@@ -169,12 +185,14 @@ content{
     user-select: none;
     font-weight: bold;
 }
+
  input[type="checkbox"] { display:none;}
 .check span{
     width: 30px;
     height: 30px;
     background: #fff;
 }
+
 input[type="checkbox"] + label span{
     display:inline-block;
     width:9%;
@@ -187,25 +205,31 @@ input[type="checkbox"] + label span{
     position: relative;
     left: -6%;
 }
+
 input[type="checkbox"]:checked + label{
     background: #ffa400;
     color: #fff;
 }
+
 input[type="checkbox"]:checked + label span{
     background: url('/image_landing/image_mobile/icon_check1.png');
     background-position: 47% 38%;
+
 }
 /*============= end style chọn môn học =============*/
 .check_subject_name{
-    height: 284px;
+    height:  332px;
     width: 70%;
     float: right;
     margin: 5% auto;
 }
+                                                    /*actico right*/
 .check_subject_right{
 
     height:250px;
-    background: url("/image_landing/image_mobile/check_subject_right.png")no-repeat;
+    background: url("image_landing/check_subject_right.png")no-repeat;
+    position: relative;
+    top: 41px;
 }
 .subject{
     height: 206px;
@@ -217,11 +241,11 @@ input[type="checkbox"]:checked + label span{
     background: #fff;
     margin-bottom: 10px;
 }
-.subject input{ display: none}
 .subject .check_subject label{
-    display: inline-table;
+    display: inline-block;
     line-height: 76px;
-    width:100%;
+    height: 76px;
+    width: 482px;
     text-align: center;
     font-size: 16px;
     font-weight: bold;
@@ -230,33 +254,34 @@ input[type="checkbox"]:checked + label span{
     background-color:#094177;
     color: #fff;
 }
-.book{
-    width: 42%;
-    height: 394px;
-    /*border: 1px solid;*/
-    margin-top: 119px;
-    background: url('/image_landing/image_mobile/chon_mon_thi.png')no-repeat;
+.book img{
+    margin: -101px 0;
     position: relative;
+    top: -205px;
 }
+
 input[type="radio"]:checked + label{
     background: #ffa400;
     color: #fff;
 }
+
+
 /*========================= style address ==========*/
 /*nút radio*/
 .center{
     width: 76%;
     height: 500px;
     margin: 39px auto;
+
 }
  .check_address label{
     display: inline-block;
-    width: 118%;
+    width: 496px;
     height: 89px;
 }
 .check_address input[type="radio"] { display:none;}
 .check_address{
-    width: 78%;
+    width:71%;
     border: 1px solid;
     margin: 17px auto;
     height: 88px;
@@ -264,10 +289,12 @@ input[type="radio"]:checked + label{
     padding-right:14%;
     text-align: center;
     float: right;
+
+
 }
 .check_address input[type="radio"] + label span{
     display: inline-block;
-    width: 10%;
+    width: 11%;
     height: 50px;
     vertical-align: middle;
     background: #fff;
@@ -276,24 +303,28 @@ input[type="radio"]:checked + label{
     border: 2px solid #ddd;
     position: relative;
     top: 21%;
-    left: -14%;
+    left: -21%;
 }
+
  .check_address input[type="radio"]:checked + label span{
     display: inline-block;
     background: url('/image_landing/image_mobile/icon_check1.png');
 }
+
+
 input[type="radio"]:checked + label{
     background: #ffa400;
     color: #fff;
 }
-.check_address span{
+ .check_address span{
   float: left;
-}
-.check_address b {
+ }
+ .check_address b {
     position: relative;
-    top: 19px;
+    top: 28px;
     left: -6%;
-}
+ }
+
 /*=========== ==============trả lời có hoặc không=====*/
 .check_radio {
     position: relative;
@@ -307,7 +338,8 @@ input[type="radio"]:checked + label{
    float:left;
    padding-right:30px;
 }
-/ Hide the browser's default radio button /
+
+/* Hide the browser's default radio button */
 .check_radio input {
     position: absolute;
     opacity: 0;
@@ -315,7 +347,8 @@ input[type="radio"]:checked + label{
    width: 30px;
    height: 30px;
 }
-/ Create a custom radio button /
+
+/* Create a custom radio button */
 .checkmark {
     position: absolute;
     top: 0;
@@ -325,76 +358,91 @@ input[type="radio"]:checked + label{
     background-position: 1px 2px; 
     border-radius: 5px;
 }
+
 .check_radio input:checked ~ .checkmark {
     background:url('/image_landing/image_mobile/icon_check1.png');
     background-position: -8px -10px;
 }
+
 .checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
+
 .check_radio input:checked ~ .checkmark:after {
     display: block;
 }
-/ Style the indicator (dot/circle) /
+
+/* Style the indicator (dot/circle) */
+
 }.radio_click{
   width:300px;
   height:30px;
   border:1px solid
 }
+    
 .question{  
-    width:  295px;;
-    height: 50px;
-    margin: 64px auto;
+    width: 286px;
+    height: 30px;
+    margin: 48px 289px;
+    /*position: absolute;*/
 }
 .question span{
     height: 40px;
     width: 40px;
     border: 2px solid #cbcbcb;
+    left: -14%;
+    top: -5px;
 }
 .question label{
-    padding-left: 54px;
+
     font-size: 30px;
 }
 .question_center {
-    width: 89%;
+    width: 100%;
     height: 100px;
-    margin:160px auto;
-    /*border: 1px solid;*/
+
+    margin-top: 40px;
  /*=================cho con ti vao trường nào==================*/
 }
  /*teck nhập liệu*/
- .textarea{
-    height: 95px;
-    width: 84%;
-    margin: 500px auto 0;
- }
 textarea{
     height: 26px;
-    width: 95%;
+    margin: 464px 33px;
+    width: 87%;
     border: 1px solid #cbcbcb;
     border-radius: 10px;
     font-size: 15px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     padding: 30px 15px;
+
 }
 /*========nút sbmit=========*/
 .regiter{
-    width: 50%;
-    height: 100px;
-    margin: 195px auto;
-}
+    position: absolute;
+ }
  .regiter .button{
-    width: 100%;
-    margin: 0 auto;
+    width: 277%;
     height: 105px;
     background-color: #ff0000;
-    border: 1px solid #fff;
+    position: relative;
+    top: -306px;
+    left: 135%;
+    border: 3px solid #fff;
     border-radius: 5px;
     font-size: 28px;
     font-weight: bold;
     color: #fff;
+ }
+.report{
+    width: 271px;
+    height: 200px;
+    border: 1px solid blue;
+    position: relative;
+    top: 141px;
+    left: 126%;
+    background: #fff;
  }
 /*phần cuôi*/
 footer{
@@ -416,7 +464,7 @@ footer p{
     padding-top:20px;
 }
 
-.pupup{
+.popup{
 /*display: none; */
     position: absolute;
     margin-left: 287px;
@@ -427,16 +475,16 @@ footer p{
     color: white;
     z-index: 999;
 }
-.pupup_con{
+.popup_con{
     /*display: none;*/
     width: 312px;
     height: 387px;
     margin-top: 40%;
     margin-left: -14%;
     border: 1px solid blue;
-    background: url(/image_landing/image_mobile/popup_mobile.jpg)no-repeat;
+    background: url('/image_landing/image_mobile/popup_mobile.jpg')no-repeat;
 }
- .pupup span{
+ .popup span{
     /*display: none;*/
     position: absolute;
     margin-left: 288px;
@@ -447,3 +495,4 @@ footer p{
     color: white;
     z-index: 999
 }
+

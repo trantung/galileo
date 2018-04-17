@@ -86,6 +86,6 @@
         </div>
     {{ Form::close() }}
         <div class="input-group inline-block" style="vertical-align: bottom;">
-            {{ link_to_action('LandingPageController@exportExcel', 'Xuất excel', CommonLanding::getFilterLanding($input), ['class' => 'btn btn-danger']) }}
+            {{ link_to_action('LandingPageController@exportExcel', 'Xuất excel', CommonLanding::getFilterLanding(Input::all()), ['class' => 'btn btn-danger']) }}
         </div>
 </div>
