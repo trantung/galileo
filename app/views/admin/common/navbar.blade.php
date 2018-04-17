@@ -22,6 +22,12 @@
 						<a href="{{action('ManagerUserController@account_user', Common::resetPassAdminOrUser())}}"><i class="fa fa-user">
 						@endif
 						</i>Tài khoản</a>
+						@if($admin = Auth::admin()->get())
+							{{ $admin->username }}
+						@endif
+						@if($user = Auth::user()->get())
+							{{ $user->username }}
+						@endif
 					</li>
 					<li class="user">
 						<a href="{{ action('AdminController@logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
