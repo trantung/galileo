@@ -71,12 +71,21 @@
             <label>Chiến dịch</label>
             {{ Form::select('utm_campaign', CommonLanding::getUtmCampaign(), Input::get('utm_campaign'), array('class' => 'form-control')) }}
         </div>
+        <div class="input-group inline-block">
+            <label>Ngày bắt đầu</label>
+            <input type="date" class="lesson_date form-control" value="{{ Input::get('start_date') }}" placeholder="Ngày bắt đầu" name="start_date">
+        </div>
+        
+        <div class="input-group inline-block">
+            <label>Ngày kết thúc</label>
+            <input type="date" class="lesson_date form-control" value="{{ Input::get('end_date') }}" placeholder="Ngày kết thúc" name="end_date">
+        </div>
         <div class="input-group inline-block" style="vertical-align: bottom;">
             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
             {{ link_to_action('LandingPageController@admin', 'Reset', null, ['class' => 'btn btn-primary']) }}
         </div>
     {{ Form::close() }}
         <div class="input-group inline-block" style="vertical-align: bottom;">
-            {{ link_to_action('LandingPageController@exportExcel', 'Xuất excel', null, ['class' => 'btn btn-danger']) }}
+            {{ link_to_action('LandingPageController@exportExcel', 'Xuất excel', CommonLanding::getFilterLanding($input), ['class' => 'btn btn-danger']) }}
         </div>
 </div>

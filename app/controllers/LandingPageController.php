@@ -113,6 +113,7 @@ class LandingPageController extends \BaseController {
     public function admin()
     {
         $input = Input::all();
+        // dd($input);
         $data = CommonLanding::commonThongkeLanding($input);
         $count = $data->groupBy('email')
             ->groupBy('phone')
@@ -120,8 +121,7 @@ class LandingPageController extends \BaseController {
             ->groupBy('parent_name')
             ->groupBy('class')
             ->get();
-            $count = count($count);
-        // dd(count($count));
+        $count = count($count);
         $data = $data->groupBy('email')
             ->groupBy('phone')
             ->groupBy('fullname')
@@ -173,6 +173,7 @@ class LandingPageController extends \BaseController {
     public function exportExcel()
     {
         $input = Input::all();
+        dd($input);
         $objPHPExcel = new PHPExcel();
         $data = CommonLanding::commonThongkeLanding($input);
         $data = $data->groupBy('email')

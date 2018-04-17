@@ -277,6 +277,32 @@ class CommonLanding
                 $data = $data->where('utm_campaign', 'LIKE', '%'.$input['utm_campaign'].'%');
             }
         }
+        if( !empty($input['start_date']) ){
+            $data = $data->where('created_at', '>=', $input['start_date']);
+        }
+        if( !empty($input['end_date']) ){
+            $data = $data->where('created_at', '<=', $input['end_date']);
+        }
+        
+        return $data;
+    }
+    public static function getFilterLanding($input)
+    {
+        $data = [
+            'fullname' => $input['fullname'],
+            'phone' => $input['phone'],
+            'email' => $input['email'],
+            'period' => $input['period'],
+            'address' => $input['address'],
+            'class' => $input['class'],
+            'check_subject' => $input['check_subject'],
+            'status' => $input['status'],
+            'comment' => $input['comment'],
+            'utm_source' => $input['utm_source'],
+            'utm_campaign' => $input['utm_campaign'],
+            'start_date' => $input['start_date'],
+            'end_date' => $input['end_date'],
+        ];
         return $data;
     }
 }
