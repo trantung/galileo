@@ -94,7 +94,7 @@ class LandingPageController extends \BaseController {
         //send mail to center
         $landingPage = LandingPage::find($id);
         $messageContentCenter = 'nội dung thông báo: '.$input['fullname'].'_'.'số điện thoại: '. $input['phone']. '_'.'lớp: '.$input['class'].'_'. 'đợt đăng ký: '. CommonLanding::getPeriodStudent($landingPage) . 'Môn thi: '. CommonLanding::getSubjectName($landingPage->check_subject). 'vừa hoàn thành đăng kí lúc'. $landingPage->created_at ;
-        $dataCenter = $data = [
+        $dataCenter = [
             'title' => 'Nội dung thông báo đăng ký ldp của học sinh',
             'content' => '',
             'messageContent' => $messageContentCenter,
@@ -102,16 +102,7 @@ class LandingPageController extends \BaseController {
         if (!empty($input['address'])) {
             if ($input['address'] == 1) {
                 $emailCenter = 'sale@galileo.edu.vn';
-                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter){
-                    $message->to($emailCenter)
-                        ->subject(LANDING_PAGE_EMAIL_SUBJECT_CENTER);
-                });
-            }
-        }
-        if (!empty($input['address'])) {
-            if ($input['address'] == 1) {
-                $emailCenter = 'sale@galileo.edu.vn';
-                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter){
+                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter, $emailCenter){
                     $message->to($emailCenter)
                         ->subject(LANDING_PAGE_EMAIL_SUBJECT_CENTER);
                 });
@@ -120,7 +111,7 @@ class LandingPageController extends \BaseController {
         if (!empty($input['address'])) {
             if ($input['address'] == 2) {
                 $emailCenter = 'ngocvt@galileo.edu.vn';
-                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter){
+                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter, $emailCenter){
                     $message->to($emailCenter)
                         ->subject(LANDING_PAGE_EMAIL_SUBJECT_CENTER);
                 });
@@ -129,7 +120,7 @@ class LandingPageController extends \BaseController {
         if (!empty($input['address'])) {
             if ($input['address'] == 3) {
                 $emailCenter = 'linhltk@galileo.edu.vn';
-                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter){
+                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter, $emailCenter){
                     $message->to($emailCenter)
                         ->subject(LANDING_PAGE_EMAIL_SUBJECT_CENTER);
                 });
@@ -138,7 +129,7 @@ class LandingPageController extends \BaseController {
         if (!empty($input['address'])) {
             if ($input['address'] == 4) {
                 $emailCenter = 'movt@galileo.edu.vn';
-                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter){
+                Mail::send('emails.landing_page', $dataCenter, function($message) use ($input, $dataCenter, $emailCenter){
                     $message->to($emailCenter)
                         ->subject(LANDING_PAGE_EMAIL_SUBJECT_CENTER);
                 });
