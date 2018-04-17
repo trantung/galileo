@@ -15,17 +15,17 @@ class DocumentController extends AdminController implements AdminInterface {
         $input = Input::all();
         $admin = Auth::admin()->get();
         if (isset($admin)) {
-            if ($admin->role_id == ADMIN) {
+            // if ($admin->role_id == ADMIN) {
                 $documents = Document::whereNotNull('parent_id');
-            }
-            if ($admin->role_id == BTV) {
-                $listSubject = AccessPermisison::where('model_name', 'Admin')
-                    ->where('model_id', $admin->id)
-                    ->lists('subject_id');
+            // }
+            // if ($admin->role_id == BTV) {
+            //     $listSubject = AccessPermisison::where('model_name', 'Admin')
+            //         ->where('model_id', $admin->id)
+            //         ->lists('subject_id');
                 // dd($listSubject);
-                 $documents = Document::whereIn('subject_id', $listSubject)
-                    ->whereNotNull('parent_id');
-            }
+            //      $documents = Document::whereIn('subject_id', $listSubject)
+            //         ->whereNotNull('parent_id');
+            // }
         } else {
             $user = Auth::user()->get();
             if (isset($user)) {

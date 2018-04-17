@@ -1,3 +1,4 @@
+
 <?php
 use Jenssegers\Agent\Agent;
 function getCodeDocument($documentId)
@@ -76,7 +77,12 @@ function getLevelByDocument($document)
 }
 function getRoleAdmin()
 {
-    return Role::lists('name', 'id');
+    $array = [
+        '' => '--Chọn quyền--',
+        ADMIN => 'Admin',
+        BTV => 'BTV' 
+    ];
+    return $array;
 }
 function getMethodDefault($classController)
 {
