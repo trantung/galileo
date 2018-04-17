@@ -281,20 +281,65 @@ class CommonLanding
     }
     public static function getFilterLanding($input)
     {
+        $fullname = $phone  = $email = $period = $address = $class = $check_subject = $status = $comment = $utm_source = '';
+        $utm_medium = $utm_campaign = $start_date = $end_date = '';
+        if( !empty($input['fullname']) ){
+            $fullname = $input['fullname'];
+        }
+        if( !empty($input['phone']) ){
+            $phone = $input['phone'];
+        }
+        if( !empty($input['email']) ){
+            $email = $input['email'];
+        }
+        if( !empty($input['period']) ){
+            $period = $input['period'];
+        }
+        if( !empty($input['address']) ){
+            $address = $input['address'];
+        }
+        if( !empty($input['class']) ){
+            $class = $input['class'];
+        }
+        if( !empty($input['check_subject']) ){
+            $check_subject = $input['check_subject'];
+        }
+        if( !empty($input['status']) ){
+            $status = $input['status'];
+        }
+        if( !empty($input['comment']) ){
+            $comment = $input['comment'];
+        }
+        if( !empty($input['utm_source']) ){
+            $utm_source = $input['utm_source'];
+        }
+        if( !empty($input['utm_medium']) ){
+            $utm_medium = $input['utm_medium'];
+        }
+        if( !empty($input['utm_campaign']) ){
+            $utm_campaign = $input['utm_campaign'];
+        }
+        if( !empty($input['start_date']) ){
+            $start_date = $input['start_date'];
+        }
+        if( !empty($input['end_date']) ){
+            $end_date = $input['end_date'];
+        }
         $data = [
-            'fullname' => $input['fullname'],
-            'phone' => $input['phone'],
-            'email' => $input['email'],
-            'period' => $input['period'],
-            'address' => $input['address'],
-            'class' => $input['class'],
-            'check_subject' => $input['check_subject'],
-            'status' => $input['status'],
-            'comment' => $input['comment'],
-            'utm_source' => $input['utm_source'],
-            'utm_campaign' => $input['utm_campaign'],
-            'start_date' => $input['start_date'],
-            'end_date' => $input['end_date'],
+            'fullname' => $fullname,
+            'phone' => $phone,
+            'email' => $email,
+            'period' => $period,
+            'address' => $address,
+            'class' => $class,
+            'check_subject' => $check_subject,
+            'status' => $status,
+            'comment' => $comment,
+            'utm_source' => $utm_source,
+            'utm_medium' => $utm_medium,
+            'utm_campaign' => $utm_campaign,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
         ];
         return $data;
     }
