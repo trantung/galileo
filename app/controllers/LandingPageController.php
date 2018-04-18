@@ -214,7 +214,6 @@ class LandingPageController extends \BaseController {
     public function exportExcel()
     {
         $input = Input::all();
-        dd($input);
         $objPHPExcel = new PHPExcel();
         $data = CommonLanding::commonThongkeLanding($input);
         $data = $data->groupBy('email')
