@@ -276,7 +276,7 @@ class CommonLanding
         if( !empty($input['end_date']) ){
             $data = $data->where('created_at', '<=', $input['end_date']);
         }
-        
+        $data = $data->select('landing_pages.*');
         return $data;
     }
     public static function getFilterLanding($input)
