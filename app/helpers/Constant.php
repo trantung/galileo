@@ -61,4 +61,6 @@ define('COMPUTER', 1);
 define('MOBILE', 2);
 
 // define login in landing_page
+define('USER', 'user');
+define('PASSWORD', '123456');
 define('SESSION_LANDING_LOGIN', 'ortherlogin');

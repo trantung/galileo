@@ -201,7 +201,16 @@ class QuantityDownloadController extends \BaseController {
 			'document_code'  => $document->code,
 			'status'         => WAIT_APPROVE
 		];
+		$check = AskPermission::where('model_id', $user->id)
+						      ->where('document_id', $documentId)
+						      ->where('model_name', 'User')
+						      ->count();
+		if($check == 0){
 		$askPermissionId = AskPermission::create($field)->id;
+		}
+		else{
+			return Redirect::action('DocumentController@index');
+		}
 		return Redirect::action('DocumentController@index');
 	}
 }

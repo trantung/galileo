@@ -246,7 +246,7 @@
         }
         if(elem.value == 9) {
             document.getElementById('class9').style.display = "block";
-            document.getElementById('class5').style.display = "none";
+            document.getElementById('class5' ).style.display = "none";
         }
         if(elem.value == 1) {
             document.getElementById('class5').style.display = "block";

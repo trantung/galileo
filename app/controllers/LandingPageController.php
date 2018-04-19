@@ -217,7 +217,7 @@ class LandingPageController extends \BaseController {
     public function exportExcel()
     {
         $input = Input::all();
-        dd($input);
+        // dd($input);
         $objPHPExcel = new PHPExcel();
         $data = CommonLanding::commonThongkeLanding($input);
         $data = $data->groupBy('email')
@@ -291,7 +291,7 @@ class LandingPageController extends \BaseController {
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
-            if($input['username'] == 'user' && $input['password'] == '123456') {
+            if($input['username'] == USER && $input['password'] == PASSWORD) {
                 Session::put(SESSION_LANDING_LOGIN, $input);
                 return Redirect::action('LandingPageController@index');
             } else {

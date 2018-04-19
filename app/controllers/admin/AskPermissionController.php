@@ -43,10 +43,10 @@ class AskPermissionController extends \BaseController {
 	 */
 	public function show($documentId)
 	{
-		$status = AskPermission::where('document_id', $documentId)
+		$check = AskPermission::where('document_id', $documentId)
 							   ->where('status', 2)->first();
-		if($status){
-			AskPermission::find($documentId)->update(['status' => 1]);
+		if($check){
+			$check->update(['status' => 1]);
 		}
 		return Redirect::action('AskPermissionController@index')->withMessage('Phê duyệt thành công!');
 	}
