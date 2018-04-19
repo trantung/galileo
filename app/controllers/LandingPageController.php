@@ -49,6 +49,7 @@ class LandingPageController extends \BaseController {
     public function store()
     {
         $input = Input::all();
+        // dd($input);
         if (empty($input['phone'])) {
             return Redirect::back()->with('msg_phone', 'Số điện thoại phải có');
         }
@@ -68,7 +69,17 @@ class LandingPageController extends \BaseController {
         }
         $id = LandingPage::create($input)->id;
         foreach ($periods as $key => $value) {
-            LandingPagePeriodRelation::create(['period_id' => $value, 'landing_page_id' => $id]);
+            if ($input['class'] == 5) {
+                if (in_array($value, [1,2,3,4])) {
+                    LandingPagePeriodRelation::create(['period_id' => $value, 'landing_page_id' => $id]);
+                }
+            } 
+            if ($input['class'] == 9) {
+                if (in_array($value, [5,6,7])) {
+                    LandingPagePeriodRelation::create(['period_id' => $value, 'landing_page_id' => $id]);
+                }
+            }
+            
         }
         $parentName = '';
         if (!empty($input['parent_name'])) {

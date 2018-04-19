@@ -12,6 +12,27 @@
 // Route::get('/test', function(){
 //     return View::make('test_upload');
 // });
+Route::get('/fix_landing', function(){
+    $list = LandingPagePeriodRelation::all();
+    $period5 = [1,2,3,4];
+    $period9 = [5,6,7];
+    foreach ($list as $key => $value) {
+        $landingId = $value->landing_page_id;
+        $landing = LandingPage::find($landingId);
+        $class = $landing->class;
+        if ($class == 5) {
+            LandingPagePeriodRelation::where('landing_page_id', $landingId)
+                ->whereIn('period_id', $period9)
+                ->delete();
+        }
+        if ($class == 9) {
+            LandingPagePeriodRelation::where('landing_page_id', $landingId)
+                ->whereIn('period_id', $period5)
+                ->delete();
+        }
+    }
+    dd(111);
+});
 Route::get('/', 'LandingPageController@index');
 Route::post('/', 'LandingPageController@store');
 Route::get('/thong-ke-landing/export-excel', 'LandingPageController@exportExcel');
