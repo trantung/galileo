@@ -65,6 +65,7 @@ $(document).ready(function(){
 			}
 		});
 	})
+	
 	$(document).on('change', '.re-status', function(){
 		var id = $(this).attr('value'),
                 _this = $(this);  
