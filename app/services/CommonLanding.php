@@ -211,10 +211,16 @@ class CommonLanding
     {
         if( !empty($input['period']) ){
             $data = LandingPage::join('landing_page_relation_periods', 'landing_pages.id', '=', 'landing_page_relation_periods.landing_page_id');
-            $data = $data->where('landing_page_relation_periods.period_id', $input['period']);
+            $data = $data->where('landing_page_relation_periods.period_id', $input['period'])
+                ->whereNull('landing_page_relation_periods.deleted_at');
+            // dd($data->whereNull('landing_page_relation_periods.deleted_at')->select('landing_pages.*')->get()->toArray());
+
         } else {
             $data = LandingPage::orderBy('created_at', 'DESC');
+
         }
+            // dd($data->select('landing_pages.*')->get()->toArray());
+
         if( !empty($input['parent_name']) ){
             $data = $data->where('landing_pages.parent_name', $input['parent_name']);
         }
@@ -224,6 +230,8 @@ class CommonLanding
         }
         if( !empty($input['phone']) ){
             $data = $data->where('landing_pages.phone', 'LIKE', '%'.$input['phone'].'%');
+            // dd($data->select('landing_pages.*')->get()->toArray());
+
         }
         if( !empty($input['email']) ){
 
