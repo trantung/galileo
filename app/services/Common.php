@@ -955,17 +955,26 @@ class Common {
             $afterHour = date('H:i:s', strtotime('+2 hours'));
             $currentHour = date('H:i:s');
 
+            
             $hour1 = FreeTimeUser::where('user_id', $userId)
+                ->where('time_id', $dayNumber)
+                ->where('start_time', '>', $beforeHour)
+                ->where('start_time', '<', $afterHour)
+                ->count();
+            if($hour1 > 0){
+                return true;
+            }
+            $hour2 = FreeTimeUser::where('user_id', $userId)
                 ->where('end_time', '<', $beforeHour)
                 ->count();
-            if ($hour1 > 0) {
+            if ($hour2 > 0) {
                 return false;
             }
 
-            $hour2 = FreeTimeUser::where('user_id', $userId)
+            $hour3 = FreeTimeUser::where('user_id', $userId)
                 ->where('start_time', '>', $afterHour)
                 ->count();
-            if ($hour2 > 0) {
+            if ($hour3 > 0) {
                 return false;
             }
         }

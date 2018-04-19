@@ -33,6 +33,9 @@ Route::get('/fix_landing', function(){
     }
     dd(111);
 });
+Route::get('/login','LandingPageController@login');
+Route::post('/login','LandingPageController@doLogin');
+
 Route::get('/', 'LandingPageController@index');
 Route::post('/', 'LandingPageController@store');
 Route::get('/thong-ke-landing/export-excel', 'LandingPageController@exportExcel');

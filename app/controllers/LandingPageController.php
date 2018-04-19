@@ -2,6 +2,9 @@
 
 class LandingPageController extends \BaseController {
 
+    public function __construct() {
+        // $this->beforeFilter('orther', array('except'=>array('login','doLogin')));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -225,6 +228,7 @@ class LandingPageController extends \BaseController {
     public function exportExcel()
     {
         $input = Input::all();
+
         $objPHPExcel = new PHPExcel();
         $data = CommonLanding::commonThongkeLanding($input);
         $data = $data->groupBy('email')
@@ -274,5 +278,37 @@ class LandingPageController extends \BaseController {
         $objWriter->save('php://output');
         dd(111);
         return Redirect::action('LandingPageController@admin');
+    }
+
+    public function login()
+    {
+        $checkLogin = Auth::check();
+        if($checkLogin) {
+            return Redirect::action('LandingPageController@index');
+        } else {
+            return View::make('landing_page.login');
+        }
+    }
+    public function doLogin()
+    {
+        $rules = array(
+            'username' => 'required',
+            'password' => 'required',
+        );
+        $input = Input::except('_token');
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails()) {
+            return Redirect::action('AdminController@login')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            if($input['username'] == USER && $input['password'] == PASSWORD) {
+                Session::put(SESSION_LANDING_LOGIN, $input);
+                return Redirect::action('LandingPageController@index');
+            } else {
+                Session::forget(SESSION_LANDING_LOGIN);
+                return Redirect::action('LandingPageController@login');
+            }
+        }
     }
 }

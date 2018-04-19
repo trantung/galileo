@@ -33,7 +33,7 @@
                 <td>{{ $value->status }}</td>
                 <td>
                     @if($value->status == 2)
-                        <a href=" {{ action('AskPermissionController@show', $value->id) }} " class="btn btn-primary">Chưa phê duyệt</a>
+                        <a href=" {{ action('AskPermissionController@show', $value->document_id) }} " class="btn btn-primary">Chưa phê duyệt</a>
                     @else  
                         <p class="btn btn-success">Đã Phê duyệt</p>
                     @endif

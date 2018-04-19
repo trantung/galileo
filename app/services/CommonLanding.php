@@ -247,6 +247,13 @@ class CommonLanding
         if( !empty($input['comment']) ){
             $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
         }
+
+        if( !empty($input['start_date']) ){
+            $data = $data->where('created_at', '>=', $input['start_date']);
+        }
+        if( !empty($input['end_date']) ){
+            $data = $data->where('created_at', '<=', $input['end_date']);
+        }
         if( !empty($input['utm_source']) ){
             if ($input['utm_source'] == '-1') {
                 $data = $data->where('utm_source', '');

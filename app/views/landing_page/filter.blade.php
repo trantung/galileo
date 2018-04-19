@@ -48,11 +48,22 @@
             <label>Nguyện vọng thi</label>
             {{ Form::text('comment', Input::get('comment'), ['class' => 'form-control', 'placeholder' => 'nguyện vọng thi trường']) }}
         </div>
-        <div class="input-group inline-block">
+
+        <div class="input-group inline-block col-sm-2">
+            <label>Ngày bắt đầu</label>
+            <input type="date" class="lesson_date form-control" value="" placeholder="Ngày bắt đầu" name="start_date">
+        </div>
+        
+        <div class="input-group inline-block col-sm-2">
+            <label>Ngày kết thúc</label>
+            <input type="timestamps" class="lesson_date form-control" value="{{ Input::get('end_date') }}" placeholder="Ngày kết thúc" name="end_date">
+        </div>
+
+        <div class="input-group inline-block col-sm-2">
             <label>Nguồn</label>
             {{ Form::select('utm_source', CommonLanding::getUtmSource(), Input::get('utm_source'), array('class' => 'form-control')) }}
         </div>
-        <div class="input-group inline-block">
+        <div class="input-group inline-block col-sm-3">
             <label>Phương tiện</label>
             {{ Form::select('utm_medium', CommonLanding::getUtmMedium(), Input::get('utm_medium'), array('class' => 'form-control')) }}
         </div>
