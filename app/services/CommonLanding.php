@@ -216,72 +216,62 @@ class CommonLanding
             $data = LandingPage::orderBy('created_at', 'DESC');
         }
         if( !empty($input['parent_name']) ){
-            $data = $data->where('parent_name', $input['parent_name']);
+            $data = $data->where('landing_pages.parent_name', $input['parent_name']);
         }
 
         if( !empty($input['fullname']) ){
-            $data = $data->where('fullname', $input['fullname']);
+            $data = $data->where('landing_pages.fullname', $input['fullname']);
         }
         if( !empty($input['phone']) ){
-            $data = $data->where('phone', 'LIKE', '%'.$input['phone'].'%');
+            $data = $data->where('landing_pages.phone', 'LIKE', '%'.$input['phone'].'%');
         }
         if( !empty($input['email']) ){
 
-            $data = $data->where('email', 'LIKE', '%'.$input['email'].'%');
+            $data = $data->where('landing_pages.email', 'LIKE', '%'.$input['email'].'%');
         }
         if( !empty($input['address']) ){
-            $data = $data->where('address', $input['address']);
+            $data = $data->where('landing_pages.address', $input['address']);
         }
         if( !empty($input['class']) ){
-            $data = $data->where('class', $input['class']);
+            $data = $data->where('landing_pages.class', $input['class']);
         }
         if( !empty($input['check_subject']) ){
-            $data = $data->where('check_subject', $input['check_subject']);
+            $data = $data->where('landing_pages.check_subject', $input['check_subject']);
         }
         if( !empty($input['status']) ){
-            $data = $data->where('status', $input['status']);
+            $data = $data->where('landing_pages.status', $input['status']);
         }
         if( !empty($input['comment']) ){
-            $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
-        }
-        if( !empty($input['comment']) ){
-            $data = $data->where('comment', 'LIKE', '%'.$input['comment'].'%');
-        }
-
-        if( !empty($input['start_date']) ){
-            $data = $data->where('created_at', '>=', $input['start_date']);
-        }
-        if( !empty($input['end_date']) ){
-            $data = $data->where('created_at', '<=', $input['end_date']);
+            $data = $data->where('landing_pages.comment', 'LIKE', '%'.$input['comment'].'%');
         }
         if( !empty($input['utm_source']) ){
             if ($input['utm_source'] == '-1') {
-                $data = $data->where('utm_source', '');
+                $data = $data->where('landing_pages.utm_source', '');
             } else {
-                $data = $data->where('utm_source', 'LIKE', '%'.$input['utm_source'].'%');
+                $data = $data->where('landing_pages.utm_source', 'LIKE', '%'.$input['utm_source'].'%');
             }
         }
 
         if( !empty($input['utm_medium']) ){
             if ($input['utm_medium'] == '-1') {
-                $data = $data->where('utm_medium', '');
+                $data = $data->where('landing_pages.utm_medium', '');
             } else {
-                $data = $data->where('utm_medium', 'LIKE', '%'.$input['utm_medium'].'%');
+                $data = $data->where('landing_pages.utm_medium', 'LIKE', '%'.$input['utm_medium'].'%');
             }
         }
 
         if( !empty($input['utm_campaign']) ){
             if ($input['utm_campaign'] == '-1') {
-                $data = $data->where('utm_campaign', '');
+                $data = $data->where('landing_pages.utm_campaign', '');
             } else {
-                $data = $data->where('utm_campaign', 'LIKE', '%'.$input['utm_campaign'].'%');
+                $data = $data->where('landing_pages.utm_campaign', 'LIKE', '%'.$input['utm_campaign'].'%');
             }
         }
         if( !empty($input['start_date']) ){
-            $data = $data->where('created_at', '>=', $input['start_date']);
+            $data = $data->where('landing_pages.created_at', '>=', $input['start_date']);
         }
         if( !empty($input['end_date']) ){
-            $data = $data->where('created_at', '<=', $input['end_date']);
+            $data = $data->where('landing_pages.created_at', '<=', $input['end_date']);
         }
         $data = $data->select('landing_pages.*');
         return $data;
