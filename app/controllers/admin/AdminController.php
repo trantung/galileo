@@ -231,6 +231,7 @@ class AdminController extends BaseController {
                     'lesson_id' => Common::getObject($lessonId, 'id'),
                     'status'   =>1
                 ];
+                dd($strArr['type']);
                 if( $uploadSuccess ){     
                     // //kiểm tra là xem lesson_id có bản ghi hay ko 
                     //nếu không có thì kiểm tra file upload là đáp án hay phiếu 
