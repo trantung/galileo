@@ -9,6 +9,7 @@
 Danh sách trình độ
 @stop
 @section('content')
+<a href="{{ action('LevelController@create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm mới trình độ</a>
 <div class="margin-bottom">
     @include('admin.level.filter')
 </div>
@@ -20,7 +21,7 @@ Danh sách trình độ
 				<th>Tên lớp</th>
 				<th>Môn học</th>
 				<th>Số buổi</th>
-				<th>Action</th>
+				<th width ="250px">Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,9 +32,10 @@ Danh sách trình độ
 						<td>{{ $level->name }}</td>
 						<td>{{ Common::getValueOfObject($level, 'classes', 'name') }}</td>
 						<td>{{ Common::getValueOfObject($level, 'subjects', 'name') }}</td>
-						<td>{{ $level->number_lession }}</td>
+						<td>{{ $level->number_lesson }}</td>
 						<td>
 							<a href="{{ action('LevelController@show', $level->id) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> Chi tiết</a>
+							<a href=" {{ action('LevelController@edit', $level->id) }} " class="btn btn-primary"><i class ="fa fa-edit"></i>Sửa</a>
 							{{ Form::open(['action'=>['LevelController@destroy', $level->id], 'method' => 'DELETE', 'class' => 'inline']) }}
 								<button class="btn btn-danger" onclick="return(confirm('Bạn có chắc chắn muốn xóa'));"><i class="glyphicon glyphicon-remove"></i> Xóa</button>
 							{{ Form::close() }}

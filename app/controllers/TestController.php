@@ -327,84 +327,6 @@ class TestController extends AdminController implements AdminInterface {
 		return $str;
 	}
 
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
     public function getVersionDoc()
     {
         $version = '1A';
@@ -421,27 +343,6 @@ class TestController extends AdminController implements AdminInterface {
         if (strstr($fileName, 'pdf')) {
             $fileName = str_replace('.pdf', "", $fileName);
         }
-        // rename($file, $directory.'/'.'PT04_HTA1_01_1A.pdf');
-        // $array = explode("_", $fileName);
-        // $level = 0;
-
-        // foreach ($array as $key => $value) {
-        //     $check = utf8convert($value);
-        //     $check = strtolower($check);
-        //     if (strstr($check, 'nhom')) {
-        //         $level = strtoupper(substr($check, -2));
-        //         $level = 'HT'.$level;
-        //         return $level;
-        //     }
-        //     // if (strstr($check, 'buoi')) {
-        //     //     // dd(111);
-        //     //     $test1 = explode(" ", $check);
-        //     //     if (count($test1) > 0) {
-        //     //         $a = array_search('buoi', $test1);
-        //     //         $lessonCode = $test1[$a+1];
-        //     //     }
-        //     // }
-        // }
         $level = $this->getLevel($fileName);
         $lessonCode = $this->getLessonCode($fileName);
         return $level.'_'.$lessonCode;
@@ -470,15 +371,6 @@ class TestController extends AdminController implements AdminInterface {
             $check = strtolower($check);
             // dd($fileName);
             if (strstr($check, 'bu')) {
-                // $lessonCode = substr($check, -2);
-                // dd($check);
-                // if (intval($lessonCode) > 0) {
-                //     if (intval($lessonCode) < 10) {
-                //         return '0'.intval($lessonCode);
-                //     }
-                //     return $lessonCode;
-                // }
-                // dd($fileName.'____'.$check);
                 $test1 = explode("-", $check);
                 if (count($test1) > 0) {
                     $a = array_search('bu', $test1);

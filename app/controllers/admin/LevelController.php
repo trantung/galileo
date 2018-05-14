@@ -39,7 +39,7 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.level.form_create_edit')->with(['data' => null]);
 	}
 
 
@@ -50,7 +50,46 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function store()
 	{
-		//
+		$data = Input::all();
+		// lấy subject_class_id để lưu vào bảng level
+		$class = ClassModel::where('id', $data['class_id'])->first();
+            $subject = Subject::where('id', $data['subject_id'])->first();
+            if (!$class || !$subject) {
+                dd('sai');
+            }
+            $classId = $class->id;
+            $subjectId = $subject->id;
+		$subjectClass = SubjectClass::where('class_id', $classId)
+                ->where('subject_id', $subjectId)
+                ->first();
+            if (!$subjectClass) {
+                dd('thieu class hoac subject');
+            }
+            $subjectClassId = $subjectClass->id;
+        $field = [
+        	'code' => $data['code'],
+        	'name' => $data['name'],
+        	'class_id' => $data['class_id'],
+        	'subject_id' => $data['subject_id'],
+        	'number_lesson' => $data['number_lesson'],
+        	'subject_class_id' => $subjectClassId
+        ];
+		$level = Level::create($field);
+        // Lấy số buổi học của trình độ
+		$numberLesson = $data['number_lesson'];
+            for ($i=0; $i < $numberLesson; $i++) { 
+                $code = $i + 1;
+                $input = [
+                    'level_id' => $level->id,
+                    'subject_id' => $data['subject_id'],
+                    'class_id' => $data['class_id'],
+                    'name' => 'Buổi '. $code,
+                    'code' => $code,
+                    'status' => 1,
+                ];
+                Lesson::create($input);
+            }
+		return Redirect::action('LevelController@index');
 	}
 
 
@@ -76,8 +115,10 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = Level::findOrFail($id);
+		return View::make('admin.level.form_create_edit')->with(compact('data'));
 	}
+	
 
 
 	/**
@@ -88,7 +129,29 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function update($id)
 	{
-		//
+		$data = Level::findOrFail($id);
+		$input = Input::only(['name', 'number_lesson']);
+		$numberData = $data->number_lesson;
+		if($input['number_lesson'] <= $numberData)
+		{
+			return Redirect::back()->withInput($input)->withMessage('Số buổi học chỉ được phép tăng. Số buổi phải lớn hơn số hiện tại!');
+		}
+
+		$level = CommonNormal::update($id, $input, 'Level');
+
+		$numberInput = $input['number_lesson'];
+		for ( $i = $numberData + 1 ; $i <= $numberInput ; $i++) { 
+            $field = [
+                'level_id' => $id,
+                'subject_id' => $data['subject_id'],
+                'class_id' => $data['class_id'],
+                'name' => 'Buổi '. $i,
+                'code' => $i,
+                'status' => 1,
+            ];
+            Lesson::create($field);
+        }
+		return Redirect::action('LevelController@index')->withMessage('Cập nhật thành công!');
 	}
 
 
@@ -100,7 +163,8 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function destroy($id)
 	{
-		//
+		Level::find($id)->delete();
+		return Redirect::action('LevelController@index');	
 	}
 
 
