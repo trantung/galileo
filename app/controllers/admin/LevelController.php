@@ -50,22 +50,30 @@ class LevelController extends AdminController implements AdminInterface {
 	 */
 	public function store()
 	{
-		$data = Input::all();
+		$data = Input::except('_token');
 		// lấy subject_class_id để lưu vào bảng level
 		$class = ClassModel::where('id', $data['class_id'])->first();
-            $subject = Subject::where('id', $data['subject_id'])->first();
-            if (!$class || !$subject) {
-                dd('sai');
-            }
-            $classId = $class->id;
-            $subjectId = $subject->id;
+        $subject = Subject::where('id', $data['subject_id'])->first();
+        $rules = array(
+            'class_id' => 'required',
+            'subject_id' => 'required',
+            'code' => 'required'
+        );
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) {
+            return Redirect::action('LevelController@create')
+                ->withErrors($validator)
+                ->withInput(Input::except('class_id', 'subject_id', 'code'));
+        } 
+        $classId = $class->id;
+        $subjectId = $subject->id;
 		$subjectClass = SubjectClass::where('class_id', $classId)
                 ->where('subject_id', $subjectId)
                 ->first();
-            if (!$subjectClass) {
-                dd('thieu class hoac subject');
-            }
-            $subjectClassId = $subjectClass->id;
+        if (!$subjectClass) {
+            dd('thieu class hoac subject');
+        }
+        $subjectClassId = $subjectClass->id;
         $field = [
         	'code' => $data['code'],
         	'name' => $data['name'],
