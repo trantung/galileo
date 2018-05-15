@@ -192,75 +192,88 @@ class AdminController extends BaseController {
                 }
                 $file_name = $file->getClientOriginalName();
                 $nameArray = basename($file_name, '.pdf');   //  bỏ đuôi file
-                if( Document::where('code', $nameArray)->count() > 0 ){
 
-                    $ob = Document::where('code', $nameArray)->first();
+                /// Lay hoc lieu theo ma phieu = ten file
+                $ob = Document::where('code', $nameArray)->first();
+                if( !empty($ob) ){
+
                     $fileUrl = $ob->file_url;
                     $re_nameArray = rename(public_path().$fileUrl, public_path().$fileUrl.'_'.$now);
 
-                    // $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';
-                    // continue;
+                    $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';
+                    continue;
                 }
-
+                // dd($ob);
 
                 $strArr = Common::explodeDocumentName($nameArray);
-                // dd($strArr['type']);
-                $lessonId = Lesson::where('code', (int)$strArr['lesson_code'])->first();
-                $classId = ClassModel::where('code', (int)$strArr['class_code'])->first();
-                $subjectId = Subject::where('code', $strArr['subject_code'])->first();
-                $levelId = Level::where('code', $strArr['level_code'])->first();
-                if( empty(Common::getObject($lessonId, 'id'))
-                    | empty(Common::getObject($classId, 'id'))
-                    | empty(Common::getObject($subjectId, 'id'))
-                    | empty(Common::getObject($levelId, 'id')) ){
+
+                ///// Lay mon va lop theo ten file
+                $classId = Common::getObject(ClassModel::where('code', (int)$strArr['class_code'])->first(), 'id');
+                $subjectId = Common::getObject(Subject::where('code', $strArr['subject_code'])->first(), 'id');
+                
+                ////// Lay ID trinh do theo subject, class & ten file
+                $level = Level::where('code', $strArr['level_code'])
+                    ->where('class_id', $classId)
+                    ->where('subject_id', $subjectId)
+                    ->first();
+                $levelId = Common::getObject($level, 'id');
+
+                ////// Lay ID buoi hoc theo subject, class, level & ten file
+                $lesson = Lesson::where('code', (int)$strArr['lesson_code'])
+                    ->where('class_id', $classId)
+                    ->where('subject_id', $subjectId)
+                    ->where('level_id', $levelId)
+                    ->first();
+                $lessonId = Common::getObject($lesson, 'id');
+
+                if( empty($subjectId) | empty($classId) | empty($levelId) | empty($lessonId) | !in_array($strArr['type'], ['P', 'D']) ){
                     $error .= 'Học liệu '. $nameArray .' không đúng định dạng tên!<br>';
                     continue;
                 }
 
                 $link = $strArr['subject_code'].'/'.$strArr['class_code'].'/'.$strArr['level_code'].'/'.$strArr['lesson_code'].'/';
                 $linkDefault = DOCUMENT_UPLOAD_DIR.$link;
-                $filee = public_path().'/'.$linkDefault;
+                $filee = public_path().$linkDefault;
                 $uploadSuccess = $file->move($filee, $file_name);
-                $field = [
-                    'file_url' => $linkDefault.$file_name,
-                    'type_id'  => ($strArr['type'] == 'P') ? P : D,
-                    'code'     => $nameArray,
-                    'class_id' => Common::getObject($classId, 'id'),
-                    'subject_id' => Common::getObject($subjectId, 'id'),
-                    'level_id' => Common::getObject($levelId, 'id'),
-                    'lesson_id' => Common::getObject($lessonId, 'id'),
-                    'status'   =>1
-                ];
-                dd($strArr['type']);
-                if( $uploadSuccess ){     
-                    // //kiểm tra là xem lesson_id có bản ghi hay ko 
-                    //nếu không có thì kiểm tra file upload là đáp án hay phiếu 
-                    //nếu là đáp án thfi parent_id = null //nếu là phiếu thì parent_id = documentId 
+
+                if( $uploadSuccess ){
+                    //Kiểm tra file upload là đáp án hay phiếu 
+                    //nếu là đáp án thi parent_id = null //nếu là phiếu thì parent_id = documentId 
                     //nếu có thì xem record là phiếu hay đáp án 
                     //nếu là phiếu thì fileupload chắc chắn phải là đáp án->update parent_id của file upload là id của recored 
                     // nếu là đáp án thì fileupload chắc chắn phải là phiếu->update parent_id của fileupload là id vừa tạo và update parent_id của record = id của fileupload 
-                     // if( Document::where('code', $nameArray)->count() == 0 ){
-                    if(Document::where('lesson_id', $strArr['lesson_code'])->count() == 0){
-                        if($strArr['type'] == 'P'){
-                            $documentId = Document::create($field)->id;
-                            Document::find($documentId)->update(['parent_id' => $documentId]);
-                        }
-                        if($strArr['type'] == 'D'){
-                            $documentId = Document::create($field)->id;
-                            Document::find($documentId)->update(['parent_id' => null]);
-                        }
-                    }
-                    else{ 
-                        if( $check = Document::where('code', $nameArray)->first() ){
-                            if($check->type_id == 1){
-                                $documentD = Document::create($field);
-                                Document::find($documentD->id)->update(['parent_id' => $check->id]);
-                            }
-                            if($check->type_id == 2){
-                                $documentP = Document::create($field);
-                                Document::find($documentP->id)->update(['parent_id' => $documentP->id]);
-                                Document::find($check->id)->update(['parent_id' => $documentP->id]);
-                            }
+
+                    $field = [
+                        'file_url'      => $linkDefault.$file_name,
+                        'type_id'       => ($strArr['type'] == 'P') ? P : D,
+                        'code'          => $nameArray,
+                        'class_id'      => $classId,
+                        'subject_id'    => $subjectId,
+                        'level_id'      => $levelId,
+                        'lesson_id'     => $lessonId,
+                        'status'        => 1
+                    ];
+                        
+                    $documentId = CommonNormal::create($field, 'Document');
+                    if( $field['type_id'] == P ){
+                        /* 
+                         * Neu tai lieu vua upload là phieu cau hoi
+                         * Thi kiem tra xem Dap an da co hay chua
+                         * Lay Id cua Phieu lam parent id
+                         */
+                        CommonNormal::update($documentId, ['parent_id' => $documentId], 'Document');
+                        Document::where( 'code', preg_replace('/P/', 'D', $nameArray, 1) )
+                            ->update(['parent_id' => $documentId]);
+                    } else{
+                        /* 
+                         * Neu tai lieu vua upload là Dap an
+                         * Thi kiem tra xem Phieu cau hoi da co hay chua
+                         * Lay Id cua Phieu cau hoi do lam parent id
+                         */
+                        $documentP = Document::where( 'code', preg_replace('/D/', 'P', $nameArray, 1) )->first();
+                        if( $documentP ){
+                            $documentP->update(['parent_id' => $documentP->id]);
+                            CommonNormal::update($documentId, ['parent_id' => $documentP->id], 'Document');
                         }
                     }
                 }
