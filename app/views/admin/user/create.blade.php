@@ -36,17 +36,17 @@ Tạo mới thành viên
         <div class="panel-heading">
             <h3 class="panel-title">Thông tin thành viên</h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body row">
             @foreach (Common::getAllCenter() as $centerId => $center)
                 <?php $listData = Common::getClassSubjectLevelOfCenter($centerId); ?>
-                <div class="form-group checkbox">
+                <div class="form-group checkbox col-sm-6 margin0">
                     <label for="center-{{ $centerId }}">
                         {{ Form::checkbox('center_id', $centerId, false, ['id' => 'center-'.$centerId] ) . $center }}
                     </label>
 
                     <div class="get-list-level-by-center-wrap">
                         @include('ajax.get_level_by_center', $listData+['centerId' => $centerId])
-                    </div>
+                    </div><hr>
                 </div>
             @endforeach
         </div>

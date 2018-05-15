@@ -74,7 +74,7 @@ class Common {
             'listSubjects' => [],
             'listLevels'    => [],
         ];
-        if( count($levelsObject->levels) ){
+        if( $levelsObject && count($levelsObject->levels) ){
             foreach ($levelsObject->levels as $level) {
                 $arr['listLevels'][] = $level->id;
                 if( !isset($arr['listClasses'][$level->class_id]) ){
@@ -92,13 +92,16 @@ class Common {
      * Lay danh sach Level cua 1 mon hoc thuoc 1 lop, tra ve 1 mang
      */
     public static function getLevelBySubject($classId, $subjectId){
-        $subjectClass = SubjectClass::where('class_id', '=', $classId)->where('subject_id', '=', $subjectId)->first();
-        $subjectClassId = Common::getObject($subjectClass, 'id');
-        if( $subjectClassId ){
-            $levels = Level::select('id', 'name')->where('subject_class_id', '=', $subjectClassId)->get();
-            return $levels;
+        if( !Session::has('level_subject_class_'.$subjectId.'_'.$classId) ){
+            $levels = Level::select('id', 'name')
+                ->where('subject_id', '=', $subjectId)
+                ->where('class_id', '=', $classId)->get();
+            if($levels == null){
+                $levels = [];
+            }
+            Session::put('level_subject_class_'.$subjectId.'_'.$classId, $levels, 100);
         }
-        return [];
+        return Session::get('level_subject_class_'.$subjectId.'_'.$classId);
     }
 
     /**
@@ -376,12 +379,26 @@ class Common {
 
     public static function getClassList()
     {
-        return ClassModel::orderBy('created_at', 'desc')->lists('name','id');
+        if( !Session::has('all_class_list') ){
+            Session::put('all_class_list', ClassModel::orderBy('created_at', 'desc')->lists('name','id'), 60);
+        }
+        return Session::get('all_class_list');
+    }
+
+    public static function getAllClass()
+    {
+        if( !Session::has('get_class_list') ){
+            Session::put('get_class_list', ClassModel::all(), 60);
+        }
+        return Session::get('get_class_list');
     }
 
     public static function getSubjectList()
     {
-        return Subject::orderBy('created_at', 'desc')->lists('name','id');
+        if( !Session::has('all_subject_list') ){
+            Session::put('all_subject_list', Subject::orderBy('created_at', 'desc')->lists('name','id'), 60);
+        }
+        return Session::get('all_subject_list');
     }
 
     public static function getLevelDropdownList($name, $default = null, $classId = null, $subjectId = null)
@@ -979,5 +996,16 @@ class Common {
             }
         }
         return true;
+    }
+
+
+    /**
+     * Get list Level via session
+     */
+    public static function getListLevel(){
+        if( !Session::has('list_all_level') ){
+            Session::put('list_all_level', Level::lists('name', 'id'), 30 );
+        }
+        return Session::get('list_all_level');
     }
 }

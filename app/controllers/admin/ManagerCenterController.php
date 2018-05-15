@@ -24,9 +24,9 @@ class ManagerCenterController extends AdminController implements AdminInterface{
      */
     public function create()
     {
-        $listClasses = ClassModel::all();
+        $listClasses = Common::getAllClass();
         $listPartners = Partner::lists('name', 'id');
-        $listLevels = Level::lists('name', 'id');
+        $listLevels = [];
         return View::make('admin.center.create')->with(compact('listPartners', 'listClasses', 'listLevels'));
     }
 
