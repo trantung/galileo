@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="center_id">Trung tâm <span class="text-danger">(*)</span></label>
-                                {{ Form::select('center_id', ['' => '-- chọn --'] + $center, Common::getObject($student->centers, 'name'), array('class' => 'form-control' )) }}
+                                {{ Form::select('center_id', ['' => '-- chọn --'] + $center, $student->center_id, array('class' => 'form-control' )) }}
                             </div>
                             <div class="form-group">
                                 <label for="date_study">Ngày nhập học</label>

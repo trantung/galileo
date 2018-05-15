@@ -89,6 +89,27 @@ class Common {
     }
 
     /**
+     * Lay danh sach Class, Subject, Level cua 1 trung tam
+     */
+    public static function getClassSubjectLevel(){
+        $arr = [
+            'listClasses' => [],
+            'listSubjects' => [],
+            'listLevels'    => [],
+        ];
+        foreach (self::getAllLevel() as $level) {
+            $arr['listLevels'][] = $level->id;
+            if( !isset($arr['listClasses'][$level->class_id]) ){
+                $arr['listClasses'][$level->class_id] = $level->classes;
+            }
+            if( !isset($arr['listSubjects'][$level->subject_id]) ){
+                $arr['listSubjects'][$level->subject_id] = $level->subjects;
+            }
+        }
+        return $arr;
+    }
+
+    /**
      * Lay danh sach Level cua 1 mon hoc thuoc 1 lop, tra ve 1 mang
      */
     public static function getLevelBySubject($classId, $subjectId){
@@ -674,16 +695,22 @@ class Common {
     }
     public static function getCenterByUser($userId)
     {
-       $centerLevel = UserCenterLevel::where('user_id', $userId)
-            ->groupBy('center_level_id')
-            ->lists('center_level_id');
-        $listCenter = CenterLevel::whereIn('id', $centerLevel)->groupBy('center_id')->lists('center_id');
-        $name = '';
-        foreach ($listCenter as $key => $value) {
-            $center = Center::find($value);
-            $name .= $name.$center->name.',';
+        $user = User::find($userId);
+        $name = [];
+        if( $user && count($user->centers) ){
+            foreach ($user->centers as $key => $center) {
+                $name[] = $center->name;
+            }
         }
-        return $name;
+        return implode($name, ', ');
+    }
+
+    public static function getCenterOfLoggedUser(){
+        if( Auth::user()->check() ){
+            $user = Auth::user()->get();
+            return $user->centers()->lists('center_id');
+        }
+        return null;
     }
 
     public static function getNameGender($gender)
@@ -1007,5 +1034,15 @@ class Common {
             Session::put('list_all_level', Level::lists('name', 'id'), 30 );
         }
         return Session::get('list_all_level');
+    }
+
+    /**
+     * Get list Level via session
+     */
+    public static function getAllLevel(){
+        if( !Session::has('get_all_level') ){
+            Session::put('get_all_level', Level::all(), 30 );
+        }
+        return Session::get('get_all_level');
     }
 }

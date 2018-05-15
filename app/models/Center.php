@@ -22,8 +22,13 @@ class Center extends Eloquent {
     public function levels() 
     {
         return $this->belongsToMany('Level', 'center_level', 'center_id', 'level_id');
-
     }
+
+    public function users() 
+    {
+        return $this->belongsToMany('User', 'user_center', 'center_id', 'user_id');
+    }
+
     public function partner() 
     {
         return $this->belongsTo('Partner', 'partner_id');
