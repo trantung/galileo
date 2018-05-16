@@ -1,6 +1,4 @@
 <?php
-define('ADMIN', 1);
-define('BTV', 2);
 define('PAGINATE',20);
 
 define('DOCUMENT_UPLOAD_DIR', '/uploads/documents/');
@@ -23,6 +21,12 @@ define('CVHT', 4);
 define('SALE', 5);
 //kế toán
 define('KT', 6);
+
+define('ADMIN', 7);
+define('BTV', 8);
+define('DEV', 9);
+
+define('PARTNER', 9);
 /*
 thể loại câu hỏi, đáp án
 */

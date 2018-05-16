@@ -480,3 +480,135 @@ function getDevice($device = null)
         return COMPUTER;
     }
 }
+
+
+//////////////////////////////// permission ////////////////////////////////////////
+function currentUser(){
+    $user = false;
+    if( Auth::admin()->check() ){
+        $user = Auth::admin()->get();
+        $user->model = 'Admin';
+    }
+    else if( Auth::user()->check() ){
+        $user = Auth::user()->get();
+        $user->model = 'User';
+    }
+    else if( Auth::partner()->check() ){
+        $user = Auth::partner()->get();
+        $user->model = 'Partner';
+    }
+    return $user;
+}
+
+function hasRoleAccess($role, $permission){
+    $permissions = RolePermission::where('role_slug', $role)->where('permission', $permission)->count();
+    if( $permissions > 0 ){
+        return true;
+    }
+    return false;
+}
+
+function userAccess($permission, $user = null){
+    if( $user == null ){
+        $user = currentUser();
+    }
+    if( hasRole(ADMIN, $user) | hasRole(DEV, $user) ){
+        return true;
+    }
+    $permissions = RolePermission::where('role_slug', Common::getObject($user->role, 'code'))->where('permission', $permission)->count();
+    if( $permissions > 0 ){
+        return true;
+    }
+    return false;
+}
+
+function hasRole($roleName, $user = null){
+    if( $user == null ){
+        $user = currentUser();
+    }
+    if( !$user ){
+        return false;
+    }
+    if ( $user->role_id == $roleName ){
+        return true;
+    }
+    return false;
+}
+
+function renderUrl($action, $title, $parameter = [], $attributes = []){
+    $link = '<a href="'.action($action, $parameter).'"'.HTML::attributes($attributes).'>'.$title.'</a>';
+    $user = currentUser();
+    if( !$user ){
+        return false;
+    }
+    if( hasRole(ADMIN, $user) ){
+        return $link;
+    }
+
+    $checkPermission = false;
+    foreach (getAllPermissions() as $permission => $value) {
+        if( userAccess($permission, $user) && in_array($action, $value['accept']) ){
+            $checkPermission = $value['accept'];
+            break;
+        }
+    }
+    if( $checkPermission ){
+        return $link;
+    }
+    return false;
+}
+
+function getAllPermissions(){
+    return [
+        'admin.manage' => [
+            'name' => 'Quản trị hệ thống',
+            'description' => 'Bao gồm các quyền quản lý đối tác, quản lý trung tâm, quản lý nhân viên, quản lý môn học, lớp học, quản lý thành viên quản trị, Quản lý số lượt tải & lịch sử tải học liệu',
+            'accept' => ['AdminController', 'QuantityDownloadController', 'AskPermissionController', 'ManagerPartnerController', 'ClassController', 'SubjectController', 'ManagerCenterController', 'ManagerUserController'],
+        ],
+        'student.manage' => [
+            'name' => 'Quản lý học sinh',
+            'description' => 'Quản lý tất cả học sinh của tất cả các trung tâm',
+            'accept' => ['StudentController'],
+        ],
+        'student.manage.own' => [
+            'name' => 'Quản lý học sinh trong trung tâm',
+            'description' => 'Chỉ quản lý học sinh trong trung tâm của mình',
+            'accept' => ['StudentController'],
+            'callback_function' => '_student_manage_own_center',
+        ],
+        'student.manage.own.create' => [
+            'name' => 'Thêm mới hồ sơ học sinh trong trung tâm',
+            'description' => 'Tạo mới hồ sơ học sinh trong trung tâm của mình',
+            'accept' => ['StudentController@create', 'StudentController@store'],
+            'callback_function' => '_student_create_own_center',
+        ],
+        'student.manage.own.edit' => [
+            'name' => 'Chỉnh sửa hồ sơ học sinh trong trung tâm',
+            'description' => 'Chỉnh sửa hồ sơ học sinh bất kỳ trong trung tâm của mình',
+            'accept' => ['StudentController@edit', 'StudentController@update'],
+            'callback_function' => '_student_edit_own_center',
+        ],
+
+        'content.manage' => [
+            'name' => 'Quản trị nội dung',
+            'description' => 'Bao gồm các quyền quản lý trình độ, quản lý học liệu, upload tài liệu',
+            'accept' => ['LevelController', 'DocumentController', 'AdminController@getUploadFile', 'AdminController@postUploadFile', 'ScheduleController'],
+        ],
+        'schedule.manage' => [
+            'name' => 'Quản lý lịch học',
+            'description' => 'Bao gồm các quyền quản lý gói học, quản lý lịch học & khóa học',
+            'accept' => ['PackageController', 'ScheduleController'],
+        ],
+        'schedule.create' => [
+            'name' => 'Tạo mới lịch học',
+            'description' => 'Được phép tạo mới lịch học',
+            'accept' => ['ScheduleController@create', 'ScheduleController@store'],
+        ],
+        'schedule.create' => [
+            'name' => 'Tạo mới lịch học',
+            'description' => 'Được phép tạo mới lịch học',
+            'accept' => ['ScheduleController'],
+        ],
+
+    ];
+}

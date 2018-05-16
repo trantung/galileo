@@ -180,6 +180,16 @@ class Common {
         return false;
     }
 
+    public static function getRoleAdmin()
+    {
+        $list = [
+            DEV => 'Nhà phát triển',
+            ADMIN => 'Quản trị viên',
+            BTV => 'Biên tập viên',
+        ];
+        return $list;
+    }
+
     public static function getRoleUser()
     {
         $list = [
@@ -1044,5 +1054,14 @@ class Common {
             Session::put('get_all_level', Level::all(), 30 );
         }
         return Session::get('get_all_level');
+    }
+
+    public static function getRoles()
+    {
+        $list = Role::lists('name', 'code');
+        if( count($list) == 0 ){
+            return self::getRoleAdmin() + self::getRoleUser();
+        }
+        return $list;
     }
 }

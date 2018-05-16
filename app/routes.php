@@ -179,8 +179,18 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('administrator/{id}/reset', 'AdminController@getResetPass');
     Route::post('/administrator/{id}/reset', 'AdminController@postResetPass');
     //Quản lý phân quyền
-    Route::resource('/permission/group', 'PermissionGroupController');
+
+    // Route::get('/role', 'PermissionController@listRole');
+    // Route::get('/role/create', 'PermissionController@createRole');
+    // Route::post('/role/create', 'PermissionController@storeRole');
+    // Route::delete('/role/{role}', 'PermissionController@destroyRole');
+
+    Route::get('/permission/{role}', 'PermissionController@editRole');
+    Route::put('/permission/{role}', 'PermissionController@updateRole');
     Route::resource('/permission', 'PermissionController');
+
+    // Route::resource('/permission/group', 'PermissionGroupController');
+    // Route::resource('/permission', 'PermissionController');
 
     //
     Route::resource('administrator', 'AdminController');
