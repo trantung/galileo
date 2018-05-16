@@ -11,7 +11,7 @@
 
 	<div class="row margin-bottom">
 		<div class="col-xs-12">
-			<a href="{{ action('ManagerController@create') }}" class="btn btn-primary">Thêm thành viên</a>
+			<a href="{{ action('ManagerController@create') }}" class="btn btn-primary fa fa-plus"> Thêm thành viên</a>
 		</div>
 	</div>
 
@@ -39,10 +39,10 @@
 				  <td>{{ $value->updated_at }}</td>
 				  <td>
 					{{-- <a href="#" class="btn btn-success">Xem</a> --}}
-					<a href="{{action('ManagerController@changePassword', $value->id) }}" class="btn btn-primary">Change Pass</a>
+					<a href="{{action('ManagerController@changePassword', $value->id) }}" class="btn btn-primary fa fa-exchange"> Change Password</a>
 					<a href="{{ action('ManagerController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+					<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
 					{{ Form::close() }}
 
 				  </td>

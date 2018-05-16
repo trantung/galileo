@@ -12,7 +12,7 @@ Chi tiết trình độ | {{ $data->name.', '.$data->subjects->name.', '.$data->
 
 @section('content')
 	<div class="margin-bottom">
-		<a href="{{ action('LevelController@index') }}" class="btn btn-primary">Danh sách trình độ</a>
+		<a href="{{ action('LevelController@index') }}" class="btn btn-primary"><i class = "fa fa-list-ul"></i> Danh sách trình độ</a>
 	</div>
 <div class="panel panel-default">
 	<div class="panel-body">

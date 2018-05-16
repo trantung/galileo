@@ -4,7 +4,7 @@
 @stop
 @section('content')
 
-<a href="{{ action('LevelController@index') }}" class="btn btn-primary">Danh sách trình độ</a>
+<a href="{{ action('LevelController@index') }}" class="btn btn-primary"><i class = "fa fa-list-ul"></i> Danh sách trình độ</a>
 <hr>
 <div class="row">
     <div class="col-sm-12">

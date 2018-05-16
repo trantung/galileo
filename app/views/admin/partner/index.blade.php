@@ -6,7 +6,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ManagerPartnerController@create') }}" class="btn btn-primary">Thêm mới đối tác</a>
+		<a href="{{ action('ManagerPartnerController@create') }}" class="btn btn-primary fa fa-plus"> Thêm mới đối tác</a>
 	</div>
 </div>
 <div class="row">
@@ -32,10 +32,10 @@
 			  <td>{{ $partner->email }}</td>
 			  <td>{{ $partner->phone }}</td>
 			  <td>
-				<a href=" {{ action('ManagerPartnerController@edit', $partner->id) }} " class="btn btn-primary">Sửa</a>
-				<a href=" {{ action('ManagerPartnerController@getResetPass', $partner->id) }} " class="btn btn-primary">Reset password</a>
+				<a href=" {{ action('ManagerPartnerController@edit', $partner->id) }} " class="btn btn-primary fa fa-edit"> Sửa</a>
+				<a href=" {{ action('ManagerPartnerController@getResetPass', $partner->id) }} " class="btn btn-primary fa fa-exchange"> Reset password</a>
 				{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerPartnerController@destroy', $partner->id), 'style' => 'display: inline-block;')) }}
-					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+					<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
 				{{ Form::close() }}
 			  </td>
 			</tr>

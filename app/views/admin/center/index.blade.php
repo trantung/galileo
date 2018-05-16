@@ -7,7 +7,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ManagerCenterController@create') }}" class="btn btn-primary">Thêm mới trung tâm</a>
+		<a href="{{ action('ManagerCenterController@create') }}" class="btn btn-primary fa fa-plus"> Thêm mới trung tâm</a>
 	</div>
 </div>
 <div class="row">
@@ -37,9 +37,9 @@
 			  <td>{{ $center->phone }}</td>
 			  <td>{{ $center->address }}</td>
 			  <td>
-				<a href=" {{ action('ManagerCenterController@edit', $center->id) }} " class="btn btn-primary">Sửa</a>
+				<a href=" {{ action('ManagerCenterController@edit', $center->id) }} " class="btn btn-primary fa fa-edit"> Sửa</a>
 				{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerCenterController@destroy', $center->id), 'style' => 'display: inline-block;')) }}
-					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+					<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
 				{{ Form::close() }}
 			  </td>
 			</tr>

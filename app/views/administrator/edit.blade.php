@@ -7,7 +7,7 @@
 
 <div class="row margin-bottom">
   <div class="col-xs-12">
-    <a href="{{ action('AdminController@index') }}" class="btn btn-success">Danh sách Admin</a>
+    <a href="{{ action('AdminController@index') }}" class="btn btn-primary fa fa-list-ul"> Danh sách Admin</a>
   </div>
 </div>
 

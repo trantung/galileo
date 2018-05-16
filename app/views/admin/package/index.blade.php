@@ -14,7 +14,7 @@
 			<th>Thời gian mỗi buổi học</th>
 			<th>Giá tiền một buổi học</th>						
 			<th>Số học sinh học</th>		
-			<th width="120px"> Action</th>
+			<th width="180px"> Action</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
@@ -24,10 +24,10 @@
 			<td>{{ $value->duration }}</td>
 			<td>{{ $value->price }}</td>			
 			<td>{{ $value->max_student }}</td>
-			<td><a href="{{ action('PackageController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+			<td><a href="{{ action('PackageController@edit', $value->id) }}" class="btn btn-primary fa fa-edit"> Sửa</a>
 			
 			   {{ Form::open(['action' => ['PackageController@destroy', $value->id], 'method' => 'DELETE','style' => 'display: inline-block;']) }}
-	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+	           <button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
 	           {{ Form::close() }}
 			</td>
 		

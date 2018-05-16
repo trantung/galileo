@@ -6,10 +6,10 @@
 @section('content')
     <!-- Bo loc -->
     
-    <a href="{{ action('QuantityDownloadController@create') }}" class="btn btn-primary">Thêm bản ghi</a>
-    <a href="{{ action('QuantityDownloadController@getChangeGV') }}" class="btn btn-danger" style="margin-left: 10px"> Thay đổi theo GV</a>
-    <a href="{{ action('QuantityDownloadController@getChangePTCM') }}" class="btn btn-danger">Thay đổi theo PTCM</a>
-    <a href="{{ action('QuantityDownloadController@getChangeCVHT') }}" class="btn btn-danger">Thay đổi theo CVHT</a>
+    <a href="{{ action('QuantityDownloadController@create') }}" class="btn btn-primary fa fa-plus"> Thêm bản ghi</a>
+    <a href="{{ action('QuantityDownloadController@getChangeGV') }}" class="btn btn-info fa fa-exchange" style="margin-left: 10px"> Thay đổi theo GV</a>
+    <a href="{{ action('QuantityDownloadController@getChangePTCM') }}" class="btn btn-info fa fa-exchange"> Thay đổi theo PTCM</a>
+    <a href="{{ action('QuantityDownloadController@getChangeCVHT') }}" class="btn btn-info fa fa-exchange"> Thay đổi theo CVHT</a>
     <div class="margin-bottom">
         @include('admin.download.filter')
     </div>
