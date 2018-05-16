@@ -135,22 +135,22 @@
                         <div class=" center">
                             <div  class="float_left">
                                 <div class="check_address">
-                                    <input  id= "radio" type="radio" name ="address" value="1" required>
-                                    <label for="radio"><span class="span1"></span> <b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
+                                    <input  id= "radio1" type="radio" name ="address" value="1" required>
+                                    <label for="radio1"><span class="span1"></span> <b>Cơ sở 1: Tòa nhà 25T2 Nguyễn Thị Thập, Trung Hòa, Cầu Giấy, Hà Nội;</b></label>
                                 </div>
                                 <div class="check_address">
-                                    <input  id= "radio1" type="radio" name ="address" value="2" >
-                                    <label for="radio1"><span ></span>   <b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
+                                    <input  id= "radio2" type="radio" name ="address" value="2" >
+                                    <label for="radio2"><span ></span>   <b>Cơ sở 2: 79 Văn Phúc, Văn Quán, Hà Đông, Hà Nội;</b></label>
                                 </div>
                             </div>
                         <div class="float_left">
                             <div class="check_address" >
-                                <input  id= "radio2"type="radio" name ="address" value="3" >
-                                <label for="radio2"> <span></span> <b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
+                                <input  id= "radio3"type="radio" name ="address" value="3" >
+                                <label for="radio3"> <span></span> <b>Cơ sở 3: 19D TT5 Khu đô thị Tây Nam Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội;</b></label>
                             </div>
                             <div class="check_address">
-                                <input id= "radio3" type="radio" name ="address" value="4" >
-                                <label for="radio3"><span class="span2"></span>  <b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội. </b> </label>
+                                <input id= "radio4" type="radio" name ="address" value="4" >
+                                <label for="radio4"><span class="span2"></span>  <b>Cơ sở 4: T11SO02 chung cư T11 Times City, 458 Minh Khai, Hai Bà Trưng, Hà Nội. </b> </label>
                             </div>
                         </div>
                         </div><!-- end dang ký thi -->
@@ -241,10 +241,12 @@
     })
     function showDiv(elem){
         if(elem.value == 5) {
+            document.getElementById('radio3').parentElement.style.display = "block";
             document.getElementById('class5').style.display = "block";
             document.getElementById('class9').style.display = "none";
         }
         if(elem.value == 9) {
+            document.getElementById('radio3').parentElement.style.display = "none";
             document.getElementById('class9').style.display = "block";
             document.getElementById('class5' ).style.display = "none";
         }
