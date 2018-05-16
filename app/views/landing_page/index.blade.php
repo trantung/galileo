@@ -510,10 +510,12 @@
     function showDiv(elem){
         if(elem.value == 5) {
             console.log(1133);
+            document.getElementById('radio3').parentElement.style.display = "block";
             document.getElementById('class5').style.display = "block";
             document.getElementById('class9').style.display = "none";
         }
         if(elem.value == 9) {
+            document.getElementById('radio3').parentElement.style.display = "none";
             document.getElementById('class9').style.display = "block";
             document.getElementById('class5').style.display = "none";
         }
