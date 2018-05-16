@@ -25,7 +25,7 @@
 			  <th>Email</th>
 			  <th>Phân quyền học liệu</th>
 			  <th>Lịch cố vấn</th>
-			  <th>Action</th>
+			  <th>Sửa/Xóa</th>
 			  <th>Thay đổi mật khẩu</th>
 			</tr>
 			 @foreach($users as $user)
