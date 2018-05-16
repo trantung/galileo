@@ -36,16 +36,7 @@ class AdminController extends BaseController {
         return Redirect::action('AdminController@index')->with('message','<i class="fa fa-check-square-o fa-lg"></i> 
             Người dùng đã được tạo!');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -108,23 +99,22 @@ class AdminController extends BaseController {
             if($checkLogin) {
                 return Redirect::action('DocumentController@index');
             } else {
-                return Redirect::action('AdminController@login');
+                return Redirect::back()->withErrors('Sai tên đăng nhập hoặc mật khẩu!');
             }
         }
         
-        if ($validator->fails()) {
-            return Redirect::action('UserController@login')
-                ->withErrors($validator)
-                ->withInput(Input::except('password'));
-        } else {
-            $checkLogin = Auth::user()->attempt($input);
-            if($checkLogin) {
-                // dd(5555);
-                return Redirect::action('UserController@index');
-            } else {
-                return Redirect::action('UserController@login');
-            }
-        }
+        // if ($validator->fails()) {
+        //     return Redirect::back()
+        //         ->withErrors($validator)
+        //         ->withInput(Input::except('password'));
+        // } else {
+        //     $checkLogin = Auth::user()->attempt($input);
+        //     if($checkLogin) {
+        //         return Redirect::action('UserController@index');
+        //     } else {
+        //         return Redirect::action('UserController@login');
+        //     }
+        // }
 
     }
     public function logout()
@@ -193,19 +183,22 @@ class AdminController extends BaseController {
                 $file_name = $file->getClientOriginalName();
                 $nameArray = basename($file_name, '.pdf');   //  bỏ đuôi file
 
+                $strArr = Common::explodeDocumentName($nameArray);
+                $link = $strArr['subject_code'].'/'.$strArr['class_code'].'/'.$strArr['level_code'].'/'.$strArr['lesson_code'].'/';
+                $linkDefault = DOCUMENT_UPLOAD_DIR.$link;
+                $filee = public_path().$linkDefault;
+
                 /// Lay hoc lieu theo ma phieu = ten file
                 $ob = Document::where('code', $nameArray)->first();
                 if( !empty($ob) ){
 
                     $fileUrl = $ob->file_url;
-                    $re_nameArray = rename(public_path().$fileUrl, public_path().$fileUrl.'_'.$now);
+                    $file->move($filee, $file_name);
 
-                    $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống!<br>';
+                    $error .= 'Học liệu '. $nameArray .' đã tồn tại trên hệ thống! file tài liệu sẽ được ghi đè.<br>';
                     continue;
                 }
                 // dd($ob);
-
-                $strArr = Common::explodeDocumentName($nameArray);
 
                 ///// Lay mon va lop theo ten file
                 $classId = Common::getObject(ClassModel::where('code', (int)$strArr['class_code'])->first(), 'id');
@@ -231,9 +224,6 @@ class AdminController extends BaseController {
                     continue;
                 }
 
-                $link = $strArr['subject_code'].'/'.$strArr['class_code'].'/'.$strArr['level_code'].'/'.$strArr['lesson_code'].'/';
-                $linkDefault = DOCUMENT_UPLOAD_DIR.$link;
-                $filee = public_path().$linkDefault;
                 $uploadSuccess = $file->move($filee, $file_name);
 
                 if( $uploadSuccess ){

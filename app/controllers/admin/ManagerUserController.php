@@ -68,8 +68,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
      */
     public function store()
     {
-        $input = Input::all();
-        // dd($input);
+        $input = Input::except('center_id');
         $check = Common::checkExist('User', $input['username'], 'username');
         if ($check) {
             $message = 'Username đã tồn tại';
@@ -77,30 +76,30 @@ class ManagerUserController extends AdminController implements AdminInterface{
         }
         //tao moi
         $input['password'] = Hash::make($input['password']);
-        $userId = User::create($input)->id;
-        // dd($userId);
-        $centerId = $input['center_id'];
-        $listLevelId = $input['level'];
-        // dd($input['level']);
-        // dd($centerId);
-        foreach ($listLevelId as $key => $value) {
-            foreach ($value as $k => $levelId) {
-                $userCenterLevel = CenterLevel::where('level_id', $levelId)
-                    ->where('center_id', $key)
-                    ->first();
-                if (!$userCenterLevel) {
-                    dd('sai config');
-                }
-                $userCenterLevelId = $userCenterLevel->id;
-                UserCenterLevel::create([
-                    'user_id' => $userId,
-                    'center_id' => $key,
-                    'center_level_id' => $userCenterLevelId,
-                    'level_id' => $levelId
-                ]);
-            }
+        $user = User::create($input);
+        
+        $centerId = !empty(Input::get('center_id')) ? Input::get('center_id') : [];
+        $levelId = !empty(Input::get('level')) ? Input::get('level') : [];
+        $user->centers()->sync( array_values($centerId) );
+        $user->levels()->sync( array_values($levelId) );
+        // foreach ($listLevelId as $key => $value) {
+        //     foreach ($value as $k => $levelId) {
+        //         $userCenterLevel = CenterLevel::where('level_id', $levelId)
+        //             ->where('center_id', $key)
+        //             ->first();
+        //         if (!$userCenterLevel) {
+        //             // dd('sai config');
+        //         }
+        //         $userCenterLevelId = $userCenterLevel->id;
+        //         UserCenterLevel::create([
+        //             'user_id' => $userId,
+        //             'center_id' => $key,
+        //             'center_level_id' => $userCenterLevelId,
+        //             'level_id' => $levelId
+        //         ]);
+        //     }
             
-        }
+        // }
         return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
     }
 
@@ -131,19 +130,11 @@ class ManagerUserController extends AdminController implements AdminInterface{
     public function edit($id)
     {
         $data = User::findOrFail($id);
-        $levelData = Common::getLevelOfUser($id);
-        $centerLevelId = UserCenterLevel::where('user_id', $id)
-            ->groupBy('center_level_id')
-            ->lists('center_level_id');
-        // dd($centerLevelId);
-        //TODO
+        $centerData = $data->centers()->lists('center_id');
+        $levelData = $data->levels()->lists('level_id');
+        // dd($levelData);
 
-        $center = CenterLevel::whereIn('id', $centerLevelId)
-            ->groupBy('center_id')
-            ->first();
-        $centerId = $center->center_id;
-        $listData = Common::getClassSubjectLevelOfCenter($centerId);
-        return View::make('admin.user.edit')->with( compact('listData', 'data', 'levelData') );
+        return View::make('admin.user.edit')->with( compact('data', 'levelData', 'centerData') );
     }
 
     /**
@@ -154,7 +145,15 @@ class ManagerUserController extends AdminController implements AdminInterface{
      */
     public function update($id)
     {
-        $input = Input::all();
+        $user = User::findOrFail($id);
+        $input = Input::except(['center_id', 'level', 'password', 'username', 'email']);
+        CommonNormal::update($id, $input);
+
+        $centerId = !empty(Input::get('center_id')) ? Input::get('center_id') : [];
+        $levelId = !empty(Input::get('level')) ? Input::get('level') : [];
+        $user->centers()->sync( array_values($centerId) );
+        $user->levels()->sync( array_values($levelId) );
+
         // if( !empty($input['level']) ){
         //     // Neu co nhap trinh do cua cac mon hoc
         //     $levelIds = $input['level'];
@@ -186,8 +185,7 @@ class ManagerUserController extends AdminController implements AdminInterface{
         //     //  $userCenterLevel->delete();
         //     // }
         // }
-        CommonNormal::update($id, $input);
-        return Redirect::action('ManagerUserController@index')->withMessage('Lưu thông tin thành viên thành công!');
+        return Redirect::back()->withMessage('Lưu thông tin thành viên thành công!');
     }
 
     /**

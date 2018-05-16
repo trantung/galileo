@@ -171,7 +171,7 @@ Route::post('/uploadfile', 'AdminController@postUploadFile');
 // Route::get('/', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
 
-	// Route::resource('/administrator', 'AdminController');
+	Route::get('/', 'AdminController@index');
     Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
     Route::post('/login', array('uses' => 'AdminController@doLogin'));
     Route::get('/logout', 'AdminController@logout');

@@ -31,7 +31,7 @@
                         <label for="title">Password đối tác</label>
                         <div class="row">
                             <div class="col-sm-6">
-                               {{ Form::password('password', null, array('class' => 'form-control')) }}
+                               {{ Form::password('password', array('class' => 'form-control')) }}
                             </div>
                         </div>
                     </div>

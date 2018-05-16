@@ -37,8 +37,8 @@ class DocumentController extends AdminController implements AdminInterface {
                     ->whereNotNull('parent_id');
             }
         }
-        if( !empty($input['name']) ){
-            $documents->where('name', 'LIKE', '%'.$input['name'].'%');
+        if( !empty($input['code']) ){
+            $documents->where('code', 'LIKE', '%'.$input['code'].'%');
         }
         if( !empty($input['class_id']) ){
             $documents->where('class_id', $input['class_id']);

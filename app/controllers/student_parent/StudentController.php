@@ -15,6 +15,11 @@ class StudentController extends AdminController {
         if( !empty($input['student_id']) ){
             $data->where('id', $input['student_id']);
         }
+        if( !Auth::admin()->check() ){
+            $centerOfUser = Common::getCenterOfLoggedUser();
+            $data->whereIn('center_id', $centerOfUser);
+        }
+
         $data = $data->paginate(PAGINATE);
         return View::make('student.index')->with(compact('data'));
 
@@ -154,6 +159,7 @@ class StudentController extends AdminController {
     public function update($id)
     {
         $input = Input::all();
+        // dd($input);
         $input['password'] = Hash::make($input['password']);
         Student::findOrFail($id)->update($input);
         return Redirect::action('StudentController@index');

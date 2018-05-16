@@ -8,6 +8,10 @@
 
 	{{ Form::open(['action' => 'DocumentController@index', 'method' => 'GET', 'class' => 'filter-document-form']) }}
 		<div class="input-group inline-block">
+			<label style="display: block;">Mã phiếu</label>
+			{{ Form::text('code', Input::get('code'), ['class' => 'form-control']) }}
+		</div>
+		<div class="input-group inline-block">
 			<label style="display: block;">Lớp</label>
 			{{ Form::select('class_id', ['' => '--Tất cả--'] + Common::getClassList(), Input::get('class_id'), ['class' => 'form-control select-class']) }}
 		</div>
