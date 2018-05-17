@@ -6,9 +6,10 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ManagerUserController@create') }}" class="btn btn-primary">Thêm mới nhân viên trung tâm</a>
+		<a href="{{ action('ManagerUserController@create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm mới nhân viên trung tâm</a>
 	</div>
 </div>
+@include('admin.user.filter')
 <div class="row">
 	<div class="col-xs-12">
 	  <div class="box">
@@ -20,18 +21,20 @@
 		  <table class="table table-hover">
 			<tr>
 			  <th>ID</th>
-			  <th>Trung tâm</th>
 			  <th>Username</th>
 			  <th>Email</th>
+			  <th>Trung tâm</th>
+			  <th>Quyền</th>
 			  <th>Phân quyền học liệu</th>
 			  <th style="width:330px;">Action</th>
 			</tr>
 			 @foreach($users as $user)
 			<tr>
-			  <td>{{ $user->id }}</td>
-			  <td>{{ Common::getCenterByUser($user->id) }}</td>
+			  <td>#{{ $user->id }}</td>
 			  <td>{{ $user->username }}</td>
 			  <td>{{ $user->email }}</td>
+			  <td>{{ Common::getCenterByUser($user->id) }}</td>
+			  <td>{{ Common::getRoleName($user->role_id) }}</td>
 			  <td>
 				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Phân quyền học liệu</a>
 			  </td>

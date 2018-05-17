@@ -11,7 +11,18 @@ class AdminController extends BaseController {
      */
     public function index()
     {
-        $data = Admin::all();
+        $input = Input::all();
+        $data = Admin::orderBy('created_at', 'DESC');
+        if( !empty($input['key']) ){
+            $data->where('username', 'like', '%'.$input['key'].'%')
+                ->orWhere('email', 'like', '%'.$input['key'].'%');
+                // ->orWhere('full_name', 'like', $input['key']);
+        }
+        if( !empty($input['role_id']) ){
+            $data->where('role_id', $input['role_id']);
+        }
+        $data = $data->paginate(PAGINATE);
+
         return View::make('administrator.index')->with(compact('data'));
     }
     /**
@@ -21,7 +32,7 @@ class AdminController extends BaseController {
      */
     public function create()
     {
-        return View::make('administrator.create');
+        return View::make('administrator.form');
     }
     /**
      * Store a newly created resource in storage.
@@ -33,8 +44,8 @@ class AdminController extends BaseController {
         $input = Input::except('_token');
         $input['password'] = Hash::make($input['password']);
         $adminId = Admin::create($input)->id;
-        return Redirect::action('AdminController@index')->with('message','<i class="fa fa-check-square-o fa-lg"></i> 
-            Người dùng đã được tạo!');
+        return Redirect::action('AdminController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
+            Người dùng <a href="'. action('AdminController@edit', $adminId) .'">'.$input['username'].'</a> đã được tạo!');
     }
 
     /**
@@ -46,7 +57,7 @@ class AdminController extends BaseController {
     public function edit($id)
     {
         $admin = Admin::findOrFail($id);
-        return View::make('administrator.edit')->with(compact('admin'));
+        return View::make('administrator.form')->with(compact('admin'));
     }
     /**
      * Update the specified resource in storage.
@@ -56,10 +67,13 @@ class AdminController extends BaseController {
      */
     public function update($id)
     {
-        $input = Input::all();
-        $input['password'] = Hash::make($input['password']);
+        $input = Input::except('password');
+        if( !empty(Input::get('password')) ){
+            $input['password'] = Hash::make(Input::get('password'));
+        }
         Admin::findOrFail($id)->update($input);
-        return Redirect::action('AdminController@index');
+        return Redirect::action('AdminController@index')->withMessage('<i class="fa fa-check-square-o fa-lg"></i> 
+            Người dùng <a href="'. action('AdminController@edit', $id) .'">'.$input['username'].'</a> đã được chỉnh sửa!');
     }
     /**
      * Remove the specified resource from storage.

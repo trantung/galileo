@@ -19,7 +19,24 @@ class ManagerUserController extends AdminController implements AdminInterface{
         // if ($roleId == 1) {
         //  //
         // }
-        $users = User::orderBy('created_at', 'DESC')->paginate(30);
+        $input = Input::all();
+        $users = User::orderBy('created_at', 'DESC');
+        if( !empty($input['key']) ){
+            $users->where('username', 'like', $input['key'])
+                ->orWhere('email', 'like', $input['key'])
+                ->orWhere('full_name', 'like', $input['key']);
+        }
+        if( !empty($input['role_id']) ){
+            $users->where('role_id', $input['role_id']);
+        }
+        if( !empty($input['center_id']) ){
+            $users->whereHas('centers', function($q)
+            {
+                $q->where('center_id', Input::get('center_id'));
+            });
+        }
+
+        $users = $users->paginate(PAGINATE);
         return View::make('admin.user.index')->with(compact('users'));
     }
 
@@ -147,6 +164,9 @@ class ManagerUserController extends AdminController implements AdminInterface{
     {
         $user = User::findOrFail($id);
         $input = Input::except(['center_id', 'level', 'password', 'username', 'email']);
+        if( !empty(Input::get('password')) ){
+            $input['password'] = Hash::make(Input::get('password'));
+        }
         CommonNormal::update($id, $input);
 
         $centerId = !empty(Input::get('center_id')) ? Input::get('center_id') : [];

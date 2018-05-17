@@ -4,9 +4,14 @@
 {{ $title='Quản lý admin' }}
 @stop
 @section('content')
-
-	<a href="{{ action('AdminController@create') }}" class="btn btn-primary">Thêm người dùng mới</a>
-	<table class ="table table-bordered table-striped table-hover">
+<div class="row margin-bottom">
+	<div class="col-xs-12">
+		<a href="{{ action('AdminController@create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm quản trị mới</a>
+	</div>
+</div>
+@include('administrator.filter')
+<div class="box alert padding0">
+	<table class ="table table-bordered table-striped table-hover margin0">
 		<tr>
 			<th>Username</th>
 			<th>Email</th>
@@ -20,7 +25,7 @@
 		<tr>
 			<td>{{ $admin->username }}</td>
 			<td>{{ $admin->email }}</td>
-			<td>{{ $admin->role_id }}</td>
+			<td>{{ Common::getRoleName($admin->role_id) }}</td>
 			<td>
 	           <a href="{{ action('AdminController@edit', $admin->id) }}" class="btn btn-primary">Phân quyền</a>
 			</td>
@@ -37,4 +42,5 @@
 		</tr>
 		@endforeach
 	</table>
+</div>
 @stop
