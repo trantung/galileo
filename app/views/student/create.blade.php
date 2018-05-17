@@ -13,7 +13,7 @@
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">
-        <a href="{{ action('StudentController@index') }}" class="btn btn-success">Danh sách học sinh</a>
+        <a href="{{ action('StudentController@index') }}" class="btn btn-primary"><i class ="fa fa-list-ul"></i> Danh sách học sinh</a>
     </div>
 </div>
 <div class="row">

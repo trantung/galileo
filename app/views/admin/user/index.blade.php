@@ -26,7 +26,9 @@
 			  <th>Trung tâm</th>
 			  <th>Quyền</th>
 			  <th>Phân quyền học liệu</th>
-			  <th style="width:330px;">Action</th>
+			  <th>Lịch cố vấn</th>
+			  <th>Action</th>
+			  <th>Thay đổi mật khẩu</th>
 			</tr>
 			 @foreach($users as $user)
 			<tr>

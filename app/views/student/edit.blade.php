@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='thay đổi thông tin' }}
+{{ $title='Thay đổi thông tin' }}
 @stop
 
 @section('js_header')
@@ -12,7 +12,7 @@
 @section('content')
     <div class="row margin-bottom bg-faded">
         <div class="col-xs-12">
-            <a href="{{ action('StudentController@index') }}" class="btn btn-success">Danh sách học sinh</a>
+            <a href="{{ action('StudentController@index') }}" class="btn btn-primary"><i class ="fa fa-list-ul">  Danh sách học sinh</i></a>
         </div>
     </div>
     <div class="row">

@@ -289,11 +289,7 @@ class AdminController extends BaseController {
         }
         return  Redirect::back()->withMessage('Bạn đã upload thành công ! '.$countDocument.' file');
 
-        /* TODO */
-        // Chua check parent_ID
-        // Chua gioi han so luong upload
         // Chua check phien ban Document
-        // 
     }
 
     public function getResetPass($id)

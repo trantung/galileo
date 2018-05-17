@@ -7,7 +7,7 @@ Danh sách môn học
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">
-        <a href="{{ action('ClassController@create') }}" class="btn btn-primary">Thêm mới lớp học</a>
+        <a href="{{ action('ClassController@create') }}" class="btn btn-primary fa fa-plus"> Thêm mới lớp học</a>
     </div>
 </div>
 	@parent
@@ -16,7 +16,7 @@ Danh sách môn học
 			<tr class="bg-primary">
 				<th width="50px" class="text-center">STT</th>
 				<th>Tên môn</th>
-				<th>Thao tác</th>
+				<th style="width: 180px">Thao tác</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,9 +25,9 @@ Danh sách môn học
 					<td>{{ $subject->id }}</td>
 					<td>{{ $subject->name }}</td>
 					<td>
-					{{ app('html')->linkAction('SubjectController@edit', 'Sửa', $subject->id, ['class'=>"btn btn-primary"]) }}
+					{{ app('html')->linkAction('SubjectController@edit', ' Sửa', $subject->id, ['class'=>"btn btn-primary fa fa-edit"]) }}
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('SubjectController@destroy', $subject->id), 'style' => 'display: inline-block;')) }}
-						<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+						<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
 						</td>
 					{{ Form::close() }}
 				</tr>

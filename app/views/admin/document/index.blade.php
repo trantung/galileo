@@ -54,7 +54,7 @@
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::AskPermission($documentP->id))
                                     @if(Common::checkQuantityDownload($documentP))
-                                        <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}">View</a>
+                                        <a target="_blank" href="{{ asset($documentP->file_url) }}" class="view_pdf" data-viewid="{{ $documentP->id }}"><i class ="fa fa-eye"></i></a>
                                     @endif
                                     @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                         @if( Common::getObject($documentP, 'file_url') )
@@ -87,10 +87,10 @@
                         <td></td>
                     @endif
                     <td rowspan="{{ $countSubject }}">
-                        {{ renderUrlByPermission('DocumentController@edit', 'Sửa', $document->parent_id, ['class'=>"btn btn-primary"]) }}
+                        {{ renderUrlByPermission('DocumentController@edit', ' Sửa', $document->parent_id, ['class'=>"btn btn-primary fa fa-edit"]) }}
                         @if(checkPermissionForm('DocumentController@destroy', 'Xoá', $document->parent_id))
                         {{ Form::open(array('method'=>'DELETE', 'action' => array('DocumentController@destroy', $document->parent_id), 'style' => 'display: inline-block;')) }}
-                            <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+                            <button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
                     </td>
                         {{ Form::close() }}
                         @endif
@@ -114,7 +114,7 @@
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::AskPermission($documentD->id))
                                     @if(Common::checkQuantityDownload($documentD))
-                                            <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}">View</a>
+                                            <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}"> <i class="fa fa-eye"></i></a>
                                     @endif
                                     @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                         @if( Common::getObject($documentD, 'file_url') )

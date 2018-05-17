@@ -6,7 +6,7 @@
 @section('content')
 	<!-- Bo loc -->
 	@if(checkPermissionUserByField('role_id', GV))
-	<a href="{{ action('StudentController@create') }}" class="btn btn-primary">Thêm học sinh mới</a>
+	<a href="{{ action('StudentController@create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm học sinh mới</a>
 	@endif
 	<div class="margin-bottom">
         @include('student.filter')
@@ -23,7 +23,7 @@
 			<th>Ngày sinh</th>
 			<th>Giới tính</td>
 			<th>Địa chỉ</td>
-			<th width="17%">Action</th>
+			<th width="20%">Action</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
@@ -36,11 +36,11 @@
 			<td>{{ Common::getNameGender($value->gender) }}</td>
 			<td>{{ $value->address }}</td>
 			<td>
-	           <a href="{{ action('StudentController@show', $value->id) }}" class="btn btn-primary inline-block">Show</a>
+	           <a href="{{ action('StudentController@show', $value->id) }}" class="btn btn-default inline-block "><i class="fa fa-eye"></i> Chi tiết</a>
 	           @if(checkPermissionUserByField('role_id', GV))
-	            <a href="{{ action('StudentController@edit', $value->id) }}" class="btn btn-primary inline-block">Sửa</a>
+	            <a href="{{ action('StudentController@edit', $value->id) }}" class="btn btn-primary inline-block"><i class="fa fa-edit"></i> Sửa</a>
 			   {{ Form::open(array('method'=>'DELETE', 'action' => array('StudentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-	           <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+	           <button class="btn btn-danger " onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><i class ="fa fa-trash"></i> Xóa</button>
 	           {{ Form::close() }}
 		   @endif
 			</td>

@@ -32,7 +32,7 @@
 			{{ Form::select('status', ['' => '--Tất cả--', 1 => 'Đã kiểm duyệt', 2 => 'Chưa kiểm duyệt'], Input::get('status'), ['class' => 'form-control']) }}
 		</div>
 		<div class="input-group inline-block" style="vertical-align: bottom;">
-			<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+			<button type="submit" class="btn btn-primary"> Tìm kiếm</button>
 			{{ link_to_action('DocumentController@index', 'Reset', null, ['class' => 'btn btn-primary']) }}
 		</div>
 	{{ Form::close() }}

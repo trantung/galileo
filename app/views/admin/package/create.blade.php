@@ -5,7 +5,7 @@
 @stop
 @section('content')
 
-  <a href="{{ action('PackageController@index') }}" class="btn btn-primary">Danh sách  gói học</a>
+  <a href="{{ action('PackageController@index') }}" class="btn btn-primary fa fa-list-ul"> Danh sách  gói học</a>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">

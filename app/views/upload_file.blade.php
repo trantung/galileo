@@ -18,6 +18,6 @@
 	  	{{-- <span>{{ $error }}</span> --}}
 	    <span class="text-danger"> <b>Chú ý :</b> Upload tối đa 100 file</span>
 	</div>
-	{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
+	{{ Form::submit(' Load', ['class' => 'btn btn-primary']) }}
 	{{ Form::close() }}	
 @stop
