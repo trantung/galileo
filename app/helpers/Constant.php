@@ -26,7 +26,7 @@ define('ADMIN', 7);
 define('BTV', 8);
 define('DEV', 9);
 
-define('PARTNER', 9);
+define('PARTNER', 10);
 /*
 thể loại câu hỏi, đáp án
 */

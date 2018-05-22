@@ -83,14 +83,9 @@
                </ul> 
             </li>
 
-            @if(userAccess('student.manage'))
             <li>
-                <a href="{{ action('StudentController@index') }}">
-                    <i class="fa fa-graduation-cap "></i> 
-                    <span>Quản lý học sinh </span>
-                </a>
+                {{ renderUrl('StudentController@index', '<i class="fa fa-graduation-cap"></i> Quản lý học sinh') }}
             </li>
-            @endif
 
             <li class="treeview">
                 @if(userAccess('schedule.manage') | userAccess('schedule.create') | userAccess('content.manage'))

@@ -545,10 +545,12 @@ function renderUrl($action, $title, $parameter = [], $attributes = []){
     if( hasRole(ADMIN, $user) ){
         return $link;
     }
+    $route = explode("@", $action);
+    $controllerName = $route[0];
 
     $checkPermission = false;
     foreach (getAllPermissions() as $permission => $value) {
-        if( userAccess($permission, $user) && in_array($action, $value['accept']) ){
+        if( userAccess($permission, $user) && (in_array($action, $value['accept']) | in_array($controllerName, $value['accept']) ) ){
             $checkPermission = $value['accept'];
             break;
         }
@@ -571,16 +573,29 @@ function getAllPermissions(){
             'description' => 'Quản lý tất cả tài khoản admin, thêm, sửa, reset password, xóa',
             'accept' => ['AdminController'],
         ],
+        
         'student.manage' => [
             'name' => 'Quản lý học sinh',
-            'description' => 'Quản lý tất cả học sinh của tất cả các trung tâm',
+            'description' => 'Quản lý tất cả học sinh của tất cả các trung tâm, bao gồm các quyền: xem, thêm, sửa, xóa',
             'accept' => ['StudentController'],
         ],
         'student.manage.own' => [
             'name' => 'Quản lý học sinh trong trung tâm',
-            'description' => 'Chỉ quản lý học sinh trong trung tâm của mình',
+            'description' => 'Chỉ quản lý học sinh trong trung tâm của mình, bao gồm các quyền: xem, thêm, sửa, xóa',
             'accept' => ['StudentController'],
             'callback_function' => '_student_manage_own_center',
+        ],
+        'student.manage.view' => [
+            'name' => 'Xem hồ sơ học sinh',
+            'description' => 'Xem tất cả hồ sơ học sinh trong trung tâm của mình',
+            'accept' => ['StudentController@index'],
+            'callback_function' => '_student_create_own_center',
+        ],
+        'student.manage.show' => [
+            'name' => 'Xem chi tiết hồ sơ học sinh',
+            'description' => 'Xem chi tiết hồ sơ học sinh trong trung tâm của mình',
+            'accept' => ['StudentController@show'],
+            'callback_function' => '_student_show_own_center',
         ],
         'student.manage.own.create' => [
             'name' => 'Thêm mới hồ sơ học sinh trong trung tâm',
@@ -593,6 +608,12 @@ function getAllPermissions(){
             'description' => 'Chỉnh sửa hồ sơ học sinh bất kỳ trong trung tâm của mình',
             'accept' => ['StudentController@edit', 'StudentController@update'],
             'callback_function' => '_student_edit_own_center',
+        ],
+        'student.manage.own.delete' => [
+            'name' => 'Xóa hồ sơ học sinh trong trung tâm',
+            'description' => 'Xóa hồ sơ học sinh bất kỳ trong trung tâm của mình',
+            'accept' => ['StudentController@destroy'],
+            'callback_function' => '_student_delete_own_center',
         ],
 
         'content.manage' => [
