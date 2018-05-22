@@ -50,33 +50,60 @@ Route::filter('auth', function()
 
 Route::filter('admin', function()
 {
-    if (Auth::admin()->guest()){
-        if (Auth::user()->guest()){
-            return Redirect::action('AdminController@login');
-        }
-        if (Auth::user()->check()) {
-            $route = Route::getCurrentRoute()->getActionName();
-            $check = checkUrlPermission($route);
-            if (!$check) {
-                return View::make('403');
-            }
-        }
+    $user = currentUser();
+    if( !$user ){
+        return Redirect::action('AdminController@login');
     }
-    $admin = Auth::admin()->get();
-    if (isset($admin)) {
-        if ($admin->role_id != ADMIN) {
-            if ($admin->role_id != BTV) {
-                $route = Route::getCurrentRoute()->getActionName();
-                $check = checkUrlPermission($route);
-                if (!$check) {
-                    return View::make('403');
+
+    if( !hasRole(ADMIN, $user) && !hasRole(DEV, $user) ){
+        $route = Route::getCurrentRoute()->getActionName();
+        $checkPermission = false;
+        $action = explode("@", $route);
+        $controllerName = $action[0];
+        
+        foreach (getAllPermissions() as $permission => $value) {
+            if( userAccess($permission, $user) && (in_array($route, $value['accept'])
+                 | in_array($controllerName, $value['accept']) ) ){
+                $checkPermission = $value['accept'];
+                if( !empty($value['callback_function']) && function_exists($value['callback_function']) ){
+                    call_user_func($value['callback_function']);
                 }
+                break;
             }
-            
+        }
+        if( !$checkPermission ){
+            App::abort(403);
         }
     }
+
+    // if (Auth::admin()->guest()){
+    //     if (Auth::user()->guest()){
+    //         return Redirect::action('AdminController@login');
+    //     }
+    //     if (Auth::user()->check()) {
+    //         $route = Route::getCurrentRoute()->getActionName();
+    //         $check = checkUrlPermission($route);
+    //         if (!$check) {
+    //             return View::make('403');
+    //         }
+    //     }
+    // }
+    // $admin = Auth::admin()->get();
+    // if (isset($admin)) {
+    //     if ($admin->role_id != ADMIN) {
+    //         if ($admin->role_id != BTV) {
+    //             $route = Route::getCurrentRoute()->getActionName();
+    //             $check = checkUrlPermission($route);
+    //             if (!$check) {
+    //                 return View::make('403');
+    //             }
+    //         }
+            
+    //     }
+    // }
     
 });
+
 Route::filter('user', function()
 {
     if (Auth::user()->guest()){

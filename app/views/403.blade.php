@@ -1,1 +1,0 @@
-Trang lỗi không co quyền chưa làm giao diện

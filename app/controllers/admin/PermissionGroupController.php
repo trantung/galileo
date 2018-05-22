@@ -59,7 +59,7 @@ class PermissionGroupController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$group = PermissionGroup::find($id);
+		$group = PermissionGroup::findOrFail($id);
 		return View::make('admin.permission.group.edit')->with(compact('group'));
 	}
 
@@ -75,6 +75,7 @@ class PermissionGroupController extends \BaseController {
 		$input = Input::all();
 		$levelPerId = [];
 		$group = PermissionGroup::find($id);
+		$group->update(Input::only(['name', 'code']));
 		$permission = $input['permission'];
 		$controllerName = array_keys($permission)[0];
 		$listPerId = Permission::where('controller', $controllerName)

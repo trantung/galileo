@@ -1,15 +1,19 @@
 <?php
-// use Illuminate\Auth\UserTrait;
-// use Illuminate\Auth\UserInterface;
-// use Illuminate\Auth\Reminders\RemindableTrait;
-// use Illuminate\Auth\Reminders\RemindableInterface;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-// class AdminLevel extends Eloquent implements UserInterface, RemindableInterface
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+
 class Role extends Eloquent
 {
-    use SoftDeletingTrait;
+    use SoftDeletingTrait, SluggableTrait;
     public $timestamps = true;
+
+     protected $sluggable = array(
+        'build_from' => 'name',
+        'save_to'    => 'code',
+        // 'separator' => '_'
+    );
     
     protected $table = 'roles';
     protected $fillable = ['name', 'code', 'status'];

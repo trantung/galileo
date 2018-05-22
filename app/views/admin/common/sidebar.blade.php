@@ -1,24 +1,15 @@
-<?php 
-    $admin = Auth::admin()->get();
-    $roleId = null;
-    $email = null;
-    if ($admin) {
-        $roleId = $admin->role_id;
-        $email = $admin->email;
-    }
-?>
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
             <li class="treeview">
-                @if(checkUrlPermission('ManagerPartnerController@index'))
+                @if(hasRole(ADMIN) | hasRole(DEV) | userAccess('system.manage') | userAccess('admin.manage'))
                     <a href=""><i class="fa fa-newspaper-o"></i>
                         <span>Quản lý hệ thống</span>
                         <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
                     </a>
                 @endif
                 <ul class="treeview-menu">
-                    @if(checkUrlPermission('AdminController@index'))
+                    @if(userAccess('admin.manage'))
                     <li>
                         <a href="{{ action('AdminController@index') }}">
                             <i class="fa fa-user"></i> 
@@ -26,7 +17,8 @@
                         </a>
                     </li>
                     @endif
-                    @if(checkUrlPermission('ManagerPartnerController@index'))
+
+                    @if(userAccess('system.manage'))
                     <li>
                         <a href="{{ action('ManagerPartnerController@index') }}">
                             <i class="fa fa-hourglass-half"></i> 
@@ -35,7 +27,7 @@
                     </li>
                     @endif
 
-                    @if(checkUrlPermission('ManagerCenterController@index'))
+                    @if(userAccess('system.manage'))
                     <li>
                         <a href="{{ action('ManagerCenterController@index') }}">
                             <i class="fa fa-building"></i> 
@@ -44,7 +36,7 @@
                     </li>
                     @endif
 
-                    @if(checkUrlPermission('ManagerUserController@index'))
+                    @if(userAccess('system.manage'))
                     <li>
                         <a href="{{ action('ManagerUserController@index') }}">
                             <i class="fa fa-users"></i> 
@@ -53,7 +45,7 @@
                     </li>
                     @endif
 
-                    @if(checkUrlPermission('SubjectController@index'))
+                    @if(userAccess('system.manage'))
                     <li>
                         <a href="{{ action('SubjectController@index') }}">
                             <i class="fa fa-suitcase"></i> 
@@ -62,7 +54,7 @@
                     </li>
                     @endif
 
-                    @if(checkUrlPermission('ClassController@index'))
+                    @if(userAccess('system.manage'))
                     <li>
                         <a href="{{ action('ClassController@index') }}">
                             <i class="fa fa-home"></i> 
@@ -70,38 +62,40 @@
                         </a>
                     </li>
                     @endif
-                    
 
+                    @if( userAccess('system.manage') )
                     <li>
                         <a href="{{ action('QuantityDownloadController@index') }}">
                             <i class="fa fa-download"></i> 
                             <span>Quản lý số lượt tải</span>
                         </a>
                     </li>
+                    @endif
 
+                    @if( userAccess('system.manage') )
                     <li>
                         <a href="{{ action('AskPermissionController@index') }}">
                             <i class="fa fa-history"></i> 
                             <span>Quản lý lịch sử tải</span>
                         </a>
                     </li>
+                    @endif
                </ul> 
             </li>
-            @if(checkPermissionUserByField('role_id'))
+
             <li>
-                <a href="{{ action('StudentController@index') }}">
-                    <i class="fa fa-graduation-cap "></i> 
-                    <span>Quản lý học sinh </span>
-                </a>
+                {{ renderUrl('StudentController@index', '<i class="fa fa-graduation-cap"></i> Quản lý học sinh') }}
             </li>
-            @endif
+
             <li class="treeview">
-                <a href=""><i class="fa fa-book"></i>
-                    <span>Quản lý nội dung</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
-                </a>
+                @if(userAccess('schedule.manage') | userAccess('schedule.create') | userAccess('content.manage'))
+                    <a href=""><i class="fa fa-book"></i>
+                        <span>Quản lý nội dung</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                    </a>
+                @endif
                 <ul class="treeview-menu">
-                    @if(checkUrlPermission('LevelController@index') || isset($roleId))
+                    @if(userAccess('level.view'))
                     <li>
                         <a href="{{ action('LevelController@index') }}">
                             <i class="fa fa-connectdevelop"></i> 
@@ -109,7 +103,8 @@
                         </a>
                     </li>
                     @endif
-                    @if(checkUrlPermission('DocumentController@index') || isset($roleId))
+
+                    @if(userAccess('document.view'))
                     <li>
                         <a href="{{ action('DocumentController@index') }}">
                             <i class="fa fa-file"></i> 
@@ -117,7 +112,8 @@
                         </a>
                     </li>
                     @endif
-                    @if(checkUrlPermission('AdminController@getUploadFile') || (isset($roleId) && isset($email)))
+
+                    @if(userAccess('document.upload_many'))
                     <li>
                         <a href="{{ action('AdminController@getUploadFile') }}">
                             <i class="fa fa-upload"></i> 
@@ -127,22 +123,21 @@
                     @endif
                 </ul>
             </li>
-            @if(isset($roleId) && $roleId == ADMIN)
+
+            @if(userAccess('schedule.manage') | userAccess('document.manage'))
             <li class="treeview">
                 <a href=""><i class="fa fa-calendar"></i>
                     <span>Quản lý lịch học</span>
                     <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    @if(checkUrlPermission('PackageController@index'))
+                    @if(userAccess('admin.manage'))
                     <li>
                         <a href="{{ action('PackageController@index') }}">
                             <i class="fa fa-cubes   "></i> 
                             <span>Quản lý gói học</span>
                         </a>
                     </li>
-                    @endif
-                    @if(checkPermissionUserByField('role_id'))
                     <li>
                         <a href="{{ action('ScheduleController@index') }}">
                             <i class="fa fa-calendar"></i> 
@@ -159,6 +154,16 @@
                 </ul>
             </li>
             @endif
+
+            @if( userAccess('system.manage') )
+                <li>
+                    <a href="{{ action('PermissionController@index') }}">
+                        <i class="fa fa-cogs"></i> 
+                        <span>Quản lý phân quyền</span>
+                    </a>
+                </li>
+            @endif
+
         </ul>
     </section>
 </aside>

@@ -180,6 +180,16 @@ class Common {
         return false;
     }
 
+    public static function getRoleAdmin()
+    {
+        $list = [
+            DEV => 'Nhà phát triển',
+            ADMIN => 'Quản trị viên',
+            BTV => 'Biên tập viên',
+        ];
+        return $list;
+    }
+
     public static function getRoleUser()
     {
         $list = [
@@ -192,6 +202,37 @@ class Common {
   
         ];
         return $list;
+    }
+
+    public static function getRoleName($role)
+    {
+        if($role == DEV){
+            return 'Nhà phát triển';
+        }
+        if($role == ADMIN){
+            return 'Quản trị viên';
+        }
+        if($role == BTV){
+            return 'Biên tập viên';
+        }
+        if($role == QLTT){
+            return 'Quản lý trung tâm';
+        }
+        if($role == GV){
+            return 'Giáo vụ';
+        }
+        if($role == PTCM){
+            return 'Phụ trách chuyên môn';
+        }
+        if($role == CVHT){
+            return  'Cố vấn học tập';
+        }
+        if($role == SALE){
+            return  'Nhân viên Sale';
+        }
+        if($role == KT){
+            return  'Kế toán';
+        }
     }
 
     public static function getAllCenter()
@@ -657,6 +698,14 @@ class Common {
         }
         return 0;
     }
+
+    public static function getListCenter(){
+        if( !Session::has('list_all_center') ){
+            Session::put('list_all_center', Center::lists('name', 'id'), 30);
+        }
+        return Session::get('list_all_center');
+    }
+
     public static function getListLessonCode()
     {
         $lesson = Lesson::groupBy('code')->orderBy('code', 'asc')->lists('code','code');
@@ -927,19 +976,6 @@ class Common {
         return null;
     }
 
-    public static function getRoleName($role)
-    {
-        if($role == 2){
-            return 'Giáo vụ';
-        }
-        if($role == 3){
-            return 'Phụ trách chuyên môn';
-        }
-        if($role == 4){
-            return  'Cố vấn học tập';
-        }
-    }
-
 
     // Hàm kiểm tra số lượt download khi limit
     public static function AskPermission($documentId)
@@ -1044,5 +1080,14 @@ class Common {
             Session::put('get_all_level', Level::all(), 30 );
         }
         return Session::get('get_all_level');
+    }
+
+    public static function getRoles()
+    {
+        $list = Role::lists('name', 'code');
+        if( count($list) == 0 ){
+            return self::getRoleAdmin() + self::getRoleUser();
+        }
+        return $list;
     }
 }

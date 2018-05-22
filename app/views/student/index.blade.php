@@ -34,13 +34,13 @@
 			<td>{{ Common::getNameGender($value->gender) }}</td>
 			<td>{{ $value->address }}</td>
 			<td>
-	           <a href="{{ action('StudentController@show', $value->id) }}" class="btn btn-default inline-block "><i class="fa fa-eye"></i> Chi tiết</a>
-	           @if(checkPermissionUserByField('role_id', GV))
-	            <a href="{{ action('StudentController@edit', $value->id) }}" class="btn btn-primary inline-block"><i class="fa fa-edit"></i> Sửa</a>
-			   {{ Form::open(array('method'=>'DELETE', 'action' => array('StudentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-	           <button class="btn btn-danger " onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><i class ="fa fa-trash"></i> Xóa</button>
-	           {{ Form::close() }}
-		   @endif
+           		{{ renderUrl('StudentController@show', '<i class="fa fa-eye"></i> Chi tiết', [$value->id], ['class' => 'btn btn-default inline-block']) }}
+           		{{ renderUrl('StudentController@edit', '<i class="fa fa-edit"></i> Sửa', [$value->id], ['class' => 'btn btn-primary inline-block']) }}
+           		@if( userAccess('student.manage.own.delete') | userAccess('student.manage') )
+		   		{{ Form::open(array('method'=>'DELETE', 'action' => array('StudentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+	        		<button class="btn btn-danger " onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><i class ="fa fa-trash"></i> Xóa</button>
+           		{{ Form::close() }}
+           		@endif
 			</td>
 		</tr>
 		@endforeach

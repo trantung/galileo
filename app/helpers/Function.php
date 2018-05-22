@@ -480,3 +480,199 @@ function getDevice($device = null)
         return COMPUTER;
     }
 }
+
+
+//////////////////////////////// permission ////////////////////////////////////////
+function currentUser(){
+    $user = false;
+    if( Auth::admin()->check() ){
+        $user = Auth::admin()->get();
+        $user->model = 'Admin';
+    }
+    else if( Auth::user()->check() ){
+        $user = Auth::user()->get();
+        $user->model = 'User';
+    }
+    else if( Auth::partner()->check() ){
+        $user = Auth::partner()->get();
+        $user->model = 'Partner';
+    }
+    return $user;
+}
+
+function hasRoleAccess($role, $permission){
+    $permissions = RolePermission::where('role_slug', $role)->where('permission', $permission)->count();
+    if( $permissions > 0 ){
+        return true;
+    }
+    return false;
+}
+
+function userAccess($permission, $user = null){
+    if( $user == null ){
+        $user = currentUser();
+    }
+    if( hasRole(ADMIN, $user) | hasRole(DEV, $user) ){
+        return true;
+    }
+    $permissions = RolePermission::where('role_slug', $user->role_id)->where('permission', $permission)->count();
+    // dd($permissions);
+    if( $permissions > 0 ){
+        return true;
+    }
+    return false;
+}
+
+function hasRole($roleName, $user = null){
+    if( $user == null ){
+        $user = currentUser();
+    }
+    if( !$user ){
+        return false;
+    }
+    if ( $user->role_id == $roleName ){
+        return true;
+    }
+    return false;
+}
+
+function renderUrl($action, $title, $parameter = [], $attributes = []){
+    $link = '<a href="'.action($action, $parameter).'"'.HTML::attributes($attributes).'>'.$title.'</a>';
+    $user = currentUser();
+    if( !$user ){
+        return false;
+    }
+    if( hasRole(ADMIN, $user) ){
+        return $link;
+    }
+    $route = explode("@", $action);
+    $controllerName = $route[0];
+
+    $checkPermission = false;
+    foreach (getAllPermissions() as $permission => $value) {
+        if( userAccess($permission, $user) && (in_array($action, $value['accept']) | in_array($controllerName, $value['accept']) ) ){
+            $checkPermission = $value['accept'];
+            break;
+        }
+    }
+    if( $checkPermission ){
+        return $link;
+    }
+    return false;
+}
+
+function getAllPermissions(){
+    return [
+        'system.manage' => [
+            'name' => 'Quản trị hệ thống',
+            'description' => 'Bao gồm các quyền quản lý đối tác, quản lý trung tâm, quản lý nhân viên, quản lý môn học, lớp học, quản lý thành viên quản trị, phân quyền, Quản lý số lượt tải & lịch sử tải học liệu',
+            'accept' => ['AdminController', 'QuantityDownloadController', 'AskPermissionController', 'ManagerPartnerController', 'ClassController', 'SubjectController', 'ManagerCenterController', 'ManagerUserController', 'PermissionController'],
+        ],
+        'admin.manage' => [
+            'name' => 'Quản lý tài khoản Admin',
+            'description' => 'Quản lý tất cả tài khoản admin, thêm, sửa, reset password, xóa',
+            'accept' => ['AdminController'],
+        ],
+        
+        'student.manage' => [
+            'name' => 'Quản lý học sinh',
+            'description' => 'Quản lý tất cả học sinh của tất cả các trung tâm, bao gồm các quyền: xem, thêm, sửa, xóa',
+            'accept' => ['StudentController'],
+        ],
+        'student.manage.own' => [
+            'name' => 'Quản lý học sinh trong trung tâm',
+            'description' => 'Chỉ quản lý học sinh trong trung tâm của mình, bao gồm các quyền: xem, thêm, sửa, xóa',
+            'accept' => ['StudentController'],
+            'callback_function' => '_student_manage_own_center',
+        ],
+        'student.manage.view' => [
+            'name' => 'Xem hồ sơ học sinh',
+            'description' => 'Xem tất cả hồ sơ học sinh trong trung tâm của mình',
+            'accept' => ['StudentController@index'],
+            'callback_function' => '_student_create_own_center',
+        ],
+        'student.manage.show' => [
+            'name' => 'Xem chi tiết hồ sơ học sinh',
+            'description' => 'Xem chi tiết hồ sơ học sinh trong trung tâm của mình',
+            'accept' => ['StudentController@show'],
+            'callback_function' => '_student_show_own_center',
+        ],
+        'student.manage.own.create' => [
+            'name' => 'Thêm mới hồ sơ học sinh trong trung tâm',
+            'description' => 'Tạo mới hồ sơ học sinh trong trung tâm của mình',
+            'accept' => ['StudentController@create', 'StudentController@store'],
+            'callback_function' => '_student_create_own_center',
+        ],
+        'student.manage.own.edit' => [
+            'name' => 'Chỉnh sửa hồ sơ học sinh trong trung tâm',
+            'description' => 'Chỉnh sửa hồ sơ học sinh bất kỳ trong trung tâm của mình',
+            'accept' => ['StudentController@edit', 'StudentController@update'],
+            'callback_function' => '_student_edit_own_center',
+        ],
+        'student.manage.own.delete' => [
+            'name' => 'Xóa hồ sơ học sinh trong trung tâm',
+            'description' => 'Xóa hồ sơ học sinh bất kỳ trong trung tâm của mình',
+            'accept' => ['StudentController@destroy'],
+            'callback_function' => '_student_delete_own_center',
+        ],
+
+        'content.manage' => [
+            'name' => 'Quản trị nội dung',
+            'description' => 'Bao gồm các quyền quản lý trình độ, quản lý học liệu, upload tài liệu',
+            'accept' => ['LevelController', 'DocumentController', 'AdminController@getUploadFile', 'AdminController@postUploadFile', 'ScheduleController'],
+        ],
+        'schedule.manage' => [
+            'name' => 'Quản lý lịch học',
+            'description' => 'Bao gồm các quyền quản lý gói học, quản lý lịch học & khóa học',
+            'accept' => ['PackageController', 'ScheduleController'],
+        ],
+        'schedule.create' => [
+            'name' => 'Tạo mới lịch học',
+            'description' => 'Được phép tạo mới lịch học',
+            'accept' => ['ScheduleController@create', 'ScheduleController@store'],
+        ],
+        'schedule.create' => [
+            'name' => 'Tạo mới lịch học',
+            'description' => 'Được phép tạo mới lịch học',
+            'accept' => ['ScheduleController'],
+        ],
+
+        'document.manage' => [
+            'name' => 'Quản lý học liệu',
+            'description' => 'Quản lý tất cả học liệu, được quyền thêm, sửa, xóa học liệu bất kỳ',
+            'accept' => ['DocumentController@index'],
+        ],
+        'document.view' => [
+            'name' => 'Xem học liệu',
+            'description' => 'Xem tất cả học liệu',
+            'accept' => ['DocumentController@index'],
+        ],
+        'document.create' => [
+            'name' => 'Thêm học liệu',
+            'description' => 'Xem tất cả học liệu',
+            'accept' => ['DocumentController@create', 'LevelController@show', 'AjaxController@postSaveDocument'],
+        ],
+        'document.print' => [
+            'name' => 'In học liệu',
+            'description' => 'In học liệu',
+            'accept' => [''],
+        ],
+        'document.upload_many' => [
+            'name' => 'Tải lên nhiều học liệu',
+            'description' => 'Được truy cập và tải lên nhiều học liệu một lần',
+            'accept' => ['AdminController@getUploadFile'],
+        ],
+
+        'level.view' => [
+            'name' => 'Xem danh sách trình độ',
+            'description' => 'Xem danh sách các trình độ và học liệu của các buổi học',
+            'accept' => ['LevelController@show', 'LevelController@index'],
+        ],
+        'level.edit' => [
+            'name' => 'Sửa trình độ',
+            'description' => 'Xem danh sách các trình độ, sửa thông tin, thay đổi số buổi học và học liệu của các buổi học',
+            'accept' => ['LevelController@show', 'LevelController@index', 'LevelController@edit', 'LevelController@update'],
+        ],
+
+    ];
+}
