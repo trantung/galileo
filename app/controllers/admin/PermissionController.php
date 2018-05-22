@@ -1,6 +1,6 @@
 <?php
 
-class PermissionController extends \BaseController {
+class PermissionController extends AdminController {
 
     /**
      * Display a listing of the resource.
@@ -11,6 +11,17 @@ class PermissionController extends \BaseController {
     {
         $roles = Common::getRoles();
         return View::make('permission.list')->with(compact('roles'));
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        //
     }
 
 
@@ -93,7 +104,7 @@ class PermissionController extends \BaseController {
     public function editRole($role)
     {
         $role = Role::findBySlug($role);
-        $data = RolePermission::where('role_slug', $role->slug)->get();
+        $data = RolePermission::where('role_slug', $role->code)->get();
         return View::make('permission.detail')->with(compact('data', 'role'));
     }
 

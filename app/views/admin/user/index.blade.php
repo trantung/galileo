@@ -25,10 +25,7 @@
 			  <th>Email</th>
 			  <th>Trung tâm</th>
 			  <th>Quyền</th>
-			  <th>Phân quyền học liệu</th>
-			  <th>Lịch cố vấn</th>
-			  <th>Action</th>
-			  <th>Thay đổi mật khẩu</th>
+			  <th>Thao tác</th>
 			</tr>
 			 @foreach($users as $user)
 			<tr>
@@ -38,19 +35,17 @@
 			  <td>{{ Common::getCenterByUser($user->id) }}</td>
 			  <td>{{ Common::getRoleName($user->role_id) }}</td>
 			  <td>
-				<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary">Phân quyền học liệu</a>
-			  </td>
-			  <td>
+					<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary"><i class="fa fa-balance-scale"></i> Phân quyền học liệu</a>
 			  	<a href="{{ action('ManagerUserController@getSetTime', [$user->id]) }}" class="btn btn-primary" > Set lịch</a>
 				<a href=" {{ action('ManagerUserController@edit', $user->id) }} " class="btn btn-primary">Sửa</a>
 				<a href=" {{ action('ManagerUserController@getResetPass', $user->id) }} " class="btn btn-primary">Reset password</a>
 
-			{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerUserController@destroy', $user->id), 'style' => 'display: inline-block;')) }}
-			<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-			
-			{{ Form::close() }}
-		</td>
-	</tr>
+				{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerUserController@destroy', $user->id), 'style' => 'display: inline-block;')) }}
+				<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+				
+				{{ Form::close() }}
+			</td>
+		</tr>
 	@endforeach
 </table>
 <div class="col-xs-12 text-center">

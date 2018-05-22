@@ -5,7 +5,7 @@
 <div class="wrapper">
 
   @include('admin.common.navbar')
-
+  
   <!-- Left side column. contains the logo and sidebar -->
   @include('admin.common.sidebar')
 

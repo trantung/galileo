@@ -1,4 +1,4 @@
-@extends('user.layout.default')
+@extends('admin.layout.default')
 @section('title')
 {{ $title='Dashboard' }}
 @stop

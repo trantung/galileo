@@ -2,7 +2,7 @@
 class ManagerUserController extends AdminController implements AdminInterface{
 
     public function __construct() {
-        // parent::__construct();
+        parent::__construct();
         // $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
         
         //---ĐÃ ĐÓNG 2 DÒNG TRÊN LẠI ĐỂ VÀO ACCOUNT_USER--//

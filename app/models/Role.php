@@ -6,7 +6,7 @@ use Cviebrock\EloquentSluggable\SluggableTrait;
 
 class Role extends Eloquent
 {
-    use SoftDeletingTrait;
+    use SoftDeletingTrait, SluggableTrait;
     public $timestamps = true;
 
      protected $sluggable = array(

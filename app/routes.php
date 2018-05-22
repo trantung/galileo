@@ -185,12 +185,12 @@ Route::group(['prefix' => 'admin'], function () {
     // Route::post('/role/create', 'PermissionController@storeRole');
     // Route::delete('/role/{role}', 'PermissionController@destroyRole');
 
-    Route::get('/permission/{role}', 'PermissionController@editRole');
-    Route::put('/permission/{role}', 'PermissionController@updateRole');
-    Route::resource('/permission', 'PermissionController');
-
-    // Route::resource('/permission/group', 'PermissionGroupController');
+    // Route::get('/permission/{role}', 'PermissionController@editRole');
+    // Route::put('/permission/{role}', 'PermissionController@updateRole');
     // Route::resource('/permission', 'PermissionController');
+
+    Route::resource('/permission/group', 'PermissionGroupController');
+    Route::resource('/permission', 'PermissionController');
 
     //
     Route::resource('administrator', 'AdminController');
@@ -364,22 +364,22 @@ Route::resource('employees','EmployeesController');
 //--------------------------------------------------------//
 // Route::post('/ajax/{method}', 'AjaxController@process');
 Route::controller('/ajax', 'AjaxController');
-// App::error( function(Exception $exception, $code){
-//     $pathInfo = Request::getPathInfo();
-//     $message = $exception->getMessage() ?: 'Exception';
-//     Log::error("$code - $message @ $pathInfo\r\n$exception");
-//     switch ($code)
-//     {
-//         case 403:
-//             return View::make('errors.404', array('code' => 403, 'message' => 'Quyền truy cập bị từ chối!'));
+App::error( function(Exception $exception, $code){
+    $pathInfo = Request::getPathInfo();
+    $message = $exception->getMessage() ?: 'Exception';
+    Log::error("$code - $message @ $pathInfo\r\n$exception");
+    switch ($code)
+    {
+        case 403:
+            return View::make('error', array('code' => 403, 'message' => 'Quyền truy cập bị từ chối!'));
 
-//         case 404:
-//             return View::make('errors.404', array('code' => 404, 'message' => 'Trang không tìm thấy!'));
+        case 404:
+            return View::make('error', array('code' => 404, 'message' => 'Trang không tìm thấy!'));
 
-//         default:
-//             if (Config::get('app.debug')) {
-//                 return;
-//             }
-//     }
-// });
+        default:
+            if (Config::get('app.debug')) {
+                return;
+            }
+    }
+});
 

@@ -1,7 +1,8 @@
 <?php
 class UserController extends BaseController implements UserInterface {
     public function __construct() {
-        $this->beforeFilter('user', array('except'=>array('login','doLogin', 'logout')));
+        parent::__construct();
+        // $this->beforeFilter('user', array('except'=>array('login','doLogin', 'logout')));
     }
 	/**
 	 * Display a listing of the resource.

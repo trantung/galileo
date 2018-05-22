@@ -515,7 +515,8 @@ function userAccess($permission, $user = null){
     if( hasRole(ADMIN, $user) | hasRole(DEV, $user) ){
         return true;
     }
-    $permissions = RolePermission::where('role_slug', Common::getObject($user->role, 'code'))->where('permission', $permission)->count();
+    $permissions = RolePermission::where('role_slug', $user->role_id)->where('permission', $permission)->count();
+    // dd($permissions);
     if( $permissions > 0 ){
         return true;
     }
@@ -560,10 +561,15 @@ function renderUrl($action, $title, $parameter = [], $attributes = []){
 
 function getAllPermissions(){
     return [
-        'admin.manage' => [
+        'system.manage' => [
             'name' => 'Quản trị hệ thống',
-            'description' => 'Bao gồm các quyền quản lý đối tác, quản lý trung tâm, quản lý nhân viên, quản lý môn học, lớp học, quản lý thành viên quản trị, Quản lý số lượt tải & lịch sử tải học liệu',
-            'accept' => ['AdminController', 'QuantityDownloadController', 'AskPermissionController', 'ManagerPartnerController', 'ClassController', 'SubjectController', 'ManagerCenterController', 'ManagerUserController'],
+            'description' => 'Bao gồm các quyền quản lý đối tác, quản lý trung tâm, quản lý nhân viên, quản lý môn học, lớp học, quản lý thành viên quản trị, phân quyền, Quản lý số lượt tải & lịch sử tải học liệu',
+            'accept' => ['AdminController', 'QuantityDownloadController', 'AskPermissionController', 'ManagerPartnerController', 'ClassController', 'SubjectController', 'ManagerCenterController', 'ManagerUserController', 'PermissionController'],
+        ],
+        'admin.manage' => [
+            'name' => 'Quản lý tài khoản Admin',
+            'description' => 'Quản lý tất cả tài khoản admin, thêm, sửa, reset password, xóa',
+            'accept' => ['AdminController'],
         ],
         'student.manage' => [
             'name' => 'Quản lý học sinh',
@@ -608,6 +614,43 @@ function getAllPermissions(){
             'name' => 'Tạo mới lịch học',
             'description' => 'Được phép tạo mới lịch học',
             'accept' => ['ScheduleController'],
+        ],
+
+        'document.manage' => [
+            'name' => 'Quản lý học liệu',
+            'description' => 'Quản lý tất cả học liệu, được quyền thêm, sửa, xóa học liệu bất kỳ',
+            'accept' => ['DocumentController@index'],
+        ],
+        'document.view' => [
+            'name' => 'Xem học liệu',
+            'description' => 'Xem tất cả học liệu',
+            'accept' => ['DocumentController@index'],
+        ],
+        'document.create' => [
+            'name' => 'Thêm học liệu',
+            'description' => 'Xem tất cả học liệu',
+            'accept' => ['DocumentController@create', 'LevelController@show', 'AjaxController@postSaveDocument'],
+        ],
+        'document.print' => [
+            'name' => 'In học liệu',
+            'description' => 'In học liệu',
+            'accept' => [''],
+        ],
+        'document.upload_many' => [
+            'name' => 'Tải lên nhiều học liệu',
+            'description' => 'Được truy cập và tải lên nhiều học liệu một lần',
+            'accept' => ['AdminController@getUploadFile'],
+        ],
+
+        'level.view' => [
+            'name' => 'Xem danh sách trình độ',
+            'description' => 'Xem danh sách các trình độ và học liệu của các buổi học',
+            'accept' => ['LevelController@show', 'LevelController@index'],
+        ],
+        'level.edit' => [
+            'name' => 'Sửa trình độ',
+            'description' => 'Xem danh sách các trình độ, sửa thông tin, thay đổi số buổi học và học liệu của các buổi học',
+            'accept' => ['LevelController@show', 'LevelController@index', 'LevelController@edit', 'LevelController@update'],
         ],
 
     ];
