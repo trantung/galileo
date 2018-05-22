@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html id="html" lang="vi" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Đăng ký Kiểm tra đánh giá lực vào 6 và thi thử vào 10</title>
+        <title>Đăng ký Kiểm tra đánh giá năng lực vào 6 và thi thử vào 10</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-language" itemprop="inLanguage" content="vi"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -241,10 +241,12 @@
     })
     function showDiv(elem){
         if(elem.value == 5) {
+            document.getElementById('radio3').parentElement.style.display = "block";
             document.getElementById('class5').style.display = "block";
             document.getElementById('class9').style.display = "none";
         }
         if(elem.value == 9) {
+            document.getElementById('radio3').parentElement.style.display = "none";
             document.getElementById('class9').style.display = "block";
             document.getElementById('class5' ).style.display = "none";
         }

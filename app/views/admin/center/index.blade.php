@@ -24,7 +24,7 @@
 			  <th>Tên trung tâm</th>
 			  <th>Mã trung tâm</th>
 			  <th>Đối tác</th>
-			  <th>Phone</th>
+			  <th>Số điện thoại</th>
 			  <th>Địa chỉ</th>
 			  <th style="width:150px;">Action</th>
 			</tr>

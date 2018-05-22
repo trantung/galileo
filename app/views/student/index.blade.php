@@ -18,19 +18,17 @@
 			<th>STT</th>
 			<th>Họ và tên HS</th>
 			<th>Mã HS</th>
-			<th>Username</th>
 			<th>Email</th>
 			<th>Ngày sinh</th>
 			<th>Giới tính</td>
 			<th>Địa chỉ</td>
-			<th width="20%">Action</th>
+			<th width="18%">Action</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
 			<td>{{ $key + 1 }}</td>
 			<td>{{ $value->fullname }}</td>
 			<td>{{ $value->code }}</td>
-			<td>{{ $value->username }}</td>
 			<td>{{ $value->email }}</td>
 			<td>{{ $value->birthday }}</td>
 			<td>{{ Common::getNameGender($value->gender) }}</td>

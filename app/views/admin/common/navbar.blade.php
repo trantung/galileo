@@ -14,7 +14,6 @@
         </a>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-        
                     <li class="user">
                         @if(Auth::admin()->get())
                         <a href="{{ action('AdminController@getResetPass', Common::resetPassAdminOrUser()) }}"><i class="fa fa-user">
@@ -31,7 +30,7 @@
                         </a>
                     </li>
                     <li class="user">
-                        <a href="{{ action('AdminController@logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
+                        <a href="{{ action('AdminController@logout') }}"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                     </li>
             </ul>
         </div>

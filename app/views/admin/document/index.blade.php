@@ -114,7 +114,7 @@
                             @if(renderUrlByPermission('DocumentController@index', 'index', ''))
                                 @if(Common::AskPermission($documentD->id))
                                     @if(Common::checkQuantityDownload($documentD))
-                                            <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}"> <i class="fa fa-eye"></i></a>
+                                            <a target="_blank" href="{{ asset($documentD->file_url) }} " class="view_pdf" data-viewid="{{ $documentD->id }}"><i class="fa fa-eye"></i></a>
                                     @endif
                                     @if(renderUrlByPermission('DocumentController@getPrint', 'print', ''))
                                         @if( Common::getObject($documentD, 'file_url') )
@@ -123,7 +123,7 @@
                                     @endif
                                 @else
                                     {{ Form::open(array('method'=>'POST', 'action' => array('QuantityDownloadController@postAskPermission', $documentD->id), 'style' => 'display: inline-block;')) }}
-                                        <button class="btn btn-danger" onclick="return confirm('Bạn hết lượt view, hãy hỏi quản lý?');">Limit</button>
+                                        <button class="btn btn-danger" onclick="return confirm('Bạn hết lượt xem, chờ quản trị phê duyệt?');">Limit</button>
                                         </td>
                                     {{ Form::close() }}
                                 @endif

@@ -6,7 +6,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ManagerUserController@create') }}" class="btn btn-primary fa fa-plus"> Thêm mới nhân viên trung tâm</a>
+		<a href="{{ action('ManagerUserController@create') }}" class="btn btn-primary"><i class ="fa fa-plus"> Thêm mới nhân viên trung tâm</i></a>
 	</div>
 </div>
 <div class="row">
@@ -25,7 +25,7 @@
 			  <th>Email</th>
 			  <th>Phân quyền học liệu</th>
 			  <th>Lịch cố vấn</th>
-			  <th>Sửa/Xóa</th>
+			  <th>Thao tác</th>
 			  <th>Thay đổi mật khẩu</th>
 			</tr>
 			 @foreach($users as $user)
@@ -38,12 +38,12 @@
 					<a href=" {{ action('ManagerUserController@getPermission', $user->id) }} " class="btn btn-primary fa fa-balance-scale"> Phân quyền học liệu</a>
 				</td>
 				<td>
-					<a href="{{ action('ManagerUserController@getSetTime', [$user->id]) }}" class="btn btn-primary fa fa-calendar" > Lịch</a>
+					<a href="{{ action('ManagerUserController@getSetTime', [$user->id]) }}" class="btn btn-primary fa fa-calendar" ></a>
 				</td>
 				<td>
-					<a href=" {{ action('ManagerUserController@edit', $user->id) }} " class="btn btn-primary fa fa-edit"></a>
+					<a href=" {{ action('ManagerUserController@edit', $user->id) }} " class="btn btn-primary fa fa-edit"> Sửa</a>
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerUserController@destroy', $user->id), 'style' => 'display: inline-block;')) }}
-					<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"></button>
+					<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
 				</td>
 				<td>
 					<a href=" {{ action('ManagerUserController@getResetPass', $user->id) }} " class="btn btn-primary fa fa-exchange"> Passsword</a>
