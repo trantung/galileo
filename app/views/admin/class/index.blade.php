@@ -11,7 +11,7 @@ Danh sách lớp học
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">
-        <a href="{{ action('ClassController@create') }}" class="btn btn-primary fa fa-plus"> Thêm mới lớp học</a>
+        <a href="{{ action('ClassController@create') }}" class="btn btn-primary"><li class="fa fa-plus"></li> Thêm mới lớp học</a>
     </div>
 </div>
 	<table class="table table-bordered table-responsive">
@@ -37,9 +37,9 @@ Danh sách lớp học
 								{{ Common::renderLevelBySubject($class->id, $class->subjects[0]->id) }}
 							@endif
 						</td>
-						<td rowspan="{{ $countSubject }}"><a href="{{ action('ClassController@edit', $class->id) }}" class="btn btn-primary fa fa-edit"> Sửa</a>
+						<td rowspan="{{ $countSubject }}"><a href="{{ action('ClassController@edit', $class->id) }}" class="btn btn-info"><li class="fa fa-edit"></li></a>
 							{{ Form::open(array('method'=>'DELETE', 'action' => array('ClassController@destroy', $class->id), 'style' => 'display: inline-block;')) }}
-								<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
+								<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><li class="fa fa-trash"></li></button>
 								</td>
 							{{ Form::close() }}
 						</td>

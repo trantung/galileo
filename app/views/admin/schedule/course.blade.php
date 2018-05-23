@@ -39,7 +39,7 @@
             <td>
                 @if(checkPermissionUserByField('role_id', PTCM))
                     @include('admin.schedule.course_modal')
-                    <button class="btn btn-primary fa fa-edit" data-toggle="modal" data-target="#courseModal-{{ $value->id }}"> Sửa</button>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#courseModal-{{ $value->id }}"><li class="fa fa-edit"></li></button>
                 @endif
             </td>
         </tr>

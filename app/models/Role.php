@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+// use Cviebrock\EloquentSluggable\SluggableInterface;
+// use Cviebrock\EloquentSluggable\SluggableTrait;
 
 class Role extends Eloquent
 {
-    use SoftDeletingTrait, SluggableTrait;
+    use SoftDeletingTrait;
     public $timestamps = true;
 
-     protected $sluggable = array(
+    protected $sluggable = array(
         'build_from' => 'name',
         'save_to'    => 'code',
         // 'separator' => '_'

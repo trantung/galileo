@@ -25,7 +25,7 @@
             <th>Ngày kết thúc</th>
             <th>Max_account</td>
             <th>Max_document</td>
-            <th>Action</th>
+            <th>Thao tác</th>
         </tr>
         @foreach($data as $key => $value)
         <tr>
@@ -38,9 +38,9 @@
             <td>{{ $value->max_account }}</td>
             <td>{{ $value->max_document }}</td>
             <td>
-                <a href="{{ action('QuantityDownloadController@edit', $value->id) }}" class="btn btn-primary inline-block">Sửa</a>
+                <a href="{{ action('QuantityDownloadController@edit', $value->id) }}" class="btn btn-info inline-block"><li class="fa fa-edit"></li></a>
                {{ Form::open(array('method'=>'DELETE', 'action' => array('QuantityDownloadController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-               <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+               <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><li class="fa fa-trash"></li></button>
                {{ Form::close() }}
             </td>
         </tr>

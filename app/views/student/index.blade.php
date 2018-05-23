@@ -22,7 +22,7 @@
 			<th>Ngày sinh</th>
 			<th>Giới tính</td>
 			<th>Địa chỉ</td>
-			<th width="18%">Action</th>
+			<th width="16%">Thao tác</th>
 		</tr>
 		@foreach($data as $key => $value)
 		<tr>
@@ -35,10 +35,10 @@
 			<td>{{ $value->address }}</td>
 			<td>
            		{{ renderUrl('StudentController@show', '<i class="fa fa-eye"></i> Chi tiết', [$value->id], ['class' => 'btn btn-default inline-block']) }}
-           		{{ renderUrl('StudentController@edit', '<i class="fa fa-edit"></i> Sửa', [$value->id], ['class' => 'btn btn-primary inline-block']) }}
+           		{{ renderUrl('StudentController@edit', '<i class="fa fa-edit"></i>', [$value->id], ['class' => 'btn btn-info inline-block']) }}
            		@if( userAccess('student.manage.own.delete') | userAccess('student.manage') )
 		   		{{ Form::open(array('method'=>'DELETE', 'action' => array('StudentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-	        		<button class="btn btn-danger " onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><i class ="fa fa-trash"></i> Xóa</button>
+	        		<button class="btn btn-danger " onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><i class ="fa fa-trash"></i> </button>
            		{{ Form::close() }}
            		@endif
 			</td>

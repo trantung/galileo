@@ -21,7 +21,7 @@ Danh sách trình độ
 				<th>Tên lớp</th>
 				<th>Môn học</th>
 				<th>Số buổi</th>
-				<th width ="250px">Action</th>
+				<th width ="200px">Thao tác</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,9 +35,9 @@ Danh sách trình độ
 						<td>{{ $level->number_lesson }}</td>
 						<td>
 							<a href="{{ action('LevelController@show', $level->id) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> Chi tiết</a>
-							<a href=" {{ action('LevelController@edit', $level->id) }} " class="btn btn-primary"><i class ="fa fa-edit"></i>Sửa</a>
+							<a href=" {{ action('LevelController@edit', $level->id) }} " class="btn btn-info"><i class ="fa fa-edit"></i></a>
 							{{ Form::open(['action'=>['LevelController@destroy', $level->id], 'method' => 'DELETE', 'class' => 'inline']) }}
-								<button class="btn btn-danger" onclick="return(confirm('Bạn có chắc chắn muốn xóa'));"><i class="glyphicon glyphicon-remove"></i> Xóa</button>
+								<button class="btn btn-danger" onclick="return(confirm('Bạn có chắc chắn muốn xóa'));"><i class="fa fa-trash"></i> </button>
 							{{ Form::close() }}
 						</td>
 					</tr>

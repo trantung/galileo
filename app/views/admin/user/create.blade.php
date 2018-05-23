@@ -13,7 +13,7 @@ Tạo mới thành viên
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">
-        <a href="{{ action('ManagerUserController@index') }}" class="btn btn-success">Danh sách thành viên</a>
+        <a href="{{ action('ManagerUserController@index') }}" class="btn btn-primary"><i class="fa fa-list-ul"></i> Danh sách thành viên</a>
     </div>
 </div>
 

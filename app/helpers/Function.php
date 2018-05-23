@@ -428,7 +428,7 @@ function checkPermissionUserByField($field, $roleId = null)
         }
         return false;
     }
-    if (in_array($value, getPermissionOfManageStudent())) {
+    if (in_array($value, getPermissionOfManageStudent())){
         return true;
     }
     return false;

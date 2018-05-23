@@ -87,10 +87,10 @@
                         <td></td>
                     @endif
                     <td rowspan="{{ $countSubject }}">
-                        {{ renderUrlByPermission('DocumentController@edit', ' Sửa', $document->parent_id, ['class'=>"btn btn-primary fa fa-edit"]) }}
+                        {{ renderUrlByPermission('DocumentController@edit', '', $document->parent_id, ['class'=>"btn btn-info fa fa-edit"]) }}
                         @if(checkPermissionForm('DocumentController@destroy', 'Xoá', $document->parent_id))
                         {{ Form::open(array('method'=>'DELETE', 'action' => array('DocumentController@destroy', $document->parent_id), 'style' => 'display: inline-block;')) }}
-                            <button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
+                            <button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> </button>
                     </td>
                         {{ Form::close() }}
                         @endif
