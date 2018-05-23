@@ -113,16 +113,16 @@ class Common {
      * Lay danh sach Level cua 1 mon hoc thuoc 1 lop, tra ve 1 mang
      */
     public static function getLevelBySubject($classId, $subjectId){
-        if( !Session::has('level_subject_class_'.$subjectId.'_'.$classId) ){
+        if( !Cache::has('level_subject_class_'.$subjectId.'_'.$classId) ){
             $levels = Level::select('id', 'name')
                 ->where('subject_id', '=', $subjectId)
                 ->where('class_id', '=', $classId)->get();
             if($levels == null){
                 $levels = [];
             }
-            Session::put('level_subject_class_'.$subjectId.'_'.$classId, $levels, 100);
+            Cache::put('level_subject_class_'.$subjectId.'_'.$classId, $levels, 100);
         }
-        return Session::get('level_subject_class_'.$subjectId.'_'.$classId);
+        return Cache::get('level_subject_class_'.$subjectId.'_'.$classId);
     }
 
     /**
@@ -441,26 +441,26 @@ class Common {
 
     public static function getClassList()
     {
-        if( !Session::has('all_class_list') ){
-            Session::put('all_class_list', ClassModel::orderBy('created_at', 'desc')->lists('name','id'), 60);
+        if( !Cache::has('all_class_list') ){
+            Cache::put('all_class_list', ClassModel::orderBy('created_at', 'desc')->lists('name','id'), 60);
         }
-        return Session::get('all_class_list');
+        return Cache::get('all_class_list');
     }
 
     public static function getAllClass()
     {
-        if( !Session::has('get_class_list') ){
-            Session::put('get_class_list', ClassModel::all(), 60);
+        if( !Cache::has('get_class_list') ){
+            Cache::put('get_class_list', ClassModel::all(), 60);
         }
-        return Session::get('get_class_list');
+        return Cache::get('get_class_list');
     }
 
     public static function getSubjectList()
     {
-        if( !Session::has('all_subject_list') ){
-            Session::put('all_subject_list', Subject::orderBy('created_at', 'desc')->lists('name','id'), 60);
+        if( !Cache::has('all_subject_list') ){
+            Cache::put('all_subject_list', Subject::orderBy('created_at', 'desc')->lists('name','id'), 60);
         }
-        return Session::get('all_subject_list');
+        return Cache::get('all_subject_list');
     }
 
     public static function getLevelDropdownList($name, $default = null, $classId = null, $subjectId = null)
@@ -700,10 +700,10 @@ class Common {
     }
 
     public static function getListCenter(){
-        if( !Session::has('list_all_center') ){
-            Session::put('list_all_center', Center::lists('name', 'id'), 30);
+        if( !Cache::has('list_all_center') ){
+            Cache::put('list_all_center', Center::lists('name', 'id'), 30);
         }
-        return Session::get('list_all_center');
+        return Cache::get('list_all_center');
     }
 
     public static function getListLessonCode()
@@ -1066,20 +1066,20 @@ class Common {
      * Get list Level via session
      */
     public static function getListLevel(){
-        if( !Session::has('list_all_level') ){
-            Session::put('list_all_level', Level::lists('name', 'id'), 30 );
+        if( !Cache::has('list_all_level') ){
+            Cache::put('list_all_level', Level::lists('name', 'id'), 30 );
         }
-        return Session::get('list_all_level');
+        return Cache::get('list_all_level');
     }
 
     /**
      * Get list Level via session
      */
     public static function getAllLevel(){
-        if( !Session::has('get_all_level') ){
-            Session::put('get_all_level', Level::all(), 30 );
+        if( !Cache::has('get_all_level') ){
+            Cache::put('get_all_level', Level::all(), 30 );
         }
-        return Session::get('get_all_level');
+        return Cache::get('get_all_level');
     }
 
     public static function getRoles()
