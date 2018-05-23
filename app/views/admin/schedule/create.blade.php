@@ -10,7 +10,7 @@
 {{ $title='Tạo mới lịch học' }}
 @stop
 @section('content')
-	<a class="btn btn-primary" style="margin-bottom: 5px;" href="{{ action('ScheduleController@index') }}">Danh sách lịch học</a>	
+	<a class="btn btn-primary" style="margin-bottom: 5px;" href="{{ action('ScheduleController@index') }}"><li class="fa fa-list-ul"></li> Danh sách lịch học</a>	
 	<div class="clearfix"></div>
 	{{ Form::open(['action' =>['ScheduleController@store'],'method' => 'POST', 'class' => 'col-sm-6 padding0 schedule-create-form']) }}
 		@include('student.package')

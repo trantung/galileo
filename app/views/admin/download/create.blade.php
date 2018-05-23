@@ -11,7 +11,7 @@
 
 @section('content')
 {{ Form::open(array('action' => 'QuantityDownloadController@store', 'class' => 'student-form')) }}
-<div class="box-body col-sm-6">
+<div class="box-body col-sm-4">
     <div class="form-group well well-sm">
         
         <div class="box alert filter-document-form">

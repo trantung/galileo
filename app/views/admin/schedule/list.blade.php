@@ -28,7 +28,7 @@
                 <th>Trình độ</td>
                 <th>STT buổi</td>
                 @if(checkPermissionUserByField('role_id', PTCM))
-                <th>Edit</td>
+                <th>Sửa</td>
                 @endif
             </tr>
             @foreach($data as $key => $item)
@@ -44,11 +44,11 @@
                         <td>{{ Common::getObject($value->classes, 'name') }}</td>
                         <td>{{ Common::getObject($value->subjects, 'name') }}</td>
                         <td>{{ Common::getObject($value->levels, 'name') }}</td>
-                        <td><a href="{{ action('ScheduleController@documentLink', [Common::getLessonIdByLessonCodeLevel($value->lesson_code, $value->level_id), $value->student_id]) }}" target ="_blank"  class="btn btn-primary fa fa-eye" style="width:80%;"> Buổi {{ $value->lesson_code }}</a></td>
+                        <td><a href="{{ action('ScheduleController@documentLink', [Common::getLessonIdByLessonCodeLevel($value->lesson_code, $value->level_id), $value->student_id]) }}" target ="_blank"  class="btn btn-default fa fa-eye" style="width:80%;"> Buổi {{ $value->lesson_code }}</a></td>
                         <td>
                             @include('admin.schedule.modal')
                             @if(checkPermissionUserByField('role_id', PTCM))
-                            <button class="btn btn-primary fa fa-edit" data-toggle="modal" data-target="#myModal-{{ $value->id }}"> Sửa</button>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#myModal-{{ $value->id }}"><li class="fa fa-edit"></li></button>
                             @endif
                         </td>
                     </tr>

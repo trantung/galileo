@@ -7,7 +7,7 @@ Danh sách môn học
 @section('content')
 <div class="row margin-bottom">
     <div class="col-xs-12">
-        <a href="{{ action('ClassController@create') }}" class="btn btn-primary fa fa-plus"> Thêm mới lớp học</a>
+        <a href="{{ action('ClassController@create') }}" class="btn btn-primary"><li class="fa fa-plus"></li> Thêm mới lớp học</a>
     </div>
 </div>
 	@parent
@@ -25,9 +25,9 @@ Danh sách môn học
 					<td>{{ $subject->id }}</td>
 					<td>{{ $subject->name }}</td>
 					<td>
-					{{ app('html')->linkAction('SubjectController@edit', ' Sửa', $subject->id, ['class'=>"btn btn-primary fa fa-edit"]) }}
+					{{ app('html')->linkAction('SubjectController@edit', ' ', $subject->id, ['class'=>"btn btn-info fa fa-edit"]) }}
 					{{ Form::open(array('method'=>'DELETE', 'action' => array('SubjectController@destroy', $subject->id), 'style' => 'display: inline-block;')) }}
-						<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
+						<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> </button>
 						</td>
 					{{ Form::close() }}
 				</tr>

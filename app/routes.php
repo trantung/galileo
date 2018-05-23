@@ -325,24 +325,11 @@ Route::group(['prefix' => 'user'], function () {
     Route::resource('/', 'UserController');
 });
 
-
-//Route::get('partner/create','PartnerController@create');
-//Route::get('partner/display','PartnerController@index');
 Route::resource('partner','PartnerController');
-
 //---------------------------------------------------------//
-
-// Route::get('center/create','CenterController@create');
-// Route::get('center/display','CenterController@index');
 Route::resource('center','CenterController');
-
 // //---------------------------------------------------------//
-
-// Route::get('employees/create','EmployeesController@create');
-// Route::get('employees/display','EmployeesController@index');
 Route::resource('employees','EmployeesController');
-
-
 // //---------------------------------------------------------//
 
 // Route::get('class/create','ClassController@create');

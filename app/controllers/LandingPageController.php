@@ -3,7 +3,7 @@
 class LandingPageController extends \BaseController {
 
     public function __construct() {
-        // $this->beforeFilter('orther', array('except'=>array('login','doLogin')));
+        $this->beforeFilter('orther', array('except'=>array('login','doLogin')));
     }
     /**
      * Display a listing of the resource.

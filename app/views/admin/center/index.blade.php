@@ -7,7 +7,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ManagerCenterController@create') }}" class="btn btn-primary fa fa-plus"> Thêm mới trung tâm</a>
+		<a href="{{ action('ManagerCenterController@create') }}" class="btn btn-primary"><li class="fa fa-plus"></li> Thêm mới trung tâm</a>
 	</div>
 </div>
 <div class="row">
@@ -24,9 +24,9 @@
 			  <th>Tên trung tâm</th>
 			  <th>Mã trung tâm</th>
 			  <th>Đối tác</th>
-			  <th>Phone</th>
+			  <th>Số điện thoại</th>
 			  <th>Địa chỉ</th>
-			  <th style="width:150px;">Action</th>
+			  <th style="width:150px;">Thao tác</th>
 			</tr>
 			@foreach($centers as $center)
 			<tr>
@@ -37,9 +37,9 @@
 			  <td>{{ $center->phone }}</td>
 			  <td>{{ $center->address }}</td>
 			  <td>
-				<a href=" {{ action('ManagerCenterController@edit', $center->id) }} " class="btn btn-primary fa fa-edit"> Sửa</a>
+				<a href=" {{ action('ManagerCenterController@edit', $center->id) }} " class="btn btn-info"><li class="fa fa-edit"></li></a>
 				{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagerCenterController@destroy', $center->id), 'style' => 'display: inline-block;')) }}
-					<button class="btn btn-danger fa fa-trash" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"> Xóa</button>
+					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><li class="fa fa-trash"></li></button>
 				{{ Form::close() }}
 			  </td>
 			</tr>
